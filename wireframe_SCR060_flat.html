@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOKONE Wireframe — SCR-060 Discovery</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --c0: #ffffff; --c1: #f5f5f5; --c2: #e0e0e0;
+  --c3: #bdbdbd; --c4: #757575; --c5: #424242; --c6: #212121;
+  --border: 1px solid #e0e0e0; --border-dark: 1px solid #bdbdbd;
+  --font: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+body { font-family: var(--font); background: var(--c1); color: var(--c6); display: flex; min-height: 100vh; font-size: 13px; }
+
+/* SIDEBAR */
+.sidebar { width: 200px; min-width: 200px; background: var(--c0); border-right: var(--border); position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+.sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: var(--border); gap: 8px; }
+.logo-mark { width: 22px; height: 22px; border: 2px solid var(--c5); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: var(--c5); flex-shrink: 0; }
+.logo-text { font-size: 12px; font-weight: 700; color: var(--c6); }
+.sidebar-group { border-bottom: var(--border); }
+.sidebar-group-label { padding: 8px 14px 4px; font-size: 9px; font-weight: 700; color: var(--c3); text-transform: uppercase; letter-spacing: 1px; }
+.s-link { display: flex; align-items: center; gap: 6px; padding: 5px 14px; font-size: 11px; color: var(--c4); text-decoration: none; cursor: pointer; border-left: 2px solid transparent; }
+.s-link:hover { background: var(--c1); color: var(--c5); }
+.s-link.active { background: var(--c1); color: var(--c6); font-weight: 600; border-left-color: var(--c5); }
+.s-id { font-size: 9px; color: var(--c3); width: 26px; flex-shrink: 0; }
+
+/* MAIN */
+.main { margin-left: 200px; flex: 1; padding: 28px 40px; display: flex; flex-direction: column; align-items: center; }
+
+/* PAGE HEADER */
+.page-header { width: 100%; max-width: 420px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: var(--border); }
+.breadcrumb { font-size: 10px; color: var(--c3); margin-bottom: 5px; }
+.page-header h1 { font-size: 15px; font-weight: 700; color: var(--c6); margin-bottom: 8px; }
+.spec-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.spec-tag { padding: 2px 7px; border: var(--border-dark); font-size: 9px; color: var(--c4); background: var(--c0); }
+
+/* DEVICE */
+.device { width: 360px; background: var(--c0); border: 1.5px solid var(--c5); display: flex; flex-direction: column; }
+.status-bar { height: 20px; background: var(--c6); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; flex-shrink: 0; }
+.status-bar span { font-size: 9px; color: var(--c0); font-weight: 600; }
+.app-header { height: 44px; border-bottom: var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 14px; flex-shrink: 0; background: var(--c0); }
+.app-header-logo { font-size: 16px; font-weight: 800; color: var(--c6); letter-spacing: -0.3px; }
+.app-header-logo small { font-size: 9px; font-weight: 400; color: var(--c3); margin-left: 4px; }
+.header-icon-group { display: flex; gap: 8px; }
+.h-icon { width: 28px; height: 28px; border: var(--border-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; background: var(--c0); position: relative; }
+.h-icon svg { width: 14px; height: 14px; stroke: var(--c4); fill: none; stroke-width: 1.8; }
+.h-badge { position: absolute; top: -4px; right: -4px; width: 13px; height: 13px; background: var(--c6); color: var(--c0); font-size: 7px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--c0); }
+.tab-bar { display: flex; border-bottom: var(--border); flex-shrink: 0; background: var(--c0); }
+.tab { flex: 1; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--c3); cursor: pointer; border-bottom: 2px solid transparent; }
+.tab.active { color: var(--c6); font-weight: 700; border-bottom-color: var(--c6); }
+.filter-strip { display: flex; gap: 6px; padding: 8px 12px; background: var(--c0); border-bottom: var(--border); overflow-x: auto; flex-shrink: 0; }
+.filter-chip { flex-shrink: 0; padding: 3px 10px; border: var(--border-dark); font-size: 10px; color: var(--c4); background: var(--c0); white-space: nowrap; cursor: pointer; }
+.filter-chip.active { background: var(--c6); color: var(--c0); border-color: var(--c6); }
+.scroll-area { flex: 1; overflow-y: auto; background: var(--c1); min-height: 480px; display: flex; flex-direction: column; }
+.card-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 14px 14px 0; }
+.card-behind-2 { width: calc(100% - 28px); height: 10px; background: var(--c2); border: 1px solid var(--c3); border-bottom: none; align-self: center; }
+.card-behind-1 { width: calc(100% - 14px); height: 10px; background: var(--c1); border: 1px solid var(--c3); border-bottom: none; align-self: center; }
+.user-card { width: 100%; background: var(--c0); border: 1px solid var(--c3); display: flex; flex-direction: column; }
+.photo-placeholder { width: 100%; height: 220px; background: var(--c2); position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; flex-shrink: 0; overflow: hidden; }
+.photo-placeholder::before, .photo-placeholder::after { content: ''; position: absolute; background: var(--c3); height: 1px; width: 140%; top: 50%; left: -20%; }
+.photo-placeholder::before { transform: rotate(20deg); }
+.photo-placeholder::after { transform: rotate(-20deg); }
+.photo-label { position: relative; z-index: 2; background: var(--c0); border: 1px solid var(--c3); padding: 3px 10px; font-size: 10px; color: var(--c4); font-weight: 600; }
+.blur-note { position: absolute; top: 8px; left: 8px; background: var(--c0); border: 1px solid var(--c3); padding: 2px 8px; font-size: 9px; color: var(--c4); z-index: 3; }
+.photo-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; z-index: 3; }
+.p-dot { width: 5px; height: 5px; border: 1px solid var(--c4); background: transparent; }
+.p-dot.on { background: var(--c4); }
+.card-body { padding: 12px; border-top: var(--border); }
+.card-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.c-name { font-size: 17px; font-weight: 700; color: var(--c6); }
+.c-age { font-size: 14px; color: var(--c4); }
+.c-badge { margin-left: auto; border: 1px solid var(--c3); padding: 2px 6px; font-size: 9px; color: var(--c4); background: var(--c1); white-space: nowrap; }
+.card-sub { font-size: 10px; color: var(--c4); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+.card-sub svg { width: 10px; height: 10px; stroke: var(--c3); fill: none; stroke-width: 2; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.c-tag { padding: 2px 7px; border: 1px solid var(--c2); font-size: 10px; color: var(--c4); background: var(--c1); }
+.card-desc { font-size: 11px; color: var(--c4); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.action-row { display: flex; justify-content: center; align-items: flex-end; gap: 14px; padding: 14px 0 10px; }
+.act-group { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.act-btn { display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--c3); background: var(--c0); cursor: pointer; }
+.act-btn svg { stroke: var(--c4); fill: none; stroke-width: 2; }
+.act-btn.lg { width: 56px; height: 56px; border-color: var(--c5); }
+.act-btn.lg svg { width: 24px; height: 24px; stroke: var(--c5); }
+.act-btn.sm { width: 44px; height: 44px; }
+.act-btn.sm svg { width: 18px; height: 18px; }
+.act-lbl { font-size: 9px; color: var(--c3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.remain-row { display: flex; align-items: center; justify-content: center; gap: 8px; padding-bottom: 12px; }
+.remain-dots { display: flex; gap: 3px; }
+.r-dot { width: 5px; height: 5px; border: 1px solid var(--c3); }
+.r-dot.on { background: var(--c4); border-color: var(--c4); }
+.remain-lbl { font-size: 10px; color: var(--c3); }
+.bottom-nav { height: 52px; border-top: var(--border); display: flex; background: var(--c0); flex-shrink: 0; }
+.b-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; position: relative; }
+.b-nav-item.active { background: var(--c1); }
+.b-nav-item svg { width: 19px; height: 19px; stroke: var(--c3); fill: none; stroke-width: 1.8; }
+.b-nav-item.active svg { stroke: var(--c6); }
+.b-nav-lbl { font-size: 8px; color: var(--c3); font-weight: 600; }
+.b-nav-item.active .b-nav-lbl { color: var(--c6); }
+.b-dot { position: absolute; top: 6px; right: calc(50% - 14px); width: 6px; height: 6px; background: var(--c6); border: 1.5px solid var(--c0); }
+
+/* FLOW */
+.flow-section { width: 100%; max-width: 420px; margin-top: 20px; background: var(--c0); border: var(--border); padding: 14px 16px; }
+.flow-title { font-size: 10px; font-weight: 700; color: var(--c4); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+.f-box { padding: 5px 10px; border: 1px solid var(--c3); font-size: 10px; font-weight: 600; color: var(--c5); background: var(--c0); text-align: center; white-space: nowrap; }
+.f-box.now { background: var(--c6); color: var(--c0); border-color: var(--c6); }
+.f-box.light { background: var(--c1); color: var(--c4); border-color: var(--c2); }
+.f-arrow { font-size: 11px; color: var(--c3); padding: 0 5px; flex-shrink: 0; }
+.flow-note { font-size: 9px; color: var(--c3); margin-top: 8px; }
+.filter-strip::-webkit-scrollbar { height: 0; }
+.scroll-area::-webkit-scrollbar { width: 0; }
+</style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+</style>
+
+
+
+<style>
+/* === BUSINESS LOGIC PANEL === */
+.blp-wrap {
+  position: fixed;
+  top: 0; right: 0;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #fff;
+  border-left: 2px solid #212121;
+  z-index: 9998;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px;
+  color: #212121;
+  transition: width 0.2s ease;
+}
+.blp-wrap.fullscreen {
+  width: calc(100vw - 200px);
+}
+.blp-wrap.fullscreen .blp-body {
+  max-width: 720px;
+  margin: 0 auto;
+  columns: 2;
+  column-gap: 24px;
+}
+.blp-wrap.fullscreen .blp-section {
+  break-inside: avoid;
+}
+.blp-wrap::-webkit-scrollbar { width: 4px; }
+.blp-wrap::-webkit-scrollbar-thumb { background: #e0e0e0; }
+.blp-head {
+  position: sticky; top: 0;
+  background: #212121; color: #fff;
+  padding: 10px 14px 9px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.blp-head-info {}
+.blp-head-scr { font-size: 9px; color: #bdbdbd; letter-spacing: 0.5px; margin-bottom: 2px; }
+.blp-head-title { font-size: 12px; font-weight: 700; }
+.blp-head-sub { font-size: 10px; color: #9e9e9e; margin-top: 2px; }
+.blp-fullscreen-btn {
+  width: 24px; height: 24px;
+  border: 1px solid #424242;
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #9e9e9e;
+  transition: background 0.15s;
+}
+.blp-fullscreen-btn:hover { background: #424242; color: #fff; }
+.blp-fullscreen-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+.blp-body { padding: 10px 12px 20px; }
+.blp-section { margin-bottom: 14px; }
+.blp-section-title {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  color: #9e9e9e;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 4px;
+  margin-bottom: 7px;
+}
+.blp-rule {
+  display: flex; gap: 7px;
+  margin-bottom: 7px;
+  line-height: 1.5;
+}
+.blp-rule-dot {
+  width: 14px; height: 14px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; color: #757575;
+  margin-top: 1px;
+}
+.blp-rule-text { font-size: 11px; color: #212121; line-height: 1.55; }
+.blp-rule-text strong { font-weight: 700; color: #212121; }
+.blp-rule-text em { font-style: normal; color: #757575; font-size: 10px; }
+.blp-tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.blp-tag {
+  font-size: 9px; padding: 2px 7px;
+  border: 1px solid #e0e0e0;
+  color: #424242; background: #fafafa;
+  white-space: nowrap;
+}
+.blp-tag.warn { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+.blp-tag.ok { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+.blp-flow { display: flex; flex-direction: column; margin-bottom: 4px; }
+.blp-flow-step { display: flex; align-items: flex-start; gap: 6px; position: relative; padding-bottom: 8px; }
+.blp-flow-step:last-child { padding-bottom: 0; }
+.blp-step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; margin-top: 2px; }
+.blp-step-num {
+  width: 16px; height: 16px;
+  border: 1.5px solid #424242;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; color: #424242;
+  background: #fff; flex-shrink: 0; z-index: 1;
+}
+.blp-step-connector { width: 1px; flex: 1; background: #e0e0e0; min-height: 10px; margin-top: 2px; }
+.blp-step-text { font-size: 11px; color: #424242; line-height: 1.5; padding-top: 1px; }
+.blp-step-text strong { color: #212121; }
+.blp-note {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #bdbdbd;
+  padding: 7px 9px;
+  font-size: 10px; color: #757575;
+  line-height: 1.55;
+  margin-top: 6px;
+}
+.blp-note.highlight { border-left-color: #212121; color: #424242; }
+.blp-note.warn { border-left-color: #e65100; background: #fff8f0; color: #5d2e00; }
+</style>
+</head>
+<body style="margin-left:200px; margin-right:280px;">
+<nav class="wf-sidebar">
+  <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · Discovery</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · Safety</div>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">K</div>
+    <span class="logo-text">KOKONE WF</span>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">A · Onboarding</div>
+    <a class="s-link active" href="wireframe_SCR060_flat.html"><span class="s-id">001</span>Landing Page</a>
+    <a class="s-link" href="wireframe_SCR020_signup.html"><span class="s-id">020</span>Sign Up / Login</a>
+    <a class="s-link" href="wireframe_SCR024_ekyc.html"><span class="s-id">024</span>eKYC 本人確認</a>
+    <a class="s-link" href="wireframe_SCR030_profile1.html"><span class="s-id">030</span>Profile Step 1</a>
+    <a class="s-link" href="wireframe_SCR031_photo.html"><span class="s-id">031</span>Photo &amp; Blur</a>
+    <a class="s-link" href="wireframe_SCR034_profile2.html"><span class="s-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">C · Discovery</div>
+    <a class="s-link active" href="wireframe_SCR060_flat.html"><span class="s-id">060</span>Card View ←</a>
+    <a class="s-link" href="wireframe_SCR061_filter.html"><span class="s-id">061</span>Filter</a>
+    <a class="s-link" href="wireframe_SCR063_likes_sent.html"><span class="s-id">063</span>Likes Sent</a>
+    <a class="s-link" href="wireframe_SCR064_likes_received.html"><span class="s-id">064</span>Likes Received</a>
+    <a class="s-link" href="wireframe_SCR065_match.html"><span class="s-id">065</span>Mutual Match</a>
+    <a class="s-link" href="wireframe_SCR070_boshuu_list.html"><span class="s-id">070</span>募集 List</a>
+    <a class="s-link" href="wireframe_SCR071_boshuu_detail.html"><span class="s-id">071</span>募集 Detail</a>
+    <a class="s-link" href="wireframe_SCR072_create_boshuu.html"><span class="s-id">072</span>Create 募集</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">D · Booking</div>
+    <a class="s-link" href="wireframe_SCR080_match_detail.html"><span class="s-id">080</span>Match Detail</a>
+    <a class="s-link" href="wireframe_SCR081_schedule.html"><span class="s-id">081</span>Schedule</a>
+    <a class="s-link" href="wireframe_SCR082_date_confirm.html"><span class="s-id">082</span>Date Confirm</a>
+    <a class="s-link" href="wireframe_SCR083_restaurant.html"><span class="s-id">083</span>Restaurant</a>
+    <a class="s-link" href="wireframe_SCR087_booking_confirmed.html"><span class="s-id">087</span>Booking Confirmed</a>
+    <a class="s-link" href="wireframe_SCR089_reminder.html"><span class="s-id">089</span>Reminder</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">E · Chat</div>
+    <a class="s-link" href="wireframe_SCR090_chat.html"><span class="s-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">F · Safety</div>
+    <a class="s-link" href="wireframe_SCR100_review.html"><span class="s-id">100</span>Review</a>
+    <a class="s-link" href="wireframe_SCR103_report.html"><span class="s-id">103</span>Report / Block</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">B · My Page</div>
+    <a class="s-link" href="wireframe_SCR110_mypage.html"><span class="s-id">110</span>My Page</a>
+    <a class="s-link" href="wireframe_SCR111_subscription.html"><span class="s-id">111</span>Subscription</a>
+    <a class="s-link" href="wireframe_SCR116_secret_mode.html"><span class="s-id">116</span>Secret Mode</a>
+    <a class="s-link" href="wireframe_SCR119_notifications.html"><span class="s-id">119</span>Notifications</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">Admin</div>
+    <a class="s-link" href="wireframe_SCR200_admin_dashboard.html"><span class="s-id">200</span>Dashboard</a>
+    <a class="s-link" href="wireframe_SCR204_user_mgmt.html"><span class="s-id">204</span>User Mgmt</a>
+    <a class="s-link" href="wireframe_SCR210_booking_mgmt.html"><span class="s-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="page-header">
+    <div class="breadcrumb">KOKONE / C. Discovery / SCR-060</div>
+    <h1>SCR-060 — Card View</h1>
+    <div class="spec-row">
+      <span class="spec-tag">Mobile-first · 360px</span>
+      <span class="spec-tag">遷移先: SCR-061 / SCR-065</span>
+    </div>
+  </div>
+
+  <div class="device">
+    <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
+    <div class="app-header">
+      <div class="app-header-logo">KOKONE <small>β</small></div>
+      <div class="header-icon-group">
+        <div class="h-icon"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
+        <div class="h-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="h-badge">2</div></div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab active">さがす</div>
+      <div class="tab">募集</div>
+      <div class="tab">いいね</div>
+    </div>
+    <div class="filter-strip">
+      <div class="filter-chip active">東京 23区</div>
+      <div class="filter-chip">年代: 30–40代</div>
+      <div class="filter-chip">昼・夜</div>
+      <div class="filter-chip">＋ 詳細条件</div>
+    </div>
+    <div class="scroll-area">
+      <div class="card-area">
+        <div class="card-behind-2"></div>
+        <div class="card-behind-1"></div>
+        <div class="user-card">
+          <div class="photo-placeholder">
+            <div class="blur-note">ぼかし表示中 🔒</div>
+            <div class="photo-label">Photo Placeholder</div>
+            <div class="photo-dots">
+              <div class="p-dot on"></div><div class="p-dot"></div><div class="p-dot"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-name-row">
+              <span class="c-name">みずきさん</span>
+              <span class="c-age">37歳</span>
+              <span class="c-badge">✓ 本人確認済</span>
+            </div>
+            <div class="card-sub">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              渋谷区 · 会社員 · 既婚
+            </div>
+            <div class="tag-row">
+              <span class="c-tag">グルメ</span><span class="c-tag">カフェ</span>
+              <span class="c-tag">映画</span><span class="c-tag">落ち着いている</span>
+            </div>
+            <div class="card-desc">仕事と家庭の両立に奮闘中。話を聞いてくれる方、一緒にランチできる方を探しています。</div>
+          </div>
+        </div>
+        <div class="action-row">
+          <div class="act-group">
+            <div class="act-btn sm"><svg viewBox="0 0 24 24" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span class="act-lbl">Skip</span>
+          </div>
+          <div class="act-group">
+            <div class="act-btn lg"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <span class="act-lbl">いいね</span>
+          </div>
+          <div class="act-group">
+            <div class="act-btn sm"><svg viewBox="0 0 24 24" width="18" height="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            <span class="act-lbl">Super</span>
+          </div>
+        </div>
+        <div class="remain-row">
+          <div class="remain-dots">
+            <div class="r-dot on"></div><div class="r-dot on"></div><div class="r-dot on"></div>
+            <div class="r-dot"></div><div class="r-dot"></div><div class="r-dot"></div><div class="r-dot"></div>
+          </div>
+          <span class="remain-lbl">あと 7 人</span>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="b-nav-item active">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="b-nav-lbl">さがす</span>
+      </div>
+      <div class="b-nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="b-nav-lbl">いいね</span>
+        <div class="b-dot"></div>
+      </div>
+      <div class="b-nav-item">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="b-nav-lbl">メッセージ</span>
+      </div>
+      <div class="b-nav-item">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="b-nav-lbl">ホーム</span>
+      </div>
+      <div class="b-nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="b-nav-lbl">マイページ</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <div class="flow-title">Screen Flow</div>
+    <div class="flow-row">
+      <div class="f-box light">Login<br><span style="font-size:8px">020</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box now">Card View<br><span style="font-size:8px">060 ★</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box">Match<br><span style="font-size:8px">065</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box">Chat<br><span style="font-size:8px">080</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box">Schedule<br><span style="font-size:8px">081</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box">Restaurant<br><span style="font-size:8px">083</span></div>
+      <div class="f-arrow">→</div>
+      <div class="f-box">Booking<br><span style="font-size:8px">087</span></div>
+    </div>
+  </div>
+</main>
+
+<div class="blp-wrap" id="blpWrap">
+  <div class="blp-head">
+    <div class="blp-head-info">
+      <div class="blp-head-scr">SCR-060</div>
+      <div class="blp-head-title">Discovery — Card View</div>
+      <div class="blp-head-sub">Màn hình khám phá (Home)</div>
+    </div>
+    <button class="blp-fullscreen-btn" id="blpFsBtn" title="Mở rộng / Thu nhỏ" onclick="
+      const w = document.getElementById('blpWrap');
+      const isFs = w.classList.toggle('fullscreen');
+      document.body.style.marginRight = isFs ? (window.innerWidth - 200) + 'px' : '280px';
+      this.querySelector('svg').innerHTML = isFs
+        ? '<polyline points=\'15 3 21 3 21 9\'></polyline><polyline points=\'9 21 3 21 3 15\'></polyline><line x1=\'21\' y1=\'3\' x2=\'14\' y2=\'10\'></line><line x1=\'3\' y1=\'21\' x2=\'10\' y2=\'14\'></line>'
+        : '<polyline points=\'15 3 21 3 21 9\'></polyline><polyline points=\'9 21 3 21 3 15\'></polyline><line x1=\'21\' y1=\'3\' x2=\'14\' y2=\'10\'></line><line x1=\'3\' y1=\'21\' x2=\'10\' y2=\'14\'></line>';
+    ">
+      <svg viewBox="0 0 24 24">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="blp-body">
+
+    <div class="blp-section">
+      <div class="blp-section-title">Mục đích</div>
+      <div class="blp-note highlight">
+        Màn hình chính sau đăng nhập. Hiển thị danh sách profile gợi ý dạng stack card để user thực hiện like / bỏ qua.
+      </div>
+    </div>
+
+    <div class="blp-section">
+      <div class="blp-section-title">Điều kiện truy cập</div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">!</div>
+        <div class="blp-rule-text"><strong>Bắt buộc đăng nhập.</strong> Chưa đăng nhập → redirect về SCR-020.</div>
+      </div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">○</div>
+        <div class="blp-rule-text"><strong>Chưa hoàn thành eKYC vẫn vào được</strong> — xem card bình thường. eKYC chỉ bắt buộc khi <em>bấm Like lần đầu.</em></div>
+      </div>
+      <div class="blp-note warn">
+        Khi chưa eKYC mà bấm Like → hiện popup yêu cầu xác minh danh tính → dẫn sang SCR-024.
+      </div>
+    </div>
+
+    <div class="blp-section">
+      <div class="blp-section-title">Logic hiển thị card</div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">1</div>
+        <div class="blp-rule-text"><strong>Stack 3 card:</strong> 1 card trên cùng + 2 card phía sau (hiệu ứng chồng).</div>
+      </div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">2</div>
+        <div class="blp-rule-text"><strong>Trước khi match:</strong> xem được toàn bộ thông tin (tên, tuổi, nghề, bio, tags), nhưng <em>ảnh mặt bị blur.</em></div>
+      </div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">3</div>
+        <div class="blp-rule-text"><strong>Không hiện lại người đã match:</strong> mặc định ẩn. User có thể bật lại trong cài đặt (SCR-034).</div>
+      </div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">4</div>
+        <div class="blp-rule-text"><strong>Giới hạn card/ngày:</strong> free và paid có số card tối đa khác nhau. Hết → hiển thị trạng thái "hết lượt hôm nay", reset 0h ngày hôm sau.</div>
+      </div>
+      <div class="blp-rule">
+        <div class="blp-rule-dot">5</div>
+        <div class="blp-rule-text"><strong>Giới tính mặc định:</strong> "chỉ khác giới". User chỉnh được sang "cùng giới" hoặc "cả hai" từ My Page.</div>
+      </div>
+    </div>
+
+    <div class="blp-section">
+      <div class="blp-section-title">Hành động & chuyển màn</div>
+      <div class="blp-flow">
+        <div class="blp-flow-step">
+          <div class="blp-step-line">
+            <div class="blp-step-num">♡</div>
+            <div class="blp-step-connector"></div>
+          </div>
+          <div class="blp-step-text"><strong>Like</strong> — gửi いいね. Nếu đối phương đã like lại → match ngay, popup SCR-065.</div>
+        </div>
+        <div class="blp-flow-step">
+          <div class="blp-step-line">
+            <div class="blp-step-num">✕</div>
+            <div class="blp-step-connector"></div>
+          </div>
+          <div class="blp-step-text"><strong>Bỏ qua (Skip)</strong> — không hiện lại trong phiên hiện tại.</div>
+        </div>
+        <div class="blp-flow-step">
+          <div class="blp-step-line">
+            <div class="blp-step-num">↗</div>
+            <div class="blp-step-connector"></div>
+          </div>
+          <div class="blp-step-text"><strong>Tap vào card</strong> → mở chi tiết profile (SCR-060 detail view).</div>
+        </div>
+        <div class="blp-flow-step">
+          <div class="blp-step-line">
+            <div class="blp-step-num">≡</div>
+          </div>
+          <div class="blp-step-text"><strong>Filter (góc trên phải)</strong> → SCR-061. Sau khi lưu, tải lại danh sách theo điều kiện mới.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blp-section">
+      <div class="blp-section-title">Phân biệt Free / Paid</div>
+      <div class="blp-tag-row">
+        <span class="blp-tag">Free: gửi like được</span>
+        <span class="blp-tag warn">Free: giới hạn số like/tháng</span>
+        <span class="blp-tag ok">Paid: like nhiều hơn hoặc không giới hạn</span>
+      </div>
+      <div class="blp-note">
+        Chiến lược monetize chính nằm ở các tính năng sau match (nhắn tin, đặt lịch, đặt bàn) — không phải ở bước like.
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('blpFsBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var w = document.getElementById('blpWrap');
+    var isFs = w.classList.contains('fullscreen');
+    // update icon: collapse vs expand
+    var svgInner = isFs
+      ? '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>'
+      : '<polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/>';
+    btn.querySelector('svg').innerHTML = svgInner;
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCR-083 Restaurant Proposal</title>
+    <style>
+        :root {
+            --c0: #ffffff;
+            --c1: #f5f5f5;
+            --c2: #e0e0e0;
+            --c3: #bdbdbd;
+            --c4: #757575;
+            --c5: #424242;
+            --c6: #212121;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--c1);
+        }
+        .device {
+            width: 360px;
+            border: 1.5px solid var(--c6);
+            display: flex;
+            flex-direction: column;
+            background: var(--c0);
+            margin: 20px auto;
+            min-height: 640px;
+        }
+        .status-bar {
+            height: 20px;
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 9px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+        .status-time {
+            font-weight: 600;
+        }
+        .status-icons {
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--c6);
+            gap: 12px;
+        }
+        .back-btn {
+            font-size: 14px;
+            cursor: pointer;
+            color: var(--c6);
+            flex-shrink: 0;
+        }
+        .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--c6);
+            flex: 1;
+        }
+        .context-bar {
+            font-size: 12px;
+            color: var(--c6);
+            padding: 10px 12px;
+            border: 1px solid var(--c6);
+            margin: 12px;
+            background: var(--c1);
+        }
+        .subtitle {
+            font-size: 12px;
+            color: var(--c5);
+            padding: 12px;
+            background: var(--c1);
+        }
+        .cards-section {
+            padding: 12px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .restaurant-card {
+            border: 1px solid var(--c6);
+            margin-bottom: 12px;
+            background: var(--c0);
+            position: relative;
+        }
+        .restaurant-card.featured {
+            border: 1px solid var(--c6);
+        }
+        .badge-recommended {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 9px;
+            padding: 3px 6px;
+            font-weight: 600;
+            border: 1px solid var(--c6);
+        }
+        .photo-placeholder {
+            width: 100%;
+            height: 90px;
+            background: var(--c2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--c4);
+            border-bottom: 1px solid var(--c6);
+        }
+        .card-content {
+            padding: 12px;
+        }
+        .restaurant-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--c6);
+            margin-bottom: 4px;
+        }
+        .restaurant-info {
+            font-size: 12px;
+            color: var(--c5);
+            margin-bottom: 8px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .tag {
+            background: var(--c0);
+            border: 1px solid var(--c6);
+            color: var(--c6);
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+        .price {
+            font-size: 12px;
+            color: var(--c6);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .map-link {
+            font-size: 11px;
+            color: var(--c4);
+            cursor: pointer;
+        }
+        .radio-btn {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--c6);
+            background: var(--c0);
+            cursor: pointer;
+        }
+        .action-section {
+            padding: 12px;
+            border-top: 1px solid var(--c2);
+        }
+        .reserve-btn {
+            width: 100%;
+            padding: 0 12px;
+            height: 44px;
+            border: 1px solid var(--c6);
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .more-link {
+            font-size: 12px;
+            color: var(--c4);
+            cursor: pointer;
+            text-align: center;
+            display: block;
+        }
+        .footer-note {
+            font-size: 10px;
+            color: var(--c4);
+            padding: 12px;
+            border-top: 1px solid var(--c2);
+        }
+    </style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+</style>
+
+<style>
+/* === LOGIC RULES PANEL === */
+.rules-panel-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+  border-left: 2px solid #212121;
+  z-index: 9998;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+.rules-panel {
+  padding: 0;
+}
+.rules-header {
+  position: sticky;
+  top: 0;
+  background: #212121;
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.rules-icon { font-size: 16px; }
+.rules-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+.rules-subtitle { font-size: 10px; color: #bdbdbd; line-height: 1.2; }
+.rules-list { padding: 10px 10px; }
+.rules-empty { padding: 16px; font-size: 12px; color: #bdbdbd; text-align: center; }
+.rule-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #424242;
+  padding: 10px 11px;
+  margin-bottom: 10px;
+  border-radius: 0 2px 2px 0;
+}
+.rule-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.rule-no {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #424242;
+  padding: 1px 5px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.rule-cat {
+  font-size: 9px;
+  color: #757575;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 2px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rule-ans {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: auto;
+}
+.rule-ans.confirmed, .rule-ans.yes { background: #e8f5e9; color: #2e7d32; }
+.rule-ans.pending { background: #fff3e0; color: #e65100; }
+.rule-ans.no { background: #fce4ec; color: #b71c1c; }
+.rule-ans.other { background: #e3f2fd; color: #1565c0; }
+.rule-pri {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.rule-pri.high { background: #fce4ec; color: #b71c1c; }
+.rule-pri.mid { background: #fff3e0; color: #e65100; }
+.rule-pri.low { background: #f3f3f3; color: #757575; }
+.rule-q {
+  font-size: 11px;
+  font-weight: 600;
+  color: #212121;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.rule-memo {
+  font-size: 10px;
+  color: #424242;
+  line-height: 1.55;
+  background: #f8f8f8;
+  padding: 6px 8px;
+  border-left: 2px solid #e0e0e0;
+}
+</style>
+</head>
+<body style="margin-left:200px; margin-right:300px;">
+<nav class="wf-sidebar">
+  <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · Discovery</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · Safety</div>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+    <div class="device">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-time">9:41</div>
+            <div class="status-icons">●●● WiFi ▮▮▮</div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="back-btn"><</div>
+            <div class="header-title">お店を選ぶ</div>
+        </div>
+
+        <!-- Context -->
+        <div class="context-bar">
+            3月20日（木）夜 · 新宿〜渋谷エリア
+        </div>
+
+        <!-- Subtitle -->
+        <div class="subtitle">
+            条件に合うお店を3件ご提案します
+        </div>
+
+        <!-- Restaurant Cards -->
+        <div class="cards-section">
+            <!-- Card 1 -->
+            <div class="restaurant-card featured">
+                <div class="photo-placeholder">🏘</div>
+                <div class="badge-recommended">おすすめ</div>
+                <div class="card-content">
+                    <div class="restaurant-name">個室ダイニング 和楽</div>
+                    <div class="restaurant-info">新宿区 · 和食・創作</div>
+                    <div class="tags">
+                        <span class="tag">個室あり</span>
+                        <span class="tag">落ち着いた雰囲気</span>
+                        <span class="tag">接待向き</span>
+                    </div>
+                    <div class="price">¥5,000〜8,000 / 人</div>
+                    <div class="card-footer">
+                        <span class="map-link">📍 Google Map →</span>
+                        <div class="radio-btn"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="restaurant-card">
+                <div class="photo-placeholder">🍽</div>
+                <div class="card-content">
+                    <div class="restaurant-name">ビストロ エルミタージュ</div>
+                    <div class="restaurant-info">渋谷区 · フレンチ</div>
+                    <div class="tags">
+                        <span class="tag">テーブル席</span>
+                        <span class="tag">ソムリエ在籍</span>
+                    </div>
+                    <div class="price">¥6,000〜10,000 / 人</div>
+                    <div class="card-footer">
+                        <span class="map-link">📍 Google Map →</span>
+                        <div class="radio-btn"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="restaurant-card">
+                <div class="photo-placeholder">☕</div>
+                <div class="card-content">
+                    <div class="restaurant-name">カフェ レストラン ソレイユ</div>
+                    <div class="restaurant-info">渋谷区 · カフェ・洋食</div>
+                    <div class="tags">
+                        <span class="tag">半個室</span>
+                        <span class="tag">ランチ人気</span>
+                    </div>
+                    <div class="price">¥3,000〜5,000 / 人</div>
+                    <div class="card-footer">
+                        <span class="map-link">📍 Google Map →</span>
+                        <div class="radio-btn"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Section -->
+        <div class="action-section">
+            <button class="reserve-btn">このお店で予約リクエスト →</button>
+            <a class="more-link">他の候補を見る（+3件）</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-note">
+            フロー: SCR-082 → SCR-083 ★ → [予約リクエスト] → SCR-087
+        </div>
+    </div>
+
+<div class="rules-panel-wrap">
+<div class="rules-panel">
+  <div class="rules-header">
+    <span class="rules-icon">📋</span>
+    <div>
+      <div class="rules-title">Logic Rules</div>
+      <div class="rules-subtitle">Q&amp;A 確認済みルール (3件)</div>
+    </div>
+  </div>
+  <div class="rules-list">
+    
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q27</span>
+      <span class="rule-cat">予約フロー</span>
+      <span class="rule-ans other">C</span>
+      <span class="rule-pri mid">優先度: 中</span>
+    </div>
+    <div class="rule-q">店舗候補を提示する際、「二人が行きたいお店の一致」を最優先しますか？それとも「エリア・時間帯の近さ」を最優先しますか？…</div>
+    <div class="rule-memo">店舗候補のスコアリングは「①双方の行きたい店一致」「②エリア・時間帯の近さ」「③雰囲気タグ」の3要素を組み合わせて算出する。イメージとしては、行きたい店一致を最優先としつつ、両者の希望エリア・希望時間帯に近い店を高スコアにする形で、上位3件を候補として提示するように実装を依頼。</div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q28</span>
+      <span class="rule-cat">予約フロー</span>
+      <span class="rule-ans yes">✓ Yes</span>
+      <span class="rule-pri mid">優先度: 中</span>
+    </div>
+    <div class="rule-q">店舗候補は毎回3件提示する設計でよいですか？…</div>
+    <div class="rule-memo">候補店舗は毎回ちょうど3件表示とし、ユーザーはその中から1件を選択。候補が3件未満の場合のみ、存在する件数（1〜2件）だけ表示する。3件に絞ることで比較しやすくしつつ、選択負荷を下げる狙い。</div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q32</span>
+      <span class="rule-cat">予約フロー</span>
+      <span class="rule-ans yes">✓ Yes</span>
+      <span class="rule-pri high">優先度: 高</span>
+    </div>
+    <div class="rule-q">食事のお店を候補として提示するとき、どの順番で優先しますか？…</div>
+    <div class="rule-memo">レコメンドロジックは、まず「二人の行きたい店が重なっている店」を最優先とし、共通店がない場合は「いいねされた側（多くは女性）の行きたい店」を優遇しつつ、エリアと時間帯の制約を満たす候補をスコアリングして上位3件を提示する。3件固定とすることで迷いすぎを防ぎつつ、「自分で選んだ感」を担保する。またUI上、少なくとも1件は「相手の行きたい店からの提案」であることを明示し、安心感と満足度を高める。</div>
+  </div>
+  </div>
+</div></div>
+</body>
+</html>

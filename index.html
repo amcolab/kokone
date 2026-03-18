@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KOKONE - 安心して使える既婚者向けマッチングサービス</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4FD1C5", // Mint Green
+                        "primary-dark": "#38B2AC",
+                        "background-light": "#F7FAFC",
+                        "background-dark": "#1A202C",
+                        "mint-accent": "#E6FFFA",
+                        "blue-accent": "#EBF8FF",
+                    },
+                    fontFamily: {
+                        display: ["'Noto Sans JP'", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        'xl': '24px',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, #2C7A7B 0%, #1A365D 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+        }
+
+        .step-line::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background-color: #E2E8F0;
+        }
+
+        .step-item:last-child .step-line::after {
+            display: none;
+        }
+
+        .pb-safe-area {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 antialiased overflow-x-hidden">
+    <header
+        class="fixed top-0 w-full z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-md mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                    <span class="material-icons-round text-white text-xl">shield</span>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">KOKONE</span>
+            </div>
+            <button id="menuButton" class="p-2 relative">
+                <span class="material-icons-round">menu</span>
+            </button>
+            <!-- Dropdown Menu -->
+            <div id="menuDropdown"
+                class="hidden absolute top-14 right-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 min-w-[200px] z-50">
+                <a href="admin1.html"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+                    <span class="text-sm font-medium">Admin Login</span>
+                </a>
+                <a href="login.html"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-t border-gray-100 dark:border-gray-700">
+                    <span class="material-symbols-outlined text-primary">grid_view</span>
+                    <span class="text-sm font-medium">wireframe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-md mx-auto pt-16 pb-24">
+        <section class="relative hero-gradient text-white pt-12 pb-20 px-6 overflow-hidden">
+            <div class="orb bg-primary w-64 h-64 top-0 -right-20"></div>
+            <div class="orb bg-blue-400 w-48 h-48 bottom-0 -left-10"></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+                <div class="flex gap-4 mb-8">
+                    <div
+                        class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+                        <span class="material-icons-round text-primary text-2xl">lock</span>
+                    </div>
+                    <div
+                        class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+                        <span class="material-icons-round text-primary text-2xl">calendar_today</span>
+                    </div>
+                    <div
+                        class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+                        <span class="material-icons-round text-primary text-2xl">restaurant</span>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold leading-relaxed mb-4">
+                    安心して使える既婚者向け<br />
+                    <span class="text-primary">マッチングサービス</span>
+                </h1>
+                <p class="text-sm opacity-90 mb-10 leading-relaxed">
+                    立場があるからこそ、安心できる場所を。<br />
+                    プライバシーと信頼を最優先したマッチング。
+                </p>
+                <a href="2.html"
+                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-primary/20 transition-all active:scale-95 text-center inline-block">
+                    まずは無料で始める
+                </a>
+            </div>
+        </section>
+        <section class="py-12 px-6">
+            <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
+                <span class="w-1 h-6 bg-primary rounded-full"></span>
+                KOKONEが選ばれる理由
+            </h2>
+            <div class="space-y-4">
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="w-12 h-12 bg-mint-accent dark:bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                        <span class="material-icons-round text-primary">verified_user</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">安全・プライバシー</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                        徹底した本人確認と身分証提示。24時間の監視体制で悪質なユーザーを排除します。
+                    </p>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="w-12 h-12 bg-mint-accent dark:bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                        <span class="material-icons-round text-primary">event_available</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">マッチング・予約</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                        ダイニング予約までスムーズに。日程調整の手間を最小限に抑えます。
+                    </p>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="w-12 h-12 bg-mint-accent dark:bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                        <span class="material-icons-round text-primary">handshake</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">信頼・運営</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                        透明性の高い運営体制。不適切な勧誘や営業目的の利用を厳格に制限。
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 px-6 bg-blue-accent/30 dark:bg-slate-900/50">
+            <h2 class="text-xl font-bold mb-2">ご利用の流れ</h2>
+            <p class="text-xs text-slate-400 mb-8">最短5分で登録完了。安心して始められます。</p>
+            <div class="space-y-8 relative">
+                <div class="step-item flex gap-6 relative">
+                    <div
+                        class="step-line flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg shadow-primary/20">
+                        1</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">本人確認（KYC）</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">公的身分証による厳格な審査。</p>
+                    </div>
+                </div>
+                <div class="step-item flex gap-6 relative">
+                    <div
+                        class="step-line flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg shadow-primary/20">
+                        2</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">プロフィール作成</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">顔出し不要のシークレット設定が可能。</p>
+                    </div>
+                </div>
+                <div class="step-item flex gap-6 relative">
+                    <div
+                        class="step-line flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg shadow-primary/20">
+                        3</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">マッチング</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">価値観の合うお相手をAIが推薦。</p>
+                    </div>
+                </div>
+                <div class="step-item flex gap-6 relative">
+                    <div
+                        class="step-line flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg shadow-primary/20">
+                        4</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">ダイニング予約</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">提携店をアプリから即時予約。</p>
+                    </div>
+                </div>
+                <div class="step-item flex gap-6 relative">
+                    <div
+                        class="step-line flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg shadow-primary/20">
+                        5</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">相互レビュー</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">健全なコミュニティ維持のための評価。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 px-6">
+            <h2 class="text-center font-bold text-lg mb-8">プライバシーを守る高度な機能</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div
+                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <span class="material-icons-round text-orange-400 mb-2">grid_view</span>
+                    <h4 class="font-bold text-sm mb-1">フォト・コントロール</h4>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">承認した相手にのみ写真を公開できます。</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <span class="material-icons-round text-primary mb-2">visibility_off</span>
+                    <h4 class="font-bold text-sm mb-1">シークレットモード</h4>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">検索結果に自分を表示させない設定。</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <span class="material-icons-round text-orange-400 mb-2">notifications_off</span>
+                    <h4 class="font-bold text-sm mb-1">匿名通知</h4>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">プッシュ通知の内容は伏せられます。</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <span class="material-icons-round text-primary mb-2">report_problem</span>
+                    <h4 class="font-bold text-sm mb-1">通報システム</h4>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">24時間即時対応のサポート窓口。</p>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 px-6">
+            <h2 class="text-center font-bold mb-8">他サービスとの比較</h2>
+            <div
+                class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700">
+                <table class="w-full text-sm text-center">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-slate-900/50">
+                            <th class="py-4 px-2 text-left text-xs text-slate-400">機能</th>
+                            <th class="py-4 px-2 text-primary font-bold">KOKONE</th>
+                            <th class="py-4 px-2 text-slate-400 font-medium">一般アプリ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        <tr>
+                            <td class="py-4 px-4 text-left text-xs font-medium">既婚者限定</td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-primary text-xl">check_circle</span></td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-slate-300 text-xl">cancel</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4 text-left text-xs font-medium">実名非公開</td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-primary text-xl">check_circle</span></td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-primary text-xl">check_circle</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4 text-left text-xs font-medium">店舗予約代行</td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-primary text-xl">check_circle</span></td>
+                            <td class="py-4 px-2"><span
+                                    class="material-icons-round text-slate-300 text-xl">cancel</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4 text-left text-xs font-medium">身分証審査</td>
+                            <td class="py-4 px-2"><span
+                                    class="text-primary font-bold text-xs bg-mint-accent dark:bg-primary/20 px-2 py-1 rounded">必須</span>
+                            </td>
+                            <td class="py-4 px-2 text-xs text-slate-400">任意多め</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="py-20 px-6 text-center">
+            <div class="mb-8 flex justify-center">
+                <span class="material-icons-round text-primary text-5xl">favorite</span>
+            </div>
+            <h2 class="text-xl font-bold mb-4">
+                立場があるからこそ、<br />
+                安心できる場所を。
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-10 leading-relaxed">
+                KOKONEは、あなたのプライバシーを守り抜き、<br />
+                上質な出会いを提供し続けます。
+            </p>
+            <a href="2.html"
+                class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-5 px-8 rounded-full shadow-xl shadow-primary/20 transition-all active:scale-95 text-lg text-center inline-block">
+                今すぐ無料で始める
+            </a>
+        </section>
+    </main>
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-100 dark:border-gray-800 z-20 pb-safe-area">
+        <div class="max-w-md mx-auto px-4 py-3">
+            <div class="grid grid-cols-4 gap-2">
+                <a href="3.html"
+                    class="flex flex-col items-center gap-1 py-2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-2xl">explore</span>
+                    <span class="text-[10px]">探す</span>
+                </a>
+                <a href="6.html"
+                    class="flex flex-col items-center gap-1 py-2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-2xl">favorite</span>
+                    <span class="text-[10px]">いいね</span>
+                </a>
+                <a href="7.html"
+                    class="flex flex-col items-center gap-1 py-2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-2xl">event</span>
+                    <span class="text-[10px]">募集</span>
+                </a>
+                <a href="2.html"
+                    class="flex flex-col items-center gap-1 py-2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <span class="material-symbols-outlined text-2xl">person</span>
+                    <span class="text-[10px]">マイページ</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Menu dropdown toggle
+        const menuButton = document.getElementById('menuButton');
+        const menuDropdown = document.getElementById('menuDropdown');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            menuDropdown.classList.add('hidden');
+        });
+    </script>
+</body>
+
+</html>

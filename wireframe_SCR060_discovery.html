@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOKONE Wireframe — SCR-060 Discovery / Card View</title>
+<style>
+  /* ================================
+     WIREFRAME BASE
+     Palette: white / light-gray / mid-gray / dark-gray / near-black
+     NO decorative colors
+  ================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ---------- LEFT SIDEBAR: screen map ---------- */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: #fff;
+    border-right: 1px solid #d0d0d0;
+    padding: 20px 0;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .sidebar-header {
+    padding: 0 16px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 12px;
+  }
+  .sidebar-header h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .sidebar-header p { font-size: 11px; color: #888; margin-top: 3px; }
+
+  .sidebar-section {
+    margin-bottom: 8px;
+    padding: 0 12px;
+  }
+  .sidebar-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 4px 4px;
+  }
+  .nav-item {
+    display: block;
+    padding: 7px 8px;
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+    line-height: 1.3;
+  }
+  .nav-item:hover { background: #f4f4f4; color: #222; }
+  .nav-item.active {
+    background: #e8e8e8;
+    color: #111;
+    font-weight: 600;
+  }
+  .nav-item .scr-id {
+    display: inline-block;
+    font-size: 9px;
+    color: #aaa;
+    margin-right: 4px;
+    font-weight: 400;
+  }
+
+  /* ---------- MAIN AREA ---------- */
+  .main {
+    margin-left: 240px;
+    flex: 1;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-meta {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+  .page-meta h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+  }
+  .page-meta .breadcrumb {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 12px;
+  }
+  .page-meta .note-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-left: 3px solid #aaa;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* ---------- PHONE FRAME ---------- */
+  .frame-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .phone-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .phone-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .phone {
+    width: 375px;
+    min-height: 812px;
+    background: #fff;
+    border-radius: 44px;
+    border: 2px solid #555;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Notch */
+  .notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 28px;
+    background: #555;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    background: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 20px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #ebebeb;
+    flex-shrink: 0;
+    z-index: 5;
+  }
+  .status-bar .time { font-size: 13px; font-weight: 700; }
+  .status-icons { display: flex; gap: 5px; align-items: center; }
+  .status-icon {
+    width: 16px; height: 10px;
+    background: #555;
+    border-radius: 2px;
+    position: relative;
+  }
+  .status-icon.battery::after {
+    content: '';
+    position: absolute;
+    right: -4px; top: 2px;
+    width: 3px; height: 6px;
+    background: #555;
+    border-radius: 1px;
+  }
+  .wifi-icon {
+    width: 14px; height: 12px;
+    border: 2px solid #555;
+    border-radius: 50% 50% 0 0;
+    border-bottom: none;
+    position: relative;
+  }
+  .signal-icon {
+    display: flex; align-items: flex-end; gap: 2px;
+  }
+  .signal-bar {
+    background: #555;
+    border-radius: 1px;
+    width: 3px;
+  }
+
+  /* App Header */
+  .app-header {
+    height: 54px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    flex-shrink: 0;
+  }
+  .app-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: #222;
+    letter-spacing: -0.5px;
+  }
+  .app-logo span { color: #888; font-weight: 400; font-size: 11px; margin-left: 6px; }
+  .header-icons { display: flex; gap: 14px; align-items: center; }
+  .header-icon {
+    width: 26px; height: 26px;
+    background: #f2f2f2;
+    border-radius: 50%;
+    border: 1.5px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+  }
+  .header-icon svg { width: 14px; height: 14px; stroke: #555; fill: none; stroke-width: 2; }
+  .badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 14px; height: 14px;
+    background: #444;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid #fff;
+  }
+
+  /* Tab bar below header */
+  .tab-row {
+    display: flex;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 0 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #aaa;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .tab-btn.active {
+    color: #222;
+    font-weight: 700;
+    border-bottom-color: #444;
+  }
+
+  /* Scroll area */
+  .scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    background: #f7f7f7;
+  }
+
+  /* Filter chip row */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    overflow-x: auto;
+  }
+  .chip {
+    flex-shrink: 0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1.5px solid #ccc;
+    font-size: 11px;
+    color: #555;
+    background: #fafafa;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chip.active {
+    background: #444;
+    color: #fff;
+    border-color: #444;
+  }
+  .chip svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 2; fill: none; display: inline; vertical-align: -1px; margin-right: 3px; }
+
+  /* CARD STACK */
+  .card-stack {
+    position: relative;
+    margin: 20px 16px 0;
+    height: 490px;
+  }
+
+  /* Shadow card behind */
+  .card-shadow {
+    position: absolute;
+    top: 12px; left: 8px;
+    right: 8px;
+    height: 470px;
+    background: #e8e8e8;
+    border-radius: 18px;
+    border: 1.5px solid #d0d0d0;
+  }
+  .card-shadow2 {
+    position: absolute;
+    top: 6px; left: 4px;
+    right: 4px;
+    height: 475px;
+    background: #efefef;
+    border-radius: 18px;
+    border: 1.5px solid #d8d8d8;
+  }
+
+  /* Main card */
+  .user-card {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 480px;
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid #ccc;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    cursor: grab;
+  }
+
+  /* Photo area */
+  .card-photo {
+    width: 100%;
+    height: 300px;
+    background: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Blurred placeholder */
+  .blur-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(145deg, #d8d8d8 0%, #c8c8c8 40%, #d5d5d5 70%, #cccccc 100%);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .blur-oval {
+    width: 80px; height: 80px;
+    background: #bbb;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .blur-oval::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; height: 80px;
+    background: #bbb;
+    border-radius: 50%;
+  }
+  .blur-label {
+    font-size: 11px;
+    color: #aaa;
+    background: rgba(255,255,255,0.7);
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+
+  /* Photo dots */
+  .photo-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%; transform: translateX(-50%);
+    display: flex; gap: 5px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+  .dot.active { background: rgba(255,255,255,0.9); }
+
+  /* Progress bar (swipe left/right hint) */
+  .swipe-hint {
+    position: absolute;
+    top: 14px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 14px;
+    pointer-events: none;
+  }
+  .swipe-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 2px solid;
+    font-size: 12px;
+    font-weight: 800;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .swipe-badge.like { border-color: #666; color: #555; }
+  .swipe-badge.skip { border-color: #999; color: #888; }
+
+  /* Card info */
+  .card-info {
+    padding: 14px 16px 10px;
+  }
+  .card-name-row {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .card-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .card-age {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+  }
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 9px;
+    color: #666;
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .verified-badge svg { width: 8px; height: 8px; stroke: #555; fill: none; stroke-width: 2.5; }
+
+  .card-location {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .card-location svg { width: 10px; height: 10px; stroke: #999; fill: none; stroke-width: 2; }
+
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    margin-bottom: 8px;
+  }
+  .tag {
+    padding: 2px 8px;
+    background: #f2f2f2;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 10px;
+    color: #666;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Action buttons */
+  .action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 14px 16px 16px;
+  }
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .action-btn:active { transform: scale(0.93); }
+  .btn-skip {
+    width: 56px; height: 56px;
+    border-color: #bbb;
+    background: #f8f8f8;
+  }
+  .btn-skip svg { width: 22px; height: 22px; stroke: #aaa; fill: none; stroke-width: 2.5; }
+
+  .btn-like {
+    width: 70px; height: 70px;
+    border-color: #555;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  }
+  .btn-like svg { width: 28px; height: 28px; stroke: #444; fill: none; stroke-width: 2; }
+
+  .btn-super {
+    width: 52px; height: 52px;
+    border-color: #ccc;
+    background: #f8f8f8;
+  }
+  .btn-super svg { width: 20px; height: 20px; stroke: #aaa; fill: none; stroke-width: 2; }
+
+  .btn-label {
+    font-size: 9px;
+    color: #aaa;
+    text-align: center;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .btn-group { display: flex; flex-direction: column; align-items: center; }
+
+  /* Remaining count */
+  .remaining-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 8px;
+  }
+  .remaining-text {
+    font-size: 11px;
+    color: #bbb;
+    font-weight: 500;
+  }
+  .remaining-dots {
+    display: flex; gap: 3px;
+  }
+  .rdot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #ccc;
+  }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    height: 68px;
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .nav-item-bottom {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+  }
+  .nav-icon {
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-icon svg {
+    width: 22px; height: 22px;
+    stroke: #bbb;
+    fill: none;
+    stroke-width: 1.8;
+  }
+  .nav-item-bottom.active .nav-icon svg { stroke: #333; }
+  .nav-item-bottom.active .nav-label { color: #222; font-weight: 700; }
+  .nav-label {
+    font-size: 9px;
+    color: #bbb;
+    font-weight: 500;
+  }
+  .nav-dot {
+    position: absolute;
+    top: 4px;
+    right: calc(50% - 14px);
+    width: 7px; height: 7px;
+    background: #555;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+  }
+
+  /* ---- ANNOTATION PANEL ---- */
+  .annotations {
+    width: 320px;
+    flex-shrink: 0;
+  }
+  .anno-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  .anno-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .anno-num {
+    display: inline-block;
+    width: 20px; height: 20px;
+    background: #444;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+  .anno-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+  }
+  .anno-desc { font-size: 11px; color: #666; line-height: 1.6; }
+  .anno-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 9px;
+    color: #888;
+    margin-top: 5px;
+    margin-right: 3px;
+  }
+
+  /* ---- SCREEN FLOW DIAGRAM ---- */
+  .flow-section {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 36px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .flow-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+  }
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .flow-box {
+    padding: 8px 14px;
+    background: #f5f5f5;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #444;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .flow-box:hover { background: #eee; }
+  .flow-box.current {
+    background: #444;
+    color: #fff;
+    border-color: #333;
+  }
+  .flow-arrow {
+    font-size: 16px;
+    color: #bbb;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 8px; }
+
+  /* Scrollbar hide */
+  .scroll-area::-webkit-scrollbar { width: 0; }
+  .filter-row::-webkit-scrollbar { height: 0; }
+</style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+</style>
+
+<style>
+/* === LOGIC RULES PANEL === */
+.rules-panel-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+  border-left: 2px solid #212121;
+  z-index: 9998;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+.rules-panel {
+  padding: 0;
+}
+.rules-header {
+  position: sticky;
+  top: 0;
+  background: #212121;
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.rules-icon { font-size: 16px; }
+.rules-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+.rules-subtitle { font-size: 10px; color: #bdbdbd; line-height: 1.2; }
+.rules-list { padding: 10px 10px; }
+.rules-empty { padding: 16px; font-size: 12px; color: #bdbdbd; text-align: center; }
+.rule-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #424242;
+  padding: 10px 11px;
+  margin-bottom: 10px;
+  border-radius: 0 2px 2px 0;
+}
+.rule-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.rule-no {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #424242;
+  padding: 1px 5px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.rule-cat {
+  font-size: 9px;
+  color: #757575;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 2px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rule-ans {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: auto;
+}
+.rule-ans.confirmed, .rule-ans.yes { background: #e8f5e9; color: #2e7d32; }
+.rule-ans.pending { background: #fff3e0; color: #e65100; }
+.rule-ans.no { background: #fce4ec; color: #b71c1c; }
+.rule-ans.other { background: #e3f2fd; color: #1565c0; }
+.rule-pri {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.rule-pri.high { background: #fce4ec; color: #b71c1c; }
+.rule-pri.mid { background: #fff3e0; color: #e65100; }
+.rule-pri.low { background: #f3f3f3; color: #757575; }
+.rule-q {
+  font-size: 11px;
+  font-weight: 600;
+  color: #212121;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.rule-memo {
+  font-size: 10px;
+  color: #424242;
+  line-height: 1.55;
+  background: #f8f8f8;
+  padding: 6px 8px;
+  border-left: 2px solid #e0e0e0;
+}
+</style>
+</head>
+<body style="margin-left:200px; margin-right:300px;">
+<nav class="wf-sidebar">
+  <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · Discovery</div>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · Safety</div>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+
+<!-- =========== SIDEBAR =========== -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h2>KOKONE Wireframes</h2>
+    <p>Mobile-first · Web App · β版</p>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">A. Onboarding</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">001</span>Landing Page (LP)
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">020</span>Sign Up / Login
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">024</span>eKYC – 本人確認
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">030</span>Profile Setup Step 1
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">031</span>Photo Upload & Blur
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">034</span>Profile Setup Step 2
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">C. Discovery / Match</div>
+    <a class="nav-item active" href="#">
+      <span class="scr-id">060</span>Card View ← 今ここ
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">061</span>Search / Filter
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">063</span>Likes Sent
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">064</span>Likes Received
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">065</span>Mutual Match List
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">070</span>Boshuu 募集一覧
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">071</span>募集 Detail
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">072</span>Create 募集
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">D. Booking Flow</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">080</span>Match Detail / Chat入口
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">081</span>Schedule Selection
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">082</span>Date Confirmation
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">083</span>Restaurant Proposal
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">087</span>Booking Confirmed
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">089</span>Day-of Reminder
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">E. Messaging</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">090</span>Chat 1:1
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">F. Safety</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">100</span>Post-dining Review
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">103</span>Report / Block
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">B. Profile & Settings</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">110</span>My Page
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">111</span>Subscription Plan
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">116</span>Secret Mode Settings
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">119</span>Notification Settings
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Admin</div>
+    <a class="nav-item" href="#">
+      <span class="scr-id">200</span>Admin Dashboard
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">204</span>User Management
+    </a>
+    <a class="nav-item" href="#">
+      <span class="scr-id">210</span>Booking Management
+    </a>
+  </div>
+</nav>
+
+<!-- =========== MAIN =========== -->
+<main class="main">
+
+  <div class="page-meta">
+    <div class="breadcrumb">KOKONE Wireframe  /  C. Discovery  /  SCR-060</div>
+    <h1>SCR-060 — Discovery · Card View（マッチング探索）</h1>
+    <div class="note-box">
+      <strong>画面概要：</strong>条件に合う相手をカード形式で表示。いいね（♥）またはスキップ（×）で反応する。β版ではユーザー数が少ないため一覧ではなくレコメンド型カードスタックを採用。有料会員のみいいね送信可（Q15確定）。写真はぼかし表示がデフォルト。<br>
+      <strong>遷移元：</strong>BottomNav「さがす」タブ　／　<strong>遷移先：</strong>SCR-061 Filter、SCR-065 Match成立、ユーザー詳細プロフィール
+    </div>
+  </div>
+
+  <div class="frame-wrapper">
+
+    <!-- PHONE -->
+    <div class="phone-container">
+      <div class="phone-label">SCR-060 — Card View</div>
+      <div class="phone">
+        <div class="notch"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <div class="signal-icon">
+              <div class="signal-bar" style="height:5px;"></div>
+              <div class="signal-bar" style="height:8px;"></div>
+              <div class="signal-bar" style="height:11px;"></div>
+              <div class="signal-bar" style="height:14px;"></div>
+            </div>
+            <div class="wifi-icon"></div>
+            <div class="status-icon battery"></div>
+          </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="app-header">
+          <div class="app-logo">KOKONE <span>β</span></div>
+          <div class="header-icons">
+            <!-- Filter icon -->
+            <div class="header-icon">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+            </div>
+            <!-- Bell / notification -->
+            <div class="header-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <div class="badge">2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Row -->
+        <div class="tab-row">
+          <div class="tab-btn active">さがす</div>
+          <div class="tab-btn">募集</div>
+          <div class="tab-btn">いいね</div>
+        </div>
+
+        <!-- Scroll Area -->
+        <div class="scroll-area">
+
+          <!-- Filter chips -->
+          <div class="filter-row">
+            <div class="chip active">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 1 1 4.93 19.07"/></svg>
+              東京 23区
+            </div>
+            <div class="chip">年代: 30-40代</div>
+            <div class="chip">昼・夜どちらも</div>
+            <div class="chip">+ 詳細条件</div>
+          </div>
+
+          <!-- Card Stack -->
+          <div class="card-stack">
+            <!-- Background cards (stack effect) -->
+            <div class="card-shadow2"></div>
+            <div class="card-shadow"></div>
+
+            <!-- Main Card -->
+            <div class="user-card">
+              <!-- Photo area -->
+              <div class="card-photo">
+                <div class="blur-placeholder">
+                  <div class="blur-oval"></div>
+                  <div class="blur-label">📷 ぼかし表示中</div>
+                </div>
+                <!-- Swipe hints -->
+                <div class="swipe-hint">
+                  <div class="swipe-badge like">いいね</div>
+                  <div class="swipe-badge skip">スキップ</div>
+                </div>
+                <!-- Photo dots -->
+                <div class="photo-dots">
+                  <div class="dot active"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+
+              <!-- Card Info -->
+              <div class="card-info">
+                <div class="card-name-row">
+                  <div class="card-name">みずきさん</div>
+                  <div class="card-age">37歳</div>
+                  <div class="verified-badge">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    本人確認済
+                  </div>
+                </div>
+
+                <div class="card-location">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  渋谷区 · 会社員 · 既婚
+                </div>
+
+                <div class="card-tags">
+                  <span class="tag">グルメ</span>
+                  <span class="tag">カフェ</span>
+                  <span class="tag">映画</span>
+                  <span class="tag">落ち着いている</span>
+                  <span class="tag">思いやりがある</span>
+                </div>
+
+                <div class="card-desc">
+                  仕事と家庭の両立に奮闘中です。話を聞いてくれる方、一緒にランチできる方を探しています。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-row">
+            <div class="btn-group">
+              <div class="action-btn btn-skip">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              <div class="btn-label">スキップ</div>
+            </div>
+
+            <div class="btn-group">
+              <div class="action-btn btn-like">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <div class="btn-label">いいね ❤</div>
+            </div>
+
+            <div class="btn-group">
+              <div class="action-btn btn-super">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="btn-label">スーパー</div>
+            </div>
+          </div>
+
+          <!-- Remaining count -->
+          <div class="remaining-row">
+            <div class="remaining-dots">
+              <div class="rdot" style="background:#999;"></div>
+              <div class="rdot" style="background:#999;"></div>
+              <div class="rdot" style="background:#999;"></div>
+              <div class="rdot"></div>
+              <div class="rdot"></div>
+              <div class="rdot"></div>
+              <div class="rdot"></div>
+            </div>
+            <div class="remaining-text">あと 7 人</div>
+          </div>
+
+        </div><!-- /scroll-area -->
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+          <div class="nav-item-bottom active">
+            <div class="nav-icon">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <span class="nav-label">さがす</span>
+          </div>
+          <div class="nav-item-bottom">
+            <div class="nav-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <span class="nav-label">いいね</span>
+            <div class="nav-dot"></div>
+          </div>
+          <div class="nav-item-bottom">
+            <div class="nav-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <span class="nav-label">メッセージ</span>
+          </div>
+          <div class="nav-item-bottom">
+            <div class="nav-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span class="nav-label">ホーム</span>
+          </div>
+          <div class="nav-item-bottom">
+            <div class="nav-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <span class="nav-label">マイページ</span>
+          </div>
+        </div>
+
+      </div><!-- /phone -->
+    </div><!-- /phone-container -->
+
+    <!-- ANNOTATION PANEL -->
+    <div class="annotations">
+      <div class="anno-header">📋 設計メモ &amp; 仕様注記</div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">1</span>カードスタック表示</div>
+        <div class="anno-desc">β版はユーザー数が少ないためレコメンド型カードスタックを採用（一覧ではなく）。背景に薄いカードを重ねてスタック感を演出。スワイプ操作（← skip / → like）対応。</div>
+        <span class="anno-tag">SCR-060</span><span class="anno-tag">Q13確定</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">2</span>写真：ぼかし表示がデフォルト</div>
+        <div class="anno-desc">マッチング前は写真をぼかして表示（固定ぼかし）。マッチング後に相手の承認を得ることでぼかし解除が可能（申請ボタン）。</div>
+        <span class="anno-tag">Q9確定</span><span class="anno-tag">Q11確定</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">3</span>いいねは有料会員のみ</div>
+        <div class="anno-desc">無料ユーザーはカードを閲覧・スキップのみ可。いいね・スーパーいいねの送信は有料会員限定。タップ時にアップグレード訴求を表示。</div>
+        <span class="anno-tag">Q15: No → 有料のみ</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">4</span>フィルター条件</div>
+        <div class="anno-desc">エリア（東京23区 / 横浜）・年代・時間帯（昼・夜）をヘッダーのフィルターアイコンまたはチップから変更可能。詳細条件はSCR-061へ遷移。</div>
+        <span class="anno-tag">SCR-061</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">5</span>本人確認バッジ</div>
+        <div class="anno-desc">eKYC承認済ユーザーには「本人確認済」バッジを表示。未承認ユーザーはバッジなし表示となる。</div>
+        <span class="anno-tag">SCR-024</span><span class="anno-tag">Q5確定</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">6</span>過去マッチ済みは非表示</div>
+        <div class="anno-desc">過去にマッチングした相手は7日間、候補に再表示しない（Q17: Yes確定）。</div>
+        <span class="anno-tag">Q17確定 · 7日間</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">7</span>マッチング後のフロー</div>
+        <div class="anno-desc">いいねが相互成立した場合、マッチング成立通知 → SCR-065（マッチ一覧）→ SCR-080（マッチ詳細）→ 24時間チャット解放 → 食事日程調整（SCR-081）へと進む。</div>
+        <span class="anno-tag">Q25: 24時間チャット</span><span class="anno-tag">SCR-065→080</span>
+      </div>
+
+      <div class="anno-item">
+        <div class="anno-title"><span class="anno-num">8</span>タブ構成: さがす / 募集 / いいね</div>
+        <div class="anno-desc">「さがす」= カードスワイプ型（SCR-060）、「募集」= 食事募集一覧（SCR-070）、「いいね」= 送受信履歴（SCR-063/064）</div>
+        <span class="anno-tag">SCR-070 募集: Q19 Yes</span>
+      </div>
+    </div><!-- /annotations -->
+
+  </div><!-- /frame-wrapper -->
+
+  <!-- SCREEN FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">📍 Screen Flow — Discovery → Booking</div>
+    <div class="flow-row">
+      <div class="flow-box">ログイン<br><span style="font-size:9px;color:#aaa">SCR-020</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box current">Card View<br><span style="font-size:9px;color:#ccc">SCR-060 ★</span></div>
+      <div class="flow-arrow">→ いいね相互</div>
+      <div class="flow-box">Match成立<br><span style="font-size:9px;color:#aaa">SCR-065</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Chat 24h<br><span style="font-size:9px;color:#aaa">SCR-080</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">日程選択<br><span style="font-size:9px;color:#aaa">SCR-081</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">店舗提案<br><span style="font-size:9px;color:#aaa">SCR-083</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">予約確定<br><span style="font-size:9px;color:#aaa">SCR-087</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">食事後<br>レビュー<br><span style="font-size:9px;color:#aaa">SCR-100</span></div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:#aaa;">
+      ※ 募集フロー：SCR-070（募集一覧）→ SCR-071（詳細）→ SCR-072（応募）→ 承認後マッチ成立（SCR-065と同じフローへ合流）
+    </div>
+  </div>
+
+</main>
+
+
+<div class="rules-panel-wrap">
+<div class="rules-panel">
+  <div class="rules-header">
+    <span class="rules-icon">📋</span>
+    <div>
+      <div class="rules-title">Logic Rules</div>
+      <div class="rules-subtitle">Q&amp;A 確認済みルール (1件)</div>
+    </div>
+  </div>
+  <div class="rules-list">
+    
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q14</span>
+      <span class="rule-cat">マッチング</span>
+      <span class="rule-ans other">確認待ち</span>
+      <span class="rule-pri high">優先度: 高</span>
+    </div>
+    <div class="rule-q">マッチングの相手は「異性のみ」「同性のみ」「どちらも」の3パターンから選べるようにしますか？…</div>
+    <div class="rule-memo">デフォルト選択は「異性のみ」。マイページの設定からいつでも変更可能にする。料金や機能はどのパターンでも同じ扱い（同性マッチだから安くなる等の区別はしない）。</div>
+  </div>
+  </div>
+</div></div>
+</body>
+</html>

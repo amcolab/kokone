@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-030 Profile Step 1</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --c0: #ffffff;
+      --c1: #f5f5f5;
+      --c2: #e0e0e0;
+      --c3: #bdbdbd;
+      --c4: #757575;
+      --c5: #424242;
+      --c6: #212121;
+      --border: 1px solid #e0e0e0;
+      --border-dark: 1px solid #212121;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background: var(--c0);
+      border-right: var(--border-dark);
+      padding: 16px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .sidebar-section {
+      margin-bottom: 20px;
+    }
+
+    .sidebar-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: var(--c6);
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 6px 8px;
+      color: var(--c4);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+
+    .sidebar-link:hover {
+      background: var(--c1);
+    }
+
+    .main {
+      margin-left: 200px;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .device {
+      width: 360px;
+      background: var(--c0);
+      border: 1.5px solid var(--c6);
+    }
+
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+    }
+
+    .screen {
+      padding: 20px;
+      min-height: 640px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .back-arrow {
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--c6);
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--c6);
+    }
+
+    .step-label {
+      font-size: 12px;
+      color: var(--c4);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--c2);
+      margin-bottom: 24px;
+      border: var(--border-dark);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 33%;
+      background: var(--c6);
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--c6);
+      margin-bottom: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: var(--c6);
+    }
+
+    .form-input {
+      width: 100%;
+      height: 36px;
+      padding: 6px;
+      border: var(--border-dark);
+      background: var(--c0);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .form-select {
+      width: 100%;
+      height: 36px;
+      padding: 6px;
+      border: var(--border-dark);
+      background: var(--c0);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .textarea {
+      width: 100%;
+      height: 80px;
+      padding: 6px;
+      border: var(--border-dark);
+      background: var(--c0);
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border: var(--border-dark);
+      background: var(--c0);
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--c6);
+    }
+
+    .chip.selected {
+      background: var(--c6);
+      color: var(--c0);
+    }
+
+    .date-inputs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .date-input {
+      flex: 1;
+      height: 36px;
+      padding: 6px;
+      border: var(--border-dark);
+      background: var(--c0);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      border: var(--border-dark);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .checkbox-label {
+      color: var(--c6);
+      line-height: 1.4;
+    }
+
+    .checkbox:disabled {
+      opacity: 0.5;
+    }
+
+    .next-btn {
+      width: 100%;
+      height: 44px;
+      background: var(--c6);
+      color: var(--c0);
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 24px;
+    }
+
+    .flow-section {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: var(--border-dark);
+      font-size: 11px;
+      color: var(--c4);
+    }
+
+    .flow-text {
+      text-align: center;
+      white-space: nowrap;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+  </style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+</style>
+
+<style>
+/* === LOGIC RULES PANEL === */
+.rules-panel-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+  border-left: 2px solid #212121;
+  z-index: 9998;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+.rules-panel {
+  padding: 0;
+}
+.rules-header {
+  position: sticky;
+  top: 0;
+  background: #212121;
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.rules-icon { font-size: 16px; }
+.rules-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+.rules-subtitle { font-size: 10px; color: #bdbdbd; line-height: 1.2; }
+.rules-list { padding: 10px 10px; }
+.rules-empty { padding: 16px; font-size: 12px; color: #bdbdbd; text-align: center; }
+.rule-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #424242;
+  padding: 10px 11px;
+  margin-bottom: 10px;
+  border-radius: 0 2px 2px 0;
+}
+.rule-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.rule-no {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #424242;
+  padding: 1px 5px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.rule-cat {
+  font-size: 9px;
+  color: #757575;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 2px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rule-ans {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: auto;
+}
+.rule-ans.confirmed, .rule-ans.yes { background: #e8f5e9; color: #2e7d32; }
+.rule-ans.pending { background: #fff3e0; color: #e65100; }
+.rule-ans.no { background: #fce4ec; color: #b71c1c; }
+.rule-ans.other { background: #e3f2fd; color: #1565c0; }
+.rule-pri {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.rule-pri.high { background: #fce4ec; color: #b71c1c; }
+.rule-pri.mid { background: #fff3e0; color: #e65100; }
+.rule-pri.low { background: #f3f3f3; color: #757575; }
+.rule-q {
+  font-size: 11px;
+  font-weight: 600;
+  color: #212121;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.rule-memo {
+  font-size: 10px;
+  color: #424242;
+  line-height: 1.55;
+  background: #f8f8f8;
+  padding: 6px 8px;
+  border-left: 2px solid #e0e0e0;
+}
+</style>
+</head>
+<body style="margin-left:200px; margin-right:300px;">
+<nav class="wf-sidebar">
+  <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · Discovery</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · Safety</div>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">A Onboarding</div>
+      <a href="wireframe_SCR060_flat.html" class="sidebar-link">001 Landing</a>
+      <a href="wireframe_SCR020_signup.html" class="sidebar-link">020 Sign Up/Login</a>
+      <a href="wireframe_SCR024_ekyc.html" class="sidebar-link">024 eKYC</a>
+      <a href="wireframe_SCR030_profile1.html" class="sidebar-link active">030 Profile Step1</a>
+      <a href="wireframe_SCR031_photo.html" class="sidebar-link">031 Photo&Blur</a>
+      <a href="wireframe_SCR034_profile2.html" class="sidebar-link">034 Profile Step2</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">C Discovery</div>
+      <a href="wireframe_SCR060_flat.html" class="sidebar-link">060 Card View</a>
+      <a href="wireframe_SCR061_filter.html" class="sidebar-link">061 Filter</a>
+      <a href="wireframe_SCR063_likes_sent.html" class="sidebar-link">063 Likes Sent</a>
+      <a href="wireframe_SCR064_likes_received.html" class="sidebar-link">064 Likes Received</a>
+      <a href="wireframe_SCR065_match.html" class="sidebar-link">065 Mutual Match</a>
+      <a href="wireframe_SCR070_boshuu_list.html" class="sidebar-link">070 募集List</a>
+      <a href="wireframe_SCR071_boshuu_detail.html" class="sidebar-link">071 募集Detail</a>
+      <a href="wireframe_SCR072_create_boshuu.html" class="sidebar-link">072 Create募集</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">D Booking</div>
+      <a href="wireframe_SCR080_match_detail.html" class="sidebar-link">080 Match Detail</a>
+      <a href="wireframe_SCR081_schedule.html" class="sidebar-link">081 Schedule</a>
+      <a href="wireframe_SCR082_date_confirm.html" class="sidebar-link">082 Date Confirm</a>
+      <a href="wireframe_SCR083_restaurant.html" class="sidebar-link">083 Restaurant</a>
+      <a href="wireframe_SCR087_booking_confirmed.html" class="sidebar-link">087 Booking Confirmed</a>
+      <a href="wireframe_SCR089_reminder.html" class="sidebar-link">089 Reminder</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">E Chat</div>
+      <a href="wireframe_SCR090_chat.html" class="sidebar-link">090 Chat 1:1</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">F Safety</div>
+      <a href="wireframe_SCR100_review.html" class="sidebar-link">100 Review</a>
+      <a href="wireframe_SCR103_report.html" class="sidebar-link">103 Report/Block</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">B MyPage</div>
+      <a href="wireframe_SCR110_mypage.html" class="sidebar-link">110 My Page</a>
+      <a href="wireframe_SCR111_subscription.html" class="sidebar-link">111 Subscription</a>
+      <a href="wireframe_SCR116_secret_mode.html" class="sidebar-link">116 Secret Mode</a>
+      <a href="wireframe_SCR119_notifications.html" class="sidebar-link">119 Notifications</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Admin</div>
+      <a href="wireframe_SCR200_admin_dashboard.html" class="sidebar-link">200 Dashboard</a>
+      <a href="wireframe_SCR204_user_mgmt.html" class="sidebar-link">204 User Mgmt</a>
+      <a href="wireframe_SCR210_booking_mgmt.html" class="sidebar-link">210 Booking Mgmt</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="device">
+      <div class="status-bar"></div>
+      <div class="screen">
+        <div class="header">
+          <div class="back-arrow">←</div>
+          <div class="header-text">
+            <div class="title">プロフィール設定</div>
+            <div class="step-label">1 / 3</div>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">基本情報（必須）</div>
+
+          <div class="form-group">
+            <label class="form-label">ニックネーム</label>
+            <input type="text" class="form-input" placeholder="ニックネーム">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">性別</label>
+            <div class="chip-group">
+              <div class="chip">男性</div>
+              <div class="chip">女性</div>
+              <div class="chip">その他</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">生年月日</label>
+            <div class="date-inputs">
+              <select class="date-input">
+                <option>年▼</option>
+              </select>
+              <select class="date-input">
+                <option>月▼</option>
+              </select>
+              <select class="date-input">
+                <option>日▼</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">言語</label>
+            <select class="form-select">
+              <option>日本語 ▼</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">自己紹介文</label>
+            <textarea class="textarea" placeholder="自己紹介を入力してください"></textarea>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">居住地・行動圏</div>
+
+          <div class="form-group">
+            <label class="form-label">居住地</label>
+            <select class="form-select">
+              <option>都道府県 ▼</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">居住エリア</label>
+            <select class="form-select">
+              <option>市区町村 ▼</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">勤務地</label>
+            <input type="text" class="form-input" placeholder="勤務地">
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" class="checkbox" id="chk1" checked disabled>
+          <label for="chk1" class="checkbox-label">既婚者であることを確認しました</label>
+        </div>
+
+        <button class="next-btn">次へ →</button>
+
+        <div class="flow-section">
+          <div class="flow-text">SCR-024 → SCR-030 ★ → SCR-031</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="rules-panel-wrap">
+<div class="rules-panel">
+  <div class="rules-header">
+    <span class="rules-icon">📋</span>
+    <div>
+      <div class="rules-title">Logic Rules</div>
+      <div class="rules-subtitle">Q&amp;A 確認済みルール (2件)</div>
+    </div>
+  </div>
+  <div class="rules-list">
+    
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q7</span>
+      <span class="rule-cat">プロフィール</span>
+      <span class="rule-ans other">Yes (A)</span>
+      <span class="rule-pri high">優先度: 高</span>
+    </div>
+    <div class="rule-q">「既婚者であること」はどうやって確認しますか？</div>
+    <div class="rule-memo">自己申告チェックボックスのみ。証明書不要で確定。</div>
+  </div>
+  <div class="rule-item">
+    <div class="rule-meta">
+      <span class="rule-no">Q8</span>
+      <span class="rule-cat">プロフィール</span>
+      <span class="rule-ans other">確認待ち</span>
+      <span class="rule-pri mid">優先度: 中</span>
+    </div>
+    <div class="rule-q">プロフィール登録のステップ数は何ステップを想定していますか？</div>
+    <div class="rule-memo">Step1: メール＋パスワード登録（この時点でメールアドレス確保）<br>Step2: 必須プロフィール入力（性別・生年月日・居住地）<br>両ステップ完了しないとサービス利用不可。</div>
+  </div>
+  </div>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-210 Admin Booking Management</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      padding: 12px 16px;
+      border-left: 3px solid transparent;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .sidebar-item.active {
+      border-left-color: #212121;
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+    }
+
+    .sidebar-title {
+      padding: 12px 16px;
+      color: #424242;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .content-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #212121;
+      margin-bottom: 20px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      height: 36px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      background: #ffffff;
+      color: #424242;
+      cursor: pointer;
+    }
+
+    .date-select {
+      width: 100px;
+      height: 36px;
+      border: 1px solid #e0e0e0;
+      padding: 0 8px;
+      font-size: 12px;
+      background: #ffffff;
+      color: #424242;
+      cursor: pointer;
+    }
+
+    .filter-button {
+      height: 36px;
+      border: 1px solid #212121;
+      background: #212121;
+      color: #ffffff;
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      border: 1px solid #e0e0e0;
+      padding: 12px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #757575;
+      font-weight: 600;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .table-wrapper {
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      overflow-x: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .table thead {
+      background: #f5f5f5;
+    }
+
+    .table th {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px;
+      text-align: left;
+      font-weight: 600;
+      color: #424242;
+    }
+
+    .table td {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px;
+      color: #424242;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 10px;
+      border: 1px solid #212121;
+      background: #212121;
+      color: #ffffff;
+    }
+
+    .status-pending {
+      border: 1px solid #757575;
+      background: #ffffff;
+      color: #757575;
+    }
+
+    .status-cancel {
+      border: 1px solid #bdbdbd;
+      background: #f5f5f5;
+      color: #757575;
+    }
+
+    .action-link {
+      color: #212121;
+      text-decoration: none;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 11px;
+    }
+
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      font-size: 11px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-box {
+      width: 12px;
+      height: 12px;
+      border: 1px solid;
+    }
+
+    .legend-box.confirmed {
+      border-color: #212121;
+      background: #212121;
+    }
+
+    .legend-box.pending {
+      border-color: #757575;
+      background: #ffffff;
+    }
+
+    .legend-box.cancel {
+      border-color: #bdbdbd;
+      background: #f5f5f5;
+    }
+  </style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+</style>
+
+<style>
+/* === LOGIC RULES PANEL === */
+.rules-panel-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #fafafa;
+  border-left: 2px solid #212121;
+  z-index: 9998;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+.rules-panel {
+  padding: 0;
+}
+.rules-header {
+  position: sticky;
+  top: 0;
+  background: #212121;
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.rules-icon { font-size: 16px; }
+.rules-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+.rules-subtitle { font-size: 10px; color: #bdbdbd; line-height: 1.2; }
+.rules-list { padding: 10px 10px; }
+.rules-empty { padding: 16px; font-size: 12px; color: #bdbdbd; text-align: center; }
+.rule-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #424242;
+  padding: 10px 11px;
+  margin-bottom: 10px;
+  border-radius: 0 2px 2px 0;
+}
+.rule-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.rule-no {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #424242;
+  padding: 1px 5px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.rule-cat {
+  font-size: 9px;
+  color: #757575;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 2px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rule-ans {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: auto;
+}
+.rule-ans.confirmed, .rule-ans.yes { background: #e8f5e9; color: #2e7d32; }
+.rule-ans.pending { background: #fff3e0; color: #e65100; }
+.rule-ans.no { background: #fce4ec; color: #b71c1c; }
+.rule-ans.other { background: #e3f2fd; color: #1565c0; }
+.rule-pri {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.rule-pri.high { background: #fce4ec; color: #b71c1c; }
+.rule-pri.mid { background: #fff3e0; color: #e65100; }
+.rule-pri.low { background: #f3f3f3; color: #757575; }
+.rule-q {
+  font-size: 11px;
+  font-weight: 600;
+  color: #212121;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.rule-memo {
+  font-size: 10px;
+  color: #424242;
+  line-height: 1.55;
+  background: #f8f8f8;
+  padding: 6px 8px;
+  border-left: 2px solid #e0e0e0;
+}
+</style>
+</head>
+<body style="margin-left:200px; margin-right:300px;">
+<nav class="wf-sidebar">
+  <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · Discovery</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · Safety</div>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+  </div>
+</nav>
+  <div class="sidebar">
+    <div class="sidebar-title">ダッシュボード</div>
+    <div class="sidebar-item">ダッシュボード</div>
+
+    <div class="sidebar-title">管理</div>
+    <div class="sidebar-item">ユーザー管理</div>
+    <div class="sidebar-item">アクティビティ</div>
+    <div class="sidebar-item">通報管理</div>
+    <div class="sidebar-item active">予約管理</div>
+    <div class="sidebar-item">店舗管理</div>
+
+    <div class="sidebar-title">業績</div>
+    <div class="sidebar-item">収益</div>
+
+    <div class="sidebar-title">システム</div>
+    <div class="sidebar-item">システム設定</div>
+  </div>
+
+  <div class="main-content">
+    <div class="content-wrapper">
+      <div class="page-title">予約管理</div>
+
+      <div class="filter-bar">
+        <select class="filter-select">
+          <option>ステータス: すべて ▼</option>
+          <option>予約確定</option>
+          <option>店舗連絡中</option>
+          <option>調整中</option>
+          <option>キャンセル</option>
+        </select>
+        <label style="font-size: 12px; color: #757575;">
+          <select class="date-select">
+            <option>3月17日 ▼</option>
+          </select>
+        </label>
+        <span style="color: #757575; font-size: 12px;">〜</span>
+        <label style="font-size: 12px; color: #757575;">
+          <select class="date-select">
+            <option>3月31日 ▼</option>
+          </select>
+        </label>
+        <button class="filter-button">絞り込む</button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">予約確定</div>
+          <div class="stat-value">23</div>
+          <div style="font-size: 11px; color: #757575;">件</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">調整中</div>
+          <div class="stat-value">8</div>
+          <div style="font-size: 11px; color: #757575;">件</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">キャンセル</div>
+          <div class="stat-value">4</div>
+          <div style="font-size: 11px; color: #757575;">件</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>予約ID</th>
+              <th>ユーザーA</th>
+              <th>ユーザーB</th>
+              <th>店舗</th>
+              <th>日時</th>
+              <th>ステータス</th>
+              <th>予約者</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BK-001</td>
+              <td>たろうさん</td>
+              <td>みずきさん</td>
+              <td>個室ダイニング和楽</td>
+              <td>3/20 夜</td>
+              <td><span class="status-badge">予約確定</span></td>
+              <td>田中</td>
+              <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[メモ]</a></td>
+            </tr>
+            <tr>
+              <td>BK-002</td>
+              <td>ゆいさん</td>
+              <td>けんじさん</td>
+              <td>ビストロ エルミタージュ</td>
+              <td>3/21 夜</td>
+              <td><span class="status-badge status-pending">店舗連絡中</span></td>
+              <td>未割当</td>
+              <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[割当]</a></td>
+            </tr>
+            <tr>
+              <td>BK-003</td>
+              <td>さくらさん</td>
+              <td>—</td>
+              <td>カフェソレイユ</td>
+              <td>3/22 昼</td>
+              <td><span class="status-badge status-pending">双方承認待ち</span></td>
+              <td>—</td>
+              <td><a href="#" class="action-link">[詳細]</a></td>
+            </tr>
+            <tr>
+              <td>BK-004</td>
+              <td>xxxxさん</td>
+              <td>xxxxさん</td>
+              <td>—</td>
+              <td>3/23 夜</td>
+              <td><span class="status-badge status-pending">日程調整中</span></td>
+              <td>—</td>
+              <td><a href="#" class="action-link">[詳細]</a></td>
+            </tr>
+            <tr>
+              <td>BK-005</td>
+              <td>xxxxさん</td>
+              <td>xxxxさん</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="status-badge status-cancel">キャンセル</span></td>
+              <td>—</td>
+              <td><a href="#" class="action-link">[詳細]</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-box confirmed"></div>
+          <span>予約確定</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box pending"></div>
+          <span>店舗連絡中</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box pending"></div>
+          <span>双方承認待ち</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box pending"></div>
+          <span>日程調整中</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box cancel"></div>
+          <span>キャンセル</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="rules-panel-wrap">
+<div class="rules-panel">
+  <div class="rules-header">
+    <span class="rules-icon">📋</span>
+    <span class="rules-title">Logic Rules</span>
+    <span class="rules-subtitle">Q&amp;A 確認済みルール</span>
+  </div>
+  <div class="rules-empty">このスクリーンに関連するQ&amp;Aルールはありません</div>
+</div></div>
+</body>
+</html>
