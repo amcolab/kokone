@@ -244,110 +244,48 @@
 </style>
 
 <style>
-/* === LOGIC RULES PANEL === */
-.rules-panel-wrap {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 300px;
-  height: 100vh;
-  overflow-y: auto;
-  background: #fafafa;
-  border-left: 2px solid #212121;
-  z-index: 9998;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-}
-.rules-panel {
-  padding: 0;
-}
-.rules-header {
-  position: sticky;
-  top: 0;
-  background: #212121;
-  color: #fff;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 1;
-}
-.rules-icon { font-size: 16px; }
-.rules-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
-.rules-subtitle { font-size: 10px; color: #bdbdbd; line-height: 1.2; }
-.rules-list { padding: 10px 10px; }
-.rules-empty { padding: 16px; font-size: 12px; color: #bdbdbd; text-align: center; }
-.rule-item {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-left: 3px solid #424242;
-  padding: 10px 11px;
-  margin-bottom: 10px;
-  border-radius: 0 2px 2px 0;
-}
-.rule-meta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 5px;
-}
-.rule-no {
-  font-size: 9px;
-  font-weight: 700;
-  color: #fff;
-  background: #424242;
-  padding: 1px 5px;
-  border-radius: 2px;
-  letter-spacing: 0.3px;
-}
-.rule-cat {
-  font-size: 9px;
-  color: #757575;
-  background: #f0f0f0;
-  padding: 1px 5px;
-  border-radius: 2px;
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.rule-ans {
-  font-size: 9px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 2px;
-  margin-left: auto;
-}
-.rule-ans.confirmed, .rule-ans.yes { background: #e8f5e9; color: #2e7d32; }
-.rule-ans.pending { background: #fff3e0; color: #e65100; }
-.rule-ans.no { background: #fce4ec; color: #b71c1c; }
-.rule-ans.other { background: #e3f2fd; color: #1565c0; }
-.rule-pri {
-  font-size: 9px;
-  padding: 1px 5px;
-  border-radius: 2px;
-}
-.rule-pri.high { background: #fce4ec; color: #b71c1c; }
-.rule-pri.mid { background: #fff3e0; color: #e65100; }
-.rule-pri.low { background: #f3f3f3; color: #757575; }
-.rule-q {
-  font-size: 11px;
-  font-weight: 600;
-  color: #212121;
-  line-height: 1.4;
-  margin-bottom: 5px;
-}
-.rule-memo {
-  font-size: 10px;
-  color: #424242;
-  line-height: 1.55;
-  background: #f8f8f8;
-  padding: 6px 8px;
-  border-left: 2px solid #e0e0e0;
-}
+/* === BUSINESS LOGIC PANEL === */
+.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
+.blp-wrap.fullscreen{width:calc(100vw - 200px);}
+.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
+.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
+.blp-wrap::-webkit-scrollbar{width:4px;}
+.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
+.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
+.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
+.blp-head-title{font-size:12px;font-weight:700;}
+.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
+.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
+.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
+.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+.blp-body{padding:10px 12px 20px;}
+.blp-section{margin-bottom:14px;}
+.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
+.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
+.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
+.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
+.blp-rule-text strong{font-weight:700;color:#212121;}
+.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
+.blp-tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
+.blp-tag{font-size:9px;padding:2px 7px;border:1px solid #e0e0e0;color:#424242;background:#fafafa;white-space:nowrap;}
+.blp-tag.warn{background:#fff3e0;color:#e65100;border-color:#ffcc80;}
+.blp-tag.ok{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
+.blp-tag.info{background:#e3f2fd;color:#1565c0;border-color:#90caf9;}
+.blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
+.blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
+.blp-flow-step:last-child{padding-bottom:0;}
+.blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
+.blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
+.blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
+.blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
+.blp-step-text strong{color:#212121;}
+.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
+.blp-note.highlight{border-left-color:#212121;color:#424242;}
+.blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
+.blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
 </style>
 </head>
-<body style="margin-left:200px; margin-right:300px;">
+<body style="margin-left:200px; margin-right:280px;">
 <nav class="wf-sidebar">
   <div class="wf-sidebar-logo"><div class="wf-logo-mark">K</div><span class="wf-logo-text">KOKONE WF</span></div>
   <div class="wf-sidebar-group">
@@ -488,28 +426,47 @@
         </div>
     </div>
 
-<div class="rules-panel-wrap">
-<div class="rules-panel">
-  <div class="rules-header">
-    <span class="rules-icon">📋</span>
-    <div>
-      <div class="rules-title">Logic Rules</div>
-      <div class="rules-subtitle">Q&amp;A 確認済みルール (1件)</div>
+<div class="blp-wrap">
+  <div class="blp-head">
+    <div class="blp-head-info">
+      <div class="blp-head-scr">SCR-103</div>
+      <div class="blp-head-title">Report</div>
+      <div class="blp-head-sub">Báo cáo vi phạm</div>
+    </div>
+    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+    </button>
+  </div>
+  <div class="blp-body">
+
+    <div class="blp-section">
+      <div class="blp-section-title">Mục đích</div>
+      <div class="blp-note highlight">Cho phép user báo cáo hành vi vi phạm của người match — bao gồm không đến, hành vi không phù hợp, v.v.</div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Các mức vi phạm & penalty</div>
+      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Huỷ ngày hôm đó (same-day cancel):</strong> Cảnh báo lần 1 → hạn chế tính năng tạm thời.</div></div>
+<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Vắng mặt không báo (no-show):</strong> Khóa tài khoản.</div></div>
+<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Vi phạm nội dung / hành vi:</strong> Admin review → có thể ban vĩnh viễn.</div></div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Hành động user</div>
+      <div class="blp-flow"><div class="blp-flow-step">
+          <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+          <div class="blp-step-text"><strong>Chọn lý do report</strong> từ danh sách.</div>
+        </div><div class="blp-flow-step">
+          <div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div>
+          <div class="blp-step-text"><strong>Mô tả thêm</strong> (tuỳ chọn).</div>
+        </div><div class="blp-flow-step">
+          <div class="blp-step-line"><div class="blp-step-num">3</div></div>
+          <div class="blp-step-text"><strong>Gửi report</strong> → team admin xử lý.</div>
+        </div></div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Ghi chú</div>
+      <div class="blp-note ">Không áp dụng charge phí cancel qua hệ thống. Penalty là ở cấp tài khoản, không phải tài chính.</div>
     </div>
   </div>
-  <div class="rules-list">
-    
-  <div class="rule-item">
-    <div class="rule-meta">
-      <span class="rule-no">Q35</span>
-      <span class="rule-cat">店舗・予約</span>
-      <span class="rule-ans yes">✓ Yes</span>
-      <span class="rule-pri high">優先度: 高</span>
-    </div>
-    <div class="rule-q">お店が決まった後（予約後）にキャンセルする場合、ペナルティはありますか？…</div>
-    <div class="rule-memo">店舗ごとのキャンセル料の自動課金は行わない代わりに、当日キャンセルおよび無断キャンセルに対してアカウント側のペナルティを設ける。前日までのキャンセルについては原則ペナルティなし（内部ログのみ）。当日キャンセル時はキャンセル操作前に警告ポップアップを表示し、確定後は「ドタキャンポイント」を付与する。直近3か月でのポイント数に応じて、1回目は注意バナー表示、2回目は一定期間の新規マッチ数制限、3回目は一定期間の新規予約停止とし、無断キャンセ…</div>
-  </div>
-  </div>
-</div></div>
+</div>
 </body>
 </html>
