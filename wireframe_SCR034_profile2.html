@@ -293,6 +293,17 @@
 .wf-pn-center{font-size:10px;color:#757575;text-align:center;}
 .wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
 </style>
+<style>
+/* === BOTTOM NAV === */
+.app-bottom-nav{height:52px;border-top:1px solid #e0e0e0;display:flex;background:#fff;flex-shrink:0;position:relative;}
+.app-bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;padding:0;}
+.app-bottom-nav .bn-item.active{background:#f5f5f5;}
+.app-bottom-nav .bn-item svg{width:19px;height:19px;stroke:#bdbdbd;fill:none;stroke-width:1.8;}
+.app-bottom-nav .bn-item.active svg{stroke:#212121;}
+.app-bottom-nav .bn-lbl{font-size:8px;color:#bdbdbd;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.app-bottom-nav .bn-item.active .bn-lbl{color:#212121;}
+.app-bottom-nav .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:6px;height:6px;background:#212121;border:1.5px solid #fff;border-radius:50%;}
+</style>
 </head>
 <body style="margin-left:200px; margin-right:280px;">
 <nav class="wf-sidebar">
@@ -506,7 +517,14 @@
 
         <button class="complete-btn" onclick="window.location.href='wireframe_SCR024_ekyc.html'">登録完了 →</button>
 
-        <div class="flow-section">
+        <div class="app-bottom-nav">
+<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+<a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+<a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
+<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
+<a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+</div>
+  <div class="flow-section">
           <div class="flow-text">SCR-031 → SCR-034 ★ → SCR-060 Card View</div>
         </div>
       </div>
