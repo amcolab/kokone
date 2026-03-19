@@ -429,7 +429,7 @@
 
     <div class="tab-bar">
       <div class="tab active">送ったいいね</div>
-      <div class="tab">もらったいいね</div>
+      <div class="tab" onclick="window.location.href='wireframe_SCR064_likes_received.html'" style="cursor:pointer;">もらったいいね</div>
     </div>
 
     <div class="content">
@@ -446,8 +446,8 @@
           <div class="arrow-icon">></div>
         </div>
 
-        <!-- Item 2 -->
-        <div class="user-item">
+        <!-- Item 2 (matched → SCR-080) -->
+        <div class="user-item" onclick="window.location.href='wireframe_SCR080_match_detail.html'" style="cursor:pointer;background:#f9f9f9;">
           <div class="photo-box">✕✕</div>
           <div class="user-info">
             <div class="user-name">ゆみさん · 29歳</div>
@@ -455,7 +455,7 @@
             <div class="status-badge matched">マッチング成立 ✓</div>
             <div class="sent-date">2日前</div>
           </div>
-          <div class="arrow-icon">></div>
+          <div class="arrow-icon" style="color:#212121;font-weight:bold;">></div>
         </div>
 
         <!-- Item 3 -->
@@ -484,25 +484,16 @@
       </div>
     </div>
 
+    <!-- Bottom Nav (inside device) -->
+    <div class="app-bottom-nav">
+      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
+      <a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
+      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
+      <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
-      <div class="nav-item active">
-        <div class="nav-icon">❤️</div>
-        <div>いいね</div>
-      </div>
-      <div class="nav-item">
-        <div class="nav-icon">💬</div>
-        <div>メッセージ</div>
-      </div>
-      <div class="nav-item">
-        <div class="nav-icon">🏠</div>
-        <div>ホーム</div>
-      </div>
-      <div class="nav-item">
-        <div class="nav-icon">👤</div>
-        <div>マイページ</div>
-      </div>
-    </div>
-  </div>
+
+  </div><!-- /device -->
 
 <div class="blp-wrap">
   <div class="blp-head">
@@ -535,13 +526,6 @@
   </div>
 </div>
 
-<div class="app-bottom-nav">
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-<a class="bn-item active" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
-<a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
-<a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-</div>
 <div class="wf-prevnext">
   <a class="wf-pn-btn" href="wireframe_SCR061_filter.html">← Filter</a>
   <div class="wf-pn-center">
