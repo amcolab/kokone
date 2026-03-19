@@ -179,7 +179,7 @@
       color: #212121;
       text-decoration: none;
       cursor: pointer;
-      margin-right: 8px;
+      margin-right:280px;
     }
 
     .task-row {
@@ -204,19 +204,7 @@
       font-size: 12px;
     }
   </style>
-<style>
-/* === INJECTED SIDEBAR === */
-.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-sidebar-logo{display:flex;height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
-.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
-.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
-.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
-</style>
+
 
 <style>
 /* === BUSINESS LOGIC PANEL === */
@@ -259,31 +247,58 @@
 .blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
 .blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
 </style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+.wf-sidebar::-webkit-scrollbar{width:3px;}
+.wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
+</style>
+<style>
+/* === PREV/NEXT NAV === */
+.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
+.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
+.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
+.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
+.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
+</style>
 </head>
 <body style="margin-left:200px; margin-right:280px;">
 <nav class="wf-sidebar">
-  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">K</div><span class="wf-logo-text">Otona Table WF</span></a>
+  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">A · Onboarding</div>
     <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
     <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">001</span>Home</a>
     <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
     <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
-    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo &amp; Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
     <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
-  </a>
+  </div>
   <div class="wf-sidebar-group">
-    <div class="wf-group-label">C · Discovery</div>
+    <div class="wf-group-label">B · Home</div>
     <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR060_discovery.html"><span class="wf-nav-id">060</span>Discovery</a>
     <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
     <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
     <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
     <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · 募集</div>
     <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
     <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
     <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-  </a>
+  </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">D · Booking</div>
     <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
@@ -292,30 +307,29 @@
     <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
     <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
     <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
-  </a>
+  </div>
   <div class="wf-sidebar-group">
-    <div class="wf-group-label">E · Chat</div>
+    <div class="wf-group-label">E · Chat & Review</div>
     <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-  </a>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">F · Safety</div>
     <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
     <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
-  </a>
+  </div>
   <div class="wf-sidebar-group">
-    <div class="wf-group-label">B · My Page</div>
+    <div class="wf-group-label">F · My Page</div>
     <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
     <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
     <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
     <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
-  </a>
+  </div>
   <div class="wf-sidebar-group">
-    <div class="wf-group-label">Admin</div>
+    <div class="wf-group-label">G · Admin</div>
     <a class="wf-nav-link wf-active" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
     <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
   </div>
 </nav>
+
+
   <div class="sidebar">
     <div class="sidebar-title">ダッシュボード</div>
     <div class="sidebar-item active">ダッシュボード</div>
@@ -484,6 +498,15 @@
       <div class="blp-note ">Chỉ admin / operator được vào. Auth riêng, không liên quan đến user app.</div>
     </div>
   </div>
+</div>
+
+<div class="wf-prevnext">
+  <a class="wf-pn-btn" href="wireframe_SCR119_notifications.html">← Notifications</a>
+  <div class="wf-pn-center">
+    <div>Admin Dashboard</div>
+    <div class="wf-pn-pos">29 / 31</div>
+  </div>
+  <a class="wf-pn-btn" href="wireframe_SCR204_user_mgmt.html">User Mgmt →</a>
 </div>
 </body>
 </html>
