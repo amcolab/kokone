@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otona Table - Registration Proposal Step 3</title>
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --primary-bg: #E6FFFA;
+            --bg: #F8F9FA;
+            --text-main: #2D3748;
+            --text-sub: #718096;
+            --border: #E2E8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+        }
+
+        header {
+            height: 64px;
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .main-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .apply-container {
+            background-color: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 4px;
+            background-color: var(--border);
+            border-radius: 2px;
+        }
+
+        .progress-step.active {
+            background-color: var(--primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 32px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 12px;
+            background-color: #FAFAFA;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .review-label {
+            color: var(--text-sub);
+        }
+
+        .review-value {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 24px;
+            font-size: 12px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">Otona Table</div>
+    </header>
+
+    <div class="main-container">
+        <section class="apply-container">
+            <div class="progress-bar">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+            </div>
+
+            <h2 class="section-title">登録情報の最終確認</h2>
+            <p class="section-subtitle">以下の内容で登録を完了します。</p>
+
+            <div class="review-list">
+                <div class="review-item">
+                    <span class="review-label">ニックネーム</span>
+                    <span class="review-value">たろう</span>
+                </div>
+                <div class="review-item">
+                    <span class="review-label">性別</span>
+                    <span class="review-value">男性</span>
+                </div>
+                <div class="review-item">
+                    <span class="review-label">年代</span>
+                    <span class="review-value">30代</span>
+                </div>
+                <div class="review-item">
+                    <span class="review-label">eKYC</span>
+                    <span class="review-value">審査待ち</span>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" class="checkbox" id="chk" checked>
+                <label for="chk">利用規約およびプライバシーポリシーに同意します。</label>
+            </div>
+
+            <a href="wireframe_SCR060_flat.html" class="submit-btn">登録を完了してはじめる</a>
+        </section>
+    </div>
+</body>
+</html>
