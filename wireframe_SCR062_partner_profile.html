@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,17 +15,20 @@
       --c5: #424242;
       --c6: #212121;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--c1);
       margin-left: 200px;
       margin-right: 280px;
     }
+
     .device {
       width: 360px;
       height: 812px;
@@ -36,6 +40,7 @@
       overflow: hidden;
       position: relative;
     }
+
     .status-bar {
       height: 20px;
       background: var(--c6);
@@ -47,6 +52,7 @@
       padding: 0 8px;
       flex-shrink: 0;
     }
+
     .header {
       position: absolute;
       top: 20px;
@@ -58,10 +64,11 @@
       padding: 12px;
       pointer-events: none;
     }
+
     .back-btn {
       width: 32px;
       height: 32px;
-      background: rgba(255,255,255,0.8);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -70,21 +77,25 @@
       pointer-events: auto;
       border: 1px solid var(--c6);
     }
+
     .scroll-content {
       flex: 1;
       overflow-y: auto;
     }
+
     .photo-section {
       position: relative;
       width: 100%;
       height: 360px;
       background: var(--c2);
     }
+
     .main-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
     .photo-blur-overlay {
       position: absolute;
       top: 0;
@@ -101,9 +112,11 @@
       gap: 12px;
       z-index: 5;
     }
+
     .blur-icon {
       font-size: 32px;
     }
+
     .blur-text {
       background: var(--c6);
       color: var(--c0);
@@ -111,6 +124,7 @@
       font-size: 11px;
       font-weight: 600;
     }
+
     .sub-photos {
       display: flex;
       gap: 8px;
@@ -119,6 +133,7 @@
       background: var(--c0);
       border-bottom: 1px solid var(--c2);
     }
+
     .sub-photo {
       width: 60px;
       height: 60px;
@@ -127,27 +142,35 @@
       border: 1px solid var(--c6);
       position: relative;
     }
+
     .sub-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
     .sub-photo.blurred::after {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.3);
     }
+
     .profile-summary {
       padding: 16px;
       border-bottom: 1px solid var(--c2);
     }
+
     .profile-name {
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 4px;
     }
+
     .profile-meta {
       font-size: 13px;
       color: var(--c5);
@@ -156,6 +179,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .verify-badge {
       background: var(--c1);
       border: 1px solid var(--c6);
@@ -164,6 +188,7 @@
       padding: 2px 6px;
       font-weight: 600;
     }
+
     .section-title-full {
       font-size: 12px;
       font-weight: bold;
@@ -173,11 +198,15 @@
       border-bottom: 1px solid var(--c2);
       margin-top: 8px;
     }
-    .section-title-full:first-child { margin-top: 0; }
-    
+
+    .section-title-full:first-child {
+      margin-top: 0;
+    }
+
     .info-list {
       padding: 0;
     }
+
     .info-item {
       display: flex;
       justify-content: space-between;
@@ -185,24 +214,29 @@
       border-bottom: 1px solid #eee;
       font-size: 13px;
     }
+
     .info-label {
       color: var(--c5);
       font-weight: 500;
     }
+
     .info-value {
       color: var(--c5);
       text-align: right;
     }
+
     .intro-section {
       padding: 16px;
       border-bottom: 1px solid var(--c2);
     }
+
     .intro-text {
       font-size: 13px;
       color: var(--c5);
       line-height: 1.6;
       white-space: pre-wrap;
     }
+
     .tag-container {
       display: flex;
       flex-wrap: wrap;
@@ -210,6 +244,7 @@
       padding: 12px 16px;
       border-bottom: 1px solid #eee;
     }
+
     .tag-item {
       padding: 4px 12px;
       border: 1px solid var(--c2);
@@ -218,6 +253,7 @@
       color: var(--c5);
       background: var(--c1);
     }
+
     .bottom-cta {
       padding: 12px 16px;
       border-top: 1px solid var(--c2);
@@ -226,6 +262,7 @@
       background: var(--c0);
       flex-shrink: 0;
     }
+
     .primary-btn {
       flex: 1;
       height: 48px;
@@ -236,6 +273,7 @@
       font-size: 14px;
       cursor: pointer;
     }
+
     .secondary-btn {
       width: 48px;
       height: 48px;
@@ -262,212 +300,351 @@
     }
 
     /* SIDEBAR STYLES */
-    .wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;}
-    .wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;text-decoration:none;}
-    .wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;}
-    .wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-    .wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-    .wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-    .wf-nav-link{display:flex;align-items:center;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;}
-    .wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-    .wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-    .wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+    .wf-sidebar {
+      width: 200px;
+      min-width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 9999;
+    }
+
+    .wf-sidebar-logo {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .wf-logo-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #424242;
+    }
+
+    .wf-logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .wf-sidebar-group {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .wf-group-label {
+      padding: 7px 14px 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wf-nav-link {
+      display: flex;
+      align-items: center;
+      padding: 5px 14px;
+      font-size: 11px;
+      color: #757575;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+
+    .wf-nav-link:hover {
+      background: #f5f5f5;
+      color: #424242;
+    }
+
+    .wf-nav-link.wf-active {
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+      border-left-color: #424242;
+    }
+
+    .wf-nav-id {
+      font-size: 9px;
+      color: #bdbdbd;
+      width: 24px;
+      flex-shrink: 0;
+    }
 
     /* BLP STYLES */
-    .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-size:11px;color:#212121;}
-    .blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px;z-index:2;display:flex;justify-content:space-between;align-items:center;}
-    .blp-body{padding:12px;}
-    .blp-section{margin-bottom:14px;}
-    .blp-section-title{font-size:9px;font-weight:700;color:#9e9e9e;text-transform:uppercase;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:8px;}
-    .blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:8px;font-size:10px;line-height:1.5;}
-    .blp-note.highlight{border-left-color:#212121;}
+    .blp-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 2px solid #212121;
+      z-index: 9998;
+      font-size: 11px;
+      color: #212121;
+    }
+
+    .blp-head {
+      position: sticky;
+      top: 0;
+      background: #212121;
+      color: #fff;
+      padding: 10px 14px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .blp-body {
+      padding: 12px;
+    }
+
+    .blp-section {
+      margin-bottom: 14px;
+    }
+
+    .blp-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      color: #9e9e9e;
+      text-transform: uppercase;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .blp-note {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-left: 3px solid #bdbdbd;
+      padding: 8px;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .blp-note.highlight {
+      border-left-color: #212121;
+    }
   </style>
 </head>
+
 <body>
 
-<nav class="wf-sidebar">
-  <div class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">B · Discovery</div>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile (Blurred)</a>
-    <a class="wf-nav-link" href="wireframe_SCR062_partner_profile_public.html"><span class="wf-nav-id">062</span>Partner Profile (Public)</a>
-    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Match List</a>
-  </div>
-</nav>
+  <nav class="wf-sidebar">
+    <div class="wf-sidebar-logo">
+      <div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Discovery</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR062_partner_profile.html"><span
+          class="wf-nav-id">062</span>Partner Profile (Blurred)</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile_public.html"><span
+          class="wf-nav-id">062</span>Partner Profile (Public)</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Match List</a>
+    </div>
+  </nav>
 
-<div class="device">
-  <div class="status-bar">
-    <span>9:41</span>
-    <span>●●● WiFi ▮▮▮</span>
-  </div>
+  <div class="device">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>●●● WiFi ▮▮▮</span>
+    </div>
 
-  <div class="header">
-    <div class="back-btn" onclick="history.back()"><</div>
-  </div>
+    <div class="header">
+      <div class="back-btn" onclick="history.back()">
+        << /div>
+      </div>
 
-  <button class="state-toggle" onclick="window.location.href='wireframe_SCR062_partner_profile_public.html'">🔒 写真を公開する (Demo)</button>
+      <button class="state-toggle" onclick="window.location.href='wireframe_SCR062_partner_profile_public.html'">🔒
+        写真を公開する (Demo)</button>
 
-  <div class="scroll-content">
-    <div class="photo-section">
-      <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki" class="main-photo" alt="Profile">
-      <div id="blur-overlay" class="photo-blur-overlay">
-        <div class="blur-icon">🔒</div>
-        <div class="blur-text">マッチング後に公開されます</div>
+      <div class="scroll-content">
+        <div class="photo-section">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki" class="main-photo" alt="Profile">
+          <div id="blur-overlay" class="photo-blur-overlay">
+            <div class="blur-icon">🔒</div>
+            <div class="blur-text">マッチング後に公開されます</div>
+          </div>
+        </div>
+
+        <div class="sub-photos">
+          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub1">
+          </div>
+          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub2">
+          </div>
+          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub3">
+          </div>
+        </div>
+
+        <div class="profile-summary">
+          <div class="profile-name">みずきさん <span
+              style="font-size: 16px; font-weight: normal; color: var(--c5);">37歳</span></div>
+          <div class="profile-meta">
+            東京都 渋谷区 · 会社員
+            <span class="verify-badge">本人確認済</span>
+          </div>
+        </div>
+
+        <div class="section-title-full">A. 基本情報</div>
+        <div class="intro-section">
+          <div class="intro-text">はじめまして！プロフィールをご覧いただきありがとうございます。
+            普段は都内でIT企業に勤めています。
+
+            休日は美味しいものを食べに行ったり、映画を観たりして過ごすことが多いです。
+            最近は和食の名店巡りにはまっています。
+
+            素敵なお店でゆっくりお話しできる方と出会えたら嬉しいです。
+            よろしくお願いします。</div>
+        </div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">ニックネーム</span><span class="info-value">みずき</span></div>
+          <div class="info-item"><span class="info-label">性別</span><span class="info-value">女性</span></div>
+          <div class="info-item"><span class="info-label">年齢</span><span class="info-value">37歳</span></div>
+          <div class="info-item"><span class="info-label">居住地（都道府県）</span><span class="info-value">東京都</span></div>
+          <div class="info-item"><span class="info-label">居住エリア</span><span class="info-value">渋谷区</span></div>
+          <div class="info-item"><span class="info-label">勤務地</span><span class="info-value">新宿区</span></div>
+          <div class="info-item"><span class="info-label">出身地</span><span class="info-value">神奈川県</span></div>
+          <div class="info-item"><span class="info-label">身長</span><span class="info-value">162cm</span></div>
+          <div class="info-item"><span class="info-label">体型</span><span class="info-value">普通</span></div>
+          <div class="info-item"><span class="info-label">血液型</span><span class="info-value">A型</span></div>
+        </div>
+
+        <div class="section-title-full">B. 職業・経済</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">職業</span><span class="info-value">会社員</span></div>
+          <div class="info-item"><span class="info-label">職種カテゴリ</span><span class="info-value">IT関連</span></div>
+          <div class="info-item"><span class="info-label">勤務スタイル</span><span class="info-value">正社員</span></div>
+          <div class="info-item"><span class="info-label">最終学歴</span><span class="info-value">大学卒業</span></div>
+          <div class="info-item"><span class="info-label">年収レンジ</span><span class="info-value">600〜800万</span></div>
+        </div>
+
+        <div class="section-title-full">C. ライフスタイル・日常</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">休日</span><span class="info-value">土日祝</span></div>
+          <div class="info-item"><span class="info-label">お酒（頻度）</span><span class="info-value">ときどき飲む</span></div>
+          <div class="info-item"><span class="info-label">タバコ</span><span class="info-value">吸わない</span></div>
+          <div class="info-item"><span class="info-label">同居人</span><span class="info-value">一人暮らし</span></div>
+        </div>
+
+        <div class="section-title-full">D. 家族・背景</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">兄弟姉妹</span><span class="info-value">長女</span></div>
+          <div class="info-item"><span class="info-label">子ども（有無）</span><span class="info-value">なし</span></div>
+        </div>
+
+        <div class="section-title-full">E. 趣味・行動嗜好</div>
+        <div class="tag-container">
+          <div class="tag-item active">グルメ</div>
+          <div class="tag-item active">カフェ</div>
+          <div class="tag-item active">映画</div>
+          <div class="tag-item">旅行</div>
+          <div class="tag-item">ジム</div>
+        </div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">よく行く場所</span><span class="info-value">渋谷、代官山</span></div>
+          <div class="info-item"><span class="info-label">インドア／アウトドア</span><span class="info-value">どちらでも</span></div>
+        </div>
+
+        <div class="section-title-full">F. 性格・内面</div>
+        <div class="tag-container">
+          <div class="tag-item active">落ち着いている</div>
+          <div class="tag-item active">誠実</div>
+          <div class="tag-item active">聞き上手</div>
+        </div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">MBTI診断</span><span class="info-value">INFJ (提唱者)</span></div>
+          <div class="info-item"><span class="info-label">ラブタイプ診断</span><span class="info-value">安定型</span></div>
+        </div>
+
+        <div class="section-title-full">G. 恋愛・関係性スタンス</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">希望の関係性</span><span class="info-value">心が癒される</span></div>
+          <div class="info-item"><span class="info-label">連絡頻度</span><span class="info-value">毎日</span></div>
+          <div class="info-item"><span class="info-label">会う頻度</span><span class="info-value">週1回程度</span></div>
+        </div>
+
+        <div class="section-title-full">H. デート・お金の価値観</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">初回デート代</span><span class="info-value">男性が多めに支払う</span></div>
+          <div class="info-item"><span class="info-label">デートの雰囲気</span><span class="info-value">落ち着いたカフェ・和食</span>
+          </div>
+        </div>
+
+        <div class="section-title-full">I. お相手への希望条件</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">希望年代</span><span class="info-value">30〜40代</span></div>
+          <div class="info-item"><span class="info-label">好きなタイプ</span><span class="info-value">清潔感のある、誠実な方</span></div>
+        </div>
+
+        <div class="section-title-full">J. 将来・結婚観</div>
+        <div class="info-list">
+          <div class="info-item"><span class="info-label">結婚歴</span><span class="info-value">未婚</span></div>
+          <div class="info-item"><span class="info-label">結婚願望</span><span class="info-value">良い人がいれば</span></div>
+          <div class="info-item"><span class="info-label">子ども希望</span><span class="info-value">どちらでも良い</span></div>
+        </div>
+
+        <div style="height: 40px;"></div> <!-- Spacing -->
+      </div>
+
+      <div class="bottom-cta">
+        <div class="secondary-btn">❤</div>
+        <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat.html'">メッセージを送る</button>
       </div>
     </div>
 
-    <div class="sub-photos">
-      <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub1"></div>
-      <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub2"></div>
-      <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub3"></div>
-    </div>
-
-    <div class="profile-summary">
-      <div class="profile-name">みずきさん <span style="font-size: 16px; font-weight: normal; color: var(--c5);">37歳</span></div>
-      <div class="profile-meta">
-        東京都 渋谷区 · 会社員
-        <span class="verify-badge">本人確認済</span>
+    <div class="blp-wrap">
+      <div class="blp-head">
+        <div>
+          <div style="font-size:9px; color:var(--c3);">SCR-062</div>
+          <div style="font-weight:bold;">Partner Profile (Full)</div>
+        </div>
+      </div>
+      <div class="blp-body">
+        <div class="blp-section">
+          <div class="blp-section-title">Nội dung</div>
+          <div class="blp-note highlight">Hiển thị đầy đủ tất cả các trường thông tin từ A đến J tương ứng với màn Edit
+            Profile (SCR-112).</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Cấu trúc phân đoạn</div>
+          <p style="font-size:10px; line-height:1.4;">
+            Gồm 10 mục tiêu chuẩn: Cơ bản (A), Nghề nghiệp (B), Lifestyle (C), Gia đình (D), Sở thích (E), Tính cách
+            (F), Relationship (G), Tiền bạc (H), Mong đợi (I), Tương lai (J).
+          </p>
+        </div>
       </div>
     </div>
 
-    <div class="section-title-full">A. 基本情報</div>
-    <div class="intro-section">
-      <div class="intro-text">はじめまして！プロフィールをご覧いただきありがとうございます。
-普段は都内でIT企業に勤めています。
-
-休日は美味しいものを食べに行ったり、映画を観たりして過ごすことが多いです。
-最近は和食の名店巡りにはまっています。
-
-素敵なお店でゆっくりお話しできる方と出会えたら嬉しいです。
-よろしくお願いします。</div>
-    </div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">ニックネーム</span><span class="info-value">みずき</span></div>
-      <div class="info-item"><span class="info-label">性別</span><span class="info-value">女性</span></div>
-      <div class="info-item"><span class="info-label">年齢</span><span class="info-value">37歳</span></div>
-      <div class="info-item"><span class="info-label">居住地（都道府県）</span><span class="info-value">東京都</span></div>
-      <div class="info-item"><span class="info-label">居住エリア</span><span class="info-value">渋谷区</span></div>
-      <div class="info-item"><span class="info-label">勤務地</span><span class="info-value">新宿区</span></div>
-      <div class="info-item"><span class="info-label">出身地</span><span class="info-value">神奈川県</span></div>
-      <div class="info-item"><span class="info-label">身長</span><span class="info-value">162cm</span></div>
-      <div class="info-item"><span class="info-label">体型</span><span class="info-value">普通</span></div>
-      <div class="info-item"><span class="info-label">血液型</span><span class="info-value">A型</span></div>
-    </div>
-
-    <div class="section-title-full">B. 職業・経済</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">職業</span><span class="info-value">会社員</span></div>
-      <div class="info-item"><span class="info-label">職種カテゴリ</span><span class="info-value">IT関連</span></div>
-      <div class="info-item"><span class="info-label">勤務スタイル</span><span class="info-value">正社員</span></div>
-      <div class="info-item"><span class="info-label">最終学歴</span><span class="info-value">大学卒業</span></div>
-      <div class="info-item"><span class="info-label">年収レンジ</span><span class="info-value">600〜800万</span></div>
-    </div>
-
-    <div class="section-title-full">C. ライフスタイル・日常</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">休日</span><span class="info-value">土日祝</span></div>
-      <div class="info-item"><span class="info-label">お酒（頻度）</span><span class="info-value">ときどき飲む</span></div>
-      <div class="info-item"><span class="info-label">タバコ</span><span class="info-value">吸わない</span></div>
-      <div class="info-item"><span class="info-label">同居人</span><span class="info-value">一人暮らし</span></div>
-    </div>
-
-    <div class="section-title-full">D. 家族・背景</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">兄弟姉妹</span><span class="info-value">長女</span></div>
-      <div class="info-item"><span class="info-label">子ども（有無）</span><span class="info-value">なし</span></div>
-    </div>
-
-    <div class="section-title-full">E. 趣味・行動嗜好</div>
-    <div class="tag-container">
-      <div class="tag-item active">グルメ</div> <div class="tag-item active">カフェ</div>
-      <div class="tag-item active">映画</div> <div class="tag-item">旅行</div>
-      <div class="tag-item">ジム</div>
-    </div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">よく行く場所</span><span class="info-value">渋谷、代官山</span></div>
-      <div class="info-item"><span class="info-label">インドア／アウトドア</span><span class="info-value">どちらでも</span></div>
-    </div>
-
-    <div class="section-title-full">F. 性格・内面</div>
-    <div class="tag-container">
-      <div class="tag-item active">落ち着いている</div> <div class="tag-item active">誠実</div>
-      <div class="tag-item active">聞き上手</div>
-    </div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">MBTI診断</span><span class="info-value">INFJ (提唱者)</span></div>
-      <div class="info-item"><span class="info-label">ラブタイプ診断</span><span class="info-value">安定型</span></div>
-    </div>
-
-    <div class="section-title-full">G. 恋愛・関係性スタンス</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">希望の関係性</span><span class="info-value">心が癒される</span></div>
-      <div class="info-item"><span class="info-label">連絡頻度</span><span class="info-value">毎日</span></div>
-      <div class="info-item"><span class="info-label">会う頻度</span><span class="info-value">週1回程度</span></div>
-    </div>
-
-    <div class="section-title-full">H. デート・お金の価値観</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">初回デート代</span><span class="info-value">男性が多めに支払う</span></div>
-      <div class="info-item"><span class="info-label">デートの雰囲気</span><span class="info-value">落ち着いたカフェ・和食</span></div>
-    </div>
-
-    <div class="section-title-full">I. お相手への希望条件</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">希望年代</span><span class="info-value">30〜40代</span></div>
-      <div class="info-item"><span class="info-label">好きなタイプ</span><span class="info-value">清潔感のある、誠実な方</span></div>
-    </div>
-
-    <div class="section-title-full">J. 将来・結婚観</div>
-    <div class="info-list">
-      <div class="info-item"><span class="info-label">結婚歴</span><span class="info-value">未婚</span></div>
-      <div class="info-item"><span class="info-label">結婚願望</span><span class="info-value">良い人がいれば</span></div>
-      <div class="info-item"><span class="info-label">子ども希望</span><span class="info-value">どちらでも良い</span></div>
-    </div>
-
-    <div style="height: 40px;"></div> <!-- Spacing -->
-  </div>
-
-  <div class="bottom-cta">
-    <div class="secondary-btn">❤</div>
-    <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat.html'">メッセージを送る</button>
-  </div>
-</div>
-
-<div class="blp-wrap">
-  <div class="blp-head">
-    <div>
-      <div style="font-size:9px; color:var(--c3);">SCR-062</div>
-      <div style="font-weight:bold;">Partner Profile (Full)</div>
-    </div>
-  </div>
-  <div class="blp-body">
-    <div class="blp-section">
-      <div class="blp-section-title">Nội dung</div>
-      <div class="blp-note highlight">Hiển thị đầy đủ tất cả các trường thông tin từ A đến J tương ứng với màn Edit Profile (SCR-112).</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Cấu trúc phân đoạn</div>
-      <p style="font-size:10px; line-height:1.4;">
-        Gồm 10 mục tiêu chuẩn: Cơ bản (A), Nghề nghiệp (B), Lifestyle (C), Gia đình (D), Sở thích (E), Tính cách (F), Relationship (G), Tiền bạc (H), Mong đợi (I), Tương lai (J).
-      </p>
-    </div>
-  </div>
-</div>
-
-<script>
-  function toggleBlur() {
-    const overlay = document.getElementById('blur-overlay');
-    const subPhotos = document.querySelectorAll('.js-sub-photo');
-    if (overlay.style.display === 'none') {
-      overlay.style.display = 'flex';
-      subPhotos.forEach(p => p.classList.add('blurred'));
-    } else {
-      overlay.style.display = 'none';
-      subPhotos.forEach(p => p.classList.remove('blurred'));
-    }
-  }
-</script>
+    <script>
+      function toggleBlur() {
+        const overlay = document.getElementById('blur-overlay');
+        const subPhotos = document.querySelectorAll('.js-sub-photo');
+        if (overlay.style.display === 'none') {
+          overlay.style.display = 'flex';
+          subPhotos.forEach(p => p.classList.add('blurred'));
+        } else {
+          overlay.style.display = 'none';
+          subPhotos.forEach(p => p.classList.remove('blurred'));
+        }
+      }
+    </script>
 
 </body>
+
 </html>

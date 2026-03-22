@@ -197,6 +197,7 @@
             padding: 12px;
             border-top: 1px solid var(--c2);
         }
+.blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
 
@@ -475,33 +476,54 @@
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-100</div>
       <div class="blp-head-title">Review</div>
-      <div class="blp-head-sub">Đánh giá sau buổi ăn</div>
+      <div class="blp-head-sub">レビュー / Đánh giá</div>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
   </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">食事後の体験評価とサービス改善。ユーザーの本音を収集し、マッチング精度の向上に繋げる。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">仕様</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>評価項目</strong> — 総合評価、雰囲気、料理、サービスを5段階で評価。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>コメント</strong> — 自由記述（任意）。入力内容は相手には公開されない。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Thu thập đánh giá sau mỗi buổi ăn để cải thiện chất lượng gợi ý và phát hiện vi phạm.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Thời điểm trigger</div>
-      <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Hiện sau khi giờ ăn kết thúc (tính theo giờ đặt bàn + buffer thời gian).</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Nội dung đánh giá</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Rating buổi ăn</strong> — thang 5 sao.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Nhận xét ngắn</strong> — tuỳ chọn.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Report vi phạm</strong> — dẫn sang SCR-103 nếu có vấn đề.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Ghi chú</div>
-      <div class="blp-note ">Kết quả review có thể ảnh hưởng đến thuật toán gợi ý. User có thể bỏ qua không đánh giá.</div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Thu thập đánh giá từ người dùng sau buổi ăn để cải thiện chất lượng dịch vụ.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Yêu cầu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Đánh giá</strong> — 5 sao cho: Tổng thể, không khí, đồ ăn, phục vụ.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Nhận xét</strong> — Nội dung tự do. Không gửi cho đối phương xem.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
     <div class="app-bottom-nav">
@@ -511,13 +533,8 @@
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR080_match_detail.html">← Match Detail</a>
-  <div class="wf-pn-center">
-    <div>Review</div>
-    <div class="wf-pn-pos">23 / 31</div>
-  </div>
-  <a class="wf-pn-btn" href="wireframe_SCR103_report.html">Report →</a>
-</div>
+<style>
+/* === PREV/NEXT NAV REMOVED === */
+</style>
 </body>
 </html>

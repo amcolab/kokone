@@ -241,6 +241,7 @@
       border: 1.5px solid #fff;
       border-radius: 50%;
     }
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
 
@@ -301,13 +302,7 @@
 .wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
 </style>
 <style>
-/* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
-.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
+/* === PREV/NEXT NAV REMOVED === */
 </style>
 <style>
 /* === BOTTOM NAV HANDLED ABOVE === */
@@ -457,6 +452,60 @@
             フロー: SCR-081 → SCR-082 ★ → [確定] → SCR-083 Restaurant
         </div>
 
+    <div class="blp-wrap">
+  <div class="blp-head">
+    <div class="blp-head-info">
+      <div class="blp-head-scr">SCR-082</div>
+      <div class="blp-head-title">Date Confirm</div>
+      <div class="blp-head-sub">日程候補 / Chốt ngày ăn</div>
+    </div>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">双方が合意できる候補日の提示と確定。システムが最適な3日間を自動提案。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">仕様</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案</strong> — 双方のカレンダー空き情報を照合して3件表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>期限</strong> — 食事日の3日前までに確定。</div></div>
+      </div>
+    </div>
+
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Đề xuất và chốt ngày ăn phù hợp cho cả hai.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Yêu cầu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Gợi ý</strong> — Hệ thống lọc 3 ngày phù hợp nhất từ lịch của 2 người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Hạn chốt</strong> — Muộn nhất 3 ngày trước buổi ăn.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+</div>
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>

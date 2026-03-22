@@ -382,7 +382,7 @@
       border-color: var(--c3);
       pointer-events: none;
     }
-
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
   </style>
 
 
@@ -516,13 +516,10 @@
 
     <div class="app-header">
       <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona Table β</span>
-      <div class="bell-icon">🔔</div>
+      <div class="bell-icon" onclick="window.location.href='wireframe_SCR118_notification_list.html'" style="cursor:pointer;">🔔</div>
     </div>
 
-    <div class="header-bar" style="justify-content: center; position: relative;">
-      <span class="header-title" id="likes-title">いいね！</span>
-      <span class="badge" id="likes-count" style="margin-left:8px;">12</span>
-    </div>
+    <!-- header-bar removed -->
 
     <div class="tab-bar">
       <div class="tab active" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
@@ -708,39 +705,55 @@
   <div class="blp-head">
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-063</div>
-      <div class="blp-head-title">Likes Sent</div>
-      <div class="blp-head-sub">Danh sách like đã gửi</div>
+      <div class="blp-head-title">Likes</div>
+      <div class="blp-head-sub">いいね管理 / Quản lý Like</div>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
   </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">送ったいいねともらったいいねの集約管理。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">タブ構成</div>
+        <div class="blp-rule"><div class="blp-rule-dot">↑</div><div class="blp-rule-text"><strong>送ったいいね</strong> — 送信履歴とステータス（待ち、解除、期限切れ）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text"><strong>もらったいいね</strong> — 相手からのアプローチ（閲覧・承認・スキップ）。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Quản lý các lượt like bạn đã gửi đi. Trạng thái phản hồi của đối phương.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Danh sách các trạng thái (State)</div>
-      <div class="blp-rule"><div class="blp-rule-dot">N</div><div class="blp-rule-text"><strong>NONE</strong> — Chưa có tương tác gì giữa A và B (mặc định).</div></div>
-      <div class="blp-rule"><div class="blp-rule-dot">S</div><div class="blp-rule-text"><strong>LIKE_SENT</strong> — A đã like B, B chưa phản hồi.</div></div>
-      <div class="blp-rule"><div class="blp-rule-dot">R</div><div class="blp-rule-text"><strong>LIKE_RECEIVED</strong> — B nhận được like từ A (nhìn từ phía B).</div></div>
-      <div class="blp-rule"><div class="blp-rule-dot">M</div><div class="blp-rule-text"><strong>MUTUAL_LIKE</strong> — Hai bên đã like nhau (thường chuyển sang MATCHED).</div></div>
-      <div class="blp-rule"><div class="blp-rule-dot">W</div><div class="blp-rule-text"><strong>LIKE_WITHDRAWN</strong> — Like bị rút lại.</div></div>
-      <div class="blp-rule"><div class="blp-rule-dot">E</div><div class="blp-rule-text"><strong>LIKE_EXPIRED</strong> — Like hết hiệu lực.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Hành động</div>
-      <div class="blp-flow"><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">💬</div><div class="blp-step-connector"></div></div>
-          <div class="blp-step-text"><strong>Nhắn tin</strong> → (chỉ khi match) leads to SCR-090.</div>
-        </div><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">✕</div></div>
-          <div class="blp-step-text"><strong>Rút lại like</strong> → xóa khỏi danh sách gửi, đối phương không thấy profile bạn nữa.</div>
-        </div></div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Quản lý các lượt Like bạn đã gửi đi và các lượt Like bạn nhận được.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Nội dung</div>
+        <div class="blp-rule"><div class="blp-rule-dot">↑</div><div class="blp-rule-text"><strong>Đã gửi</strong> — Lịch sử gửi Like và trạng thái (Đang chờ, Hết hạn, Đã rút).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text"><strong>Đã nhận</strong> — Xem hồ sơ, phản hồi Like hoặc Skip.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
 </body>

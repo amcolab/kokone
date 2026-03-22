@@ -180,6 +180,7 @@
             padding: 12px;
             border-top: 1px solid var(--c2);
         }
+.blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
 
@@ -431,33 +432,54 @@
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-089</div>
       <div class="blp-head-title">Reminder</div>
-      <div class="blp-head-sub">Thông báo nhắc nhở</div>
+      <div class="blp-head-sub">リマインド / Nhắc nhở</div>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
   </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">食事前日・当日の注意喚起。ドタキャン防止と円滑な合流をサポート。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">仕様</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>表示</strong> — 予約詳細、当日チェックリスト、キャンセルポリシーを表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>通知</strong> — Push通知、メール、In-app通知で送信。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Gửi thông báo nhắc nhở tự động theo các mốc thời gian quan trọng trong flow.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Các loại reminder</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Reminder đặt lịch:</strong> ngày 2 sau match — nhắc đề xuất lịch ăn.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Cảnh báo auto-cancel:</strong> ngày 5 sau match — cảnh báo sẽ huỷ match nếu không đặt lịch trong 7 ngày.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Reminder trước buổi ăn:</strong> gửi trước ngày ăn (thời gian cụ thể cần xác nhận thêm).</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Kênh gửi</div>
-      <div class="blp-tag-row"><span class="blp-tag info">Push notification</span><span class="blp-tag ">Email</span><span class="blp-tag ok">In-app notification</span></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Ghi chú</div>
-      <div class="blp-note ">Reminder hiển thị tại SCR-119 (Notifications). User có thể tắt push notification từ cài đặt điện thoại.</div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Nhắc nhở trước ngày ăn và ngày ăn.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Yêu cầu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Nội dung</strong> — Chi tiết đặt bàn, checklist đi ăn, quy định huỷ.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Kênh gửi</strong> — Thông báo đẩy, Email, Thông báo trong app.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
     <div class="app-bottom-nav">
@@ -467,13 +489,8 @@
       <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR087_booking_confirmed.html">← Booking Confirmed</a>
-  <div class="wf-pn-center">
-    <div>Reminder</div>
-    <div class="wf-pn-pos">21 / 31</div>
-  </div>
-  <a class="wf-pn-btn" href="wireframe_SCR090_chat.html">Chat 1:1 →</a>
-</div>
+<style>
+/* === PREV/NEXT NAV REMOVED === */
+</style>
 </body>
 </html>

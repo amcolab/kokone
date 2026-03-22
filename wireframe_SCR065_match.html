@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCR-065 - Mutual Match</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     :root {
       --c0: #ffffff;
@@ -214,7 +219,7 @@
     }
 
     .status-icon {
-      margin-right:280px;
+      margin-right: 280px;
     }
 
     .match-preview {
@@ -263,6 +268,7 @@
       z-index: 10;
       margin-top: auto;
     }
+
     .bn-item {
       display: flex;
       flex-direction: column;
@@ -272,6 +278,7 @@
       gap: 4px;
       position: relative;
     }
+
     .bn-item svg {
       width: 24px;
       height: 24px;
@@ -279,14 +286,17 @@
       stroke-width: 2;
       fill: none;
     }
+
     .bn-item.active {
       color: #212121;
     }
+
     .bn-lbl {
       font-size: 10px;
       font-weight: 500;
       line-height: 1;
     }
+
     .bn-dot {
       position: absolute;
       top: -2px;
@@ -297,128 +307,498 @@
       border: 1.5px solid #fff;
       border-radius: 50%;
     }
+
+    .tab-bar {
+      background: var(--c0);
+      border-bottom: 2px solid #000;
+      display: flex;
+      height: 44px;
+    }
+
+    .tab {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--c4);
+      border-right: var(--border);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab:last-child {
+      border-right: none;
+    }
+
+    .tab.active {
+      color: var(--c6);
+      font-weight: 600;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--c6);
+    }
   </style>
 
 
-<style>
-/* === BUSINESS LOGIC PANEL === */
-.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
-.blp-wrap.fullscreen{width:calc(100vw - 200px);}
-.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
-.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
-.blp-wrap::-webkit-scrollbar{width:4px;}
-.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
-.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
-.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
-.blp-head-title{font-size:12px;font-weight:700;}
-.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
-.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
-.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
-.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
-.blp-body{padding:10px 12px 20px;}
-.blp-section{margin-bottom:14px;}
-.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
-.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
-.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
-.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
-.blp-rule-text strong{font-weight:700;color:#212121;}
-.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
-.blp-tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
-.blp-tag{font-size:9px;padding:2px 7px;border:1px solid #e0e0e0;color:#424242;background:#fafafa;white-space:nowrap;}
-.blp-tag.warn{background:#fff3e0;color:#e65100;border-color:#ffcc80;}
-.blp-tag.ok{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
-.blp-tag.info{background:#e3f2fd;color:#1565c0;border-color:#90caf9;}
-.blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
-.blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
-.blp-flow-step:last-child{padding-bottom:0;}
-.blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
-.blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
-.blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
-.blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
-.blp-step-text strong{color:#212121;}
-.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
-.blp-note.highlight{border-left-color:#212121;color:#424242;}
-.blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
-.blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
-</style>
-<style>
-/* === INJECTED SIDEBAR === */
-.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
-.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
-.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
-.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
-.wf-sidebar::-webkit-scrollbar{width:3px;}
-.wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
-</style>
-<style>
-/* === PREV/NEXT NAV === */
-</style>
-<style>
-/* === BOTTOM NAV REMOVED (HANDLED ABOVE) === */
-</style>
+  <style>
+    /* === BUSINESS LOGIC PANEL === */
+    .blp-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 2px solid #212121;
+      z-index: 9998;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      color: #212121;
+      transition: width 0.2s ease;
+    }
+
+    .blp-wrap.fullscreen {
+      width: calc(100vw - 200px);
+    }
+
+    .blp-wrap.fullscreen .blp-body {
+      max-width: 760px;
+      margin: 0 auto;
+      columns: 2;
+      column-gap: 24px;
+    }
+
+    .blp-wrap.fullscreen .blp-section {
+      break-inside: avoid;
+    }
+
+    .blp-wrap::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .blp-wrap::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+    }
+
+    .blp-head {
+      position: sticky;
+      top: 0;
+      background: #212121;
+      color: #fff;
+      padding: 10px 14px 9px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .blp-head-scr {
+      font-size: 9px;
+      color: #bdbdbd;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+
+    .blp-head-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .blp-head-sub {
+      font-size: 10px;
+      color: #9e9e9e;
+      margin-top: 2px;
+    }
+
+    .blp-fullscreen-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #424242;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #9e9e9e;
+      transition: background .15s;
+    }
+
+    .blp-fullscreen-btn:hover {
+      background: #424242;
+      color: #fff;
+    }
+
+    .blp-fullscreen-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .blp-body {
+      padding: 10px 12px 20px;
+    }
+
+    .blp-section {
+      margin-bottom: 14px;
+    }
+
+    .blp-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #9e9e9e;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 4px;
+      margin-bottom: 7px;
+    }
+
+    .blp-rule {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+      line-height: 1.5;
+    }
+
+    .blp-rule-dot {
+      width: 14px;
+      height: 14px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #757575;
+      margin-top: 1px;
+    }
+
+    .blp-rule-text {
+      font-size: 11px;
+      color: #212121;
+      line-height: 1.55;
+    }
+
+    .blp-rule-text strong {
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .blp-rule-text em {
+      font-style: normal;
+      color: #757575;
+      font-size: 10px;
+    }
+
+    .blp-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .blp-tag {
+      font-size: 9px;
+      padding: 2px 7px;
+      border: 1px solid #e0e0e0;
+      color: #424242;
+      background: #fafafa;
+      white-space: nowrap;
+    }
+
+    .blp-tag.warn {
+      background: #fff3e0;
+      color: #e65100;
+      border-color: #ffcc80;
+    }
+
+    .blp-tag.ok {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-color: #a5d6a7;
+    }
+
+    .blp-tag.info {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-color: #90caf9;
+    }
+
+    .blp-flow {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px;
+    }
+
+    .blp-flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .blp-flow-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .blp-step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .blp-step-num {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #424242;
+      background: #fff;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .blp-step-connector {
+      width: 1px;
+      flex: 1;
+      background: #e0e0e0;
+      min-height: 10px;
+      margin-top: 2px;
+    }
+
+    .blp-step-text {
+      font-size: 11px;
+      color: #424242;
+      line-height: 1.5;
+      padding-top: 1px;
+    }
+
+    .blp-step-text strong {
+      color: #212121;
+    }
+
+    .blp-note {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-left: 3px solid #bdbdbd;
+      padding: 7px 9px;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .blp-note.highlight {
+      border-left-color: #212121;
+      color: #424242;
+    }
+
+    .blp-note.warn {
+      border-left-color: #e65100;
+      background: #fff8f0;
+      color: #5d2e00;
+    }
+
+    .blp-note.ok {
+      border-left-color: #2e7d32;
+      background: #f1f8f1;
+      color: #1b5e20;
+    }
+  </style>
+  <style>
+    /* === INJECTED SIDEBAR === */
+    .wf-sidebar {
+      width: 200px;
+      min-width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .wf-sidebar-logo {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 8px;
+    }
+
+    .wf-logo-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #424242;
+      flex-shrink: 0;
+    }
+
+    .wf-logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .wf-sidebar-group {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .wf-group-label {
+      padding: 7px 14px 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wf-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 14px;
+      font-size: 11px;
+      color: #757575;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      line-height: 1.3;
+    }
+
+    .wf-nav-link:hover {
+      background: #f5f5f5;
+      color: #424242;
+    }
+
+    .wf-nav-link.wf-active {
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+      border-left-color: #424242;
+    }
+
+    .wf-nav-id {
+      font-size: 9px;
+      color: #bdbdbd;
+      width: 24px;
+      flex-shrink: 0;
+    }
+
+    .wf-sidebar::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .wf-sidebar::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+    }
+  </style>
+  <style>
+    /* === PREV/NEXT NAV === */
+  </style>
+  <style>
+    /* === BOTTOM NAV REMOVED (HANDLED ABOVE) === */
+  </style>
 </head>
+
 <body style="margin-left:200px; margin-right:280px;">
-<nav class="wf-sidebar">
-  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">A · Onboarding</div>
-    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
-    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
-    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
-    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
-    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">B · Home</div>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
-    <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
-    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
-    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">C · 募集</div>
-    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
-    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">D · Booking</div>
-    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
-    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
-    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
-    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
-    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">E · Chat & Review</div>
-    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
-    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">F · My Page</div>
-    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
-    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
-    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
-    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">G · Admin</div>
-    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
-    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
-  </div>
-</nav>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;">
+      <div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span>
+    </a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
+      <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner
+        Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes
+        Received</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual
+        Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match
+        Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date
+        Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking
+        Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+      <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span
+          class="wf-nav-id">111</span>Subscription</a>
+      <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+      <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span
+          class="wf-nav-id">119</span>Notifications</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">G · Admin</div>
+      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span
+          class="wf-nav-id">200</span>Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking
+        Mgmt</a>
+    </div>
+  </nav>
 
 
   <div class="device">
@@ -428,359 +808,346 @@
     </div>
 
     <div class="app-header">
-      <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona Table β</span>
-      <div class="bell-icon">🔔</div>
+      <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona
+        Table β</span>
+      <div class="bell-icon" onclick="window.location.href='wireframe_SCR118_notification_list.html'" style="cursor:pointer;">🔔</div>
     </div>
 
-    <div class="title-bar">
-      <div class="title">マッチング一覧</div>
+    <div class="tab-bar">
+      <div class="tab active" onclick="switchTab('active')">やりとり (10)</div>
+      <div class="tab" onclick="switchTab('confirmed')">確定済み (3)</div>
+      <div class="tab" onclick="switchTab('history')">完了・履歴</div>
     </div>
 
     <div class="content">
-      <!-- Section 1: In Progress -->
-      <div class="section-label">進行中のマッチング (16)</div>
-
-      <!-- M-A01: Yuki -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Yuki · 38歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
-            <div class="status-pill active"><span class="status-icon">✨</span>新しくマッチしました</div>
-            <div class="match-preview">チャットを始めて日程を調整しましょう</div>
+      <!-- TAB: ACTIVE (Scheduling/Chat) -->
+      <div id="section-active" class="tab-content">
+        <!-- M-A01: Yuki -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Yuki · 38歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
+              <div class="status-pill active"><span class="status-icon">✨</span>新しくマッチしました</div>
+              <div class="match-preview">チャットを始めて日程を調整しましょう</div>
+            </div>
           </div>
+          <div class="arrow-icon">></div>
         </div>
-        <div class="arrow-icon">></div>
+
+        <!-- M-A02: Aya -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Aya · 42歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
+              <div class="status-pill"><span class="status-icon">💬</span>チャット中</div>
+              <div class="match-preview" style="color:var(--c6); font-weight:600;">こんばんは！ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">2</span></div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A11: Haruka -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Haruka · 37歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
+              <div class="status-pill"><span class="status-icon">📸</span>写真リクエスト送信済</div>
+              <div class="match-preview">写真公開リクエストを送りました</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A12: Misaki -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Misaki · 39歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
+              <div class="status-pill active"><span class="status-icon">📸</span>写真リクエストが届いています</div>
+              <div class="match-preview" style="color:var(--c6); font-weight:600;">お相手から写真公開リクエストが届いています <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A03: Ren -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Ren · 35歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
+              <div class="status-pill active"><span class="status-icon">📅</span>日程の提案待ち</div>
+              <div class="match-preview">「日程を提案する」ボタンから候補日を送ってください</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A04: Rina -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Rina · 40歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
+              <div class="status-pill"><span class="status-icon">⌛</span>回答待ち</div>
+              <div class="match-preview">「日程送りました！」</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A05: Nanami -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Nanami · 34歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
+              <div class="status-pill active"><span class="status-icon">📩</span>候補日が届いています</div>
+              <div class="match-preview" style="color:var(--c6); font-weight:600;">この日どうですか？ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A06: Kana -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Kana · 37歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
+              <div class="status-pill active" style="background:#fff3e0; border-color:#ffcc80; color:#e65100;"><span class="status-icon">⚠️</span>マッチングから2日経過</div>
+              <div class="match-preview" style="color:#e65100;">早めに日程を提案しましょう（期限まであと5日）</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A15: Eri -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Eri · 41歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
+              <div class="status-pill"><span class="status-icon">🍴</span>お店を提案済</div>
+              <div class="match-preview" style="font-weight:600;">3/24 19:00 〜 和食 しずく</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A16: Saki -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Saki · 35歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
+              <div class="status-pill active"><span class="status-icon">🍴</span>店舗候補が届いています</div>
+              <div class="match-preview" style="font-weight:600; color:var(--c6);">3/23 18:30 〜 ビストロ青葉</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
       </div>
 
-      <!-- M-A02: Aya -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Aya · 42歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
-            <div class="status-pill"><span class="status-icon">💬</span>チャット中</div>
-            <div class="match-preview" style="color:var(--c6); font-weight:600;">こんばんは！ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">2</span></div>
+      <!-- TAB: CONFIRMED -->
+      <div id="section-confirmed" class="tab-content" style="display:none;">
+        <!-- M-A17: Miyu (Confirmed/Booking Prep) -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Miyu · 41歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
+              <div class="status-pill active" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;"><span class="status-icon">✅</span>店舗確定・予約依頼中</div>
+              <div class="match-preview" style="font-weight:600; color:#2e7d32;">3/25 19:30 〜 鮨 みなと</div>
+              <div class="match-preview" style="margin-top:0;">店舗が確定しました。事務局が予約を行っています。</div>
+            </div>
           </div>
+          <div class="arrow-icon">></div>
         </div>
-        <div class="arrow-icon">></div>
+
+        <!-- M-A10: Akari -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Akari · 33歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
+              <div class="status-pill confirmed"><span class="status-icon">📅</span>3/22 18:00 (明日)</div>
+              <div class="match-preview" style="font-weight:600;">イタリアン・ラ・ボラ</div>
+              <div class="match-preview" style="margin-top:0;">予約が確定しています</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <!-- M-A08: Mio -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">Mio · 35歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">
+              <div class="status-pill active" style="background:#e3f2fd; border-color:#90caf9; color:#1565c0;"><span class="status-icon">🚀</span>本日 19:30</div>
+              <div class="match-preview" style="font-weight:600; color:#1565c0;">和食バル・一期一会</div>
+              <div class="match-preview" style="margin-top:0;">当日リマインド。時間に注意して向かいましょう</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
       </div>
 
-      <!-- M-A11: Haruka (Photo Request Sent) -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Haruka · 37歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
-            <div class="status-pill"><span class="status-icon">📸</span>写真リクエスト送信済</div>
-            <div class="match-preview">写真公開リクエストを送りました</div>
+      <!-- TAB: HISTORY -->
+      <div id="section-history" class="tab-content" style="display:none;">
+        <!-- M-A09: Kaori -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='#'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='#'">Kaori · 45歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR100_review.html'">
+              <div class="status-pill">食事完了・評価済</div>
+              <div class="match-preview">3/5 和食 花 での食事が完了しました</div>
+            </div>
           </div>
+          <div class="arrow-icon">></div>
         </div>
-        <div class="arrow-icon">></div>
-      </div>
 
-      <!-- M-A12: Misaki (Photo Request Received) -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Misaki · 39歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
-            <div class="status-pill active"><span class="status-icon">📸</span>写真リクエストが届いています</div>
-            <div class="match-preview" style="color:var(--c6); font-weight:600;">お相手から写真公開リクエストが届いています <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
+        <!-- M-H01: Momo -->
+        <div class="match-item completed-item">
+          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Momo" style="width:100%; height:100%; border-radius:0;"></div>
+          <div class="match-info">
+            <div class="match-name">Momo · 36歳</div>
+            <div class="action-wrap">
+              <div class="status-pill" style="color:var(--c4);">キャンセル済（あなた）</div>
+              <div class="match-preview">マッチングをキャンセルしました (2026-03-11)</div>
+            </div>
           </div>
+          <div class="arrow-icon">></div>
         </div>
-        <div class="arrow-icon">></div>
-      </div>
 
-      <!-- M-A13: Aoi (Photo Request Approved) -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aoi" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Aoi · 35歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-            <div class="status-pill" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;"><span class="status-icon">✅</span>写真公開済</div>
-            <div class="match-preview">メイン写真の公開を承認しました</div>
+        <!-- M-H02: Noa -->
+        <div class="match-item completed-item">
+          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Noa" style="width:100%; height:100%; border-radius:0;"></div>
+          <div class="match-info">
+            <div class="match-name">Noa · 32歳</div>
+            <div class="action-wrap">
+              <div class="status-pill" style="color:var(--c4);">キャンセル済（相手）</div>
+              <div class="match-preview">お相手によりキャンセルされました (2026-03-10)</div>
+            </div>
           </div>
+          <div class="arrow-icon">></div>
         </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A03: Mika -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Mika · 36歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
-            <div class="status-pill active"><span class="status-icon">📅</span>日程の提案待ち</div>
-            <div class="match-preview">「日程を提案する」ボタンから候補日を送ってください</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A04: Rina -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Rina · 40歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-            <div class="status-pill"><span class="status-icon">⌛</span>回答待ち</div>
-            <div class="match-preview">「日程送りました！」</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A05: Nanami -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Nanami · 34歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
-            <div class="status-pill active"><span class="status-icon">📩</span>候補日が届いています</div>
-            <div class="match-preview" style="color:var(--c6); font-weight:600;">この日どうですか？ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A06: Kana -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Kana · 37歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
-            <div class="status-pill active" style="background:#fff3e0; border-color:#ffcc80; color:#e65100;"><span class="status-icon">⚠️</span>マッチングから2日経過</div>
-            <div class="match-preview" style="color:#e65100;">早めに日程を提案しましょう（期限まであと5日）</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A07: Eri -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Eri · 41歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
-            <div class="status-pill active" style="background:#ffebee; border-color:#ffcdd2; color:#c62828;"><span class="status-icon">🚩</span>期限間近(あと2日)</div>
-            <div class="match-preview" style="color:#c62828;">候補日が届いています。今すぐ確認してください。</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A08: Sayaka -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sayaka" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Sayaka · 39歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
-            <div class="status-pill active"><span class="status-icon">🍴</span>お店選び中</div>
-            <div class="match-preview">「どこにします？」店舗候補をチェックしましょう</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A09: Yuna -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Yuna" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Yuna · 35歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
-            <div class="status-pill"><span class="status-icon">🛠️</span>予約調整中</div>
-            <div class="match-preview">事務局でレストランの予約を行っています</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A15: Haruna -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Haruna" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Haruna · 39歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
-            <div class="status-pill"><span class="status-icon">🍴</span>お店を提案済</div>
-            <div class="match-preview" style="font-weight:600;">3/24 19:00 〜 和食 しずく</div>
-            <div class="match-preview" style="margin-top:0;">お店を提案しました。お相手の返答を待っています。</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A16: Saki -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Saki" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Saki · 35歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
-            <div class="status-pill active"><span class="status-icon">🍴</span>店舗候補が届いています</div>
-            <div class="match-preview" style="font-weight:600; color:var(--c6);">3/23 18:30 〜 ビストロ青葉 <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
-            <div class="match-preview" style="margin-top:0; color:var(--c6);">お相手から店舗候補が届いています</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A17: Miyu -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Miyu · 41歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
-            <div class="status-pill"><span class="status-icon">🛠️</span>予約依頼準備中</div>
-            <div class="match-preview" style="font-weight:600;">3/25 19:30 〜 鮨 みなと</div>
-            <div class="match-preview" style="margin-top:0;">店舗が確定しました。事務局へ予約を依頼します。</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-A10: Akari -->
-      <div class="match-item" style="background:#f0f7ff;">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Akari" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Akari · 43歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
-            <div class="status-pill confirmed"><span class="status-icon">✅</span>予約確定済</div>
-            <span class="countdown-badge">あと5日</span>
-            <div class="match-preview" style="font-weight:600;">3/25 19:00 〜 焼肉 牛蔵 <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- Section 2: History -->
-      <div class="section-label">完了・終了したマッチング (5)</div>
-
-      <!-- M-H04: Reina (Review Pending) -->
-      <div class="match-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Reina" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Reina · 41歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR100_review.html'">
-            <div class="status-pill" style="background:#fff8e1; color:#f57c00; border-color:#ffe082;">📝 レビューを入力してください</div>
-            <div class="match-preview">3/15 寿司 銀座一 での食事が完了しました</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-H05: Kaori (Ended) -->
-      <div class="match-item completed-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kaori" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Kaori · 45歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='#'">
-            <div class="status-pill">食事完了・評価済</div>
-            <div class="match-preview">3/5 和食 花 での食事が完了しました</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-H01: Momo (Cancelled by Me) -->
-      <div class="match-item completed-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Momo" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Momo · 36歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='#'">
-            <div class="status-pill" style="color:var(--c4);">キャンセル済（あなた）</div>
-            <div class="match-preview">マッチングをキャンセルしました (2026-03-11)</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-H02: Noa (Cancelled by Partner) -->
-      <div class="match-item completed-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Noa" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Noa · 32歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='#'">
-            <div class="status-pill" style="color:var(--c4);">キャンセル済（相手）</div>
-            <div class="match-preview">お相手によりキャンセルされました (2026-03-10)</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
-      </div>
-
-      <!-- M-H03: Hina (Auto Cancelled) -->
-      <div class="match-item completed-item">
-        <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Hina" style="width:100%; height:100%; border-radius:0;"></div>
-        <div class="match-info">
-          <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Hina · 38歳</div>
-          <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='#'">
-            <div class="status-pill" style="color:var(--c4);">期限切れによる自動解除</div>
-            <div class="match-preview">一定期間アクションがなかったため解除されました</div>
-          </div>
-        </div>
-        <div class="arrow-icon">></div>
       </div>
     </div>
 
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-      <a class="bn-item" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
       <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
-      <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
+
+    <script>
+      function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.getElementById('section-' + tabId).style.display = 'block';
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+        // Correctly handle event for clicked element
+        if (event) event.currentTarget.classList.add('active');
+      }
+    </script>
   </div>
 
-<div class="blp-wrap">
-  <div class="blp-head">
-    <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-065</div>
-      <div class="blp-head-title">Mutual Match</div>
-      <div class="blp-head-sub">Màn hình match thành công</div>
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-065</div>
+        <div class="blp-head-title">Mutual Match</div>
+        <div class="blp-head-sub">Màn hình match thành công</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ"
+        onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24">
+          <polyline points="15 3 21 3 21 9" />
+          <polyline points="9 21 3 21 3 15" />
+          <line x1="21" y1="3" x2="14" y2="10" />
+          <line x1="3" y1="21" x2="10" y2="14" />
+        </svg>
+      </button>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
-  </div>
-  <div class="blp-body">
+    <div class="blp-body">
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Hiển thị danh sách các matching đang hoạt động và đã kết thúc.</div>
-      <div class="blp-note ok">
-        <strong>Quy tắc điều hướng mới:</strong><br>
-        1. Ấn vào Avatar/Tên → SCR-080 Match Detail (Top).<br>
-        2. Ấn vào Status/Preview → Màn hình Task cụ thể (Chat, Schedule, etc).
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Hiển thị danh sách các matching đang hoạt động và đã kết thúc.</div>
+        <div class="blp-note ok">
+          <strong>Quy tắc điều hướng mới:</strong><br>
+          1. Ấn vào Avatar/Tên → SCR-080 Match Detail (Top).<br>
+          2. Ấn vào Status/Preview → Màn hình Task cụ thể (Chat, Schedule, etc).
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Điều kiện trigger</div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">1</div>
+          <div class="blp-rule-text">A like B → B chưa like lại → chờ.</div>
+        </div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">2</div>
+          <div class="blp-rule-text">B like lại A → match thành công → popup này hiện với cả hai.</div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Hành động sau match</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line">
+              <div class="blp-step-num">💬</div>
+              <div class="blp-step-connector"></div>
+            </div>
+            <div class="blp-step-text"><strong>Nhắn tin ngay</strong> → mở SCR-090 Chat (không cần đợi đặt lịch).</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line">
+              <div class="blp-step-num">📅</div>
+              <div class="blp-step-connector"></div>
+            </div>
+            <div class="blp-step-text"><strong>Đề xuất lịch</strong> → SCR-081 Schedule.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line">
+              <div class="blp-step-num">✕</div>
+            </div>
+            <div class="blp-step-text"><strong>Để sau</strong> → vào SCR-080 Match Detail sau.</div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Huỷ match</div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">!</div>
+          <div class="blp-rule-text"><strong>Bất kỳ ai cũng có thể huỷ match một chiều</strong> — không cần sự đồng ý
+            của đối phương.</div>
+        </div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">→</div>
+          <div class="blp-rule-text"><strong>Trước khi đặt bàn:</strong> huỷ tự do, không penalty.</div>
+        </div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">⚠</div>
+          <div class="blp-rule-text"><strong>Sau khi đặt bàn:</strong> xem SCR-103 — cancel ngày hôm đó = cảnh báo. Vắng
+            mặt không báo = khóa tài khoản.</div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Tự động huỷ</div>
+        <div class="blp-note warn">Nếu 7 ngày after match vẫn chưa đặt lịch → auto huỷ match. Reminder gửi ở ngày 2 và
+          ngày 5.</div>
       </div>
     </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Điều kiện trigger</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">A like B → B chưa like lại → chờ.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">B like lại A → match thành công → popup này hiện với cả hai.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Hành động sau match</div>
-      <div class="blp-flow"><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">💬</div><div class="blp-step-connector"></div></div>
-          <div class="blp-step-text"><strong>Nhắn tin ngay</strong> → mở SCR-090 Chat (không cần đợi đặt lịch).</div>
-        </div><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">📅</div><div class="blp-step-connector"></div></div>
-          <div class="blp-step-text"><strong>Đề xuất lịch</strong> → SCR-081 Schedule.</div>
-        </div><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">✕</div></div>
-          <div class="blp-step-text"><strong>Để sau</strong> → vào SCR-080 Match Detail sau.</div>
-        </div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Huỷ match</div>
-      <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text"><strong>Bất kỳ ai cũng có thể huỷ match một chiều</strong> — không cần sự đồng ý của đối phương.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text"><strong>Trước khi đặt bàn:</strong> huỷ tự do, không penalty.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">⚠</div><div class="blp-rule-text"><strong>Sau khi đặt bàn:</strong> xem SCR-103 — cancel ngày hôm đó = cảnh báo. Vắng mặt không báo = khóa tài khoản.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Tự động huỷ</div>
-      <div class="blp-note warn">Nếu 7 ngày after match vẫn chưa đặt lịch → auto huỷ match. Reminder gửi ở ngày 2 và ngày 5.</div>
-    </div>
   </div>
-</div>
 </body>
+
 </html>

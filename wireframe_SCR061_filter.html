@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Otona Table Wireframe — SCR-061 Filter</title>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --c0: #ffffff; --c1: #f5f5f5; --c2: #e0e0e0;
-  --c3: #bdbdbd; --c4: #757575; --c5: #424242; --c6: #212121;
-  --border: 1px solid #e0e0e0; --border-dark: 1px solid #bdbdbd;
-  --font: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-}
-body { font-family: var(--font); background: var(--c1); color: var(--c6); display: flex; min-height: 100vh; font-size: 13px; margin: 0; }
 
-/* MAIN */
-.main { flex: 1; padding: 28px 40px; display: flex; flex-direction: column; align-items: center; }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otona Table Wireframe — SCR-061 Filter</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --c0: #ffffff;
+      --c1: #f5f5f5;
+      --c2: #e0e0e0;
+      --c3: #bdbdbd;
+      --c4: #757575;
+      --c5: #424242;
+      --c6: #212121;
+      --border: 1px solid #e0e0e0;
+      --border-dark: 1px solid #bdbdbd;
+      --font: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--c1);
+      color: var(--c6);
+      display: flex;
+      min-height: 100vh;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
     /* === UNIFIED BOTTOM NAV === */
     .app-bottom-nav {
@@ -33,6 +62,7 @@ body { font-family: var(--font); background: var(--c1); color: var(--c6); displa
       z-index: 10;
       margin-top: auto;
     }
+
     .bn-item {
       display: flex;
       flex-direction: column;
@@ -42,6 +72,7 @@ body { font-family: var(--font); background: var(--c1); color: var(--c6); displa
       gap: 4px;
       position: relative;
     }
+
     .bn-item svg {
       width: 24px;
       height: 24px;
@@ -49,14 +80,17 @@ body { font-family: var(--font); background: var(--c1); color: var(--c6); displa
       stroke-width: 2;
       fill: none;
     }
+
     .bn-item.active {
       color: #212121;
     }
+
     .bn-lbl {
       font-size: 10px;
       font-weight: 500;
       line-height: 1;
     }
+
     .bn-dot {
       position: absolute;
       top: -2px;
@@ -68,514 +102,1045 @@ body { font-family: var(--font); background: var(--c1); color: var(--c6); displa
       border-radius: 50%;
     }
 
-/* DEVICE */
-.device { width: 360px; height: 812px; background: var(--c0); border: 1.5px solid var(--c5); display: flex; flex-direction: column; overflow: hidden; position: relative; }
-.status-bar { height: 20px; background: var(--c6); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; flex-shrink: 0; }
-.status-bar span { font-size: 9px; color: var(--c0); font-weight: 600; }
+    /* DEVICE */
+    .device {
+      width: 360px;
+      height: 812px;
+      background: var(--c0);
+      border: 1.5px solid var(--c5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
 
-/* Sheet header */
-.sheet-header {
-  height: 48px;
-  border-bottom: 1.5px solid var(--c6);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  flex-shrink: 0;
-  background: var(--c0);
-}
-.sheet-title { font-size: 14px; font-weight: 700; color: var(--c6); }
-.sheet-reset { font-size: 11px; color: var(--c4); cursor: pointer; border-bottom: 1px solid var(--c3); padding-bottom: 1px; }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      flex-shrink: 0;
+    }
 
-/* Scroll */
-.scroll-area { flex: 1; overflow-y: auto; background: var(--c0); }
-.scroll-area::-webkit-scrollbar { width: 0; }
+    .status-bar span {
+      font-size: 9px;
+      color: var(--c0);
+      font-weight: 600;
+    }
 
-/* Section */
-.filter-section { border-bottom: var(--border); padding: 14px; }
-.section-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--c4);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 10px;
-}
+    /* Sheet header */
+    .sheet-header {
+      height: 48px;
+      border-bottom: 1.5px solid var(--c6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      flex-shrink: 0;
+      background: var(--c0);
+    }
 
-/* Multi-select chips */
-.chip-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.f-chip {
-  padding: 5px 12px;
-  border: var(--border-dark);
-  font-size: 11px;
-  color: var(--c5);
-  background: var(--c0);
-  cursor: pointer;
-}
-.f-chip.on {
-  background: var(--c6);
-  color: var(--c0);
-  border-color: var(--c6);
-}
+    .sheet-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c6);
+    }
 
-/* Range row */
-.range-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-.range-box {
-  flex: 1;
-  height: 34px;
-  border: var(--border-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: var(--c5);
-  background: var(--c0);
-  cursor: pointer;
-}
-.range-sep { font-size: 11px; color: var(--c3); }
+    .sheet-reset {
+      font-size: 11px;
+      color: var(--c4);
+      cursor: pointer;
+      border-bottom: 1px solid var(--c3);
+      padding-bottom: 1px;
+    }
 
-/* Slider placeholder */
-.slider-wrap {
-  margin-top: 10px;
-  padding: 0 4px;
-}
-.slider-track {
-  width: 100%;
-  height: 2px;
-  background: var(--c2);
-  position: relative;
-  margin-bottom: 6px;
-}
-.slider-fill {
-  position: absolute;
-  left: 25%;
-  right: 20%;
-  top: 0;
-  height: 2px;
-  background: var(--c5);
-}
-.slider-handles { display: flex; justify-content: space-between; padding: 0 calc(25% - 8px) 0 calc(25% - 8px); }
-.slider-handle {
-  width: 16px; height: 16px;
-  border: 2px solid var(--c5);
-  background: var(--c0);
-  margin-top: -7px;
-  cursor: pointer;
-}
-.slider-labels { display: flex; justify-content: space-between; margin-top: 4px; }
-.slider-labels span { font-size: 9px; color: var(--c3); }
+    /* Scroll */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c0);
+    }
 
-/* Toggle row */
-.toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: var(--border);
-}
-.toggle-row:last-child { border-bottom: none; }
-.toggle-label { font-size: 12px; color: var(--c5); }
-.toggle {
-  width: 36px; height: 20px;
-  border: var(--border-dark);
-  background: var(--c2);
-  position: relative;
-  cursor: pointer;
-}
-.toggle.on { background: var(--c5); border-color: var(--c5); }
-.toggle-knob {
-  position: absolute;
-  top: 2px; left: 2px;
-  width: 14px; height: 14px;
-  background: var(--c0);
-  border: 1px solid var(--c3);
-  transition: left 0.15s;
-}
-.toggle.on .toggle-knob { left: 18px; border-color: var(--c3); }
+    .scroll-area::-webkit-scrollbar {
+      width: 0;
+    }
 
-/* Select box */
-.select-box {
-  width: 100%;
-  height: 36px;
-  border: var(--border-dark);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  font-size: 11px;
-  color: var(--c5);
-  background: var(--c0);
-  cursor: pointer;
-  margin-top: 4px;
-}
-.select-box span { font-size: 10px; color: var(--c3); }
+    /* Section */
+    .filter-section {
+      border-bottom: var(--border);
+      padding: 14px;
+    }
 
-/* FOOTER BUTTONS */
-.filter-footer {
-  height: 64px;
-  border-top: 1.5px solid var(--c6);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 14px;
-  background: var(--c0);
-  flex-shrink: 0;
-}
-.btn-cancel {
-  flex: 1;
-  height: 40px;
-  border: var(--border-dark);
-  background: var(--c0);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--c4);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
-.btn-apply {
-  flex: 2;
-  height: 40px;
-  background: var(--c6);
-  border: none;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--c0);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  gap: 6px;
-}
-.result-count { font-size: 10px; color: var(--c3); padding: 0 2px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c4);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
 
-/* FLOW */
-.flow-section { width: 100%; max-width: 420px; margin-top: 20px; background: var(--c0); border: var(--border); padding: 14px 16px; }
-.flow-title { font-size: 10px; font-weight: 700; color: var(--c4); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
-.flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
-.f-box { padding: 5px 10px; border: 1px solid var(--c3); font-size: 10px; font-weight: 600; color: var(--c5); background: var(--c0); text-align: center; white-space: nowrap; }
-.f-box.now { background: var(--c6); color: var(--c0); border-color: var(--c6); }
-.f-box.light { background: var(--c1); color: var(--c4); border-color: var(--c2); }
-.f-arrow { font-size: 11px; color: var(--c3); padding: 0 5px; flex-shrink: 0; }
-</style>
+    /* Multi-select chips */
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .f-chip {
+      padding: 5px 12px;
+      border: var(--border-dark);
+      font-size: 11px;
+      color: var(--c5);
+      background: var(--c0);
+      cursor: pointer;
+    }
+
+    .f-chip.on {
+      background: var(--c6);
+      color: var(--c0);
+      border-color: var(--c6);
+    }
+
+    /* Range row */
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .range-box {
+      flex: 1;
+      height: 34px;
+      border: var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--c5);
+      background: var(--c0);
+      cursor: pointer;
+    }
+
+    .range-sep {
+      font-size: 11px;
+      color: var(--c3);
+    }
+
+    /* Slider placeholder */
+    .slider-wrap {
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+
+    .slider-track {
+      width: 100%;
+      height: 2px;
+      background: var(--c2);
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .slider-fill {
+      position: absolute;
+      left: 25%;
+      right: 20%;
+      top: 0;
+      height: 2px;
+      background: var(--c5);
+    }
+
+    .slider-handles {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 calc(25% - 8px) 0 calc(25% - 8px);
+    }
+
+    .slider-handle {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--c5);
+      background: var(--c0);
+      margin-top: -7px;
+      cursor: pointer;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .slider-labels span {
+      font-size: 9px;
+      color: var(--c3);
+    }
+
+    /* Toggle row */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: var(--border);
+    }
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-label {
+      font-size: 12px;
+      color: var(--c5);
+    }
+
+    .toggle {
+      width: 36px;
+      height: 20px;
+      border: var(--border-dark);
+      background: var(--c2);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle.on {
+      background: var(--c5);
+      border-color: var(--c5);
+    }
+
+    .toggle-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      background: var(--c0);
+      border: 1px solid var(--c3);
+      transition: left 0.15s;
+    }
+
+    .toggle.on .toggle-knob {
+      left: 18px;
+      border-color: var(--c3);
+    }
+
+    /* Select box */
+    .select-box {
+      width: 100%;
+      height: 36px;
+      border: var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 11px;
+      color: var(--c5);
+      background: var(--c0);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .select-box span {
+      font-size: 10px;
+      color: var(--c3);
+    }
+
+    /* FOOTER BUTTONS */
+    .filter-footer {
+      height: 64px;
+      border-top: 1.5px solid var(--c6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 14px;
+      background: var(--c0);
+      flex-shrink: 0;
+    }
+
+    .btn-cancel {
+      flex: 1;
+      height: 40px;
+      border: var(--border-dark);
+      background: var(--c0);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-apply {
+      flex: 2;
+      height: 40px;
+      background: var(--c6);
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 6px;
+    }
+
+    .result-count {
+      font-size: 10px;
+      color: var(--c3);
+      padding: 0 2px;
+    }
+
+    /* FLOW */
+    .flow-section {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 20px;
+      background: var(--c0);
+      border: var(--border);
+      padding: 14px 16px;
+    }
+
+    .flow-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c4);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .f-box {
+      padding: 5px 10px;
+      border: 1px solid var(--c3);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--c5);
+      background: var(--c0);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .f-box.now {
+      background: var(--c6);
+      color: var(--c0);
+      border-color: var(--c6);
+    }
+
+    .f-box.light {
+      background: var(--c1);
+      color: var(--c4);
+      border-color: var(--c2);
+    }
+
+    .f-arrow {
+      font-size: 11px;
+      color: var(--c3);
+      padding: 0 5px;
+      flex-shrink: 0;
+    }
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
+  </style>
 
 
-<style>
-/* === BUSINESS LOGIC PANEL === */
-.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
-.blp-wrap.fullscreen{width:calc(100vw - 200px);}
-.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
-.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
-.blp-wrap::-webkit-scrollbar{width:4px;}
-.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
-.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
-.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
-.blp-head-title{font-size:12px;font-weight:700;}
-.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
-.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
-.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
-.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
-.blp-body{padding:10px 12px 20px;}
-.blp-section{margin-bottom:14px;}
-.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
-.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
-.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
-.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
-.blp-rule-text strong{font-weight:700;color:#212121;}
-.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
-.blp-tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
-.blp-tag{font-size:9px;padding:2px 7px;border:1px solid #e0e0e0;color:#424242;background:#fafafa;white-space:nowrap;}
-.blp-tag.warn{background:#fff3e0;color:#e65100;border-color:#ffcc80;}
-.blp-tag.ok{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
-.blp-tag.info{background:#e3f2fd;color:#1565c0;border-color:#90caf9;}
-.blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
-.blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
-.blp-flow-step:last-child{padding-bottom:0;}
-.blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
-.blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
-.blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
-.blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
-.blp-step-text strong{color:#212121;}
-.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
-.blp-note.highlight{border-left-color:#212121;color:#424242;}
-.blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
-.blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
-</style>
-<style>
-/* === INJECTED SIDEBAR === */
-.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
-.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
-.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
-.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
-.wf-sidebar::-webkit-scrollbar{width:3px;}
-.wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
-</style>
-<style>
-/* === BOTTOM NAV REMOVED (HANDLED ABOVE) === */
-</style>
+  <style>
+    /* === BUSINESS LOGIC PANEL === */
+    .blp-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 2px solid #212121;
+      z-index: 9998;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      color: #212121;
+      transition: width 0.2s ease;
+    }
+
+    .blp-wrap.fullscreen {
+      width: calc(100vw - 200px);
+    }
+
+    .blp-wrap.fullscreen .blp-body {
+      max-width: 760px;
+      margin: 0 auto;
+      columns: 2;
+      column-gap: 24px;
+    }
+
+    .blp-wrap.fullscreen .blp-section {
+      break-inside: avoid;
+    }
+
+    .blp-wrap::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .blp-wrap::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+    }
+
+    .blp-head {
+      position: sticky;
+      top: 0;
+      background: #212121;
+      color: #fff;
+      padding: 10px 14px 9px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .blp-head-scr {
+      font-size: 9px;
+      color: #bdbdbd;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+
+    .blp-head-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .blp-head-sub {
+      font-size: 10px;
+      color: #9e9e9e;
+      margin-top: 2px;
+    }
+
+    .blp-fullscreen-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #424242;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #9e9e9e;
+      transition: background .15s;
+    }
+
+    .blp-fullscreen-btn:hover {
+      background: #424242;
+      color: #fff;
+    }
+
+    .blp-fullscreen-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .blp-body {
+      padding: 10px 12px 20px;
+    }
+
+    .blp-section {
+      margin-bottom: 14px;
+    }
+
+    .blp-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #9e9e9e;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 4px;
+      margin-bottom: 7px;
+    }
+
+    .blp-rule {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+      line-height: 1.5;
+    }
+
+    .blp-rule-dot {
+      width: 14px;
+      height: 14px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #757575;
+      margin-top: 1px;
+    }
+
+    .blp-rule-text {
+      font-size: 11px;
+      color: #212121;
+      line-height: 1.55;
+    }
+
+    .blp-rule-text strong {
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .blp-rule-text em {
+      font-style: normal;
+      color: #757575;
+      font-size: 10px;
+    }
+
+    .blp-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .blp-tag {
+      font-size: 9px;
+      padding: 2px 7px;
+      border: 1px solid #e0e0e0;
+      color: #424242;
+      background: #fafafa;
+      white-space: nowrap;
+    }
+
+    .blp-tag.warn {
+      background: #fff3e0;
+      color: #e65100;
+      border-color: #ffcc80;
+    }
+
+    .blp-tag.ok {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-color: #a5d6a7;
+    }
+
+    .blp-tag.info {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-color: #90caf9;
+    }
+
+    .blp-flow {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px;
+    }
+
+    .blp-flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .blp-flow-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .blp-step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .blp-step-num {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #424242;
+      background: #fff;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .blp-step-connector {
+      width: 1px;
+      flex: 1;
+      background: #e0e0e0;
+      min-height: 10px;
+      margin-top: 2px;
+    }
+
+    .blp-step-text {
+      font-size: 11px;
+      color: #424242;
+      line-height: 1.5;
+      padding-top: 1px;
+    }
+
+    .blp-step-text strong {
+      color: #212121;
+    }
+
+    .blp-note {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-left: 3px solid #bdbdbd;
+      padding: 7px 9px;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .blp-note.highlight {
+      border-left-color: #212121;
+      color: #424242;
+    }
+
+    .blp-note.warn {
+      border-left-color: #e65100;
+      background: #fff8f0;
+      color: #5d2e00;
+    }
+
+    .blp-note.ok {
+      border-left-color: #2e7d32;
+      background: #f1f8f1;
+      color: #1b5e20;
+    }
+  </style>
+  <style>
+    /* === INJECTED SIDEBAR === */
+    .wf-sidebar {
+      width: 200px;
+      min-width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .wf-sidebar-logo {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 8px;
+    }
+
+    .wf-logo-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #424242;
+      flex-shrink: 0;
+    }
+
+    .wf-logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .wf-sidebar-group {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .wf-group-label {
+      padding: 7px 14px 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wf-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 14px;
+      font-size: 11px;
+      color: #757575;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      line-height: 1.3;
+    }
+
+    .wf-nav-link:hover {
+      background: #f5f5f5;
+      color: #424242;
+    }
+
+    .wf-nav-link.wf-active {
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+      border-left-color: #424242;
+    }
+
+    .wf-nav-id {
+      font-size: 9px;
+      color: #bdbdbd;
+      width: 24px;
+      flex-shrink: 0;
+    }
+
+    .wf-sidebar::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .wf-sidebar::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+    }
+  </style>
+  <style>
+    /* === BOTTOM NAV REMOVED (HANDLED ABOVE) === */
+  </style>
 </head>
+
 <body style="margin-left:200px; margin-right:280px;">
-<nav class="wf-sidebar">
-  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">A · Onboarding</div>
-    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
-    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
-    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
-    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
-    <a class="wf-nav-link" href="wireframe_SCR121_availability.html?mode=onboarding"><span class="wf-nav-id">121</span>Availability</a>
-    <a class="wf-nav-link" href="wireframe_SCR120_restaurant_list.html?mode=onboarding"><span class="wf-nav-id">120</span>Restaurants</a>
-    <a class="wf-nav-link" href="wireframe_SCR112_edit_profile.html?mode=onboarding"><span class="wf-nav-id">112</span>Detailed Profile</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">B · Home</div>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html?welcome=true"><span class="wf-nav-id">060</span>(Welcome Mode)</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
-    <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
-    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">C · 募集</div>
-    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
-    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">D · Booking</div>
-    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
-    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
-    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
-    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
-    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">E · Chat & Review</div>
-    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
-    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">F · My Page</div>
-    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
-  </div>
-</nav>
-
-<main class="main">
-  <div class="device">
-    <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
-
-    <!-- Sheet header -->
-    <div class="sheet-header">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        <span class="sheet-title">絞り込み条件</span>
-      </div>
-      <span class="sheet-reset" onclick="if(confirm('検索条件をリセットしますか？')) { document.querySelectorAll('.f-chip.on').forEach(c=>c.classList.remove('on')); document.querySelectorAll('.toggle.on').forEach(t=>t.classList.remove('on')); }">リセット</span>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;">
+      <div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span>
+    </a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
+      <a class="wf-nav-link" href="wireframe_SCR121_availability.html?mode=onboarding"><span
+          class="wf-nav-id">121</span>Availability</a>
+      <a class="wf-nav-link" href="wireframe_SCR120_restaurant_list.html?mode=onboarding"><span
+          class="wf-nav-id">120</span>Restaurants</a>
+      <a class="wf-nav-link" href="wireframe_SCR112_edit_profile.html?mode=onboarding"><span
+          class="wf-nav-id">112</span>Detailed Profile</a>
     </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html?welcome=true"><span class="wf-nav-id">060</span>(Welcome
+        Mode)</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner
+        Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match
+        Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date
+        Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking
+        Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    </div>
+  </nav>
 
-    <!-- Scroll area -->
-    <div class="scroll-area">
+  <main class="main">
+    <div class="device">
+      <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
 
-      <!-- エリア -->
-      <div class="filter-section">
-        <div class="section-label">エリア</div>
-        <div class="chip-grid">
-          <div class="f-chip on" onclick="this.classList.toggle('on')">東京 23区</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">横浜</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">新宿</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">渋谷</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">銀座</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">品川</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">六本木</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">恵比寿</div>
+      <!-- Sheet header -->
+      <div class="sheet-header">
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          <span class="sheet-title">絞り込み条件</span>
         </div>
+        <span class="sheet-reset"
+          onclick="if(confirm('検索条件をリセットしますか？')) { document.querySelectorAll('.f-chip.on').forEach(c=>c.classList.remove('on')); document.querySelectorAll('.toggle.on').forEach(t=>t.classList.remove('on')); }">リセット</span>
       </div>
 
-      <!-- 年代 -->
-      <div class="filter-section">
-        <div class="section-label">希望年代</div>
-        <div class="chip-grid">
-          <div class="f-chip" onclick="this.classList.toggle('on')">20代</div>
-          <div class="f-chip on" onclick="this.classList.toggle('on')">30代</div>
-          <div class="f-chip on" onclick="this.classList.toggle('on')">40代</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">50代</div>
-          <div class="f-chip" onclick="this.classList.toggle('on')">指定しない</div>
-        </div>
-      </div>
+      <!-- Scroll area -->
+      <div class="scroll-area">
 
-      <!-- 性別 -->
-      <div class="filter-section">
-        <div class="section-label">マッチング対象</div>
-        <div class="chip-grid">
-          <div class="f-chip on">異性</div>
-          <div class="f-chip">同性</div>
-          <div class="f-chip">どちらも</div>
-        </div>
-      </div>
-
-      <!-- 時間帯 -->
-      <div class="filter-section">
-        <div class="section-label">希望時間帯</div>
-        <div class="chip-grid">
-          <div class="f-chip on">昼</div>
-          <div class="f-chip on">夜</div>
-          <div class="f-chip">どちらも</div>
-        </div>
-      </div>
-
-      <!-- 身長 -->
-      <div class="filter-section">
-        <div class="section-label">身長</div>
-        <div class="range-row">
-          <div class="range-box">150 cm</div>
-          <span class="range-sep">〜</span>
-          <div class="range-box">175 cm</div>
-        </div>
-        <div class="slider-wrap">
-          <div class="slider-track">
-            <div class="slider-fill"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:0 0;">
-            <div class="slider-handle"></div>
-            <div class="slider-handle"></div>
-          </div>
-          <div class="slider-labels">
-            <span>140cm</span>
-            <span>200cm</span>
+        <!-- エリア -->
+        <div class="filter-section">
+          <div class="section-label">エリア</div>
+          <div class="chip-grid">
+            <div class="f-chip on" onclick="this.classList.toggle('on')">東京 23区</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">横浜</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">新宿</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">渋谷</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">銀座</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">品川</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">六本木</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">恵比寿</div>
           </div>
         </div>
-      </div>
 
-      <!-- 体型 -->
-      <div class="filter-section">
-        <div class="section-label">体型</div>
-        <div class="chip-grid">
-          <div class="f-chip">スリム</div>
-          <div class="f-chip on">普通</div>
-          <div class="f-chip on">グラマー</div>
-          <div class="f-chip">ぽっちゃり</div>
-          <div class="f-chip">指定しない</div>
+        <!-- 年代 -->
+        <div class="filter-section">
+          <div class="section-label">希望年代</div>
+          <div class="chip-grid">
+            <div class="f-chip" onclick="this.classList.toggle('on')">20代</div>
+            <div class="f-chip on" onclick="this.classList.toggle('on')">30代</div>
+            <div class="f-chip on" onclick="this.classList.toggle('on')">40代</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">50代</div>
+            <div class="f-chip" onclick="this.classList.toggle('on')">指定しない</div>
+          </div>
+        </div>
+
+        <!-- 性別 -->
+        <div class="filter-section">
+          <div class="section-label">マッチング対象</div>
+          <div class="chip-grid">
+            <div class="f-chip on">異性</div>
+            <div class="f-chip">同性</div>
+            <div class="f-chip">どちらも</div>
+          </div>
+        </div>
+
+        <!-- 時間帯 -->
+        <div class="filter-section">
+          <div class="section-label">希望時間帯</div>
+          <div class="chip-grid">
+            <div class="f-chip on">昼</div>
+            <div class="f-chip on">夜</div>
+            <div class="f-chip">どちらも</div>
+          </div>
+        </div>
+
+        <!-- 身長 -->
+        <div class="filter-section">
+          <div class="section-label">身長</div>
+          <div class="range-row">
+            <div class="range-box">150 cm</div>
+            <span class="range-sep">〜</span>
+            <div class="range-box">175 cm</div>
+          </div>
+          <div class="slider-wrap">
+            <div class="slider-track">
+              <div class="slider-fill"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:0 0;">
+              <div class="slider-handle"></div>
+              <div class="slider-handle"></div>
+            </div>
+            <div class="slider-labels">
+              <span>140cm</span>
+              <span>200cm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 体型 -->
+        <div class="filter-section">
+          <div class="section-label">体型</div>
+          <div class="chip-grid">
+            <div class="f-chip">スリム</div>
+            <div class="f-chip on">普通</div>
+            <div class="f-chip on">グラマー</div>
+            <div class="f-chip">ぽっちゃり</div>
+            <div class="f-chip">指定しない</div>
+          </div>
+        </div>
+
+        <!-- 職業 -->
+        <div class="filter-section">
+          <div class="section-label">職業</div>
+          <div class="select-box">
+            <span>指定しない</span>
+            <span>∨</span>
+          </div>
+        </div>
+
+        <!-- 趣味 -->
+        <div class="filter-section">
+          <div class="section-label">趣味・嗜好</div>
+          <div class="chip-grid">
+            <div class="f-chip on">グルメ</div>
+            <div class="f-chip on">カフェ</div>
+            <div class="f-chip">音楽</div>
+            <div class="f-chip">映画</div>
+            <div class="f-chip">旅行</div>
+            <div class="f-chip">ジム</div>
+            <div class="f-chip">読書</div>
+            <div class="f-chip">アート</div>
+          </div>
+        </div>
+
+        <!-- その他 -->
+        <div class="filter-section">
+          <div class="section-label">その他</div>
+          <div class="toggle-row">
+            <span class="toggle-label">本人確認済みのみ</span>
+            <div class="toggle on" onclick="this.classList.toggle('on')">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">写真あり（ぼかしのみを除く）</span>
+            <div class="toggle" onclick="this.classList.toggle('on')">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">オンライン（48時間以内）</span>
+            <div class="toggle on" onclick="this.classList.toggle('on')">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /scroll-area -->
+
+      <!-- Footer buttons -->
+      <div class="filter-footer">
+        <div class="btn-cancel" onclick="window.location.href='wireframe_SCR060_flat.html'">キャンセル</div>
+        <div class="btn-apply" onclick="window.location.href='wireframe_SCR060_flat.html'">
+          この条件で検索
+          <span class="result-count">（23人）</span>
         </div>
       </div>
 
-      <!-- 職業 -->
-      <div class="filter-section">
-        <div class="section-label">職業</div>
-        <div class="select-box">
-          <span>指定しない</span>
-          <span>∨</span>
-        </div>
+      <div class="app-bottom-nav">
+        <a class="bn-item active" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg><span class="bn-lbl">さがす</span></a>
+        <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg><span class="bn-lbl">いいね</span>
+          <div class="bn-dot"></div>
+        </a>
+        <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24">
+            <path d="M9 11l3 3L22 4" />
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+          </svg><span class="bn-lbl">募集</span></a>
+        <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg><span class="bn-lbl">マッチング</span></a>
+        <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg><span class="bn-lbl">マイページ</span></a>
       </div>
 
-      <!-- 趣味 -->
-      <div class="filter-section">
-        <div class="section-label">趣味・嗜好</div>
-        <div class="chip-grid">
-          <div class="f-chip on">グルメ</div>
-          <div class="f-chip on">カフェ</div>
-          <div class="f-chip">音楽</div>
-          <div class="f-chip">映画</div>
-          <div class="f-chip">旅行</div>
-          <div class="f-chip">ジム</div>
-          <div class="f-chip">読書</div>
-          <div class="f-chip">アート</div>
-        </div>
+    </div><!-- /device -->
+
+  </main>
+
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-061</div>
+        <div class="blp-head-title">Filter</div>
+        <div class="blp-head-sub">検索フィルタ / Bộ lọc tìm kiếm</div>
       </div>
-
-      <!-- その他 -->
-      <div class="filter-section">
-        <div class="section-label">その他</div>
-        <div class="toggle-row">
-          <span class="toggle-label">本人確認済みのみ</span>
-          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+      <div style="display:flex; align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
         </div>
-        <div class="toggle-row">
-          <span class="toggle-label">写真あり（ぼかしのみを除く）</span>
-          <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
-        </div>
-        <div class="toggle-row">
-          <span class="toggle-label">オンライン（48時間以内）</span>
-          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
-        </div>
-      </div>
-
-    </div><!-- /scroll-area -->
-
-    <!-- Footer buttons -->
-    <div class="filter-footer">
-      <div class="btn-cancel" onclick="window.location.href='wireframe_SCR060_flat.html'">キャンセル</div>
-      <div class="btn-apply" onclick="window.location.href='wireframe_SCR060_flat.html'">
-        この条件で検索
-        <span class="result-count">（23人）</span>
+        <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
       </div>
     </div>
-
-    <div class="app-bottom-nav">
-      <a class="bn-item active" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-      <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
-      <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
-      <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-    </div>
-
-  </div><!-- /device -->
-
-</main>
-
-<div class="blp-wrap">
-  <div class="blp-head">
-    <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-061</div>
-      <div class="blp-head-title">Filter</div>
-      <div class="blp-head-sub">Bộ lọc tìm kiếm</div>
-    </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
-  </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">理想の相手を見つけるための詳細な絞り込み。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">主な項目</div>
+        <div class="blp-rule"><div class="blp-rule-dot">Q</div><div class="blp-rule-text"><strong>基本属性</strong> — 地域、身長、体型、職種。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">$</div><div class="blp-rule-text"><strong>経済・教育</strong> — 年収レンジ、最終学歴。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text"><strong>信頼性</strong> — 本人確認済みのみ、ログイン順など。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Cho phép user tinh chỉnh tiêu chí tìm kiếm bạn ăn. Áp dụng ngay khi lưu — tải lại danh sách card ở SCR-060.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Các bộ lọc</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Khu vực</strong> — chọn 1 hoặc nhiều quận/khu vực.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Độ tuổi</strong> — kéo slider min/max.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Thời gian ưu tiên</strong> — trưa / tối / không giới hạn.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Tags / sở thích</strong> — lọc theo tag ẩm thực, lifestyle.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Hành động</div>
-      <div class="blp-flow"><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">✓</div><div class="blp-step-connector"></div></div>
-          <div class="blp-step-text"><strong>Áp dụng</strong> → lưu bộ lọc, quay lại SCR-060, tải lại danh sách card mới.</div>
-        </div><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">↺</div><div class="blp-step-connector"></div></div>
-          <div class="blp-step-text"><strong>Reset</strong> → về cài đặt mặc định.</div>
-        </div><div class="blp-flow-step">
-          <div class="blp-step-line"><div class="blp-step-num">←</div></div>
-          <div class="blp-step-text"><strong>Huỷ</strong> → quay lại không thay đổi gì.</div>
-        </div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Ghi chú</div>
-      <div class="blp-note ">Người đã match trước đây vẫn không hiện lại dù đặt filter như thế nào — trừ khi user bật lại trong SCR-034.</div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Lọc chi tiết để tìm đối phương lý tưởng.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Các hạng mục chính</div>
+        <div class="blp-rule"><div class="blp-rule-dot">Q</div><div class="blp-rule-text"><strong>Cơ bản</strong> — Khu vực, chiều cao, thể hình, nghề nghiệp.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">$</div><div class="blp-rule-text"><strong>Kinh tế</strong> — Thu nhập, học vấn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text"><strong>Tin cậy</strong> — Chỉ người đã xác minh, sắp xếp theo login.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
 </body>
+
 </html>

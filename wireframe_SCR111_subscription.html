@@ -202,6 +202,7 @@
       border: 1.5px solid #fff;
       border-radius: 50%;
     }
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
   </style>
 
 
@@ -422,33 +423,56 @@
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-111</div>
       <div class="blp-head-title">Subscription</div>
-      <div class="blp-head-sub">Gói đăng ký & tính năng</div>
+      <div class="blp-head-sub">プラン選択 / Gói đăng ký</div>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
   </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">有料プランの紹介と購読。サービスの主な収益源。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">仕様</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>プラン</strong> — 1, 3, 6, 12ヶ月の期間から選択。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>制限</strong> — 無料会員は月間の「いいね」数や1日の閲覧数に上限あり。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>特典</strong> — 有料会員は「いいね」無制限、優先表示、マッチ後の追加機能など。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Màn hình giới thiệu và đăng ký gói trả phí. Monetize chính của app.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Cấu trúc gói</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Free:</strong> xem card, gửi like (giới hạn), đọc chat.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Paid:</strong> like nhiều hơn hoặc không giới hạn, ưu tiên trong gợi ý, thêm tính năng sau match.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Giới hạn Free vs Paid</div>
-      <div class="blp-tag-row"><span class="blp-tag warn">Free: like/tháng có hạn</span><span class="blp-tag warn">Free: card/ngày có hạn</span><span class="blp-tag ok">Paid: like không giới hạn</span><span class="blp-tag ok">Paid: card/ngày nhiều hơn</span></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Ghi chú quan trọng</div>
-      <div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text"><strong>Không giới hạn số lần match hay số buổi ăn/tháng</strong> — user tự do match bao nhiêu cũng được.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text">Chiến lược: giới hạn ở <strong>đầu phễu</strong> (số card xem, số like) — không giới hạn ở buổi ăn thực tế.</div></div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Giới thiệu và đăng ký các gói trả phí.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Yêu cầu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Gói</strong> — Gói 1, 3, 6, 12 tháng.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Giới hạn</strong> — Thành viên Free bị giới hạn số like và số card xem mỗi ngày.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Quyền lợi</strong> — Paid được không giới hạn like, ưu tiên hiển thị.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
 </body>

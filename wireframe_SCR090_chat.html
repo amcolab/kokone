@@ -244,6 +244,7 @@
             padding: 8px;
             border-top: 1px solid var(--c2);
         }
+.blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
 
@@ -508,35 +509,56 @@
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-090</div>
       <div class="blp-head-title">Chat 1:1</div>
-      <div class="blp-head-sub">Nhắn tin sau khi match</div>
+      <div class="blp-head-sub">チャット / Nhắn tin</div>
     </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
+    <div style="display:flex; align-items:center;">
+      <div class="blp-lang-switch">
+        <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+        <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+      </div>
+      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
   </div>
   <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">1対1のチャットによるコミュニケーション。相手との信頼関係構築や調整に使用。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">仕様</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>開始</strong> — マッチ成立直後からメッセージ送信が可能。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>表示</strong> — メッセージ本文、送信時刻、既読状態を表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>期限</strong> — 最初のメッセージから24時間以内に返信がない場合、マッチ解消の警告。</div></div>
+      </div>
+    </div>
 
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Nhắn tin 1-1 với người đã match. Chat mở từ khi match, không cần đợi đặt lịch hay nhà hàng.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Thời điểm mở / đóng chat</div>
-      <div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text"><strong>Chat mở ngay khi match thành công</strong> — dùng được để trao đổi trước khi đặt lịch.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text"><strong>Chat KHÔNG đóng sau buổi ăn</strong> — lịch sử tin nhắn giữ nguyên, có thể nhắn tiếp.</div></div>
-<div class="blp-note warn">Trường hợp duy nhất chat đóng: match bị huỷ (7 ngày không đặt lịch, hoặc một bên chủ động huỷ).</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Tính năng</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Gửi tin nhắn văn bản.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Lịch sử chat không bị xoá</strong> — user xem lại được bất kỳ lúc nào.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Thông báo tin nhắn mới qua SCR-119.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Điều kiện dùng chat</div>
-      <div class="blp-tag-row"><span class="blp-tag ">Bắt buộc: đã match</span><span class="blp-tag ok">Paid: không giới hạn</span><span class="blp-tag warn">Free: cần xác nhận giới hạn</span></div>
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Nhắn tin 1-1 giữa những người đã match.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Yêu cầu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt đầu</strong> — Có thể nhắn tin ngay khi match thành công.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Hiển thị</strong> — Nội dung, thời gian, trạng thái đã đọc.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Hạn chốt</strong> — Cảnh báo nếu không phản hồi trong 24h đầu.</div></div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </div>
 
     </div>
