@@ -69,6 +69,40 @@
       background: #f5f5f5;
       color: #757575;
     }
+
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      padding: 12px 16px;
+      border-left: 3px solid transparent;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .sidebar-item.active {
+      border-left-color: #212121;
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+    }
+
+    .sidebar-title {
+      padding: 12px 16px;
+      color: #424242;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
   </style>
 <style>
 /* === BUSINESS LOGIC PANEL === */
@@ -98,10 +132,32 @@
     <div class="wf-group-label">G · Admin</div>
     <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
     <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
+    <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
   </div>
 </nav>
+
+<div class="sidebar">
+  <div class="sidebar-title">ダッシュボード</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
+
+  <div class="sidebar-title">管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗管理</div>
+
+  <div class="sidebar-title">業績</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益</div>
+
+  <div class="sidebar-title">システム</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
+</div>
 
 <div class="main-content">
   <div class="content-wrapper">
