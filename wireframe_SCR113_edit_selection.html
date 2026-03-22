@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>項目選択 - Otona Table</title>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --panel: #ffffff;
+      --accent: #d4a373;
+      --text: #333;
+      --sub: #888;
+      --border: #f0f0f0;
+      --c1: #efefef;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      background: #f0f0f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      display: flex; justify-content: center;
+    }
+    .device {
+      width: 375px; height: 812px;
+      background: var(--panel);
+      position: relative;
+      overflow-y: auto;
+      box-shadow: 0 0 40px rgba(0,0,0,0.1);
+    }
+    /* Header */
+    .app-header {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff;
+      padding: 16px;
+      display: flex; align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn {
+      text-decoration: none; color: #333;
+      font-size: 20px; margin-right: 16px;
+      cursor: pointer;
+    }
+    .header-title { font-weight: 700; font-size: 16px; flex: 1; text-align: center; margin-right: 36px; }
+
+    /* List Area */
+    .list-container { padding: 16px 0; }
+    .list-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.2s;
+    }
+    .list-item:active { background: #f9f9f9; }
+    .list-item.selected { background: #fff9f4; }
+    .list-item.selected .item-text { color: var(--accent); font-weight: 600; }
+    .check-icon { color: var(--accent); font-size: 18px; visibility: hidden; }
+    .list-item.selected .check-icon { visibility: visible; }
+
+    .save-area { padding: 20px; margin-top: 20px; }
+    .btn-save {
+      width: 100%; padding: 16px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 30px;
+      font-size: 16px; font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
+    }
+
+    /* === BOTTOM NAV === */
+    .app-bottom-nav {
+      height: 60px;
+      line-height: normal;
+      background: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 5px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .bn-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #bbb;
+      gap: 4px;
+      position: relative;
+    }
+    .bn-item svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .bn-item.active {
+      color: #212121;
+    }
+    .bn-lbl {
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .bn-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: #212121;
+      border: 1.5px solid #fff;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body style="margin-left: 200px; margin-right: 280px;">
+
+  <!-- Device Frame -->
+  <div class="device">
+    <header class="app-header">
+      <a href="wireframe_SCR110_mypage.html" class="back-btn">✕</a>
+      <div class="header-title" id="pageTitle">項目を選択</div>
+    </header>
+
+    <div class="list-container" id="optionList">
+      <!-- Options will be injected here -->
+    </div>
+
+    <div class="save-area">
+      <button class="btn-save" onclick="location.href='wireframe_SCR110_mypage.html'">保存して戻る</button>
+    </div>
+
+    <div class="app-bottom-nav">
+      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+      <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+    </div>
+  </div>
+
+  <!-- Business Logic Panel -->
+  <style>
+    .blp-wrap {
+      position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+      background: #222; color: #fff; padding: 20px; overflow-y: auto; z-index: 1000;
+      font-family: sans-serif;
+    }
+  </style>
+  <div class="blp-wrap">
+    <div class="blp-head-scr">SCR-113</div>
+    <div class="blp-head-title">Edit Detail / Selection</div>
+    
+    <div class="blp-section">
+      <div class="blp-section-title">Mục đích</div>
+      <div class="blp-note">Màn hình trung gian để người dùng chọn giá trị cụ thể cho một trường thông tin.</div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Hành động</div>
+      <div class="blp-note">
+        ● Click vào một item: Đánh dấu check.<br>
+        ● Click "Lưu": Ghi nhận thay đổi và quay lại màn hình Profile chính.
+      </div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Thông tin 未登録</div>
+      <div class="blp-note">
+        Giá trị mặc định của hệ thống là null/未登録. Khi chọn, giá trị sẽ được cập nhật.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const field = params.get('field');
+    const pageTitle = document.getElementById('pageTitle');
+    const optionList = document.getElementById('optionList');
+
+    const dataMap = {
+      // A-1 Basic
+      'nickname': { title: 'ニックネーム', type: 'text' },
+      'gender': { title: '性別', options: ['男性', '女性', 'その他'] },
+      'birthday': { title: '生年月日', type: 'date' },
+      'lang': { title: '言語', options: ['日本語', '英語', '中国語', '韓国語', 'その他'] },
+      'bio': { title: '自己紹介文', type: 'textarea' },
+      
+      // A-2 Location
+      'resid': { title: '居住地', options: ['東京都', '神奈川県', '埼玉県', '千葉県', '大阪府', '京都府', '兵庫県', '愛知県', '福岡県', '北海道', 'その他'] },
+      'area': { title: '居住エリア', options: ['23区内', '山手線圏内', '西東京', '横浜/川崎', 'その他'] },
+      'work_loc': { title: '勤務地', options: ['オフィス出社', 'リモートメイン', '現場直行', 'その他'] },
+      'home': { title: '出身地', options: ['東京都', '神奈川県', '埼玉県', '千葉県', '大阪府', '愛知県', '福岡県', '北海道', '海外', 'その他'] },
+
+      // A-3 Physical
+      'height': { title: '身長', options: ['150cm未満', '150-155cm', '155-160cm', '160-165cm', '165-170cm', '170-175cm', '175-180cm', '180-185cm', '185cm以上'] },
+      'body': { title: '体型', options: ['スリム', 'やや細め', '普通', 'グラマラス', '筋肉質', 'ややぽっちゃり'] },
+      'blood': { title: '血液型', options: ['A型', 'B型', 'O型', 'AB型', '不明'] },
+
+      // B Occupation
+      'job': { title: '職業', options: ['会社員', '経営者/役員', 'フリーランス', '公務員', '弁護士/会計士', '医師/歯科医', 'クリエイティブ', 'その他'] },
+      'job_cat': { title: '職種', options: ['IT/通信', '金融/保険', '不動産', 'メーカー', 'マスコミ/広告', '教育', '医療/福祉'] },
+      'work_style': { title: '勤務スタイル', options: ['平日休み', '土日祝休み', '不定休', '裁量労働/フレックス'] },
+      'education': { title: '最終学歴', options: ['大学卒業', '大学院卒業', '短大/専門学校卒業', '高校卒業', 'その他'] },
+      'income': { title: '年収', options: ['400-600万円', '600-800万円', '800-1000万円', '1000-1500万円', '1500-2000万円', '2000-3000万円', '3000万円以上'] },
+      'assets': { title: '資産', options: ['3000万円未満', '3000-5000万円', '5000万-1億円', '1-3億円', '3-5億円', '5-10億円', '10億円以上'] },
+
+      // C Lifestyle
+      'holiday': { title: '休日', options: ['土日祝', '平日', '不定休'] },
+      'alcohol': { title: 'お酒', options: ['飲まない', 'ときどき飲む', '毎日飲む', '付き合い程度'] },
+      'tobacco': { title: 'タバコ', options: ['吸わない', 'ときどき吸う', '加熱式なら', '吸う'] },
+      
+      // J Future
+      'history': { title: '結婚歴', options: ['未婚', '離婚', '死別'] },
+      'desire': { title: '結婚願望', options: ['すぐにでも', '2~3年以内に', '良い人がいれば', 'こだわらない'] },
+      'hope_child': { title: '子ども希望', options: ['欲しい', '欲しくない', 'こだわらない', '要相談'] }
+    };
+
+    function render() {
+      const config = dataMap[field] || { title: '項目を選択', options: ['選択肢1', '選択肢2', '選択肢3'] };
+      pageTitle.innerText = config.title;
+      
+      if(config.type === 'textarea') {
+        optionList.innerHTML = `
+          <div style="padding: 20px;">
+            <textarea style="width:100%; height:200px; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:14px;" placeholder="${config.title}を入力してください..."></textarea>
+          </div>
+        `;
+      } else if(config.type === 'text') {
+        optionList.innerHTML = `
+          <div style="padding: 20px;">
+            <input type="text" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:14px;" placeholder="${config.title}を入力...">
+          </div>
+        `;
+      } else {
+        optionList.innerHTML = config.options.map(opt => `
+          <div class="list-item" onclick="document.querySelectorAll('.list-item').forEach(i=>i.classList.remove('selected')); this.classList.add('selected')">
+            <span class="item-text">${opt}</span>
+            <span class="check-icon">✓</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    render();
+  </script>
+
+</body>
+</html>

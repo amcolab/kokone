@@ -22,11 +22,13 @@
 
     .device-frame {
       width: 360px;
+      height: 812px;
       border: 1.5px solid #212121;
       background: #ffffff;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
     .status-bar {
@@ -146,6 +148,76 @@
       text-decoration: none;
       cursor: pointer;
     }
+        .plan-status-bar {
+            background: var(--c6);
+            color: var(--c0);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .plan-label {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .plan-info {
+            font-size: 11px;
+            color: var(--c3);
+        }
+        .plan-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .plan-btn {
+            background: var(--c0);
+            color: var(--c6);
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 20px;
+        }
+        .plan-cancel-link {
+            color: var(--c3);
+            font-size: 10px;
+            text-decoration: underline;
+        }
+
+    /* Verification Status Alert */
+    .verify-alert {
+      margin: 12px;
+      padding: 12px;
+      background: #fff8f1;
+      border: 1px solid #ffcc80;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .v-alert-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: #e65100;
+    }
+    .v-alert-body {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+    }
+    .v-alert-btn {
+      align-self: flex-start;
+      background: #e65100;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
     .menu-section {
       padding: 12px 12px 0 12px;
@@ -186,31 +258,69 @@
       font-size: 13px;
     }
 
-    .bottom-nav {
-      height: 50px;
-      border-top: 1px solid #e0e0e0;
+    /* === UNIFIED BOTTOM NAV === */
+    .app-bottom-nav {
+      height: 60px;
+      line-height: normal;
       background: #ffffff;
+      border-top: 1px solid #e0e0e0;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      padding-bottom: 5px;
+      width: 100%;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 10;
       margin-top: auto;
     }
-
-    .nav-item {
-      text-align: center;
-      font-size: 10px;
-      color: #757575;
-      cursor: pointer;
+    .bn-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #bbb;
+      gap: 4px;
+      position: relative;
     }
-
-    .nav-item.active {
+    .bn-item svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .bn-item.active {
       color: #212121;
-      font-weight: bold;
+    }
+    .bn-lbl {
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .bn-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: #212121;
+      border: 1.5px solid #fff;
+      border-radius: 50%;
     }
 
     .scrollable {
       overflow-y: auto;
       flex: 1;
+    }
+    .device-frame {
+      width: 360px;
+      border: 1.5px solid #212121;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 812px;
     }
   </style>
 
@@ -273,23 +383,9 @@
 </style>
 <style>
 /* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
-.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
 </style>
 <style>
-/* === BOTTOM NAV === */
-.app-bottom-nav{height:52px;border-top:1px solid #e0e0e0;display:flex;background:#fff;flex-shrink:0;position:relative;}
-.app-bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;padding:0;}
-.app-bottom-nav .bn-item.active{background:#f5f5f5;}
-.app-bottom-nav .bn-item svg{width:19px;height:19px;stroke:#bdbdbd;fill:none;stroke-width:1.8;}
-.app-bottom-nav .bn-item.active svg{stroke:#212121;}
-.app-bottom-nav .bn-lbl{font-size:8px;color:#bdbdbd;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.app-bottom-nav .bn-item.active .bn-lbl{color:#212121;}
-.app-bottom-nav .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:6px;height:6px;background:#212121;border:1.5px solid #fff;border-radius:50%;}
+/* === BOTTOM NAV REMOVED (HANDLED ABOVE) === */
 </style>
 </head>
 <body style="margin-left:200px; margin-right:280px;">
@@ -307,7 +403,6 @@
   <div class="wf-sidebar-group">
     <div class="wf-group-label">B · Home</div>
     <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR060_discovery.html"><span class="wf-nav-id">060</span>Discovery</a>
     <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
     <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
     <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
@@ -340,6 +435,9 @@
     <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
     <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
     <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+    <a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Schedule Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR120_restaurant_list.html"><span class="wf-nav-id">120</span>Restaurant Favorites</a>
+    <a class="wf-nav-link" href="wireframe_SCR114_account_mgmt.html"><span class="wf-nav-id">114</span>Account Mgmt</a>
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">G · Admin</div>
@@ -355,7 +453,7 @@
 
     <div class="header">
       <div class="header-title">マイページ</div>
-      <div class="header-icon">⚙️</div>
+      <div class="header-icon" onclick="window.location.href='wireframe_SCR112_edit_profile.html'" style="cursor:pointer;">⚙️</div>
     </div>
 
     <div class="content">
@@ -366,49 +464,53 @@
             <div class="profile-name">たろうさん</div>
             <div class="profile-details">会社員 · 東京都 · 38歳</div>
             <div class="profile-badge">有料会員 ✓</div>
-            <a href="#" class="profile-edit">プロフィールを編集 ></a>
+            <a href="wireframe_SCR112_edit_profile.html" class="profile-edit">プロフィールを編集 ></a>
           </div>
+        </div>
+
+        <!-- Identity Verification Alert (When Fail) -->
+        <div class="verify-alert">
+          <div class="v-alert-head">
+            <span>⚠️ 本人確認が必要です</span>
+            <span style="font-size: 10px; background:#fff; padding:2px 4px; border:1px solid #ffcc80;">否認</span>
+          </div>
+          <div class="v-alert-body">
+            提出いただいた書類が不鮮明だったため、確認が完了しませんでした。再度お手続きをお願いします。
+          </div>
+          <a href="wireframe_SCR024_ekyc.html" class="v-alert-btn">再申請する</a>
         </div>
 
         <div class="plan-status-bar">
-          <div>
+          <div style="flex: 1;">
             <div class="plan-label">プレミアムプラン</div>
             <div class="plan-info">次回更新: 4月15日</div>
           </div>
-          <a href="#" class="plan-cancel">解約する</a>
+          <div class="plan-actions">
+            <a href="wireframe_SCR111_subscription.html" class="plan-btn">プラン変更</a>
+            <a href="#" class="plan-cancel-link" onclick="if(confirm('有料プランを解約しますか？\n（次回の更新日まで機能は利用可能です）')) alert('解約リクエストを受け付けました。'); return false;">解約する</a>
+          </div>
         </div>
 
-        <div class="menu-section">
-          <div class="section-title">ご利用状況</div>
-          <div class="menu-row">
-            <span>💳 保有ポイント</span>
-            <span class="menu-value">350 pt <span class="menu-arrow">></span></span>
-          </div>
-          <div class="menu-row">
-            <span>📋 送信済みリクエスト</span>
-            <span class="menu-value">3件 <span class="menu-arrow">></span></span>
-          </div>
-          <div class="menu-row">
-            <span>📅 予約履歴</span>
-            <span class="menu-arrow">></span>
-          </div>
-        </div>
 
         <div class="menu-section">
           <div class="section-title">設定</div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR119_notifications.html'">
             <span>🔔 通知設定</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR116_secret_mode.html'">
             <span>🔒 シークレットモード</span>
             <span class="menu-value">OFF <span class="menu-arrow">></span></span>
           </div>
-          <div class="menu-row">
-            <span>🔗 アカウント連携</span>
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR121_availability.html'">
+            <span>📅 スケジュール登録</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR120_restaurant_list.html'">
+            <span>🍽️ おすすめレストラン</span>
+            <span class="menu-arrow">></span>
+          </div>
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR114_account_mgmt.html'">
             <span>👤 アカウント管理</span>
             <span class="menu-arrow">></span>
           </div>
@@ -416,30 +518,30 @@
 
         <div class="menu-section">
           <div class="section-title">サポート・ガイド</div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_LP_guides.html'">
             <span>❓ ヘルプ</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_LP_guides.html'">
             <span>🛡 安心・安全ガイドライン</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_LP_guides.html'">
             <span>📜 利用規約</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_LP_guides.html'">
             <span>🔏 プライバシーポリシー</span>
             <span class="menu-arrow">></span>
           </div>
-          <div class="menu-row">
+          <div class="menu-row" onclick="window.location.href='wireframe_LP_guides.html'">
             <span>🏪 特定商取引法</span>
             <span class="menu-arrow">></span>
           </div>
         </div>
 
         <div class="menu-section">
-          <div class="menu-row logout">
+          <div class="menu-row logout" onclick="if(confirm('ログアウトしますか？')) window.location.href='wireframe_SCR020_login.html'">
             <span>ログアウト</span>
             <span></span>
           </div>
@@ -448,8 +550,14 @@
       </div>
     </div>
 
+    <div class="app-bottom-nav">
+      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+      <a class="bn-item" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
-  </div>
+  </div> <!-- /device-frame -->
 
 <div class="blp-wrap">
   <div class="blp-head">
@@ -483,20 +591,6 @@
   </div>
 </div>
 
-<div class="app-bottom-nav">
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-<a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-<a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
-<a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-</div>
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR103_report.html">← Report</a>
-  <div class="wf-pn-center">
-    <div>My Page</div>
-    <div class="wf-pn-pos">25 / 31</div>
   </div>
-  <a class="wf-pn-btn" href="wireframe_SCR111_subscription.html">Subscription →</a>
-</div>
 </body>
 </html>

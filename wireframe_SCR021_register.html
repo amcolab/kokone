@@ -13,9 +13,9 @@
     }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
     .main { display: flex; justify-content: center; padding: 20px; }
-    .device { width: 360px; background: var(--c0); border: 1.5px solid var(--c6); flex-shrink: 0; }
+    .device { width: 360px; height: 812px; background: var(--c0); border: 1.5px solid var(--c6); flex-shrink: 0; overflow: hidden; display: flex; flex-direction: column; position: relative; }
     .status-bar { height: 20px; background: var(--c6); }
-    .screen { padding: 20px; min-height: 640px; display: flex; flex-direction: column; }
+    .screen { padding: 20px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
     .header { text-align: center; margin-bottom: 24px; }
     .logo { font-size: 24px; font-weight: bold; color: var(--c6); margin-bottom: 8px; }
     .screen-title {
@@ -113,24 +113,56 @@
 .wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
 </style>
 <style>
-/* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
-.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
-</style>
-<style>
-/* === BOTTOM NAV === */
-.app-bottom-nav{height:52px;border-top:1px solid #e0e0e0;display:flex;background:#fff;flex-shrink:0;position:relative;}
-.app-bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;padding:0;}
-.app-bottom-nav .bn-item.active{background:#f5f5f5;}
-.app-bottom-nav .bn-item svg{width:19px;height:19px;stroke:#bdbdbd;fill:none;stroke-width:1.8;}
-.app-bottom-nav .bn-item.active svg{stroke:#212121;}
-.app-bottom-nav .bn-lbl{font-size:8px;color:#bdbdbd;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.app-bottom-nav .bn-item.active .bn-lbl{color:#212121;}
-.app-bottom-nav .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:6px;height:6px;background:#212121;border:1.5px solid #fff;border-radius:50%;}
+/* === UNIFIED BOTTOM NAV === */
+.app-bottom-nav {
+  height: 60px;
+  line-height: normal;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 5px;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+}
+.bn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #bbb;
+  gap: 4px;
+  position: relative;
+}
+.bn-item svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+.bn-item.active {
+  color: #212121;
+}
+.bn-lbl {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+.bn-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #212121;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+}
 </style>
 </head>
 <body style="margin-left:200px; margin-right:280px;">
@@ -197,7 +229,7 @@
       <div class="status-bar"></div>
       <div class="screen">
         <div class="header">
-          <div class="logo">Otona Table β</div>
+          <div class="logo" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona Table β</div>
         </div>
 
         <div class="screen-title">新規会員登録</div>
@@ -239,12 +271,12 @@
         </div>
 
         <div class="app-bottom-nav" style="display:none;">
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-<a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-<a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
-<a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-</div>
+          <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+          <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+          <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+          <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+          <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+        </div>
   <div class="flow-section">
           <div class="flow-text">REGISTER → SCR-024 eKYC → SCR-030 Profile</div>
         </div>
@@ -297,13 +329,5 @@
   </div>
 </div>
 
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR020_login.html">← Login</a>
-  <div class="wf-pn-center">
-    <div>Register</div>
-    <div class="wf-pn-pos">2 / 31</div>
-  </div>
-  <a class="wf-pn-btn" href="wireframe_SCR024_ekyc.html">eKYC →</a>
-</div>
 </body>
 </html>

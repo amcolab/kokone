@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCR-121 スケジュール登録</title>
+    <style>
+        :root {
+            --c0: #ffffff;
+            --c1: #f5f5f5;
+            --c2: #e0e0e0;
+            --c3: #bdbdbd;
+            --c4: #757575;
+            --c5: #424242;
+            --c6: #212121;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--c1);
+            color: var(--c6);
+        }
+        .device {
+            width: 360px;
+            height: 812px;
+            border: 1.5px solid var(--c6);
+            display: flex;
+            flex-direction: column;
+            background: var(--c0);
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .status-bar {
+            height: 20px;
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 9px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--c6);
+            gap: 12px;
+            background: var(--c0);
+        }
+        .back-btn {
+            font-size: 14px;
+            cursor: pointer;
+            color: var(--c6);
+            flex-shrink: 0;
+        }
+        .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--c6);
+            flex: 1;
+        }
+        .save-btn {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--c6);
+            cursor: pointer;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--c2);
+            background: var(--c0);
+        }
+        .tab {
+            flex: 1;
+            padding: 14px 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--c4);
+            cursor: pointer;
+            position: relative;
+        }
+        .tab.active {
+            color: var(--c6);
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--c6);
+        }
+
+        .scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--c1);
+        }
+        .content-section {
+            display: none;
+            padding: 16px;
+        }
+        .content-section.active {
+            display: block;
+        }
+
+        .section-desc {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* Weekly Layout */
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr;
+            gap: 1px;
+            background: var(--c2);
+            border: 1px solid var(--c2);
+        }
+        .grid-header {
+            background: var(--c1);
+            padding: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--c4);
+        }
+        .grid-cell-day {
+            background: var(--c0);
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .day-sun { color: #d32f2f; }
+        .day-sat { color: #1976d2; }
+
+        .slot-btn {
+            background: var(--c0);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .slot-btn::before {
+            content: '×';
+            color: var(--c2);
+            font-size: 16px;
+        }
+        .slot-btn.active {
+            background: #fff;
+        }
+        .slot-btn.active::before {
+            content: '○';
+            color: var(--c6);
+            font-weight: 900;
+        }
+        .slot-btn:active {
+            background: #f0f0f0;
+        }
+
+        /* Specific Days Layout */
+        .date-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .date-card {
+            background: var(--c0);
+            border: 1px solid var(--c6);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .date-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .date-val {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .date-dow {
+            font-size: 11px;
+            color: var(--c4);
+        }
+        .slot-selection {
+            display: flex;
+            gap: 8px;
+        }
+        .slot-chip {
+            border: 1px solid var(--c3);
+            background: var(--c0);
+            color: var(--c4);
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .slot-chip.active {
+            border-color: var(--c6);
+            background: var(--c6);
+            color: var(--c0);
+        }
+
+        /* Logic Panel */
+        .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;}
+        .blp-head{background:#212121;color:#fff;padding:10px 14px;}
+        .blp-body{padding:12px;}
+        .blp-section{margin-bottom:16px;}
+        .blp-section-title{font-size:10px;font-weight:700;text-transform:uppercase;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:8px;}
+        .blp-rule{display:flex;gap:8px;margin-bottom:8px;}
+        .blp-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;}
+    </style>
+</head>
+<body>
+
+<div class="device">
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>LTE</span>
+    </div>
+
+    <div class="header" style="flex-direction:column; align-items:flex-start;">
+        <div style="display:flex; width:100%; align-items:center; gap:12px;">
+            <div class="back-btn onboarding-hide" onclick="window.location.href='wireframe_SCR110_mypage.html'">←</div>
+            <div class="back-btn onboarding-show" style="display:none;" onclick="history.back()">←</div>
+            <div class="header-title" style="flex:1;">スケジュール登録</div>
+            <div class="save-btn onboarding-hide" onclick="alert('保存しました')">保存</div>
+            <div class="skip-btn onboarding-show" onclick="window.location.href='wireframe_SCR120_restaurant_list.html?mode=onboarding'" style="display:none; font-size:12px; color:var(--c4); text-decoration:underline; cursor:pointer;">スキップ</div>
+        </div>
+        <div class="onboarding-show" style="display:none; font-size:11px; color:var(--c4); margin-top:4px;">3 / 6</div>
+    </div>
+
+    <!-- Onboarding Progress Bar -->
+    <div class="onboarding-show" style="display:none; height:4px; background:var(--c2); width:100%;">
+        <div style="width:50%; height:100%; background:var(--c6);"></div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab(this, 'weekly')">週次</div>
+        <div class="tab" onclick="switchTab(this, 'specific')">14日間</div>
+    </div>
+
+    <div class="scroll-area">
+        <!-- Weekly Mode -->
+        <div id="weekly-section" class="content-section active">
+            <p class="section-desc">毎週決まった曜日の空き時間を登録します。<br>マッチングの際の基本スケジュールとなります。</p>
+            
+            <div class="weekly-grid">
+                <div class="grid-header">曜日</div>
+                <div class="grid-header">ランチ</div>
+                <div class="grid-header">ディナー</div>
+                
+                <div class="grid-cell-day day-sun">月</div>
+                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day">火</div>
+                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day">水</div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day">木</div>
+                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day">金</div>
+                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day day-sat">土</div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+
+                <div class="grid-cell-day day-sun">日</div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+            </div>
+        </div>
+
+        <!-- Specific Mode -->
+        <div id="specific-section" class="content-section">
+            <p class="section-desc">これから14日間の具体的な予定を登録します。<br>週次スケジュールより優先されます。</p>
+            
+            <div class="date-list">
+                <!-- Data will be updated dynamically in a real app, here we hardcode 5 items for demo -->
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-val">3/23</div>
+                        <div class="date-dow">(月)</div>
+                    </div>
+                    <div class="slot-selection">
+                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
+                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-val">3/24</div>
+                        <div class="date-dow">(火)</div>
+                    </div>
+                    <div class="slot-selection">
+                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
+                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-val">3/25</div>
+                        <div class="date-dow">(水)</div>
+                    </div>
+                    <div class="slot-selection">
+                        <div class="slot-chip active" onclick="this.classList.toggle('active')">昼</div>
+                        <div class="slot-chip" onclick="this.classList.toggle('active')">夜</div>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-val">3/26</div>
+                        <div class="date-dow">(木)</div>
+                    </div>
+                    <div class="slot-selection">
+                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
+                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
+                    </div>
+                </div>
+
+                <div class="date-card highlight">
+                    <div class="date-info">
+                        <div class="date-val">3/27</div>
+                        <div class="date-dow">(金)</div>
+                    </div>
+                    <div class="slot-selection">
+                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
+                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+    <!-- Onboarding Footer -->
+    <div class="onboarding-show" style="display:none; padding:16px; border-top:1px solid var(--c2); background:var(--c0); position:sticky; bottom:0; z-index:100;">
+        <button onclick="window.location.href='wireframe_SCR120_restaurant_list.html?mode=onboarding'" style="width:100%; height:44px; background:var(--c6); color:var(--c0); border:none; font-weight:bold; cursor:pointer;">次へ (レストラン検索) →</button>
+    </div>
+</div>
+
+<div class="blp-wrap">
+    <div class="blp-head">SCR-121 スケジュール管理</div>
+    <div class="blp-body">
+        <div class="blp-section">
+            <div class="blp-section-title">目的</div>
+            <p>ユーザーの空き時間を事前に収集し、募集の提示やAIマッチングをスムーズにするための設定画面。</p>
+        </div>
+        <div class="blp-section">
+            <div class="blp-section-title">2つのモード</div>
+            <div class="blp-rule">
+                <div class="blp-dot">週</div>
+                <p><strong>週次 (Recurring):</strong> 曜日ごとのルーチン。毎週同じであれば一度の登録で済む。</p>
+            </div>
+            <div class="blp-rule">
+                <div class="blp-dot">14</div>
+                <p><strong>14日間 (Specific):</strong> 直近2週間の突発的な予定や詳細な空き状況。週次設定よりも優先される。</p>
+            </div>
+        </div>
+        <div class="blp-section">
+            <div class="blp-section-title">スロット定義</div>
+            <p>昼 (Lunch): 11:30 - 15:00<br>夜 (Dinner): 17:30 - 22:00</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchTab(el, mode) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(mode + '-section').classList.add('active');
+    }
+
+    // Onboarding Mode Logic
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'onboarding') {
+        document.querySelectorAll('.onboarding-show').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.onboarding-hide').forEach(el => el.style.display = 'none');
+        document.querySelector('.back-btn').onclick = () => window.location.href = 'wireframe_SCR031_photo.html';
+        document.body.style.background = '#fff';
+    }
+</script>
+
+</body>
+</html>

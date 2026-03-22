@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCR-080 Photo Request</title>
+    <style>
+        :root { --c0: #fff; --c1: #f5f5f5; --c2: #e0e0e0; --c3: #bdbdbd; --c4: #757575; --c5: #424242; --c6: #212121; }
+        body { font-family: sans-serif; background: var(--c1); margin: 0; padding: 20px; }
+        .device { width: 360px; height: 812px; border: 1.5px solid var(--c6); background: var(--c0); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .status-bar { height: 20px; background: var(--c6); color: #fff; font-size: 9px; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
+        .header { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid var(--c6); gap: 12px; }
+        .back-btn { font-size: 14px; cursor: pointer; }
+        .header-title { font-size: 16px; font-weight: 600; flex: 1; }
+        .content { padding: 12px; flex: 1; overflow-y: auto; }
+        
+        .photo-request-box { margin-bottom: 20px; padding: 20px; border: 1px solid var(--c6); background: #f0f7ff; text-align: center; }
+        .request-icon { font-size: 32px; margin-bottom: 10px; }
+        .request-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .request-text { font-size: 12px; color: var(--c5); line-height: 1.5; margin-bottom: 20px; }
+        
+        .btn-row { display: flex; gap: 8px; }
+        .btn { flex: 1; height: 44px; border: 1.5px solid var(--c6); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; background: #fff; }
+        .btn.primary { background: var(--c6); color: #fff; }
+        
+        .preview-photos { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .photo-item { width: 100px; height: 100px; border: 1px solid var(--c2); background: var(--c1); position: relative; overflow: hidden; }
+        .photo-blur { width: 100%; height: 100%; object-fit: cover; filter: blur(10px); }
+        .photo-lbl { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.5); color: #fff; font-size: 9px; text-align: center; padding: 2px 0; }
+
+        .app-bottom-nav { height: 60px; background: #fff; border-top: 1px solid #e0e0e0; display: flex; justify-content: space-around; align-items: center; }
+        .bn-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #bbb; gap: 4px; }
+        .bn-item svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .bn-item.active { color: #212121; }
+        .bn-lbl { font-size: 10px; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="device">
+        <div class="status-bar"><span>9:41</span><span>●●●●● 100%</span></div>
+        <div class="header">
+            <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'"><</div>
+            <div class="header-title">まいさん</div>
+        </div>
+        <div class="content">
+            <div class="photo-request-box">
+                <div class="request-icon">📸</div>
+                <div class="request-title">写真公開リクエスト</div>
+                <div class="request-text">まいさんが、お互いのメイン写真を公開することを希望しています。承認するとあなたの写真も相手に公開されます。</div>
+                <div class="btn-row">
+                    <button class="btn" onclick="alert('リクエストを辞退しました')">断る</button>
+                    <button class="btn primary" onclick="alert('承認しました！写真のぼかしが解除されます')">承認する</button>
+                </div>
+            </div>
+            
+            <div style="font-size: 12px; font-weight: 700; margin-bottom: 10px;">現在の公開状況</div>
+            <div class="preview-photos">
+                <div class="photo-item"><div class="photo-blur"></div><div class="photo-lbl">あなたの写真</div></div>
+                <div class="photo-item"><div class="photo-blur"></div><div class="photo-lbl">相手の写真</div></div>
+            </div>
+            <div style="font-size: 10px; color: var(--c4); text-align: center; margin-top: 10px;">※現在はどちらもぼかしがかかっています</div>
+        </div>
+        <div class="app-bottom-nav">
+          <a class="bn-item" href="#"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+          <a class="bn-item" href="#"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
+          <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+          <a class="bn-item" href="#"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+        </div>
+    </div>
+</body>
+</html>

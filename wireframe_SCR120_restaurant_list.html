@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCR-120 おすすめレストラン</title>
+    <style>
+        :root {
+            --c0: #ffffff;
+            --c1: #f5f5f5;
+            --c2: #e0e0e0;
+            --c3: #bdbdbd;
+            --c4: #757575;
+            --c5: #424242;
+            --c6: #212121;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--c1);
+            color: var(--c6);
+        }
+        .device {
+            width: 360px;
+            height: 812px;
+            border: 1.5px solid var(--c6);
+            display: flex;
+            flex-direction: column;
+            background: var(--c0);
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .status-bar {
+            height: 20px;
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 9px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--c6);
+            gap: 12px;
+            background: var(--c0);
+        }
+        .back-btn {
+            font-size: 14px;
+            cursor: pointer;
+            color: var(--c6);
+            flex-shrink: 0;
+        }
+        .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--c6);
+            flex: 1;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--c2);
+            background: var(--c0);
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--c4);
+            cursor: pointer;
+            position: relative;
+        }
+        .tab.active {
+            color: var(--c6);
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--c6);
+        }
+        .search-container {
+            padding: 12px 16px;
+            background: var(--c0);
+            border-bottom: 1px solid var(--c2);
+            position: relative;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--c1);
+            border: 1px solid var(--c2);
+            padding: 8px 12px;
+            gap: 8px;
+        }
+        .search-input {
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            color: var(--c6);
+            flex: 1;
+            outline: none;
+        }
+        .search-feedback {
+            font-size: 10px;
+            color: var(--c4);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .search-feedback.scanning {
+            opacity: 1;
+        }
+        .loading-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--c4);
+            border-radius: 50%;
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+        .notice-banner {
+            background: var(--c6);
+            color: var(--c0);
+            padding: 10px 16px;
+            font-size: 11px;
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .cards-section {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+            background: var(--c1);
+        }
+        .restaurant-card {
+            background: var(--c0);
+            border: 1px solid var(--c6);
+            margin-bottom: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .restaurant-card:active {
+            transform: scale(0.98);
+        }
+        .card-photo {
+            width: 100%;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid var(--c6);
+            position: relative;
+        }
+        .like-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid var(--c6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        .like-btn.active {
+            background: var(--c6);
+            color: #ff4757;
+        }
+        .like-btn.active svg {
+            fill: #ff4757;
+            stroke: #ff4757;
+        }
+        .card-content {
+            padding: 12px;
+        }
+        .res-name {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .res-info {
+            font-size: 12px;
+            color: var(--c5);
+            margin-bottom: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        .res-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .res-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border: 1px solid var(--c2);
+            color: var(--c4);
+        }
+        .res-price {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--c6);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            height: 60px;
+            background: var(--c0);
+            border-top: 1px solid var(--c2);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #bbb;
+            gap: 4px;
+        }
+        .nav-item.active {
+            color: var(--c6);
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .nav-lbl {
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        /* Logic Panel */
+        .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;}
+        .blp-head{background:#212121;color:#fff;padding:10px 14px;}
+        .blp-body{padding:12px;}
+        .blp-section{margin-bottom:16px;}
+        .blp-section-title{font-size:10px;font-weight:700;text-transform:uppercase;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:8px;}
+        .blp-rule{display:flex;gap:8px;margin-bottom:8px;}
+        .blp-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0;}
+    </style>
+</head>
+<body>
+
+<div class="device">
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>LTE</span>
+    </div>
+
+    <div class="header" style="flex-direction:column; align-items:flex-start;">
+        <div style="display:flex; width:100%; align-items:center; gap:12px;">
+            <div class="back-btn" onclick="history.back()">←</div>
+            <div class="header-title" style="flex:1;">おすすめレストラン</div>
+            <div class="skip-btn onboarding-show" onclick="window.location.href='wireframe_SCR112_edit_profile.html?mode=onboarding'" style="display:none; font-size:12px; color:var(--c4); text-decoration:underline; cursor:pointer;">スキップ</div>
+        </div>
+        <div class="onboarding-show" style="display:none; font-size:11px; color:var(--c4); margin-top:4px;">4 / 6</div>
+    </div>
+
+    <!-- Onboarding Progress Bar -->
+    <div class="onboarding-show" style="display:none; height:4px; background:var(--c2); width:100%;">
+        <div style="width:66%; height:100%; background:var(--c6);"></div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="all" onclick="setTab('all')">見つける</div>
+        <div class="tab" data-tab="fav" onclick="setTab('fav')">お気に入り</div>
+    </div>
+
+    <div class="search-container">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" class="search-input" id="search-input" placeholder="店名、エリア、タグで自動検索..." oninput="applyFilters()">
+        </div>
+        <div class="search-feedback" id="search-feedback">
+            <div class="loading-dot"></div>
+            <span id="feedback-text">入力をスキャン中...</span>
+        </div>
+    </div>
+
+    <div class="notice-banner">
+        <div>💡</div>
+        <div>『行きたい』ボタンを押したレストランは、マッチング成立後の予約時に優先的に候補となります.</div>
+    </div>
+
+    <div class="cards-section" id="res-list">
+        <!-- Restaurant 1 -->
+        <div class="restaurant-card" data-fav="false">
+            <div class="card-photo" style="background-image: url('file:///Users/quynt/.gemini/antigravity/brain/cdbc9101-be0a-4eb1-bcc0-f848b99002ee/restaurant_washoku_1774022332002.png');">
+                <div class="like-btn" onclick="toggleLike(this)">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="res-name">和食 しずく</div>
+                <div class="res-info">
+                    <span>📍 渋谷区</span>
+                    <span>🍽️ 創作和食</span>
+                </div>
+                <div class="res-tags">
+                    <span class="res-tag">個室あり</span>
+                    <span class="res-tag">落ち着いた空間</span>
+                </div>
+                <div class="res-price">¥8,000 〜 ¥12,000 / 人</div>
+            </div>
+        </div>
+
+        <!-- Restaurant 2 -->
+        <div class="restaurant-card" data-fav="false">
+            <div class="card-photo" style="background-image: url('file:///Users/quynt/.gemini/antigravity/brain/cdbc9101-be0a-4eb1-bcc0-f848b99002ee/restaurant_bistro_1774022357417.png');">
+                <div class="like-btn" onclick="toggleLike(this)">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="res-name">Bistro L'Etoile</div>
+                <div class="res-info">
+                    <span>📍 渋谷区 (恵比寿)</span>
+                    <span>🍽️ フレンチビストロ</span>
+                </div>
+                <div class="res-tags">
+                    <span class="res-tag">カジュアル</span>
+                    <span class="res-tag">デート向け</span>
+                </div>
+                <div class="res-price">¥10,000 〜 ¥15,000 / 人</div>
+            </div>
+        </div>
+
+        <!-- Restaurant 3 -->
+        <div class="restaurant-card" data-fav="false">
+            <div class="card-photo" style="background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#757575; font-size:10px;">Ginza Sushi Ken Image</div>
+                <div class="like-btn" onclick="toggleLike(this)">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="res-name">銀座 鮨 研 (Ginza Sushi Ken)</div>
+                <div class="res-info">
+                    <span>📍 中央区</span>
+                    <span>🍽️ 寿司 / 懐石</span>
+                </div>
+                <div class="res-tags">
+                    <span class="res-tag">高級感</span>
+                    <span class="res-tag">江戸前</span>
+                </div>
+                <div class="res-price">¥20,000 〜 ¥30,000 / 人</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav onboarding-hide">
+        <a class="nav-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="nav-lbl">さがす</span></a>
+        <a class="nav-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="nav-lbl">いいね</span></a>
+        <a class="nav-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="nav-lbl">募集</span></a>
+        <a class="nav-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="nav-lbl">マッチング</span></a>
+        <a class="nav-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-lbl">マイページ</span></a>
+    </div>
+
+    <div class="onboarding-show" style="display:none; padding:16px; border-top:1px solid var(--c2); background:var(--c0); position:sticky; bottom:0; z-index:100;">
+        <button onclick="window.location.href='wireframe_SCR112_edit_profile.html?mode=onboarding'" style="width:100%; height:44px; background:var(--c6); color:var(--c0); border:none; font-weight:bold; cursor:pointer;">次へ (プロフィール詳細) →</button>
+    </div>
+</div>
+
+<div class="blp-wrap">
+    <div class="blp-head">SCR-120 おすすめレストラン</div>
+    <div class="blp-body">
+        <div class="blp-section">
+            <div class="blp-section-title">目的</div>
+            <p>Adminが厳選したレストランを事前にお気に入りに登録し、マッチング後の自動予約の優先順位に反映させる機能。</p>
+        </div>
+        <div class="blp-section">
+            <div class="blp-section-title">主な機能</div>
+            <div class="blp-rule"><div class="blp-dot">1</div><p>レストラン一覧閲覧</p></div>
+            <div class="blp-rule"><div class="blp-dot">2</div><p>『行きたい』(Like) 登録/解除</p></div>
+            <div class="blp-rule"><div class="blp-dot">3</div><p>お気に入り絞り込み表示</p></div>
+            <div class="blp-rule"><div class="blp-dot">4</div><p>店名・エリアによる検索</p></div>
+        </div>
+        <div class="blp-section">
+            <div class="blp-section-title">UIパターン</div>
+            <p>清潔感のあるカード形式、ワンタップでお気に入り登録できるHeartアイコンの採用。</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentTab = 'all';
+
+    function toggleLike(btn) {
+        btn.classList.toggle('active');
+        const card = btn.closest('.restaurant-card');
+        card.setAttribute('data-fav', btn.classList.contains('active'));
+        applyFilters();
+    }
+
+    function setTab(mode) {
+        currentTab = mode;
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.toggle('active', t.getAttribute('data-tab') === mode);
+        });
+        applyFilters();
+    }
+
+    let scanTimer;
+
+    function applyFilters() {
+        const feedback = document.getElementById('search-feedback');
+        const feedbackText = document.getElementById('feedback-text');
+        
+        // Show scanning indicator
+        feedback.classList.add('scanning');
+        feedbackText.textContent = 'スキャン中...';
+
+        clearTimeout(scanTimer);
+        scanTimer = setTimeout(() => {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.restaurant-card');
+            let count = 0;
+            
+            cards.forEach(card => {
+                const name = card.querySelector('.res-name').textContent.toLowerCase();
+                const info = card.querySelector('.res-info').textContent.toLowerCase();
+                const tags = card.querySelector('.res-tags').textContent.toLowerCase();
+                const isFav = card.getAttribute('data-fav') === 'true';
+                
+                const matchTab = (currentTab === 'all' || (currentTab === 'fav' && isFav));
+                const matchSearch = (name.includes(query) || info.includes(query) || tags.includes(query));
+                
+                if (matchTab && matchSearch) {
+                    card.style.display = 'block';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update feedback with count
+            feedbackText.textContent = query === '' ? '' : `${count}件見つかりました`;
+            if (query === '') feedback.classList.remove('scanning');
+        }, 300); // 300ms debounce
+    }
+
+    // Onboarding Mode Logic
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'onboarding') {
+        document.querySelectorAll('.onboarding-show').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.onboarding-hide').forEach(el => el.style.display = 'none');
+        document.body.style.background = '#fff';
+    }
+</script>
+
+</body>
+</html>

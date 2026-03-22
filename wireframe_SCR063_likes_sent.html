@@ -21,22 +21,26 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--c0);
+      background: var(--c1);
+      margin-left: 200px;
+      margin-right: 280px;
     }
 
     .device {
       width: 360px;
-      border: 1.5px solid var(--c6);
+      height: 812px;
+      border: 2px solid var(--c6);
       margin: 20px auto;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-      background: var(--c1);
+      background: var(--c0);
+      overflow: hidden;
+      position: relative;
     }
 
     .status-bar {
       height: 20px;
-      background: var(--c6);
+      background: #000;
       color: var(--c0);
       font-size: 9px;
       display: flex;
@@ -47,7 +51,7 @@
 
     .app-header {
       background: var(--c0);
-      border-bottom: var(--border);
+      border-bottom: 2px solid #000;
       padding: 12px 16px;
       display: flex;
       justify-content: space-between;
@@ -73,7 +77,7 @@
 
     .header-bar {
       background: var(--c0);
-      border-bottom: var(--border);
+      border-bottom: 2px solid #000;
       padding: 12px 16px;
       display: flex;
       align-items: center;
@@ -84,12 +88,8 @@
       width: 24px;
       height: 24px;
       border: 1px solid var(--c3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: var(--c6);
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--c6); cursor: pointer;
     }
 
     .header-title {
@@ -110,7 +110,7 @@
 
     .tab-bar {
       background: var(--c0);
-      border-bottom: var(--border);
+      border-bottom: 2px solid #000;
       display: flex;
       height: 44px;
     }
@@ -151,6 +151,8 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      background: #fff;
     }
 
     .user-list {
@@ -217,6 +219,17 @@
       color: var(--c4);
       border-color: var(--c3);
     }
+    .status-badge.withdrawn {
+      background: var(--c1);
+      color: var(--c4);
+      border-style: dashed;
+    }
+
+    .status-badge.received {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-color: #90caf9;
+    }
 
     .sent-date {
       font-size: 11px;
@@ -233,45 +246,143 @@
       font-size: 16px;
     }
 
-    .bottom-nav {
-      background: var(--c0);
-      border-top: var(--border);
-      display: flex;
-      height: 48px;
+    /* === UNIFIED BOTTOM NAV === */
+    .app-bottom-nav {
+      height: 70px;
+      line-height: normal;
+      background: #ffffff !important;
+      border-top: 1.5px solid #000 !important;
+      display: flex !important;
       justify-content: space-around;
       align-items: center;
+      padding-bottom: 20px;
+      width: 100%;
+      flex-shrink: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99999 !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
-
-    .nav-item {
+    .bn-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      text-decoration: none;
+      color: #757575 !important;
       gap: 4px;
-      font-size: 10px;
-      color: var(--c4);
-      cursor: pointer;
       position: relative;
+      z-index: 100000;
     }
-
-    .nav-item.active {
-      color: var(--c6);
-      font-weight: 600;
+    .bn-item svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
     }
-
-    .nav-item.active::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--c6);
-      border-radius: 0;
+    .bn-item.active {
+      color: #000 !important;
+      font-weight: bold !important;
+    }
+    .bn-lbl {
+      font-size: 10px;
+      font-weight: bold !important;
+      line-height: 1;
+      z-index: 100001;
+    }
+    .bn-dot {
       position: absolute;
-      bottom: 0;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: #212121;
+      border: 1.5px solid #fff;
+      border-radius: 50%;
+      z-index: 100001;
     }
 
-    .nav-icon {
-      font-size: 18px;
+    /* === Tab panel switching === */
+    .tab-panel { display: flex; flex-direction: column; padding-bottom: 120px; }
+    .tab-panel.hidden { display: none; }
+
+    /* Tab badge (inline count) */
+    .tab-count {
+      font-size: 10px;
+      background: var(--c5);
+      color: #fff;
+      padding: 1px 5px;
+      margin-left: 4px;
+      font-weight: 700;
     }
+    .tab .tab-count.muted {
+      background: var(--c3);
+    }
+
+    /* === Received panel styles === */
+    .info-banner {
+      background: var(--c1);
+      border-bottom: var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .banner-text { font-size: 11px; color: var(--c4); flex: 1; line-height: 1.4; }
+    .banner-button {
+      font-size: 11px;
+      color: var(--c6);
+      border: 1px solid var(--c3);
+      padding: 5px 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      background: var(--c0);
+    }
+
+    .user-card {
+      background: var(--c0);
+      border-bottom: var(--border);
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .card-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .tag-row { display: flex; gap: 4px; flex-wrap: wrap; }
+    .tag {
+      background: var(--c1);
+      border: 1px solid var(--c3);
+      padding: 2px 6px;
+      font-size: 10px;
+      color: var(--c6);
+    }
+    .action-buttons { display: flex; gap: 8px; margin-top: 4px; }
+    .action-buttons .btn {
+      flex: 1;
+      border: 1px solid var(--c3);
+      background: var(--c0);
+      padding: 7px 0;
+      font-size: 11px;
+      color: var(--c6);
+      cursor: pointer;
+      text-align: center;
+    }
+    .action-buttons .btn.primary {
+      background: var(--c5);
+      color: var(--c0);
+      border-color: var(--c5);
+    }
+    .action-buttons .btn.disabled {
+      background: var(--c2);
+      color: var(--c4);
+      border-color: var(--c3);
+      pointer-events: none;
+    }
+
   </style>
 
 
@@ -333,23 +444,10 @@
 </style>
 <style>
 /* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
-.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
 </style>
 <style>
 /* === BOTTOM NAV === */
-.app-bottom-nav{height:52px;border-top:1px solid #e0e0e0;display:flex;background:#fff;flex-shrink:0;position:relative;}
-.app-bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;padding:0;}
-.app-bottom-nav .bn-item.active{background:#f5f5f5;}
-.app-bottom-nav .bn-item svg{width:19px;height:19px;stroke:#bdbdbd;fill:none;stroke-width:1.8;}
-.app-bottom-nav .bn-item.active svg{stroke:#212121;}
-.app-bottom-nav .bn-lbl{font-size:8px;color:#bdbdbd;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.app-bottom-nav .bn-item.active .bn-lbl{color:#212121;}
-.app-bottom-nav .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:6px;height:6px;background:#212121;border:1.5px solid #fff;border-radius:50%;}
+.app-bottom-nav { display: flex !important; background: #fff !important; visibility: visible !important; } 
 </style>
 </head>
 <body style="margin-left:200px; margin-right:280px;">
@@ -417,82 +515,193 @@
     </div>
 
     <div class="app-header">
-      <span class="app-title">Otona Table β</span>
+      <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona Table β</span>
       <div class="bell-icon">🔔</div>
     </div>
 
-    <div class="header-bar">
-      <div class="back-arrow" onclick="window.location.href='wireframe_SCR060_flat.html'" style="cursor:pointer;">←</div>
-      <span class="header-title">送ったいいね</span>
-      <span class="badge">12</span>
+    <div class="header-bar" style="justify-content: center; position: relative;">
+      <span class="header-title" id="likes-title">いいね！</span>
+      <span class="badge" id="likes-count" style="margin-left:8px;">12</span>
     </div>
 
     <div class="tab-bar">
-      <div class="tab active">送ったいいね</div>
-      <div class="tab" onclick="window.location.href='wireframe_SCR064_likes_received.html'" style="cursor:pointer;">もらったいいね</div>
-    </div>
-
-    <div class="content">
-      <div class="user-list">
-        <!-- Item 1 -->
-        <div class="user-item">
-          <div class="photo-box">✕✕</div>
-          <div class="user-info">
-            <div class="user-name">さくらさん · 34歳</div>
-            <div class="user-location">新宿区 · 会社員</div>
-            <div class="status-badge">マッチング待ち</div>
-            <div class="sent-date">3日前</div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- Item 2 (matched → SCR-080) -->
-        <div class="user-item" onclick="window.location.href='wireframe_SCR080_match_detail.html'" style="cursor:pointer;background:#f9f9f9;">
-          <div class="photo-box">✕✕</div>
-          <div class="user-info">
-            <div class="user-name">ゆみさん · 29歳</div>
-            <div class="user-location">渋谷区 · デザイナー</div>
-            <div class="status-badge matched">マッチング成立 ✓</div>
-            <div class="sent-date">2日前</div>
-          </div>
-          <div class="arrow-icon" style="color:#212121;font-weight:bold;">></div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="user-item">
-          <div class="photo-box">✕✕</div>
-          <div class="user-info">
-            <div class="user-name">あいさん · 31歳</div>
-            <div class="user-location">品川区 · 営業</div>
-            <div class="status-badge">マッチング待ち</div>
-            <div class="sent-date">5日前</div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="user-item">
-          <div class="photo-box">✕✕</div>
-          <div class="user-info">
-            <div class="user-name">ひかりさん · 27歳</div>
-            <div class="user-location">新宿区 · イベント企画</div>
-            <div class="status-badge expired">期限切れ</div>
-            <div class="sent-date">1週間前</div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
+      <div class="tab active" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
+        送ったいいね<span class="tab-count" id="cnt-sent">12</span>
+      </div>
+      <div class="tab" id="tab-received" onclick="switchTab('received')" style="cursor:pointer;">
+        もらったいいね<span class="tab-count muted" id="cnt-received">5</span>
       </div>
     </div>
 
-    <!-- Bottom Nav (inside device) -->
+    <div class="content">
+      <div class="tab-panel" id="panel-sent">
+        <div class="user-list">
+          <!-- Item 1 -->
+          <div class="user-item">
+            <div class="photo-box">✕✕</div>
+            <div class="user-info">
+              <div class="user-name">さくらさん · 34歳</div>
+              <div class="user-location">新宿区 · 会社員</div>
+              <div class="status-badge">マッチング待ち</div>
+              <div class="sent-date">3日前</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="user-item">
+            <div class="photo-box">✕✕</div>
+            <div class="user-info">
+              <div class="user-name">あいさん · 31歳</div>
+              <div class="user-location">品川区 · 営業</div>
+              <div class="status-badge">マッチング待ち</div>
+              <div class="sent-date">5日前</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="user-item">
+            <div class="photo-box">✕✕</div>
+            <div class="user-info">
+              <div class="user-name">ひかりさん · 27歳</div>
+              <div class="user-location">新宿区 · イベント企画</div>
+              <div class="status-badge expired">期限切れ (LIKE_EXPIRED)</div>
+              <div class="sent-date">1週間前</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <!-- Item 5 (LIKE_WITHDRAWN) -->
+          <div class="user-item">
+            <div class="photo-box">✕✕</div>
+            <div class="user-info">
+              <div class="user-name">まきさん · 33歳</div>
+              <div class="user-location">港区 · 秘書</div>
+              <div class="status-badge withdrawn">いいね取消済 (LIKE_WITHDRAWN)</div>
+              <div class="sent-date">昨日</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PANEL: もらったいいね ===== -->
+      <div class="tab-panel hidden" id="panel-received">
+
+        <div class="info-banner">
+          <div class="banner-text">有料会員になると、いいねをくれた相手にいいねを返せます</div>
+          <div class="banner-button" onclick="window.location.href='wireframe_SCR111_subscription.html'">プランを確認する →</div>
+        </div>
+
+        <!-- Received card 1 (LIKE_RECEIVED) -->
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">なおさん · 32歳</div>
+            <div class="user-location">品川区 · コンサルタント</div>
+            <div class="status-badge received" style="margin-bottom:4px;">いいね受信 (LIKE_RECEIVED)</div>
+            <div class="tag-row">
+              <div class="tag">グルメ好き</div>
+              <div class="tag">落ち着いている</div>
+            </div>
+            <div class="sent-date">2日前</div>
+            <div class="action-buttons">
+              <div class="btn">スキップ</div>
+              <div class="btn disabled">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Received card 2 -->
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">ほなみさん · 28歳</div>
+            <div class="user-location">渋谷区 · マーケター</div>
+            <div class="tag-row">
+              <div class="tag">読書好き</div>
+              <div class="tag">アクティブ</div>
+            </div>
+            <div class="sent-date">4時間前</div>
+            <div class="action-buttons">
+              <div class="btn">スキップ</div>
+              <div class="btn disabled">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Received card 3 -->
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">かなさん · 30歳</div>
+            <div class="user-location">新宿区 · 営業企画</div>
+            <div class="tag-row">
+              <div class="tag">旅行好き</div>
+              <div class="tag">食通</div>
+            </div>
+            <div class="sent-date">1日前</div>
+            <div class="action-buttons">
+              <div class="btn">スキップ</div>
+              <div class="btn disabled">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /panel-received -->
+
+    </div><!-- /content -->
+
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
-      <a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
-      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
+      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
+    <script>
+      var COUNTS = { sent: 12, received: 5 };
+
+      function switchTab(tab) {
+        var isSent = tab === 'sent';
+
+        // panels
+        document.getElementById('panel-sent').classList.toggle('hidden', !isSent);
+        document.getElementById('panel-received').classList.toggle('hidden', isSent);
+
+        // tabs
+        document.getElementById('tab-sent').classList.toggle('active', isSent);
+        document.getElementById('tab-received').classList.toggle('active', !isSent);
+
+        // badge counts
+        var cntSent = document.getElementById('cnt-sent');
+        var cntRcv  = document.getElementById('cnt-received');
+        cntSent.className = 'tab-count' + (isSent ? '' : ' muted');
+        cntRcv.className  = 'tab-count' + (!isSent ? '' : ' muted');
+
+        // header
+        document.getElementById('likes-title').textContent = isSent ? '送ったいいね' : 'もらったいいね';
+        document.getElementById('likes-count').textContent = COUNTS[tab];
+
+        // update URL hash without reload
+        history.replaceState(null, '', '#' + tab);
+      }
+
+      // Tab hash support
+      function handleHash() {
+        var hash = location.hash.replace('#', '');
+        if (hash === 'received') switchTab('received');
+        else if (hash === 'sent') switchTab('sent');
+      }
+
+      // Initialise from hash
+      (function() {
+        handleHash();
+        window.addEventListener('hashchange', handleHash);
+      })();
+    </script>
   </div><!-- /device -->
 
 <div class="blp-wrap">
@@ -510,29 +719,29 @@
 
     <div class="blp-section">
       <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Xem danh sách những người mình đã gửi いいね, theo dõi trạng thái phản hồi.</div>
+      <div class="blp-note highlight">Quản lý các lượt like bạn đã gửi đi. Trạng thái phản hồi của đối phương.</div>
     </div>
     <div class="blp-section">
-      <div class="blp-section-title">Trạng thái từng like</div>
-      <div class="blp-rule"><div class="blp-rule-dot">⏳</div><div class="blp-rule-text"><strong>Đang chờ</strong> — đối phương chưa like lại.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text"><strong>Matched</strong> — đối phương đã like lại → chuyển sang SCR-065.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">✕</div><div class="blp-rule-text"><strong>Hết hạn / bị bỏ qua</strong> — không hiển thị nếu đối phương skip.</div></div>
+      <div class="blp-section-title">Danh sách các trạng thái (State)</div>
+      <div class="blp-rule"><div class="blp-rule-dot">N</div><div class="blp-rule-text"><strong>NONE</strong> — Chưa có tương tác gì giữa A và B (mặc định).</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">S</div><div class="blp-rule-text"><strong>LIKE_SENT</strong> — A đã like B, B chưa phản hồi.</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">R</div><div class="blp-rule-text"><strong>LIKE_RECEIVED</strong> — B nhận được like từ A (nhìn từ phía B).</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">M</div><div class="blp-rule-text"><strong>MUTUAL_LIKE</strong> — Hai bên đã like nhau (thường chuyển sang MATCHED).</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">W</div><div class="blp-rule-text"><strong>LIKE_WITHDRAWN</strong> — Like bị rút lại.</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">E</div><div class="blp-rule-text"><strong>LIKE_EXPIRED</strong> — Like hết hiệu lực.</div></div>
     </div>
     <div class="blp-section">
       <div class="blp-section-title">Hành động</div>
-      <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Tap vào card → xem profile đối phương.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">✕</div><div class="blp-rule-text">Có thể rút lại like <em>(tuỳ thiết kế, cần xác nhận).</em></div></div>
+      <div class="blp-flow"><div class="blp-flow-step">
+          <div class="blp-step-line"><div class="blp-step-num">💬</div><div class="blp-step-connector"></div></div>
+          <div class="blp-step-text"><strong>Nhắn tin</strong> → (chỉ khi match) leads to SCR-090.</div>
+        </div><div class="blp-flow-step">
+          <div class="blp-step-line"><div class="blp-step-num">✕</div></div>
+          <div class="blp-step-text"><strong>Rút lại like</strong> → xóa khỏi danh sách gửi, đối phương không thấy profile bạn nữa.</div>
+        </div></div>
     </div>
   </div>
 </div>
 
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR061_filter.html">← Filter</a>
-  <div class="wf-pn-center">
-    <div>Likes Sent</div>
-    <div class="wf-pn-pos">10 / 31</div>
-  </div>
-  <a class="wf-pn-btn" href="wireframe_SCR064_likes_received.html">Likes Received →</a>
-</div>
 </body>
 </html>

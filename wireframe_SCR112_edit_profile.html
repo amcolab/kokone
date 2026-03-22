@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-112 プロフィール編集</title>
+  <style>
+    :root {
+        --c0: #ffffff;
+        --c1: #f5f5f5;
+        --c2: #e0e0e0;
+        --c3: #bdbdbd;
+        --c4: #757575;
+        --c5: #424242;
+        --c6: #212121;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--c1);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .device-frame {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .back-btn {
+      font-size: 14px;
+      cursor: pointer;
+      color: var(--c6);
+    }
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--c6);
+      flex: 1;
+      text-align: center;
+    }
+    .save-btn {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--c6);
+      cursor: pointer;
+    }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+    }
+    .scrollable {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-group {
+      margin-bottom: 24px;
+      background: var(--c0);
+      border-bottom: 1px solid var(--c2);
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--c4);
+      padding: 16px 12px 8px;
+      background: var(--c1);
+      border-bottom: 1px solid var(--c2);
+    }
+    .form-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+    }
+    .form-item:active { background: #f9f9f9; }
+    .form-item:last-child {
+      border-bottom: none;
+    }
+    .label {
+      color: var(--c6);
+      font-weight: 500;
+    }
+    .value {
+      color: var(--c4);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-align: right;
+    }
+    .value.placeholder {
+      color: var(--c3);
+    }
+    .arrow {
+      color: var(--c3);
+      font-size: 12px;
+    }
+    .textarea-container {
+      padding: 12px;
+    }
+    .textarea-box {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      border: 1px solid var(--c2);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--c6);
+      resize: none;
+    }
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+    }
+    .tag-item {
+      padding: 6px 12px;
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      font-size: 11px;
+      color: var(--c5);
+      background: var(--c1);
+    }
+    .tag-item.active {
+      background: var(--c6);
+      color: var(--c0);
+      border-color: var(--c6);
+    }
+    .personality-viz {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px 12px;
+      background: #fafafa;
+      margin: 12px;
+      border: 1px dashed var(--c3);
+    }
+    .viz-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .viz-label {
+      font-size: 11px;
+      width: 80px;
+      color: var(--c4);
+    }
+    .viz-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: var(--c2);
+      border-radius: 4px;
+      position: relative;
+    }
+    .viz-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--c6);
+      border-radius: 4px;
+    }
+    .optional-badge {
+      font-size: 9px;
+      background: var(--c2);
+      color: var(--c4);
+      padding: 1px 4px;
+      border-radius: 2px;
+      margin-left: 4px;
+    }
+    /* === BOTTOM NAV === */
+    .app-bottom-nav {
+      width: 100%;
+      height: 60px;
+      line-height: normal;
+      background: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 5px;
+      flex-shrink: 0;
+    }
+    .bn-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #bbb;
+      gap: 4px;
+      position: relative;
+    }
+    .bn-item svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .bn-item.active {
+      color: #212121;
+    }
+    .bn-lbl {
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .bn-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: #212121;
+      border: 1.5px solid #fff;
+      border-radius: 50%;
+    }
+
+    /* === EDIT POPUP (CENTER MODAL for WEB APP) === */
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(2px);
+      z-index: 200;
+      display: none; /* hidden by default */
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .web-modal {
+      width: 100%;
+      max-width: 320px;
+      background: var(--c0);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--c2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafafa;
+    }
+    .modal-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--c6);
+    }
+    .modal-close {
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--c4);
+      line-height: 1;
+    }
+    .picker-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .picker-item {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--c5);
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+      display: flex;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+    .picker-item:hover { background: #f9f9f9; }
+    .picker-item:last-child { border-bottom: none; }
+    .picker-item.selected {
+      color: var(--c6);
+      font-weight: bold;
+      background: #f0f0f0;
+    }
+    .picker-item.selected::after {
+      content: "●";
+      font-size: 10px;
+      color: var(--c6);
+    }
+  </style>
+
+<style>
+/* === BUSINESS LOGIC PANEL === */
+.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
+.blp-wrap.fullscreen{width:calc(100vw - 200px);}
+.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
+.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
+.blp-wrap::-webkit-scrollbar{width:4px;}
+.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
+.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
+.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
+.blp-head-title{font-size:12px;font-weight:700;}
+.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
+.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
+.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
+.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+.blp-body{padding:10px 12px 20px;}
+.blp-section{margin-bottom:14px;}
+.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
+.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
+.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
+.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
+.blp-rule-text strong{font-weight:700;color:#212121;}
+.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
+.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
+.blp-note.highlight{border-left-color:#212121;color:#424242;}
+.blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
+</style>
+<style>
+/* === INJECTED SIDEBAR === */
+.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
+.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+.wf-sidebar::-webkit-scrollbar{width:3px;}
+.wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
+</style>
+<style>
+/* === PREV/NEXT NAV === */
+</style>
+</head>
+<body style="margin-left:200px; margin-right:280px;">
+<nav class="wf-sidebar">
+  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
+    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · Home</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · 募集</div>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat & Review</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+    <a class="wf-nav-link wf-active" href="#"><span class="wf-nav-id">112</span>Edit Profile</a>
+  </div>
+</nav>
+
+  <div class="device-frame">
+    <div class="status-bar"></div>
+
+    <div class="header" style="flex-direction:column; align-items:flex-start;">
+      <div style="display:flex; width:100%; align-items:center; gap:12px;">
+        <div class="back-btn onboarding-hide" onclick="window.location.href='wireframe_SCR110_mypage.html'">キャンセル</div>
+        <div class="back-btn onboarding-show" style="display:none;" onclick="history.back()">←</div>
+        <div class="header-title" style="flex:1;">プロフィール編集</div>
+        <div class="save-btn onboarding-hide" onclick="window.location.href='wireframe_SCR110_mypage.html'">保存</div>
+        <div class="skip-btn onboarding-show" onclick="window.location.href='wireframe_SCR024_ekyc.html'" style="display:none; font-size:12px; color:var(--c4); text-decoration:underline; cursor:pointer;">スキップ</div>
+      </div>
+      <div class="onboarding-show" style="display:none; font-size:11px; color:var(--c4); margin-top:4px;">5 / 6</div>
+    </div>
+
+    <!-- Onboarding Progress Bar -->
+    <div class="onboarding-show" style="display:none; height:4px; background:var(--c2); width:100%;">
+      <div style="width:83%; height:100%; background:var(--c6);"></div>
+    </div>
+
+    <div class="content">
+      <div class="scrollable">
+        <!-- A. 基本情報（必須） -->
+        <div class="section-title">A. 基本情報 <span style="color:var(--c6); margin-left:4px;">(必須)</span></div>
+        
+        <!-- 写真・ビジュアル -->
+        <div class="label" style="padding: 16px 16px 4px; font-size:12px; color:var(--c4);">写真・ビジュアル</div>
+        <div style="padding: 12px 16px; border-bottom: 1px solid #eee;">
+          <div style="display:flex; gap:12px; overflow-x:auto;">
+            <div id="main-photo" style="width:80px; height:80px; background:url('/Users/quynt/.gemini/antigravity/brain/cdbc9101-be0a-4eb1-bcc0-f848b99002ee/avatar_taro_original_1774148552839.png') center/cover; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; overflow:hidden;">
+              <div id="blur-overlay" class="onboarding-show" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:inherit; filter:blur(10px); z-index:2;"></div>
+              <div class="onboarding-show" style="display:none; position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.5); color:#fff; font-size:8px; text-align:center; padding:2px 0; z-index:3;">ぼかし表示中</div>
+            </div>
+            <div style="width:80px; height:80px; background:#f5f5f5; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <span style="font-size:24px; color:#ccc;">+</span>
+            </div>
+          </div>
+          <div style="margin-top:12px; font-size:11px; color:var(--c4);">
+            <div>写真公開段階: <strong>マッチング後に可能</strong></div>
+            <div style="margin-top:4px; color:var(--c5); text-decoration:underline;">ぼかし解除の申請ボタン等で依頼</div>
+          </div>
+        </div>
+
+        <!-- A-1. 個人基本 -->
+        <div class="label" style="padding: 16px 16px 4px; font-size:11px; color:var(--c4);">A-1. 個人基本</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">ニックネーム</span><span class="value">たろう <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">性別</span><span class="value">男性 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">生年月日</span><span class="value">1986/04/10 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">年齢</span><span class="value">38歳</span></a>
+          <a href="#" class="form-item"><span class="label">言語</span><span class="value">日本語 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">自己紹介文</span><span class="value placeholder">未登録 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- A-2. 居住・行動圏 -->
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">A-2. 居住・行動圏</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">居住地（都道府県）</span><span class="value">東京都 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">居住エリア</span><span class="value">渋谷区 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">勤務地</span><span class="value">新宿区 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">出身地</span><span class="value">神奈川県 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- A-3. 身体的プロフィール -->
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">A-3. 身体的プロフィール</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">身長</span><span class="value">175cm <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">体型</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">血液型</span><span class="value">A型 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- B. 職業・経済（任意） -->
+        <div class="section-title">B. 職業・経済 <span class="optional-badge">任意</span></div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">職業</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">職種カテゴリ</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">勤務スタイル</span><span class="value">会社員 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">職場名</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">最終学歴</span><span class="value">大学卒業 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">学校名</span><span class="value placeholder">未設定 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">年収レンジ</span><span class="value">800〜1000万 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">資産</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- C. ライフスタイル・日常（任意） -->
+        <div class="section-title">C. ライフスタイル・日常 <span class="optional-badge">任意</span></div>
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">C-1. 生活習慣</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">休日</span><span class="value">土日祝 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">休みの取り方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">C-2. 嗜好</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">お酒（頻度）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">好きなお酒の種類</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">タバコ</span><span class="value">吸わない <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">自動車</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">住居形態</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- D. 家族・背景（任意） -->
+        <div class="section-title">D. 家族・背景 <span class="optional-badge">任意</span></div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">兄弟姉妹</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">家族との仲</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">同居人</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">子ども（有無）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">家族関係の継続意向</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- E. 趣味・行動嗜好（任意） -->
+        <div class="section-title">E. 趣味・行動嗜好 <span class="optional-badge">任意</span></div>
+        <div class="label" style="padding: 12px 16px 0; font-size:13px; font-weight:bold;">趣味・タグ（複数選択）</div>
+        <div class="tag-container">
+          <div class="tag-item active">グルメ</div> <div class="tag-item active">カフェ</div>
+          <div class="tag-item">音楽</div> <div class="tag-item active">映画</div>
+          <div class="tag-item">旅行</div> <div class="tag-item">ジム</div>
+          <div class="tag-item" style="border-style:dashed;">+ 編集</div>
+        </div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">よく行く場所</span><span class="value placeholder">未登録 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">インドア／アウトドア傾向</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- F. 性格・内面（任意） -->
+        <div class="section-title">F. 性格・内面 <span class="optional-badge">任意</span></div>
+        <div class="label" style="padding: 12px 16px 0; font-size:13px; font-weight:bold;">性格タグ（複数選択）</div>
+        <div class="tag-container">
+          <div class="tag-item active">素直</div> <div class="tag-item active">誠実</div>
+          <div class="tag-item">明るい</div> <div class="tag-item">落ち着いている</div>
+          <div class="tag-item" style="border-style:dashed;">+ 編集</div>
+        </div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">mbti16タイプ診断</span><span class="value placeholder">未診断 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">ラブタイプ診断</span><span class="value placeholder">未診断 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- G. 恋愛・関係性スタンス（任意） -->
+        <div class="section-title">G. 恋愛・関係性スタンス <span class="optional-badge">任意</span></div>
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-1. 出会い方</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">会うまでの希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">付き合うまでに会う回数</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-2. コミュニケーション</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">連絡頻度の希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">会う頻度の希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-3. 関係性の価値観</div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">希望の関係性</span><span class="value">心が癒される <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">ひとり時間とのバランス</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- H. デート・お金の価値観（任意） -->
+        <div class="section-title">H. デート・お金の価値観 <span class="optional-badge">任意</span></div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">初回デート代の考え方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">デートの雰囲気</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">お金の管理スタイル</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- I. お相手への希望条件（任意） -->
+        <div class="section-title">I. お相手への希望条件 <span class="optional-badge">任意</span></div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">希望年代</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">好きなタイプ（見た目）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">好きなタイプ（性格）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">好きなタイプ（体型）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        <!-- J. 将来・結婚観（任意） -->
+        <div class="section-title">J. 将来・結婚観 <span class="optional-badge">任意</span></div>
+        <div class="section-group">
+          <a href="#" class="form-item"><span class="label">結婚歴</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">結婚願望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">子ども希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">結婚式</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">結婚後の仕事</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">将来の転勤</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">家事育児の考え方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">事実婚</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">結婚後の同居</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <a href="#" class="form-item"><span class="label">結婚後の姓</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+        </div>
+
+        </div> <!-- end scrollable -->
+      </div> <!-- end content -->
+
+      <div class="app-bottom-nav onboarding-hide">
+        <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+        <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+        <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+        <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+        <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+      </div>
+
+      <!-- Onboarding Footer -->
+      <div class="onboarding-show" style="display:none; padding:16px; border-top:1px solid var(--c2); background:var(--c0); position:sticky; bottom:0; z-index:100;">
+        <button onclick="window.location.href='wireframe_SCR024_ekyc.html'" style="width:100%; height:44px; background:var(--c6); color:var(--c0); border:none; font-weight:bold; cursor:pointer;">次へ（本人確認へ） →</button>
+      </div>
+
+      <!-- Selection Modal (Inside Device Frame) -->
+      <div class="modal-overlay" id="editModal">
+        <div class="web-modal">
+          <div class="modal-header">
+            <div class="modal-title" id="modalTitle">項目の選択</div>
+            <div class="modal-close" onclick="closeModal()">&times;</div>
+          </div>
+          <div class="picker-list" id="pickerList">
+            <!-- Items injected here -->
+          </div>
+        </div>
+      </div>
+    </div> <!-- end device-frame -->
+
+    <script>
+      function openModal(title, options, currentVal) {
+        document.getElementById('modalTitle').textContent = title;
+        const list = document.getElementById('pickerList');
+        list.innerHTML = '';
+        options.forEach(opt => {
+          const div = document.createElement('div');
+          div.className = 'picker-item' + (opt === currentVal ? ' selected' : '');
+          div.textContent = opt;
+          div.onclick = () => {
+             // Logic to "save" or update could go here
+             closeModal();
+          };
+          list.appendChild(div);
+        });
+        document.getElementById('editModal').classList.add('active');
+      }
+      function closeModal() {
+        document.getElementById('editModal').classList.remove('active');
+      }
+
+      // Extended Dummy Data Options for A-J
+      const OPTIONS_MAP = {
+        "性別": ["男性", "女性", "回答しない"],
+        "言語": ["日本語", "英語", "中国語", "韓国語", "その他"],
+        "居住地（都道府県）": ["東京都", "神奈川県", "埼玉県", "千葉県", "大阪府", "愛知県", "福岡県", "北海道", "兵庫県"],
+        "居住エリア": ["港区", "渋谷区", "新宿区", "世田谷区", "目黒区", "品川区", "中央区", "千代田区"],
+        "勤務地": ["丸の内", "大手町", "新宿", "渋谷", "六本木", "品川", "横浜"],
+        "出身地": ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "東京都"],
+        "身長": ["150cm以下", "155cm前後", "160cm前後", "165cm前後", "170cm前後", "175cm前後", "180cm以上"],
+        "体型": ["スリム", "やや細め", "普通", "グラマー", "ぽっちゃり", "筋肉質"],
+        "血液型": ["A型", "B型", "O型", "AB型", "不明"],
+        
+        "職業": ["大手企業", "上場企業", "公務員", "医師", "弁護士", "IT関連", "クリエイティブ", "自営業", "学生"],
+        "職種カテゴリ": ["営業", "事務・企画", "技術職", "専門職", "経営・コンサル", "サービス業", "主婦・主夫"],
+        "勤務スタイル": ["会社員", "経営者・役員", "フリーランス", "自営業", "派遣社員", "パート・アルバイト"],
+        "最終学歴": ["大学卒業", "大学院卒業", "短期大学卒業", "専門学校卒業", "高校卒業", "その他"],
+        "年収レンジ": ["〜200万", "200〜400万", "400〜600万", "600〜800万", "800〜1000万", "1000〜1500万", "1500万〜"],
+        "資産": ["100万未満", "100〜500万", "500〜1000万", "1000〜3000万", "3000〜5000万", "5000万以上"],
+        
+        "休日": ["土日祝", "平日", "不定休", "シフト制", "カレンダー通り"],
+        "休みの取り方": ["固定休み", "週末休み", "平日休み", "自分で調整可能"],
+        "お酒（頻度）": ["飲まない", "ときどき飲む", "毎日飲む", "付き合い程度"],
+        "好きなお酒の種類": ["ビール", "日本酒", "ワイン", "ウイスキー", "カクテル", "焼酎", "なんでも"],
+        "タバコ": ["吸わない", "ときどき吸う", "吸う", "非喫煙者の前では吸わない"],
+        "自動車": ["持っている", "持っていない", "近々購入予定", "カーシェア利用"],
+        "住居形態": ["一人暮らし", "実家暮らし", "ルームシェア", "賃貸マンション", "持ち家"],
+        
+        "兄弟姉妹": ["一人っ子", "長男・長女", "次男・次女", "末っ子"],
+        "家族との仲": ["非常に良い", "良い", "普通", "あまり連絡をとらない"],
+        "同居人": ["一人", "親", "兄弟", "子ども", "ペット"],
+        "子ども（有無）": ["なし", "あり（同居）", "あり（別居）"],
+        "家族関係の継続意向": ["今のままを維持", "解消も視野", "相手に合わせる"],
+        
+        "インドア／アウトドア傾向": ["完全インドア", "ややインドア", "どちらでも", "ややアウトドア", "完全アウトドア"],
+        "mbti16タイプ診断": ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"],
+        "ラブタイプ診断": ["安定型", "不安型", "回避型", "恐れ・回避型"],
+        
+        "会うまでの希望": ["ビデオ通話から", "メッセージを重ねてから", "気が合えばすぐに会いたい", "まずは一度お会いしたい"],
+        "付き合うまでに会う回数": ["1〜2回", "3〜5回", "6回以上", "決めていない"],
+        "連絡頻度の希望": ["毎日", "週に2〜3回", "週に1回程度", "必要な時だけ"],
+        "会う頻度の希望": ["週に数回", "週1回程度", "月2〜3回", "月1回程度"],
+        "希望の関係性": ["心が癒される", "刺激し合える", "今を大切に", "将来も視野に", "まずは友達から"],
+        "ひとり時間とのバランス": ["ひとりの時間を大切にしたい", "二人で過ごしたい", "バランスよく"],
+        
+        "初回デート代の考え方": ["男性が全て支払う", "男性が多めに支払う", "割り勘", "持っている方が支払う", "相手に合わせる"],
+        "デートの雰囲気": ["高級感のある場所", "落ち着いたカフェ", "賑やかな居酒屋", "隠れ家的なお店", "公園や散歩", "ドライブ"],
+        "お金の管理スタイル": ["各自で管理", "共通口座を作成", "相談して決める"],
+        
+        "希望年代": ["同年代", "年上", "年下", "気にしない"],
+        "好きなタイプ（見た目）": ["清潔感のある", "クールな", "可愛いらしい", "落ち着いた", "華やかな"],
+        "好きなタイプ（体型）": ["スリムな人", "普通", "ふくよかな人", "筋肉質な人", "気にしない"],
+        
+        "結婚歴": ["未婚", "離婚", "死別"],
+        "結婚願望": ["すぐにでもしたい", "2〜3年以内にしたい", "良い人がいれば", "今は考えていない", "したくない"],
+        "子ども希望": ["欲しくない", "欲しい", "相手に合わせる", "どちらでも良い"],
+        "結婚式": ["こだわりたい", "身内だけでしたい", "したくない", "写真だけで良い"],
+        "結婚後の仕事": ["続けたい", "相手と相談したい", "専業主婦・主夫になりたい", "パート・アルバイト程度"],
+        "将来の転勤": ["あり", "なし", "相談して決める"],
+        "家事育児の考え方": ["積極的に参加したい", "分担したい", "相手に任せたい", "外部サービスも活用したい"],
+        "事実婚": ["理解がある", "考えていない", "状況による"],
+        "結婚後の同居": ["二人きりが良い", "親と同居も可", "近居が良い"],
+        "結婚後の姓": ["どちらでも良い", "夫の姓", "妻の姓", "夫婦別姓希望"]
+      };
+
+      // Add click listeners to form items for demo
+      document.querySelectorAll('.form-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (item.getAttribute('href') === '#') {
+            e.preventDefault();
+            const labelSpan = item.querySelector('.label');
+            if(!labelSpan) return;
+            const label = labelSpan.textContent.trim();
+            const valSpan = item.querySelector('.value');
+            const currentVal = valSpan ? valSpan.textContent.replace(' >', '').trim() : '';
+            
+            // Get options from map or use default
+            const options = OPTIONS_MAP[label] || ["選択肢 A", "選択肢 B", "選択肢 C"];
+            
+            openModal(label, options, currentVal);
+          }
+        });
+      });
+
+      // Onboarding Mode Logic
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'onboarding') {
+          document.querySelectorAll('.onboarding-show').forEach(el => el.style.display = 'block');
+          document.querySelectorAll('.onboarding-hide').forEach(el => el.style.display = 'none');
+          document.querySelector('.header-title').textContent = '詳細プロフィール登録';
+      }
+    </script>
+
+<div class="blp-wrap">
+  <div class="blp-head">
+    <div class="blp-head-info">
+      <div class="blp-head-scr">SCR-112</div>
+      <div class="blp-head-title">Edit Profile</div>
+      <div class="blp-head-sub">Chỉnh sửa hồ sơ chi tiết</div>
+    </div>
+    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+    </button>
+  </div>
+  <div class="blp-body">
+    <div class="blp-section">
+      <div class="blp-section-title">Mục đích</div>
+      <div class="blp-note highlight">Người dùng cập nhật thông tin chi tiết để tăng tỉ lệ matching và thể hiện bản thân rõ ràng hơn.</div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Cấu trúc</div>
+      <div class="blp-rule"><div class="blp-rule-dot">A</div><div class="blp-rule-text"><strong>Thông tin cơ bản</strong> — Bắt buộc để định danh.</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">B</div><div class="blp-rule-text"><strong>Nhân cách & Lối sống</strong> — Tùy chọn, giúp đối phương hiểu về tính cách.</div></div>
+      <div class="blp-rule"><div class="blp-rule-dot">C</div><div class="blp-rule-text"><strong>Quan điểm tương lai</strong> — Quan trọng cho mục đích kết hôn/hẹn hò nghiêm túc.</div></div>
+    </div>
+    <div class="blp-section">
+      <div class="blp-section-title">Tính năng đặc biệt</div>
+      <div class="blp-note warn">Thay vì chỉ dựa vào ảnh, hệ thống tập trung vào <strong>"Vốn hóa nhân cách"</strong> bằng cách hiển thị các biểu đồ nội tâm/sở thích.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
