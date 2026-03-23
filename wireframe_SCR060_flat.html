@@ -1494,20 +1494,20 @@
         </div>
       </div>
 
-      <!-- LIKE PREPARATION POPUP -->
+      <!-- EKYC REQUIREMENT POPUP (Triggered on Like) -->
       <div id="likePopup" class="modal-overlay">
         <div class="modal-content">
-          <div class="modal-title">いいねを送る準備</div>
-          <div class="modal-desc">
-            マッチング後にスムーズに会えるよう、<br>
-            まずはあなたの情報を充実させましょう。
+          <div style="font-size:32px; margin-bottom:12px;">🛡️</div>
+          <div class="modal-title">本人確認が必要です</div>
+          <div class="modal-desc" style="font-size:12px; margin-bottom:20px; line-height:1.6;">
+            いいねを送るには、安心・安全なコミュニティ維持のため、本人確認（eKYC）の完了が必要です。
           </div>
-          <div class="modal-btn-list">
-            <button class="m-btn primary"
-              onclick="location.href='wireframe_SCR121_availability.html'">空き日程を登録する</button>
-            <button class="m-btn" onclick="location.href='wireframe_SCR120_restaurant_list.html'">行きたいお店を選ぶ</button>
+          <div class="modal-btn-list" style="display:flex; flex-direction:column; gap:10px;">
+            <button class="m-btn primary" onclick="location.href='wireframe_SCR024_ekyc.html'"
+              style="background:var(--c6); color:#fff; border:none; padding:12px; font-weight:bold; width:100%; cursor:pointer;">本人確認（eKYC）へ進む</button>
+            <button class="m-btn" onclick="closeLikePopup()"
+              style="background:transparent; color:var(--c4); border:1px solid var(--c3); padding:10px; font-size:12px; width:100%; cursor:pointer;">キャンセル</button>
           </div>
-          <div class="m-btn-cancel" onclick="closeLikePopup()">キャンセル</div>
         </div>
       </div>
       <div class="app-bottom-nav">
