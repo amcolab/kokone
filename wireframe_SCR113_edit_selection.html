@@ -153,102 +153,73 @@
       background: #222; color: #fff; padding: 20px; overflow-y: auto; z-index: 1000;
       font-family: sans-serif;
     }
+  
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
   </style>
   <div class="blp-wrap">
-    <div class="blp-head-scr">SCR-113</div>
-    <div class="blp-head-title">Edit Detail / Selection</div>
-    
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note">Màn hình trung gian để người dùng chọn giá trị cụ thể cho một trường thông tin.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Hành động</div>
-      <div class="blp-note">
-        ● Click vào một item: Đánh dấu check.<br>
-        ● Click "Lưu": Ghi nhận thay đổi và quay lại màn hình Profile chính.
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-113</div>
+        <div class="blp-head-title">Edit Selection</div>
+        <div class="blp-head-sub">選択項目編集 / Chỉnh sửa lựa chọn</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Fullscreen" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
       </div>
     </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Thông tin 未登録</div>
-      <div class="blp-note">
-        Giá trị mặc định của hệ thống là null/未登録. Khi chọn, giá trị sẽ được cập nhật.
+    <div class="blp-body">
+      <!-- JA VERSION -->
+      <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">プロフィール編集の中間画面。単一・複数選択式の属性を変更する。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">選択項目の種類</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>単一選択</strong> — 職業・体型・最終学歴・婚姻歴・子どもの有無など。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>複数選択</strong> — 趣味・休日の過ごし方・好きな食事ジャンルなど（最大5つ）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">保存ルール</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">「保存」ボタンで即時反映。相手の探索画面への反映は最大10分の遅延あり。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">←</div><div class="blp-rule-text">保存せず戻った場合は変更破棄（確認ダイアログ表示）。</div></div>
+      </div>
+      </div>
+      <!-- VI VERSION -->
+      <div class="blp-lang lang-vi" style="display:none;">
+
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Màn hình trung gian để người dùng chọn giá trị cụ thể cho một trường hồ sơ (đơn chọn hoặc đa chọn).</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Các loại lựa chọn</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Đơn chọn</strong> — Nghề nghiệp, vóc dáng, học vấn, tình trạng hôn nhân, con cái v.v.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đa chọn</strong> — Sở thích, hoạt động cuối tuần, thể loại ẩm thực v.v. (tối đa 5 mục).</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Quy tắc lưu</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">Nhấn「保存」→ cập nhật ngay. Phản ánh trên màn khám phá của người khác tối đa 10 phút.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">←</div><div class="blp-rule-text">Thoát không lưu → hiện dialog xác nhận, thay đổi bị huỷ.</div></div>
+      </div>
       </div>
     </div>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const field = params.get('field');
-    const pageTitle = document.getElementById('pageTitle');
-    const optionList = document.getElementById('optionList');
-
-    const dataMap = {
-      // A-1 Basic
-      'nickname': { title: 'ニックネーム', type: 'text' },
-      'gender': { title: '性別', options: ['男性', '女性', 'その他'] },
-      'birthday': { title: '生年月日', type: 'date' },
-      'lang': { title: '言語', options: ['日本語', '英語', '中国語', '韓国語', 'その他'] },
-      'bio': { title: '自己紹介文', type: 'textarea' },
-      
-      // A-2 Location
-      'resid': { title: '居住地', options: ['東京都', '神奈川県', '埼玉県', '千葉県', '大阪府', '京都府', '兵庫県', '愛知県', '福岡県', '北海道', 'その他'] },
-      'area': { title: '居住エリア', options: ['23区内', '山手線圏内', '西東京', '横浜/川崎', 'その他'] },
-      'work_loc': { title: '勤務地', options: ['オフィス出社', 'リモートメイン', '現場直行', 'その他'] },
-      'home': { title: '出身地', options: ['東京都', '神奈川県', '埼玉県', '千葉県', '大阪府', '愛知県', '福岡県', '北海道', '海外', 'その他'] },
-
-      // A-3 Physical
-      'height': { title: '身長', options: ['150cm未満', '150-155cm', '155-160cm', '160-165cm', '165-170cm', '170-175cm', '175-180cm', '180-185cm', '185cm以上'] },
-      'body': { title: '体型', options: ['スリム', 'やや細め', '普通', 'グラマラス', '筋肉質', 'ややぽっちゃり'] },
-      'blood': { title: '血液型', options: ['A型', 'B型', 'O型', 'AB型', '不明'] },
-
-      // B Occupation
-      'job': { title: '職業', options: ['会社員', '経営者/役員', 'フリーランス', '公務員', '弁護士/会計士', '医師/歯科医', 'クリエイティブ', 'その他'] },
-      'job_cat': { title: '職種', options: ['IT/通信', '金融/保険', '不動産', 'メーカー', 'マスコミ/広告', '教育', '医療/福祉'] },
-      'work_style': { title: '勤務スタイル', options: ['平日休み', '土日祝休み', '不定休', '裁量労働/フレックス'] },
-      'education': { title: '最終学歴', options: ['大学卒業', '大学院卒業', '短大/専門学校卒業', '高校卒業', 'その他'] },
-      'income': { title: '年収', options: ['400-600万円', '600-800万円', '800-1000万円', '1000-1500万円', '1500-2000万円', '2000-3000万円', '3000万円以上'] },
-      'assets': { title: '資産', options: ['3000万円未満', '3000-5000万円', '5000万-1億円', '1-3億円', '3-5億円', '5-10億円', '10億円以上'] },
-
-      // C Lifestyle
-      'holiday': { title: '休日', options: ['土日祝', '平日', '不定休'] },
-      'alcohol': { title: 'お酒', options: ['飲まない', 'ときどき飲む', '毎日飲む', '付き合い程度'] },
-      'tobacco': { title: 'タバコ', options: ['吸わない', 'ときどき吸う', '加熱式なら', '吸う'] },
-      
-      // J Future
-      'history': { title: '結婚歴', options: ['未婚', '離婚', '死別'] },
-      'desire': { title: '結婚願望', options: ['すぐにでも', '2~3年以内に', '良い人がいれば', 'こだわらない'] },
-      'hope_child': { title: '子ども希望', options: ['欲しい', '欲しくない', 'こだわらない', '要相談'] }
-    };
-
-    function render() {
-      const config = dataMap[field] || { title: '項目を選択', options: ['選択肢1', '選択肢2', '選択肢3'] };
-      pageTitle.innerText = config.title;
-      
-      if(config.type === 'textarea') {
-        optionList.innerHTML = `
-          <div style="padding: 20px;">
-            <textarea style="width:100%; height:200px; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:14px;" placeholder="${config.title}を入力してください..."></textarea>
-          </div>
-        `;
-      } else if(config.type === 'text') {
-        optionList.innerHTML = `
-          <div style="padding: 20px;">
-            <input type="text" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:14px;" placeholder="${config.title}を入力...">
-          </div>
-        `;
-      } else {
-        optionList.innerHTML = config.options.map(opt => `
-          <div class="list-item" onclick="document.querySelectorAll('.list-item').forEach(i=>i.classList.remove('selected')); this.classList.add('selected')">
-            <span class="item-text">${opt}</span>
-            <span class="check-icon">✓</span>
-          </div>
-        `).join('');
-      }
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
     }
-
-    render();
   </script>
-
 </body>
 </html>

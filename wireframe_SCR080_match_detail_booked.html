@@ -432,7 +432,32 @@
     </div>
   </div>
   <div class="blp-body">
-    <div class="blp-section">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">レストラン予約完了後のマッチ詳細画面。全ステップ完了のサマリーと予約情報へのアクセスを提供。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">表示状態の変化</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">タイムラインの全ステップが完了マークに変わる。アクションタイマーは非表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">★</div><div class="blp-rule-text">メインボタンが <strong>「予約情報を表示する」</strong> に変わり、SCR-087 予約詳細へリンク。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔔</div><div class="blp-rule-text">食事当日のリマインダーが SCR-089 から自動プッシュ通知される。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">食事当日後</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">食事完了後 24h 以内に SCR-100 レビュー画面へ誘導するプッシュ通知が届く。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意事項</div>
+        <div class="blp-note">予約キャンセルはこの画面から可能（レストランポリシーに従う）。キャンセル後はスケジュール再調整フローへ。</div>
+      </div>
+    </div>
+
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
       <div class="blp-section-title">Trạng thái xác nhận</div>
       <div class="blp-note highlight">Màn hình chi tiết match sau khi đã hoàn tất đặt chỗ. Nút bấm chính chuyển thành "予約情報を表示する" để xem lại thông tin nhà hàng.</div>
     </div>
@@ -442,6 +467,16 @@
         Tất cả các bước đều đã hoàn thành. Timer 24h được ẩn đi hoặc thay thế bằng thông báo xác nhận.
       </p>
     </div>
+    </div>
+    <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+
   </div>
 </div>
 

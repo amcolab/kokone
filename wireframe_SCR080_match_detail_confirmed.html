@@ -389,13 +389,69 @@
 
     <!-- BLP -->
     <div class="blp-wrap">
-      <div class="blp-head-scr">SCR-080-C</div>
-      <div class="blp-head-title">Match Detail (Confirmed)</div>
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note">Màn hình chi tiết sau khi đã chốt được lịch và địa điểm. Hiển thị thông tin để user đến đúng nơi, đúng giờ.</div>
-      <div class="blp-section-title">Tính năng chính</div>
-      <div class="blp-note"><strong>Thay đổi thời gian:</strong> Nếu cần đổi lịch, quy trình sẽ quay lại bước đề xuất lịch (Schedule).</div>
-      <div class="blp-note"><strong>Maps integration:</strong> Mở ứng dụng bản đồ để chỉ đường.</div>
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-080-C</div>
+        <div class="blp-head-title">Match Confirmed</div>
+        <div class="blp-head-sub">確認済みマッチ / Match đã xác nhận</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Fullscreen" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
     </div>
+    <div class="blp-body">
+      <!-- JA VERSION -->
+      <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">日程・レストランの選択が完了し、双方が最終確認を行うステップ。予約実行前の最後の確認画面。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">確認事項</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>日時</strong> — 調整済みの食事日時。変更は日程調整に戻ることで可能（相手の再同意が必要）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>レストラン</strong> — 店舗名・住所・電話番号を表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>双方確認</strong> — どちらかが確認ボタンを押すとフロー進行。両者確認で予約確定。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">確認後のフロー</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">両者確認 → SCR-087 予約確定。プッシュ通知で両者に通知。</div></div>
+      </div>
+      </div>
+      <!-- VI VERSION -->
+      <div class="blp-lang lang-vi" style="display:none;">
+
+      <div class="blp-section">
+        <div class="blp-section-title">Mục đích</div>
+        <div class="blp-note highlight">Màn hình chi tiết sau khi đã chốt được lịch và địa điểm. Hiển thị thông tin để user xác nhận trước khi hệ thống thực hiện đặt bàn.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Nội dung xác nhận</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Thời gian</strong> — Ngày giờ đã thống nhất. Thay đổi cần quay lại SCR-081 và đối phương đồng ý lại.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Nhà hàng</strong> — Tên, địa chỉ, số điện thoại nhà hàng đã chọn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Xác nhận đôi bên</strong> — 1 trong 2 người xác nhận là hệ thống tiến hành đặt bàn.</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Sau xác nhận</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Cả 2 xác nhận → SCR-087 Booking Confirmed. Push notification cho cả 2.</div></div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 </body>
 </html>

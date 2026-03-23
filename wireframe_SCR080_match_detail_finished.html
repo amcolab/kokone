@@ -393,11 +393,36 @@
     <div class="blp-head-info">
       <div class="blp-head-scr">SCR-080-F</div>
       <div class="blp-head-title">Match Detail (Finished)</div>
-      <div class="blp-head-sub">Trạng thái sau khi ăn xong</div>
+      <div class="blp-head-sub">デート完了 / Date hoàn tất</div>
     </div>
   </div>
   <div class="blp-body">
-    <div class="blp-section">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">食事デート完了後のマッチ詳細。レビュー記入とポイント/リワード付与を促す。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">主要アクション</div>
+        <div class="blp-rule"><div class="blp-rule-dot">★</div><div class="blp-rule-text"><strong>レストランをレビューする</strong> → SCR-100。将来のマッチング精度向上に貢献。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">💰</div><div class="blp-rule-text">レビュー完了でポイント付与（サービスポイント）。ポイントはプレミアム機能のアンロックに使用可。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">その後のオプション</div>
+        <div class="blp-rule"><div class="blp-rule-dot">♥</div><div class="blp-rule-text">相手にもう一度いいねを送る → 新しいマッチングフローが始まる。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">↷</div><div class="blp-rule-text">チャット履歴はこの画面から閲覧可能（読み取り専用）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意事項</div>
+        <div class="blp-note ok">デートが実際に行われたかの確認はシステム側では自動判定しない（予約日時の経過で判定）。</div>
+      </div>
+    </div>
+
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
       <div class="blp-section-title">Mục đích</div>
       <div class="blp-note highlight">Hiển thị lịch sử date và khuyến khích Review nhà hàng để nhận Point/Reward.</div>
     </div>
@@ -406,6 +431,16 @@
       <div class="blp-rule"><div class="blp-rule-dot">★</div><div class="blp-rule-text"><strong>Review nhà hàng</strong> → SCR-100. Đây là bước quan trọng để hệ thống tối ưu gợi ý sau này.</div></div>
       <div class="blp-rule"><div class="blp-rule-dot">💬</div><div class="blp-rule-text"><strong>Giữ liên lạc</strong> — Chat vẫn mở để hai người có thể hẹn hò lần tiếp theo.</div></div>
     </div>
+    </div>
+    <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+
   </div>
 </div>
 </body>

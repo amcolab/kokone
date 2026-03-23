@@ -410,7 +410,33 @@
     </div>
   </div>
   <div class="blp-body">
-    <div class="blp-section">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">マッチング成立後、または相互写真公開後のプロフィール表示。写真のモザイク・ブラーが全て解除される。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">写真表示の変化</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">メイン写真・サブ写真ともにモザイク・ブラーなしでフル表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">写真公開は一方向ではなく<strong>相互同意</strong>が必要（photo_requestフロー参照）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">マッチ後のアクション</div>
+        <div class="blp-rule"><div class="blp-rule-dot">💬</div><div class="blp-rule-text">「チャット」→ SCR-090 チャット画面（マッチ直後は自動でチャット開通）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">📅</div><div class="blp-rule-text">「日程調整」→ SCR-081 スケジュール選択へ。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🚩</div><div class="blp-rule-text">「報告する」→ SCR-103。マッチ中でも報告可能。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意事項</div>
+        <div class="blp-note warn">⚠ マッチが解消（アンマッチ）された場合、このページは閲覧不可になる。写真もキャッシュから削除。</div>
+      </div>
+    </div>
+
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
       <div class="blp-section-title">Nội dung</div>
       <div class="blp-note highlight">Trạng thái sau khi matching hoặc khi user đã đồng ý public ảnh cho đối phương.</div>
     </div>
@@ -420,6 +446,16 @@
         Tất cả ảnh (Main & Sub) được hiển thị rõ nét, không có lớp mờ (blur).
       </p>
     </div>
+    </div>
+    <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+
   </div>
 </div>
 
