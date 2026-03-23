@@ -1685,16 +1685,159 @@
       <div class="blp-head-info">
         <div class="blp-head-scr">SCR-070</div>
         <div class="blp-head-title">募集 Management</div>
-        <div class="blp-head-sub">Quản lý bài đăng &amp; ứng tuyển</div>
+        <div class="blp-head-sub">募集管理 / Quản lý bài đăng &amp; ứng tuyển</div>
       </div>
-      <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ"
-        onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ"
+          onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
     </div>
     <div class="blp-body">
 
-      <!-- ══ MỤC ĐÍCH ══ -->
+      <!-- ══ JA VERSION ══ -->
+      <div class="blp-lang lang-ja">
+
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">募集機能の中核画面。3つのタブで「探す・管理する・確認する」をワンビューに集約。</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">アクセス条件</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">ログイン済みユーザーのみ閲覧可。eKYC未完了でも<strong>一覧表示は可能</strong>。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text"><strong>応募する</strong>にはeKYC完了＋<strong>空き時間・好みのレストランジャンル</strong>の登録が必要。未完了の場合は警告モーダルを表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">¥</div><div class="blp-rule-text">募集作成・応募はプランにより制限される場合あり。詳細は機能一覧表を参照。</div></div>
+      </div>
+
+      <!-- TAB 1 -->
+      <div class="blp-section">
+        <div class="blp-section-title">① タブ — 募集をさがす</div>
+        <div class="blp-note highlight">他のユーザーが公開中の募集一覧。デフォルトは新着順。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">カード表示条件</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">ステータスが <strong>OPEN</strong>（空きあり・締切前）のものだけ表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">自分が作成した募集は非表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">応募済みの募集は <strong>「応募済み」</strong> バッジを表示。応募ボタンは非表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">FULL / CLOSED / 締切済みの募集は自動的に非表示。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">絞り込み・検索</div>
+        <div class="blp-rule"><div class="blp-rule-dot">≡</div><div class="blp-rule-text">エリア・時間帯（ランチ/ディナー）・ジャンルでチップフィルター（複数選択可）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔍</div><div class="blp-rule-text">フリーワード検索（店名・エリアキーワード対応）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">操作</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">カードタップ → <strong>SCR-071</strong> 募集詳細（応募前に内容確認）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">+</div><div class="blp-rule-text">FAB「＋」→ <strong>SCR-072</strong> 募集作成。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">空状態</div>
+        <div class="blp-note">フィルター条件に合う募集がない場合 →「条件に合う募集がありません」＋フィルターリセットボタンを表示。</div>
+      </div>
+
+      <!-- TAB 2 -->
+      <div class="blp-section">
+        <div class="blp-section-title">② タブ — 自分の募集</div>
+        <div class="blp-note highlight">自分が作成した募集を一元管理。各募集はステータスに応じたライフサイクルを持つ。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">ステータスのライフサイクル</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>OPEN 募集中</strong> — 応募受付中。定員6名未満かつ締切前。操作：内容編集（投稿後1時間以内）・早期終了・応募者確認。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>FULL 満員</strong> — 応募者が定員（6名）に達した。自動遷移。追加応募不可。主催者にプッシュ通知。期限内に選定が必要。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>SELECTING 選定中</strong> — 締切経過または手動移行。主催者が1名を選定中。24時間経過しても未選定の場合は警告表示。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>MATCH_CONFIRMED マッチング成立</strong> — 主催者が1名を選定完了。全応募者に結果通知。マッチフロー開始（→ SCR-080）。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4</div></div>
+            <div class="blp-step-text"><strong>CLOSED 終了</strong> — 締切まで応募0・主催者が手動終了・マッチ完了のいずれかで終了。編集不可。</div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">ステータス別操作</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✎</div><div class="blp-rule-text"><strong>OPEN</strong>: 内容編集（1時間以内）・早期終了・応募者リスト確認。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">👥</div><div class="blp-rule-text"><strong>FULL / SELECTING</strong>: 応募者一覧 → <strong>SCR-073</strong> で1名選定。内容編集不可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text"><strong>MATCH_CONFIRMED</strong>: 選定結果確認・マッチフロー開始。選定変更不可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text"><strong>CLOSED</strong>: 閲覧のみ（読み取り専用）。同内容で複製して再投稿可。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意・エッジケース</div>
+        <div class="blp-note warn">⚠ FULL/SELECTINGで48時間以内に選定しない場合 → システムが自動CLOSEし、全応募者に通知。</div>
+        <div class="blp-note">締切時点で応募者0件 → SELECTING通過なしにCLOSEDへ直移行。</div>
+      </div>
+
+      <!-- TAB 3 -->
+      <div class="blp-section">
+        <div class="blp-section-title">③ タブ — 応募中</div>
+        <div class="blp-note highlight">自分が応募した募集をまとめて管理。審査中・結果済み・終了済みを一覧表示。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">応募ステータスのライフサイクル</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>APPLIED 応募済み</strong> — 応募完了・募集はOPEN中。締切前であれば「応募をやめる」で取消可。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>WAITING 結果待ち</strong> — 締切経過・主催者が選定中。取消不可。取消ボタンは非表示。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>SELECTED 選定されました 🎉</strong> — 選ばれた！プッシュ通知あり。カードをグリーンでハイライト。「マッチを見る」→ SCR-080。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>NOT_SELECTED 見送り</strong> — 選ばれなかった。丁寧なプッシュ通知。選ばれた相手の名前は非表示。閲覧のみ。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>CLOSED 終了</strong> — 選定前に募集が閉鎖（主催者手動終了 or 応募者0で期限切れ）。応募も自動終了。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4b</div></div>
+            <div class="blp-step-text"><strong>WITHDRAWN 辞退済み</strong> — 自分で締切前に取消。同じ募集への再応募不可。</div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">ステータス別操作</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✕</div><div class="blp-rule-text"><strong>APPLIED</strong>: 詳細閲覧・「応募をやめる」→ 確認ダイアログ → WITHDRAWNへ遷移。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">⏳</div><div class="blp-rule-text"><strong>WAITING</strong>: 詳細閲覧のみ。取消ボタン非表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text"><strong>SELECTED</strong>:「マッチを見る」→ SCR-080 マッチ詳細。食事予約フローへ。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">—</div><div class="blp-rule-text"><strong>NOT_SELECTED / CLOSED / WITHDRAWN</strong>: 募集内容の閲覧のみ（読み取り専用）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">エッジケース</div>
+        <div class="blp-note warn">⚠ WAITING状態での取消試行 → 取消不可。「選定期間中は取消できません」を表示。</div>
+        <div class="blp-note">主催者がアカウントを削除した場合 → 応募はCLOSEDへ移行、ユーザーへプッシュ通知。</div>
+        <div class="blp-note ok">SELECTED後24時間以内に未確認の場合 → プッシュ通知で再リマインド。</div>
+      </div>
+
+      </div><!-- /lang-ja -->
+
+      <!-- ══ VI VERSION ══ -->
+      <div class="blp-lang lang-vi" style="display:none;">
+
       <div class="blp-section">
         <div class="blp-section-title">Mục đích màn hình</div>
         <div class="blp-note highlight">Màn hình trung tâm của tính năng 募集 — tổng hợp 3 góc nhìn trong 1 tab bar: tìm bài người khác, quản lý bài của mình, theo dõi các đơn đã nộp.</div>
@@ -1842,8 +1985,18 @@
         <div class="blp-note ok">SELECTED mà user không vào xem trong 24h → hệ thống nhắc lại bằng push notification.</div>
       </div>
 
-    </div>
-  </div>
+      </div><!-- /lang-vi -->
+    </div><!-- /blp-body -->
+  </div><!-- /blp-wrap -->
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
 
 </body>
 

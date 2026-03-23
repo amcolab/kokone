@@ -721,29 +721,211 @@
   <div class="blp-body">
     <!-- JA VERSION -->
     <div class="blp-lang lang-ja">
+
       <div class="blp-section">
-        <div class="blp-section-title">目的</div>
-        <div class="blp-note highlight">送ったいいねともらったいいねの集約管理。</div>
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">送受信したいいねを1画面で集約管理。タブで「送ったいいね」「もらったいいね」を切り替える。</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">アクセス条件</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">ログイン済みユーザーのみ。一覧表示にeKYCは不要。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">新たに<strong>いいねを送る</strong>にはeKYC完了が必要。未完了の場合は警告モーダルを表示。</div></div>
+      </div>
+
+      <!-- TAB 1: 送ったいいね -->
+      <div class="blp-section">
+        <div class="blp-section-title">① タブ — 送ったいいね</div>
+        <div class="blp-note highlight">自分が送信したいいねの一覧。送信日時・相手プロフィール・現在のステータスを表示。</div>
       </div>
       <div class="blp-section">
-        <div class="blp-section-title">タブ構成</div>
-        <div class="blp-rule"><div class="blp-rule-dot">↑</div><div class="blp-rule-text"><strong>送ったいいね</strong> — 送信履歴とステータス（待ち、解除、期限切れ）。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text"><strong>もらったいいね</strong> — 相手からのアプローチ（閲覧・承認・スキップ）。</div></div>
+        <div class="blp-section-title">カードのステータス</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>待機中 (Pending)</strong> — 相手がまだ確認・返答していない状態。送信後72時間は有効。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>マッチ成立 (Matched) 🎉</strong> — 相手が承認。マッチング画面（SCR-080）へのリンクをカードに表示。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>スキップ済み (Skipped)</strong> — 相手がスキップ。再送不可。カードはグレーアウトで残す（読み取り専用）。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2c</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>期限切れ (Expired)</strong> — 72時間以内に返答なし。自動で無効化。再送可能（相手プロフィールページから）。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2d</div></div>
+            <div class="blp-step-text"><strong>取消済み (Withdrawn)</strong> — 自分が送信後に取り消し。取消後は同じ相手へ再送不可（一定期間）。</div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="blp-section">
+        <div class="blp-section-title">表示ルール</div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text">デフォルトは送信日時の新着順。フィルターで「待機中のみ」に絞込可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">👤</div><div class="blp-rule-text">相手がアカウント削除 → カードの名前を「退会済みユーザー」に変更。いいねは自動取消。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔔</div><div class="blp-rule-text">マッチ成立時 → プッシュ通知 ＋ カードのバッジでハイライト。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">操作</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">カードタップ → 相手プロフィール詳細（SCR-050）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text">Matchedカード →「マッチを見る」ボタン → SCR-080 マッチ詳細。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">空状態</div>
+        <div class="blp-note">いいねを一度も送っていない場合 →「まだいいねを送っていません」メッセージ ＋ さがす画面へのリンクを表示。</div>
+      </div>
+
+      <!-- TAB 2: もらったいいね -->
+      <div class="blp-section">
+        <div class="blp-section-title">② タブ — もらったいいね</div>
+        <div class="blp-note highlight">自分が受け取ったいいねの一覧。相手のプロフィールを確認して「承認」または「スキップ」を選択。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">カードのステータス</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>未読 (Unread)</strong> — まだ相手のプロフィールを開いていない。バッジ「NEW」表示。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>確認済み・未返答 (Read)</strong> — プロフィールを閲覧済み。承認もスキップもまだしていない。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>マッチ成立 (Matched) 🎉</strong> — 承認済み。SCR-080マッチ詳細へ進める。送った相手にも通知。</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3b</div></div>
+            <div class="blp-step-text"><strong>スキップ済み (Skipped)</strong> — スキップ選択。相手には通知しない（静かに非表示）。履歴にのみ残る。</div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">表示ルール</div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text">未返答（未読・確認済み）を上部に優先表示。返答済みは下部にグレーアウト。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">⏱</div><div class="blp-rule-text">受け取りから72時間以内に返答しない場合 → 自動的に期限切れ扱い（相手には表示しない）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔒</div><div class="blp-rule-text">スキップした相手の名前は伏字（プライバシー配慮）。プロフィールへのリンクも非表示。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">操作</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">カードタップ → 相手プロフィール詳細（SCR-050）で「いいね返し」or「スキップ」を選択。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text">Matchedカード（例：ゆみさん）→ SCR-080 マッチ詳細へ移動。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">空状態</div>
+        <div class="blp-note">いいねを一度も受け取っていない場合 →「まだいいねをもらっていません」メッセージを表示。プロフィール充実を促すヒントも添える。</div>
+      </div>
+
+    </div><!-- /lang-ja -->
 
     <!-- VI VERSION -->
     <div class="blp-lang lang-vi" style="display:none;">
+
       <div class="blp-section">
-        <div class="blp-section-title">Mục đích</div>
-        <div class="blp-note highlight">Quản lý các lượt Like bạn đã gửi đi và các lượt Like bạn nhận được.</div>
+        <div class="blp-section-title">Mục đích màn hình</div>
+        <div class="blp-note highlight">Quản lý tập trung toàn bộ lượt Like đã gửi và đã nhận trong một màn hình duy nhất với 2 tab chuyển đổi.</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Điều kiện truy cập</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">User đã đăng nhập. Không yêu cầu eKYC để <strong>xem</strong> danh sách.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">Cần eKYC để <strong>gửi Like mới</strong>. Nếu chưa xác minh → hiện modal cảnh báo.</div></div>
+      </div>
+
+      <!-- TAB 1: 送ったいいね -->
+      <div class="blp-section">
+        <div class="blp-section-title">① Tab — 送ったいいね (Like đã gửi)</div>
+        <div class="blp-note highlight">Danh sách tất cả Like bạn đã gửi đi, kèm thời gian gửi, ảnh đối phương và trạng thái hiện tại.</div>
       </div>
       <div class="blp-section">
-        <div class="blp-section-title">Nội dung</div>
-        <div class="blp-rule"><div class="blp-rule-dot">↑</div><div class="blp-rule-text"><strong>Đã gửi</strong> — Lịch sử gửi Like và trạng thái (Đang chờ, Hết hạn, Đã rút).</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text"><strong>Đã nhận</strong> — Xem hồ sơ, phản hồi Like hoặc Skip.</div></div>
+        <div class="blp-section-title">Vòng đời trạng thái Like đã gửi</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Đang chờ (Pending)</strong> — Đối phương chưa xem hoặc chưa phản hồi. Còn hiệu lực trong 72 giờ kể từ lúc gửi.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Matched (マッチ成立) 🎉</strong> — Đối phương đã chấp nhận. Hiện nút「マッチを見る」→ SCR-080 Match Detail.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Bị bỏ qua (Skipped)</strong> — Đối phương đã skip. Không thể gửi lại. Card hiển thị mờ, chỉ đọc.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2c</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Hết hạn (Expired)</strong> — Quá 72h chưa có phản hồi. Tự động vô hiệu hoá. Có thể gửi lại từ trang hồ sơ đối phương.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2d</div></div>
+            <div class="blp-step-text"><strong>Đã rút (Withdrawn)</strong> — Bạn tự thu hồi Like trước khi đối phương phản hồi. Không thể gửi lại trong một thời gian.</div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Quy tắc hiển thị</div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text">Mặc định sắp xếp mới nhất trước. Có thể lọc「Đang chờ」riêng.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">👤</div><div class="blp-rule-text">Đối phương xóa tài khoản → card đổi tên thành「退会済みユーザー」, Like tự hủy.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔔</div><div class="blp-rule-text">Match thành công → push notification + card highlight nổi bật.</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Hành động</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Tap card → trang hồ sơ đối phương (SCR-050).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text">Card Matched →「マッチを見る」→ SCR-080 Match Detail.</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Trạng thái rỗng</div>
+        <div class="blp-note">Chưa từng gửi Like → hiện thông báo「まだいいねを送っていません」kèm link đến màn tìm kiếm.</div>
+      </div>
+
+      <!-- TAB 2: もらったいいね -->
+      <div class="blp-section">
+        <div class="blp-section-title">② Tab — もらったいいね (Like đã nhận)</div>
+        <div class="blp-note highlight">Danh sách người đã gửi Like cho bạn. Xem hồ sơ, chọn「いいね返し」(chấp nhận) hoặc「スキップ」(bỏ qua).</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Vòng đời trạng thái Like đã nhận</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Chưa đọc (Unread)</strong> — Chưa mở hồ sơ đối phương. Badge「NEW」hiển thị trên card.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Đã xem, chưa trả lời (Read)</strong> — Đã mở hồ sơ nhưng chưa phản hồi. Còn hiệu lực 72h từ lúc nhận.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>Matched 🎉</strong> — Đã chấp nhận (いいね返し). Chuyển sang SCR-080. Gửi thông báo cho đối phương.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3b</div></div>
+            <div class="blp-step-text"><strong>Đã bỏ qua (Skipped)</strong> — Đã skip. Không thông báo cho đối phương. Chỉ còn trong lịch sử, không hiện tên.</div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Quy tắc hiển thị</div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text">Ưu tiên hiển thị chưa trả lời (chưa đọc + đã xem) lên đầu. Đã trả lời hiển thị mờ bên dưới.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">⏱</div><div class="blp-rule-text">Quá 72h chưa phản hồi → tự động hết hạn, không hiện cho đối phương nữa.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔒</div><div class="blp-rule-text">Người bị skip: tên ẩn, không link hồ sơ (bảo vệ quyền riêng tư).</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Hành động</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Tap card → hồ sơ đối phương (SCR-050) để chọn いいね返し hoặc スキップ.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text">Card đã Match (ví dụ: ゆみさん) → tap → SCR-080 Match Detail.</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Trạng thái rỗng</div>
+        <div class="blp-note">Chưa có ai gửi Like →「まだいいねをもらっていません」kèm gợi ý hoàn thiện hồ sơ để tăng lượt tiếp cận.</div>
+      </div>
+
+    </div><!-- /lang-vi -->
   </div>
 
   <script>
