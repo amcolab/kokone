@@ -511,6 +511,8 @@
       background: #f1f8f1;
       color: #1b5e20;
     }
+  
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
   </style>
   <style>
     /* === INJECTED SIDEBAR === */
@@ -798,99 +800,130 @@
 
     <!-- Header -->
     <div class="header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR082_date_confirm.html'" style="cursor:pointer;">
-        << /div>
-          <div class="header-title">お店を選ぶ</div>
-      </div>
-
-      <!-- Context -->
-      <div class="context-bar">
-        3月20日（木）夜 · 新宿〜渋谷エリア
-      </div>
-
-      <!-- Subtitle -->
-      <div class="subtitle">
-        条件に合うお店を3件ご提案します
-      </div>
-
-      <!-- Restaurant Cards -->
-      <div class="cards-section">
-        <!-- Card 1 -->
-        <div class="restaurant-card featured">
-          <div class="photo-placeholder">🏘</div>
-          <div class="badge-recommended">おすすめ</div>
-          <div class="card-content">
-            <div class="restaurant-name">個室ダイニング 和楽</div>
-            <div class="restaurant-info">新宿区 · 和食・創作</div>
-            <div class="tags">
-              <span class="tag">個室あり</span>
-              <span class="tag">落ち着いた雰囲気</span>
-              <span class="tag">接待向き</span>
-            </div>
-            <div class="price">¥5,000〜8,000 / 人</div>
-            <div class="card-footer">
-              <span class="map-link">📍 Google Map →</span>
-              <div class="radio-btn"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="restaurant-card">
-          <div class="photo-placeholder">🍽</div>
-          <div class="card-content">
-            <div class="restaurant-name">ビストロ エルミタージュ</div>
-            <div class="restaurant-info">渋谷区 · フレンチ</div>
-            <div class="tags">
-              <span class="tag">テーブル席</span>
-              <span class="tag">ソムリエ在籍</span>
-            </div>
-            <div class="price">¥6,000〜10,000 / 人</div>
-            <div class="card-footer">
-              <span class="map-link">📍 Google Map →</span>
-              <div class="radio-btn"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="restaurant-card">
-          <div class="photo-placeholder">☕</div>
-          <div class="card-content">
-            <div class="restaurant-name">カフェ レストラン ソレイユ</div>
-            <div class="restaurant-info">渋谷区 · カフェ・洋食</div>
-            <div class="tags">
-              <span class="tag">半個室</span>
-              <span class="tag">ランチ人気</span>
-            </div>
-            <div class="price">¥3,000〜5,000 / 人</div>
-            <div class="card-footer">
-              <span class="map-link">📍 Google Map →</span>
-              <div class="radio-btn"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Section -->
-      <div class="action-section">
-        <button class="reserve-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'">このお店で予約リクエスト
-          →</button>
-        <a class="more-link" onclick="window.location.href='wireframe_SCR080_match_detail.html'">他の候補を見る（+3件）</a>
-      </div>
-
-      <!-- Footer -->
-      <div class="footer-note">
-        フロー: SCR-082 → SCR-083 ★ → [予約リクエスト] → SCR-087
-      </div>
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR082_date_confirm.html'" style="cursor:pointer;">&#8249;</div>
+      <div class="header-title">お店を選ぶ</div>
     </div>
 
-    <div class="blp-wrap">
+    <!-- Context -->
+    <div class="context-bar">
+      3月20日（木）夜 · 新宿〜渋谷エリア
+    </div>
+
+    <!-- Subtitle -->
+    <div class="subtitle">
+      条件に合うお店を3件ご提案します
+    </div>
+
+    <!-- Restaurant Cards -->
+    <div class="cards-section">
+      <!-- Card 1 -->
+      <div class="restaurant-card featured">
+        <div class="photo-placeholder">🏘</div>
+        <div class="badge-recommended">おすすめ</div>
+        <div class="card-content">
+          <div class="restaurant-name">個室ダイニング 和楽</div>
+          <div class="restaurant-info">新宿区 · 和食・創作</div>
+          <div class="tags">
+            <span class="tag">個室あり</span>
+            <span class="tag">落ち着いた雰囲気</span>
+            <span class="tag">接待向き</span>
+          </div>
+          <div class="price">¥5,000〜8,000 / 人</div>
+          <div class="card-footer">
+            <span class="map-link">📍 Google Map →</span>
+            <div class="radio-btn"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="restaurant-card">
+        <div class="photo-placeholder">🍽</div>
+        <div class="card-content">
+          <div class="restaurant-name">ビストロ エルミタージュ</div>
+          <div class="restaurant-info">渋谷区 · フレンチ</div>
+          <div class="tags">
+            <span class="tag">テーブル席</span>
+            <span class="tag">ソムリエ在籍</span>
+          </div>
+          <div class="price">¥6,000〜10,000 / 人</div>
+          <div class="card-footer">
+            <span class="map-link">📍 Google Map →</span>
+            <div class="radio-btn"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="restaurant-card">
+        <div class="photo-placeholder">☕</div>
+        <div class="card-content">
+          <div class="restaurant-name">カフェ レストラン ソレイユ</div>
+          <div class="restaurant-info">渋谷区 · カフェ・洋食</div>
+          <div class="tags">
+            <span class="tag">半個室</span>
+            <span class="tag">ランチ人気</span>
+          </div>
+          <div class="price">¥3,000〜5,000 / 人</div>
+          <div class="card-footer">
+            <span class="map-link">📍 Google Map →</span>
+            <div class="radio-btn"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.cards-section -->
+
+    <!-- Action Section -->
+    <div class="action-section">
+      <button class="reserve-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'">このお店で予約リクエスト →</button>
+      <a class="more-link" onclick="window.location.href='wireframe_SCR080_match_detail.html'">他の候補を見る（+3件）</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-note">
+      フロー: SCR-082 → SCR-083 ★ → [予約リクエスト] → SCR-087
+    </div>
+
+    <!-- Bottom Nav (inside device) -->
+    <div class="app-bottom-nav">
+      <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg><span class="bn-lbl">さがす</span></a>
+      <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg><span class="bn-lbl">いいね</span>
+        <div class="bn-dot"></div>
+      </a>
+      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24">
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        </svg><span class="bn-lbl">募集</span></a>
+      <a class="bn-item active" href="wireframe_SCR080_match_detail.html"><svg viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg><span class="bn-lbl">マイページ</span></a>
+    </div>
+
+  </div><!-- /.device -->
+
+  <div class="blp-wrap">
       <div class="blp-head">
         <div class="blp-head-info">
           <div class="blp-head-scr">SCR-083</div>
           <div class="blp-head-title">Restaurant</div>
-          <div class="blp-head-sub">Chọn nhà hàng</div>
+          <div class="blp-head-sub">レストラン選択 / Chọn nhà hàng</div>
+        </div>
+        <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
         </div>
         <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ"
           onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
@@ -902,9 +935,36 @@
           </svg>
         </button>
       </div>
+      </div>
       <div class="blp-body">
+    <!-- JA VERSION -->
+    <div class="blp-lang lang-ja">
 
-        <div class="blp-section">
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">AIが2人の嗜好・エリア・日程を考慮して3件のレストランを提案。どちらかが1件を選んで予約フローへ。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">提案ロジック（優先順）</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>双方のウィッシュリスト共通店</strong> — 両者が「行きたい」登録した店が最優先。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>好みジャンルの重複店</strong> — プロフィールのジャンルが一致する店。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>エリア内の高評価店</strong> — 日程エリアに近い管理者認定レストラン。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">選択ルール</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">どちらか一方が選択 → 相手にも通知 → SCR-082 予約確認へ。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">↷</div><div class="blp-rule-text">3件とも気に入らない場合 → 「他の候補を見る」で再提案（上限2回）。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意事項</div>
+        <div class="blp-note warn">⚠ 食事当日12時間前を過ぎると選択変更が不可。</div>
+        <div class="blp-note">管理者審査済みリストから提案（外部口コミとは連動しない）。</div>
+      </div>
+    </div>
+
+    <!-- VI VERSION -->
+    <div class="blp-lang lang-vi" style="display:none;">
+      <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
           <div class="blp-note highlight">Hệ thống gợi ý 3 nhà hàng phù hợp cho cả hai người. Một trong hai người chọn 1
             nhà hàng để đặt bàn.</div>
@@ -953,36 +1013,21 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+    </div>
+  </div>
+  </div>
 
-      <div class="app-bottom-nav">
-        <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg><span class="bn-lbl">さがす</span></a>
-        <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg><span class="bn-lbl">いいね</span>
-          <div class="bn-dot"></div>
-        </a>
-        <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24">
-            <path d="M9 11l3 3L22 4" />
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-          </svg><span class="bn-lbl">募集</span></a>
-        <a class="bn-item active" href="wireframe_SCR080_match_detail.html"><svg viewBox="0 0 24 24">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          </svg><span class="bn-lbl">マッチング</span></a>
-        <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg><span class="bn-lbl">マイページ</span></a>
-      </div>
-      <div class="wf-prevnext">
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+
+
+  <div class="wf-prevnext">
         <a class="wf-pn-btn" href="wireframe_SCR082_date_confirm.html">← Date Confirm</a>
         <div class="wf-pn-center">
           <div>Restaurant</div>
