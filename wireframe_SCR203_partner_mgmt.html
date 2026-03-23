@@ -206,93 +206,25 @@
     }
   </style>
 
-<style>
-/* === BUSINESS LOGIC PANEL === */
-.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
-.blp-wrap.fullscreen{width:calc(100vw - 200px);}
-.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
-.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
-.blp-wrap::-webkit-scrollbar{width:4px;}
-.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
-.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
-.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
-.blp-head-title{font-size:12px;font-weight:700;}
-.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
-.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
-.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
-.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
-.blp-body{padding:10px 12px 20px;}
-.blp-section{margin-bottom:14px;}
-.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
-.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
-.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
-.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
-.blp-rule-text strong{font-weight:700;color:#212121;}
-.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
-.blp-tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
-.blp-tag{font-size:9px;padding:2px 7px;border:1px solid #e0e0e0;color:#424242;background:#fafafa;white-space:nowrap;}
-.blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
-.blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
-.blp-flow-step:last-child{padding-bottom:0;}
-.blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
-.blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
-.blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
-.blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
-.blp-step-text strong{color:#212121;}
-.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
-.blp-note.highlight{border-left-color:#212121;color:#424242;}
-</style>
-<style>
-/* === INJECTED SIDEBAR === */
-.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
-.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
-.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
-.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
-</style>
-<style>
-/* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
 </style>
 </head>
-<body style="margin-left:200px; margin-right:280px;">
-<nav class="wf-sidebar">
-  <div class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">G · Admin</div>
-    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
-    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
-    <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
-  </div>
-</nav>
+<body>
 
 <div class="sidebar">
   <div class="sidebar-title">ダッシュボード</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
 
   <div class="sidebar-title">管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
-  <div class="sidebar-item active" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
 
   <div class="sidebar-title">業績</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
 
   <div class="sidebar-title">システム</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
@@ -300,23 +232,30 @@
 
 <div class="main-content">
   <div class="content-wrapper">
-    <div class="page-title">店舗・パートナー管理</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div class="page-title" style="margin-bottom:0;">店舗・パートナー管理</div>
+      <button class="filter-button" style="background:#388e3c; border-color:#388e3c;" onclick="location.href='wireframe_SCR203_partner_register.html'">+ 新規店舗登録</button>
+    </div>
 
     <div class="filter-bar">
       <input type="text" class="filter-input" placeholder="店舗名・エリアで検索...">
-      <select class="filter-select">
+      <select class="filter-select" style="width:100px;">
         <option>エリア ▼</option>
         <option>恵比寿</option>
         <option>西麻布</option>
         <option>銀座</option>
         <option>六本木</option>
       </select>
-      <select class="filter-select">
-        <option>ジャンル ▼</option>
-        <option>和食</option>
-        <option>フレンチ</option>
-        <option>イタリアン</option>
-        <option>バー</option>
+      <select class="filter-select" style="width:100px;">
+        <option>ステータス ▼</option>
+        <option>正常</option>
+        <option>要確認</option>
+        <option>停止中</option>
+      </select>
+      <select class="filter-select" style="width:100px;">
+        <option>本人確認 ▼</option>
+        <option>済</option>
+        <option>未</option>
       </select>
       <button class="filter-button">検索</button>
     </div>
@@ -346,7 +285,7 @@
             <td>¥15,000</td>
             <td>84</td>
             <td>正常</td>
-            <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[編集]</a></td>
+            <td><a href="wireframe_SCR203_partner_register.html" class="action-link">[編集]</a></td>
           </tr>
           <tr>
             <td>PT-002</td>
@@ -356,7 +295,7 @@
             <td>¥20,000</td>
             <td>62</td>
             <td>正常</td>
-            <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[編集]</a></td>
+            <td><a href="wireframe_SCR203_partner_register.html" class="action-link">[編集]</a></td>
           </tr>
           <tr>
             <td>PT-003</td>
@@ -366,7 +305,7 @@
             <td>¥5,000</td>
             <td>120</td>
             <td>正常</td>
-            <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[編集]</a></td>
+            <td><a href="wireframe_SCR203_partner_register.html" class="action-link">[編集]</a></td>
           </tr>
           <tr>
             <td>PT-004</td>
@@ -376,7 +315,7 @@
             <td>¥30,000</td>
             <td>45</td>
             <td>正常</td>
-            <td><a href="#" class="action-link">[詳細]</a><a href="#" class="action-link">[編集]</a></td>
+            <td><a href="wireframe_SCR203_partner_register.html" class="action-link">[編集]</a></td>
           </tr>
         </tbody>
       </table>
@@ -389,31 +328,6 @@
     </div>
   </div>
 </div>
-
-<div class="blp-wrap">
-  <div class="blp-head">
-    <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-203</div>
-      <div class="blp-head-title">Partner Management</div>
-      <div class="blp-head-sub">Quản lý đối tác / nhà hàng</div>
-    </div>
-  </div>
-  <div class="blp-body">
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Quản lý danh sách các nhà hàng đối tác, thông tin liên hệ và hiệu quả hợp tác.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Cột 申込数 (Số lượt booking)</div>
-      <div class="blp-note">Cột này hiển thị tổng số lượt người dùng đã chọn nhà hàng này làm điểm hẹn (booking request). Giúp admin đánh giá độ hot của nhà hàng.</div>
-    </div>
-  </div>
-</div>
-
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR204_user_mgmt.html">← User Mgmt</a>
-  <div class="wf-pn-center">Partner Mgmt</div>
-  <a class="wf-pn-btn" href="wireframe_SCR210_booking_mgmt.html">Booking Mgmt →</a>
-</div>
 </body>
 </html>
+```

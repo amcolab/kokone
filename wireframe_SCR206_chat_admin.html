@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-206 Admin Chat History Viewer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      padding: 12px 16px;
+      border-left: 3px solid transparent;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .sidebar-item.active {
+      border-left-color: #212121;
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+    }
+
+    .sidebar-title {
+      padding: 12px 16px;
+      color: #424242;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      padding: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chat-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .chat-meta {
+      font-size: 11px;
+      color: #757575;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fcfcfc;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .msg-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 70%;
+    }
+
+    .msg-group.left {
+      align-self: flex-start;
+    }
+
+    .msg-group.right {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .msg-sender {
+      font-size: 10px;
+      font-weight: bold;
+      color: #757575;
+      margin-bottom: 2px;
+    }
+
+    .msg-bubble {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .left .msg-bubble {
+      background: #eeeeee;
+      color: #212121;
+    }
+
+    .right .msg-bubble {
+      background: #212121;
+      color: #ffffff;
+    }
+
+    .msg-time {
+      font-size: 10px;
+      color: #bdbdbd;
+      margin-top: 2px;
+    }
+
+    .back-btn {
+      color: #1976d2;
+      text-decoration: none;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-title">ダッシュボード</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
+
+  <div class="sidebar-title">管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
+
+  <div class="sidebar-title">業績</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
+
+  <div class="sidebar-title">システム</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
+</div>
+
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="chat-header">
+      <div class="chat-info">
+        <div class="chat-title">MT001: あきら (#102) × みお (#203)</div>
+        <div class="chat-meta">マッチ成立: 2026/03/22 10:00</div>
+      </div>
+      <a href="wireframe_SCR205_match_mgmt.html" class="back-btn">← 一覧へ戻る</a>
+    </div>
+
+    <div class="chat-body">
+      <div class="msg-group left">
+        <div class="msg-sender">あきら (#102)</div>
+        <div class="msg-bubble">はじめまして！マッチングありがとうございます。</div>
+        <div class="msg-time">10:05</div>
+      </div>
+
+      <div class="msg-group right">
+        <div class="msg-sender">みお (#203)</div>
+        <div class="msg-bubble">こちらこそ、ありがとうございます！よろしくお願いします。</div>
+        <div class="msg-time">10:10</div>
+      </div>
+
+      <div class="msg-group left">
+        <div class="msg-sender">あきら (#102)</div>
+        <div class="msg-bubble">週末のご予定などはいかがでしょうか？</div>
+        <div class="msg-time">10:12</div>
+      </div>
+
+      <div class="msg-group right">
+        <div class="msg-sender">みお (#203)</div>
+        <div class="msg-bubble">土曜日の夜でしたら空いています！</div>
+        <div class="msg-time">10:15</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-211 Admin Booking Detail</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      padding: 12px 16px;
+      border-left: 3px solid transparent;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .sidebar-item.active {
+      border-left-color: #212121;
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+    }
+
+    .sidebar-title {
+      padding: 12px 16px;
+      color: #424242;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #757575;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #f8f9fa;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .detail-row {
+      display: flex;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .detail-label {
+      width: 120px;
+      color: #757575;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      color: #212121;
+      flex: 1;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      background: #212121;
+      color: #ffffff;
+      border-radius: 2px;
+    }
+
+    .status-dropdown {
+      height: 36px;
+      padding: 0 10px;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      font-size: 13px;
+      border-radius: 4px;
+      width: 200px;
+    }
+
+    .action-btn {
+      height: 36px;
+      padding: 0 20px;
+      background: #212121;
+      color: #ffffff;
+      border: none;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .comment-area {
+      width: 100%;
+      height: 80px;
+      border: 1px solid #e0e0e0;
+      padding: 10px;
+      font-size: 13px;
+      margin-top: 10px;
+      resize: vertical;
+    }
+
+    .log-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+    }
+
+    .log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-meta {
+      color: #757575;
+      margin-bottom: 4px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-title">ダッシュボード</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
+
+  <div class="sidebar-title">管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
+
+  <div class="sidebar-title">業績</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
+
+  <div class="sidebar-title">システム</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
+</div>
+
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="header-actions">
+      <div class="page-title">予約詳細: BK-001</div>
+      <a href="wireframe_SCR210_booking_mgmt.html" class="back-link">← 予約一覧へ戻る</a>
+    </div>
+
+    <!-- Booking Info -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">予約情報</div>
+        <span class="status-badge">予約確定</span>
+      </div>
+      <div class="card-body">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-row">
+              <div class="detail-label">予約ID</div>
+              <div class="detail-value">BK-001</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">日時</div>
+              <div class="detail-value">2026/03/20 夜 (19:00〜)</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">店舗</div>
+              <div class="detail-value">個室ダイニング和楽 (恵比寿)</div>
+            </div>
+          </div>
+          <div>
+            <div class="detail-row">
+              <div class="detail-label">ユーザーA</div>
+              <div class="detail-value text-blue" style="color:#1976d2; cursor:pointer;">たろう (#001)</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">ユーザーB</div>
+              <div class="detail-value text-blue" style="color:#1976d2; cursor:pointer;">みずき (#003)</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">担当者</div>
+              <div class="detail-value">田中</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Operations -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">管理操作</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-row">
+          <div class="detail-label">ステータス変更</div>
+          <div class="detail-value">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select class="status-dropdown" onchange="toggleConfirmedSection(this.value)">
+                <option value="confirmed" selected>予約確定</option>
+                <option value="contacting">店舗連絡中</option>
+                <option value="pending">双方承認待ち</option>
+                <option value="adjusting">日程調整中</option>
+                <option value="cancelled">キャンセル</option>
+              </select>
+              <button class="action-btn">更新</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirmed Details (Visible when status is 'confirmed') -->
+        <div id="confirmed-section" style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed #e0e0e0;">
+          <div style="font-size: 13px; font-weight: bold; margin-bottom: 16px; color: #212121;">予約確定の詳細情報</div>
+          
+          <div class="detail-row">
+            <div class="detail-label">決定店舗</div>
+            <div class="detail-value">
+              <select class="status-dropdown" style="width: 100%;">
+                <option>個室ダイニング和楽 (恵比寿)</option>
+                <option>ビストロ エルミタージュ (代官山)</option>
+                <option>カフェソレイユ (中目黒)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">店舗住所</div>
+            <div class="detail-value">
+              <input type="text" class="status-dropdown" style="width: 100%;" value="東京都渋谷区恵比寿南 X-X-X 1F">
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">確定日時</div>
+            <div class="detail-value">
+              <div style="display: flex; gap: 8px;">
+                <input type="date" class="status-dropdown" style="width: 150px;" value="2026-03-20">
+                <input type="time" class="status-dropdown" style="width: 100px;" value="19:00">
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">予約名義 (店舗用)</div>
+            <div class="detail-value">
+              <input type="text" class="status-dropdown" style="width: 100%;" value="Otona Table / 田中">
+            </div>
+          </div>
+
+          <div class="detail-row" style="margin-top: 20px;">
+            <div class="detail-label">送付メッセージ</div>
+            <div class="detail-value">
+              <div style="background: #e3f2fd; padding: 12px; border-radius: 4px; font-size: 12px; border: 1px solid #bbdefb;">
+                <strong>ユーザー向けの通知内容:</strong><br><br>
+                マッチングの予約が確定しました！<br><br>
+                日時: 2026/03/20 19:00〜<br>
+                店舗: 個室ダイニング和楽<br>
+                住所: 東京都渋谷区恵比寿南 X-X-X 1F<br>
+                予約名義: Otona Table / 田中<br><br>
+                当日はお気をつけてお越しください。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposal Section (Visible when re-adjustment is needed) -->
+        <div id="proposal-section" style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed #e0e0e0; display: none;">
+          <div style="font-size: 13px; font-weight: bold; margin-bottom: 16px; color: #212121;">日程の再提案 (予約不可時)</div>
+          
+          <p style="font-size: 11px; color: #d32f2f; margin-bottom: 12px;">※指定の日時で予約が取れなかった場合、ユーザーに新しい候補日時を提案します。</p>
+
+          <div class="detail-row">
+            <div class="detail-label">候補日時1</div>
+            <div class="detail-value">
+              <div style="display: flex; gap: 8px;">
+                <input type="date" class="status-dropdown" style="width: 150px;">
+                <input type="time" class="status-dropdown" style="width: 100px;">
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">候補日時2</div>
+            <div class="detail-value">
+              <div style="display: flex; gap: 8px;">
+                <input type="date" class="status-dropdown" style="width: 150px;">
+                <input type="time" class="status-dropdown" style="width: 100px;">
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-label">理由 (ユーザー宛)</div>
+            <div class="detail-value">
+              <select class="status-dropdown" style="width: 100%;">
+                <option>希望日時が満席のため</option>
+                <option>店舗が定休日のため</option>
+                <option>貸切営業のため</option>
+                <option>その他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="detail-row" style="margin-top: 20px;">
+            <div class="detail-label">送付メッセージ</div>
+            <div class="detail-value">
+              <div style="background: #fff3e0; padding: 12px; border-radius: 4px; font-size: 12px; border: 1px solid #ffe0b2;">
+                <strong>ユーザー向けの通知内容:</strong><br><br>
+                大変申し訳ございません。ご希望の日時（3/20 19:00）は、店舗が満席のため予約を承ることができませんでした。<br><br>
+                代わりとして、以下の日時で調整可能でしょうか？<br>
+                ・候補1: [入力した日時1]<br>
+                ・候補2: [入力した日時2]<br><br>
+                マイページよりご回答をお願いいたします。
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 12px; text-align: right;">
+            <button class="action-btn" style="background:#ff9800;">再提案を送付する</button>
+          </div>
+        </div>
+
+        <div class="detail-row" style="margin-top: 24px;">
+          <div class="detail-label">管理メモ</div>
+          <div class="detail-value">
+            <textarea class="comment-area" placeholder="担当者用のメモを入力してください..."></textarea>
+            <div style="margin-top: 8px; text-align: right;">
+              <button class="action-btn" style="background:#757575;">メモを保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+  <script>
+    function toggleConfirmedSection(status) {
+      const confirmedSection = document.getElementById('confirmed-section');
+      const proposalSection = document.getElementById('proposal-section');
+      
+      // Reset visibility
+      confirmedSection.style.display = 'none';
+      proposalSection.style.display = 'none';
+
+      if (status === 'confirmed') {
+        confirmedSection.style.display = 'block';
+      } else if (status === 'adjusting') {
+        proposalSection.style.display = 'block';
+      }
+    }
+
+    // Initial check
+    window.onload = function() {
+      const statusSelect = document.querySelector('.status-dropdown');
+      toggleConfirmedSection(statusSelect.value);
+    }
+  </script>
+</body>
+</html>

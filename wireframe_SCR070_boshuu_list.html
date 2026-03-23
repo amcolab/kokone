@@ -116,6 +116,29 @@
       background: var(--c6);
     }
 
+    .search-row {
+      padding: 8px 16px;
+      background: var(--c0);
+      border-bottom: var(--border);
+    }
+    .search-input-wrap {
+      background: var(--c1);
+      border: 1px solid var(--c2);
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+    }
+    .search-input-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 11px;
+      flex: 1;
+      color: var(--c6);
+    }
+
     .filter-strip {
       background: var(--c0);
       border-bottom: var(--border);
@@ -1224,16 +1247,22 @@
       <!-- 募集をさがす Tab (Search/Find Others) -->
       <div id="content-search" class="tab-content active">
         <!-- Filter chips specifically for searching -->
-        <div class="filter-strip" style="padding: 4px 0 12px;">
+        <div class="filter-strip" style="padding: 4px 0 12px; border-bottom: none;">
           <div class="filter-chip active">すべて</div>
           <div class="filter-chip">📍 渋谷・恵比寿</div>
           <div class="filter-chip">📅 今週末</div>
           <div class="filter-chip">🍽 和食</div>
         </div>
 
-        <!-- Card 1 -->
-        <div class="m-card" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html'"
-          style="cursor:pointer;">
+        <div class="search-row" style="margin: 0 0 12px 0; border-top: 1px solid var(--c2);">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <input type="text" placeholder="キーワード・エリアで検索...">
+          </div>
+        </div>
+
+        <!-- Card 1 (Sample restored/added) -->
+        <div class="m-card" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html'" style="cursor:pointer;">
           <div class="m-card-header">
             <div class="m-card-title">今週金曜に美味しい和食をご一緒しませんか？</div>
             <div class="m-status-tag OPEN">募集中</div>

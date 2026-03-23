@@ -205,331 +205,149 @@
     }
   </style>
 
-
-<style>
-/* === BUSINESS LOGIC PANEL === */
-.blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
-.blp-wrap.fullscreen{width:calc(100vw - 200px);}
-.blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
-.blp-wrap.fullscreen .blp-section{break-inside:avoid;}
-.blp-wrap::-webkit-scrollbar{width:4px;}
-.blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
-.blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
-.blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
-.blp-head-title{font-size:12px;font-weight:700;}
-.blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
-.blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;transition:background .15s;}
-.blp-fullscreen-btn:hover{background:#424242;color:#fff;}
-.blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
-.blp-body{padding:10px 12px 20px;}
-.blp-section{margin-bottom:14px;}
-.blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
-.blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
-.blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
-.blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
-.blp-rule-text strong{font-weight:700;color:#212121;}
-.blp-rule-text em{font-style:normal;color:#757575;font-size:10px;}
-.blp-tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
-.blp-tag{font-size:9px;padding:2px 7px;border:1px solid #e0e0e0;color:#424242;background:#fafafa;white-space:nowrap;}
-.blp-tag.warn{background:#fff3e0;color:#e65100;border-color:#ffcc80;}
-.blp-tag.ok{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
-.blp-tag.info{background:#e3f2fd;color:#1565c0;border-color:#90caf9;}
-.blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
-.blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
-.blp-flow-step:last-child{padding-bottom:0;}
-.blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
-.blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
-.blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
-.blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
-.blp-step-text strong{color:#212121;}
-.blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
-.blp-note.highlight{border-left-color:#212121;color:#424242;}
-.blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
-.blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
-</style>
-<style>
-/* === INJECTED SIDEBAR === */
-.wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;}
-.wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
-.wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
-.wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
-.wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
-.wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
-.wf-nav-link:hover{background:#f5f5f5;color:#424242;}
-.wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
-.wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
-.wf-sidebar::-webkit-scrollbar{width:3px;}
-.wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
-</style>
-<style>
-/* === PREV/NEXT NAV === */
-.wf-prevnext{position:fixed;bottom:0;left:200px;right:280px;height:36px;background:#212121;display:flex;align-items:center;justify-content:space-between;z-index:9997;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.wf-pn-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:#bdbdbd;font-size:11px;padding:4px 10px;border:1px solid #424242;transition:all .15s;}
-.wf-pn-btn:hover{background:#424242;color:#fff;border-color:#757575;}
-.wf-pn-btn.disabled{opacity:0.25;pointer-events:none;}
-.wf-pn-center{font-size:10px;color:#757575;text-align:center;}
-.wf-pn-pos{font-size:9px;color:#424242;margin-top:1px;}
-</style>
-<style>
-/* === BOTTOM NAV === */
-.app-bottom-nav{height:52px;border-top:1px solid #e0e0e0;display:flex;background:#fff;flex-shrink:0;position:relative;}
-.app-bottom-nav .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;padding:0;}
-.app-bottom-nav .bn-item.active{background:#f5f5f5;}
-.app-bottom-nav .bn-item svg{width:19px;height:19px;stroke:#bdbdbd;fill:none;stroke-width:1.8;}
-.app-bottom-nav .bn-item.active svg{stroke:#212121;}
-.app-bottom-nav .bn-lbl{font-size:8px;color:#bdbdbd;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
-.app-bottom-nav .bn-item.active .bn-lbl{color:#212121;}
-.app-bottom-nav .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:6px;height:6px;background:#212121;border:1.5px solid #fff;border-radius:50%;}
 </style>
 </head>
-<body style="margin-left:200px; margin-right:280px;">
-<nav class="wf-sidebar">
-  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">A · Onboarding</div>
-    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
-    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
-    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
-    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
-    <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">B · Home</div>
-    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR060_discovery.html"><span class="wf-nav-id">060</span>Discovery</a>
-    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
-    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
-    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
-    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">C · 募集</div>
-    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
-    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">D · Booking</div>
-    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
-    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
-    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
-    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
-    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
-    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">E · Chat & Review</div>
-    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
-    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">F · My Page</div>
-    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
-    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
-    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
-    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
-  </div>
-  <div class="wf-sidebar-group">
-    <div class="wf-group-label">G · Admin</div>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
-    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
-    <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
-    <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
-  </div>
-</nav>
+<body>
 
+<div class="sidebar">
+  <div class="sidebar-title">ダッシュボード</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
 
-  <div class="sidebar">
-    <div class="sidebar-title">ダッシュボード</div>
-    <div class="sidebar-item active" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
+  <div class="sidebar-title">管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
 
-    <div class="sidebar-title">管理</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗管理</div>
+  <div class="sidebar-title">業績</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
 
-    <div class="sidebar-title">業績</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益</div>
-
-    <div class="sidebar-title">システム</div>
-    <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
-  </div>
-
-  <div class="main-content">
-    <div class="content-wrapper">
-      <div class="page-header">
-        <div>
-          <div class="page-title">ダッシュボード</div>
-          <div class="page-date">2026年3月17日</div>
-        </div>
-      </div>
-
-      <!-- KPI Cards Row 1 -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">総会員数</div>
-          <div class="kpi-value">248</div>
-          <div style="font-size: 11px; color: #757575;">人</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">有料会員</div>
-          <div class="kpi-value">187</div>
-          <div style="font-size: 11px; color: #757575;">人</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">今月のマッチング</div>
-          <div class="kpi-value">42</div>
-          <div style="font-size: 11px; color: #757575;">件</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">今月の予約確定</div>
-          <div class="kpi-value">23</div>
-          <div style="font-size: 11px; color: #757575;">件</div>
-        </div>
-      </div>
-
-      <!-- KPI Cards Row 2 -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">通報件数</div>
-          <div class="kpi-value">3</div>
-          <div style="font-size: 11px; color: #757575;">件</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">本人確認待ち</div>
-          <div class="kpi-value">7</div>
-          <div style="font-size: 11px; color: #757575;">件</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">今月の売上</div>
-          <div class="kpi-value">¥1,587K</div>
-          <div style="font-size: 11px; color: #757575;">千円</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">解約数</div>
-          <div class="kpi-value">4</div>
-          <div style="font-size: 11px; color: #757575;">件</div>
-        </div>
-      </div>
-
-      <!-- Bookings Table -->
-      <div class="section">
-        <div class="section-title">直近の予約 (本日〜7日)</div>
-        <div class="table-wrapper">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>予約ID</th>
-                <th>ユーザー</th>
-                <th>相手</th>
-                <th>店舗</th>
-                <th>日時</th>
-                <th>ステータス</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>BK-001</td>
-                <td>たろうさん</td>
-                <td>みずきさん</td>
-                <td>個室ダイニング和楽</td>
-                <td>3/20 夜</td>
-                <td><span class="status-badge status-confirmed">確定</span></td>
-              </tr>
-              <tr>
-                <td>BK-002</td>
-                <td>ゆいさん</td>
-                <td>けんじさん</td>
-                <td>ビストロ エルミタージュ</td>
-                <td>3/21 夜</td>
-                <td><span class="status-badge status-pending">調整中</span></td>
-              </tr>
-              <tr>
-                <td>BK-003</td>
-                <td>さくらさん</td>
-                <td>—</td>
-                <td>カフェソレイユ</td>
-                <td>3/22 昼</td>
-                <td><span class="status-badge status-pending">キャンセル</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Pending Tasks -->
-      <div class="section">
-        <div class="section-title">未処理タスク</div>
-        <div class="task-row">
-          <span class="task-text">⚠ 本人確認審査待ち 7件</span>
-          <a href="#" class="task-link">確認する →</a>
-        </div>
-        <div class="task-row">
-          <span class="task-text">⚠ 通報対応待ち 3件</span>
-          <a href="#" class="task-link">確認する →</a>
-        </div>
-        <div class="task-row">
-          <span class="task-text">ℹ 今週の食事予定 12件</span>
-          <a href="#" class="task-link">確認する →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div class="blp-wrap">
-  <div class="blp-head">
-    <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-200</div>
-      <div class="blp-head-title">Admin Dashboard</div>
-      <div class="blp-head-sub">Dashboard quản trị viên</div>
-    </div>
-    <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-      <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-    </button>
-  </div>
-  <div class="blp-body">
-
-    <div class="blp-section">
-      <div class="blp-section-title">Mục đích</div>
-      <div class="blp-note highlight">Màn hình tổng quan cho team vận hành: theo dõi KPI, doanh thu, và sức khoẻ hệ thống.</div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Các chỉ số hiển thị</div>
-      <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Số thành viên:</strong> tổng, mới trong tháng, active.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Doanh thu:</strong> tháng này, theo gói (free/paid), option riêng, ARPU.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Biểu đồ:</strong> xu hướng doanh thu ngày/tháng, tỷ lệ free → paid.</div></div>
-<div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Match & đặt bàn:</strong> số match thành công, số buổi ăn thực tế.</div></div>
-    </div>
-    <div class="blp-section">
-      <div class="blp-section-title">Quyền truy cập</div>
-      <div class="blp-note ">Chỉ admin / operator được vào. Auth riêng, không liên quan đến user app.</div>
-    </div>
-  </div>
+  <div class="sidebar-title">システム</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
 </div>
 
-<div class="app-bottom-nav">
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-<a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-<a class="bn-item" href="wireframe_SCR090_chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="bn-lbl">メッセージ</span></a>
-<a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="bn-lbl">ホーム</span></a>
-<a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-</div>
-<div class="wf-prevnext">
-  <a class="wf-pn-btn" href="wireframe_SCR119_notifications.html">← Notifications</a>
-  <div class="wf-pn-center">
-    <div>Admin Dashboard</div>
-    <div class="wf-pn-pos">29 / 31</div>
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <div>
+        <div class="page-title">ダッシュボード</div>
+        <div class="page-date">2026年3月17日</div>
+      </div>
+    </div>
+
+    <!-- KPI Cards Row 1 -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">総会員数</div>
+        <div class="kpi-value">248</div>
+        <div style="font-size: 11px; color: #757575;">人</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">有料会員</div>
+        <div class="kpi-value">187</div>
+        <div style="font-size: 11px; color: #757575;">人</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">今月のマッチング</div>
+        <div class="kpi-value">42</div>
+        <div style="font-size: 11px; color: #757575;">件</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">今月の予約確定</div>
+        <div class="kpi-value">23</div>
+        <div style="font-size: 11px; color: #757575;">件</div>
+      </div>
+    </div>
+
+    <!-- KPI Cards Row 2 -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">通報件数</div>
+        <div class="kpi-value">3</div>
+        <div style="font-size: 11px; color: #757575;">件</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">本人確認待ち</div>
+        <div class="kpi-value">7</div>
+        <div style="font-size: 11px; color: #757575;">件</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">今月の売上</div>
+        <div class="kpi-value">¥1,587K</div>
+        <div style="font-size: 11px; color: #757575;">千円</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">解約数</div>
+        <div class="kpi-value">4</div>
+        <div style="font-size: 11px; color: #757575;">件</div>
+      </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="section">
+      <div class="section-title">直近の予約 (本日〜7日)</div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>予約ID</th>
+              <th>ユーザー</th>
+              <th>相手</th>
+              <th>店舗</th>
+              <th>日時</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BK-001</td>
+              <td>たろうさん</td>
+              <td>みずきさん</td>
+              <td>個室ダイニング和楽</td>
+              <td>3/20 夜</td>
+              <td><span class="status-badge status-confirmed">確定</span></td>
+            </tr>
+            <tr>
+              <td>BK-002</td>
+              <td>ゆいさん</td>
+              <td>けんじさん</td>
+              <td>ビストロ エルミタージュ</td>
+              <td>3/21 夜</td>
+              <td><span class="status-badge status-pending">調整中</span></td>
+            </tr>
+            <tr>
+              <td>BK-003</td>
+              <td>さくらさん</td>
+              <td>—</td>
+              <td>カフェソレイユ</td>
+              <td>3/22 昼</td>
+              <td><span class="status-badge status-pending">キャンセル</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pending Tasks -->
+    <div class="section">
+      <div class="section-title">未処理タスク</div>
+      <div class="task-row">
+        <span class="task-text">⚠ 本人確認審査待ち 7件</span>
+        <a href="#" class="task-link">確認する →</a>
+      </div>
+      <div class="task-row">
+        <span class="task-text">⚠ 通報対応待ち 3件</span>
+        <a href="#" class="task-link">確認する →</a>
+      </div>
+      <div class="task-row">
+        <span class="task-text">ℹ 今週の食事予定 12件</span>
+        <a href="#" class="task-link">確認する →</a>
+      </div>
+    </div>
   </div>
-  <a class="wf-pn-btn" href="wireframe_SCR204_user_mgmt.html">User Mgmt →</a>
 </div>
 </body>
 </html>

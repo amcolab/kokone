@@ -326,6 +326,36 @@
       border-color: var(--c6);
     }
 
+    .search-row {
+      padding: 8px 12px;
+      background: var(--c0);
+      border-bottom: var(--border);
+      flex-shrink: 0;
+    }
+    .search-input-wrap {
+      background: var(--c1);
+      border: 1px solid var(--c2);
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+    }
+    .search-input-wrap svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--c4);
+      stroke-width: 2;
+    }
+    .search-input-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 11px;
+      flex: 1;
+      color: var(--c6);
+    }
+
     .scroll-area {
       flex: 1;
       overflow-y: auto;
@@ -1298,11 +1328,14 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">G · Admin</div>
-      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span
-          class="wf-nav-id">200</span>Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
       <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
-      <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking
-        Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
+      <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
     </div>
   </nav>
 
@@ -1328,12 +1361,19 @@
         </div>
       </div>
       <div class="filter-strip">
-        <div class="filter-chip active">東京 23区</div>
-        <div class="filter-chip">年代: 30–40代</div>
-        <div class="filter-chip">昼・夜</div>
-        <div class="filter-chip" onclick="window.location.href='wireframe_SCR061_filter.html'" style="cursor:pointer;">＋
-          詳細条件</div>
+        <div class="filter-chip active">おすすめ</div>
+        <div class="filter-chip">ログイン順</div>
+        <div class="filter-chip">登録順</div>
+        <div class="filter-chip">近くのエリア</div>
       </div>
+
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="名前や自己紹介で検索...">
+        </div>
+      </div>
+
       <div class="scroll-area">
         <div class="card-area" id="cardArea">
           <div class="card-behind-2"></div>

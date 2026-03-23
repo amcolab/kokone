@@ -345,6 +345,29 @@
       height: 2px;
       background: var(--c6);
     }
+
+    .search-row {
+      padding: 8px 16px;
+      background: var(--c0);
+      border-bottom: var(--border);
+    }
+    .search-input-wrap {
+      background: var(--c1);
+      border: 1px solid var(--c2);
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+    }
+    .search-input-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 11px;
+      flex: 1;
+      color: var(--c6);
+    }
   </style>
 
 
@@ -814,9 +837,16 @@
     </div>
 
     <div class="tab-bar">
-      <div class="tab active" onclick="switchTab('active')">やりとり (10)</div>
-      <div class="tab" onclick="switchTab('confirmed')">確定済み (3)</div>
-      <div class="tab" onclick="switchTab('history')">完了・履歴</div>
+      <div id="tab-progress" class="tab active" onclick="switchTab('progress')">やり取り・日程調整</div>
+      <div id="tab-confirmed" class="tab" onclick="switchTab('confirmed')">確定済み</div>
+      <div id="tab-history" class="tab" onclick="switchTab('history')">履歴</div>
+    </div>
+
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <span>🔍</span>
+        <input type="text" placeholder="名前で検索...">
+      </div>
     </div>
 
     <div class="content">

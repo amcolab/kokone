@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-221 Admin Report Detail</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      padding: 12px 16px;
+      border-left: 3px solid transparent;
+      color: #757575;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .sidebar-item.active {
+      border-left-color: #212121;
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+    }
+
+    .sidebar-title {
+      padding: 12px 16px;
+      color: #424242;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #757575;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #f8f9fa;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .detail-row {
+      display: flex;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .detail-label {
+      width: 140px;
+      color: #757575;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      color: #212121;
+      flex: 1;
+    }
+
+    .report-message {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 4px;
+      margin-top: 8px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .action-bar {
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      height: 36px;
+      padding: 0 16px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline {
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      color: #424242;
+    }
+
+    .btn-warning {
+      background: #ff9800;
+      color: #ffffff;
+      border: none;
+    }
+
+    .btn-danger {
+      background: #d32f2f;
+      color: #ffffff;
+      border: none;
+    }
+
+    .btn-success {
+      background: #2e7d32;
+      color: #ffffff;
+      border: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      background: #ffebee;
+      color: #d32f2f;
+      border: 1px solid #d32f2f;
+      border-radius: 2px;
+    }
+
+    .user-info-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: #eee;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .user-name {
+      font-weight: bold;
+    }
+
+    .user-id {
+      font-size: 11px;
+      color: #757575;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-title">ダッシュボード</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
+
+  <div class="sidebar-title">管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
+
+  <div class="sidebar-title">業績</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
+
+  <div class="sidebar-title">システム</div>
+  <div class="sidebar-item" onclick="location.href='wireframe_SCR900_settings.html'">システム設定</div>
+</div>
+
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="header-actions">
+      <div class="page-title">通報詳細</div>
+      <a href="wireframe_SCR220_report_mgmt.html" class="back-link">← 通報一覧へ戻る</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">基本情報</div>
+        <span class="status-badge">未対応</span>
+      </div>
+      <div class="card-body">
+        <div class="detail-row">
+          <div class="detail-label">通報日時</div>
+          <div class="detail-value">2026/03/22 09:30</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">理由</div>
+          <div class="detail-value">迷惑行為</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">内容</div>
+          <div class="detail-value">
+            <div class="report-message">暴言を吐かれました。マッチング後にメッセージで急に怒鳴られ、不快な思いをしました。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">関係ユーザー</div>
+      </div>
+      <div class="card-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+          <div>
+            <div class="detail-label" style="margin-bottom: 12px;">通報者</div>
+            <div class="user-info-box">
+              <div class="user-avatar"></div>
+              <div>
+                <div class="user-name">ゆいさん</div>
+                <div class="user-id">#003 / 42歳 / 女性 / 無料会員</div>
+              </div>
+            </div>
+            <div style="margin-top: 12px;">
+              <a href="#" class="action-link" style="color: #1976d2;">[ユーザー詳細を確認]</a>
+            </div>
+          </div>
+          <div>
+            <div class="detail-label" style="margin-bottom: 12px;">対象ユーザー (通報された側)</div>
+            <div class="user-info-box">
+              <div class="user-avatar"></div>
+              <div>
+                <div class="user-name">たろうさん</div>
+                <div class="user-id">#001 / 38歳 / 男性 / 有料会員</div>
+              </div>
+            </div>
+            <div style="margin-top: 12px;">
+              <a href="#" class="action-link" style="color: #1976d2;">[ユーザー詳細を確認]</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">対象ユーザーの通報履歴</div>
+      </div>
+      <div class="card-body" style="padding: 0;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead style="background: #f5f5f5;">
+            <tr>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e0e0e0;">日時</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e0e0e0;">理由</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #e0e0e0;">対応結果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">2026/02/15</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">不適切写真</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">警告済み</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">2026/01/10</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">迷惑行為</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">事実確認不能 (不問)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-outline" onclick="location.href='wireframe_SCR220_report_mgmt.html'">キャンセル</button>
+      <button class="btn btn-outline">対応不要 (非表示へ)</button>
+      <button class="btn btn-danger">アカウント停止</button>
+      <button class="btn btn-success">対応完了にする</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
