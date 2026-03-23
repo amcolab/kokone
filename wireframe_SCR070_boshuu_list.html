@@ -1685,65 +1685,163 @@
       <div class="blp-head-info">
         <div class="blp-head-scr">SCR-070</div>
         <div class="blp-head-title">募集 Management</div>
-        <div class="blp-head-sub">Quản lý bài đăng và ứng tuyển của tôi</div>
+        <div class="blp-head-sub">Quản lý bài đăng &amp; ứng tuyển</div>
       </div>
       <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ"
         onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
-        <svg viewBox="0 0 24 24">
-          <polyline points="15 3 21 3 21 9" />
-          <polyline points="9 21 3 21 3 15" />
-          <line x1="21" y1="3" x2="14" y2="10" />
-          <line x1="3" y1="21" x2="10" y2="14" />
-        </svg>
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
     </div>
     <div class="blp-body">
 
+      <!-- ══ MỤC ĐÍCH ══ -->
       <div class="blp-section">
-        <div class="blp-section-title">Quản lý tuyển dụng (Management)</div>
-        <div class="blp-note highlight">Màn hình tập trung quản lý các bài đăng của bản thân và các bài mình đã ứng
-          tuyển. Chia thành 2 tab chính.</div>
+        <div class="blp-section-title">Mục đích màn hình</div>
+        <div class="blp-note highlight">Màn hình trung tâm của tính năng 募集 — tổng hợp 3 góc nhìn trong 1 tab bar: tìm bài người khác, quản lý bài của mình, theo dõi các đơn đã nộp.</div>
       </div>
+
+      <!-- ══ ĐIỀU KIỆN VÀO MÀN ══ -->
       <div class="blp-section">
-        <div class="blp-section-title">Quy trình (Tab 募集)</div>
+        <div class="blp-section-title">Điều kiện truy cập</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">User đã đăng nhập. Không yêu cầu eKYC để <strong>xem</strong> danh sách.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">Cần eKYC + đăng ký <strong>lịch rảnh &amp; sở thích nhà hàng</strong> để được phép <strong>応募する</strong>. Nếu thiếu → hiện modal cảnh báo.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">¥</div><div class="blp-rule-text">Tạo bài (自分の募集) và ứng tuyển (応募) có thể giới hạn theo gói. Tuỳ bảng tính năng riêng.</div></div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- TAB 1: 募集をさがす               -->
+      <!-- ══════════════════════════════════ -->
+      <div class="blp-section">
+        <div class="blp-section-title">① Tab — 募集をさがす (Tìm bài người khác)</div>
+        <div class="blp-note highlight">Hiển thị danh sách bài 募集 của <em>người khác</em> đang mở. Mặc định sắp xếp mới nhất trước.</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Điều kiện hiển thị card</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Chỉ hiện bài có status <strong>OPEN</strong> (còn chỗ, chưa hết deadline).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Ẩn bài của <strong>chính user đang đăng nhập</strong>.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Bài user đã 応募 → hiện nhãn <strong>「応募済み」</strong> trên card, ẩn nút 応募.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">Bài đã <strong>FULL / CLOSED / hết deadline</strong> → tự ẩn khỏi tab này.</div></div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Bộ lọc &amp; tìm kiếm</div>
+        <div class="blp-rule"><div class="blp-rule-dot">≡</div><div class="blp-rule-text">Lọc theo <strong>khu vực, ngày (trưa/tối), genre nhà hàng</strong>. Chip filter nhiều lựa chọn, không loại trừ nhau.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🔍</div><div class="blp-rule-text">Ô tìm kiếm full-text theo keyword, tên khu vực.</div></div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Hành động</div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">Tap vào card → <strong>SCR-071</strong> Boshuu Detail (xem đầy đủ trước khi apply).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">+</div><div class="blp-rule-text">FAB「＋」→ <strong>SCR-072</strong> Create 募集 (tạo bài mới của mình).</div></div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Trường hợp rỗng</div>
+        <div class="blp-note">Không có bài nào phù hợp filter → hiện thông báo「条件に合う募集がありません」+ nút bỏ filter.</div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- TAB 2: 自分の募集                  -->
+      <!-- ══════════════════════════════════ -->
+      <div class="blp-section">
+        <div class="blp-section-title">② Tab — 自分の募集 (Bài mình đăng)</div>
+        <div class="blp-note highlight">Quản lý toàn bộ bài 募集 mình đã tạo. Mỗi bài có vòng đời trạng thái riêng.</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Vòng đời trạng thái</div>
         <div class="blp-flow">
           <div class="blp-flow-step">
-            <div class="blp-step-line">
-              <div class="blp-step-num">1</div>
-              <div class="blp-step-connector"></div>
-            </div>
-            <div class="blp-step-text"><strong>OPEN</strong>: Đang nhận ứng tuyển.</div>
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>OPEN 募集中</strong> — Đang nhận ứng tuyển. Chưa đủ max (6 người) và chưa hết deadline. Hành động: Xem chi tiết, Kết thúc sớm.</div>
           </div>
           <div class="blp-flow-step">
-            <div class="blp-step-line">
-              <div class="blp-step-num">2</div>
-              <div class="blp-step-connector"></div>
-            </div>
-            <div class="blp-step-text"><strong>FULL / SELECTING</strong>: Hết chỗ hoặc đang chọn người.</div>
+            <div class="blp-step-line"><div class="blp-step-num">2a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>FULL 満員</strong> — Đủ 6 ứng viên. Tự động chuyển; không nhận thêm. Hệ thống push thông báo cho chủ bài. Cần chọn người trong thời hạn.</div>
           </div>
           <div class="blp-flow-step">
-            <div class="blp-step-line">
-              <div class="blp-step-num">3</div>
-              <div class="blp-step-connector"></div>
-            </div>
-            <div class="blp-step-text"><strong>MATCH_CONFIRMED</strong>: Đã chọn được người phù hợp.</div>
+            <div class="blp-step-line"><div class="blp-step-num">2b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>SELECTING 選定中</strong> — Deadline đã qua hoặc chủ bài kích hoạt thủ công. Đang chờ chủ bài chọn 1 người. Hiện cảnh báo nếu chưa chọn sau 24h.</div>
           </div>
           <div class="blp-flow-step">
-            <div class="blp-step-line">
-              <div class="blp-step-num">4</div>
-            </div>
-            <div class="blp-step-text"><strong>CLOSED</strong>: Bài đăng kết thúc.</div>
+            <div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>MATCH_CONFIRMED マッチング成立</strong> — Chủ bài đã chọn 1 ứng viên. Hệ thống thông báo kết quả cho tất cả ứng viên. Match flow bắt đầu (→ SCR-080).</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4</div></div>
+            <div class="blp-step-text"><strong>CLOSED 終了</strong> — Bài đã đóng: hết hạn mà 0 ứng viên, chủ bài tự đóng, hoặc sau khi match xong. Không thể chỉnh sửa.</div>
           </div>
         </div>
       </div>
+
       <div class="blp-section">
-        <div class="blp-section-title">Trạng thái (Tab 応募)</div>
-        <div class="blp-tag-row">
-          <span class="blp-tag info">APPLIED: Đã nộp</span>
-          <span class="blp-tag ok">SELECTED: Được chọn</span>
-          <span class="blp-tag warn">NOT_SELECTED: Trượt</span>
+        <div class="blp-section-title">Hành động theo trạng thái</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✎</div><div class="blp-rule-text"><strong>OPEN</strong>: Chỉnh sửa nội dung bài (trong 1h đầu), Kết thúc sớm, Xem ứng viên đang nộp.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">👥</div><div class="blp-rule-text"><strong>FULL / SELECTING</strong>: Xem danh sách ứng viên → <strong>SCR-073</strong>, Chọn 1 người. Không thể chỉnh sửa bài.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text"><strong>MATCH_CONFIRMED</strong>: Xem kết quả chọn, vào match flow. Không thể đổi người đã chọn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">📋</div><div class="blp-rule-text"><strong>CLOSED</strong>: Xem lại bài (read-only). Có thể tạo bài mới tương tự (duplicate).</div></div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Cảnh báo &amp; edge case</div>
+        <div class="blp-note warn">⚠ FULL/SELECTING mà không chọn ai sau 48h → hệ thống tự CLOSE bài và thông báo cho tất cả ứng viên.</div>
+        <div class="blp-note">Bài OPEN mà 0 ứng viên sau deadline → tự chuyển CLOSED, không qua SELECTING.</div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- TAB 3: 応募中                      -->
+      <!-- ══════════════════════════════════ -->
+      <div class="blp-section">
+        <div class="blp-section-title">③ Tab — 応募中 (Đơn mình đã nộp)</div>
+        <div class="blp-note highlight">Theo dõi tất cả đơn ứng tuyển mình đã gửi đi. Gồm cả đơn đang chờ, đã có kết quả và đã đóng.</div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Vòng đời trạng thái đơn</div>
+        <div class="blp-flow">
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>APPLIED 応募済み</strong> — Đơn đã gửi, bài vẫn đang OPEN. Có thể rút đơn (応募をやめる) trước khi deadline.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>WAITING 結果待ち</strong> — Deadline đã qua, chủ bài đang chọn. Không thể rút đơn. Ẩn nút rút đơn.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>SELECTED 選定されました 🎉</strong> — Được chọn! Push notification. Card highlight xanh. Nút「マッチを見る」→ SCR-080.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">3b</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>NOT_SELECTED 見送り</strong> — Không được chọn. Push notification lịch sự. Không hiện tên người được chọn. Chỉ read-only.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4a</div><div class="blp-step-connector"></div></div>
+            <div class="blp-step-text"><strong>CLOSED 終了</strong> — Bài đóng trước khi chọn (chủ bài tự đóng hoặc hết hạn 0 ứng viên khác). Đơn kết thúc tự động.</div>
+          </div>
+          <div class="blp-flow-step">
+            <div class="blp-step-line"><div class="blp-step-num">4b</div></div>
+            <div class="blp-step-text"><strong>WITHDRAWN 辞退済み</strong> — Mình đã tự rút đơn (trước deadline). Không thể apply lại cùng bài.</div>
+          </div>
         </div>
       </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Hành động theo trạng thái</div>
+        <div class="blp-rule"><div class="blp-rule-dot">✕</div><div class="blp-rule-text"><strong>APPLIED</strong>: Xem chi tiết bài, Rút đơn (応募をやめる) → confirm dialog → chuyển WITHDRAWN.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">⏳</div><div class="blp-rule-text"><strong>WAITING</strong>: Chỉ xem chi tiết. Nút rút đơn ẩn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">🎉</div><div class="blp-rule-text"><strong>SELECTED</strong>: Nút「マッチを見る」→ SCR-080 Match Detail. Bắt đầu flow booking.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">—</div><div class="blp-rule-text"><strong>NOT_SELECTED / CLOSED / WITHDRAWN</strong>: Chỉ xem lại thông tin bài (read-only).</div></div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">Edge cases</div>
+        <div class="blp-note warn">⚠ Nếu rút đơn sau khi đã WAITING → không được phép. Hiện thông báo「選定期間中は取消できません」.</div>
+        <div class="blp-note">Bài của chủ bài bị xoá tài khoản → đơn chuyển CLOSED, user nhận push notification.</div>
+        <div class="blp-note ok">SELECTED mà user không vào xem trong 24h → hệ thống nhắc lại bằng push notification.</div>
+      </div>
+
     </div>
   </div>
 
