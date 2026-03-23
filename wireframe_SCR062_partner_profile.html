@@ -76,6 +76,8 @@
       cursor: pointer;
       pointer-events: auto;
       border: 1px solid var(--c6);
+      font-size: 16px;
+      line-height: 1;
     }
 
     .scroll-content {
@@ -398,6 +400,12 @@
       color: #212121;
     }
 
+    .blp-wrap.fullscreen {
+      width: calc(100vw - 200px);
+      left: 200px;
+      right: 0;
+    }
+
     .blp-head {
       position: sticky;
       top: 0;
@@ -408,6 +416,31 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .blp-head-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .blp-head-scr {
+      font-size: 9px;
+      color: #9e9e9e;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .blp-head-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .blp-head-sub {
+      font-size: 9px;
+      color: #9e9e9e;
     }
 
     .blp-body {
@@ -440,6 +473,77 @@
     .blp-note.highlight {
       border-left-color: #212121;
     }
+
+    .blp-rule {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .blp-rule-dot {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: #424242;
+    }
+
+    .blp-rule-text {
+      flex: 1;
+      color: #424242;
+    }
+
+    .blp-lang-switch {
+      display: flex;
+      border: 1px solid #444;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: 9px;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    .blp-lang-btn {
+      padding: 2px 6px;
+      background: transparent;
+      color: #9e9e9e;
+    }
+
+    .blp-lang-btn.active {
+      background: #444;
+      color: #fff;
+    }
+
+    .blp-fullscreen-btn {
+      background: transparent;
+      border: 1px solid #555;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 3px;
+      padding: 3px;
+    }
+
+    .blp-fullscreen-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+    }
   </style>
 </head>
 
@@ -466,156 +570,197 @@
       <span>●●● WiFi ▮▮▮</span>
     </div>
 
+    <!-- Absolute overlay: back button -->
     <div class="header">
-      <div class="back-btn" onclick="history.back()">
-        << /div>
-      </div>
-
-      <button class="state-toggle" onclick="window.location.href='wireframe_SCR062_partner_profile_public.html'">🔒
-        写真を公開する (Demo)</button>
-
-      <div class="scroll-content">
-        <div class="photo-section">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki" class="main-photo" alt="Profile">
-          <div id="blur-overlay" class="photo-blur-overlay">
-            <div class="blur-icon">🔒</div>
-            <div class="blur-text">マッチング後に公開されます</div>
-          </div>
-        </div>
-
-        <div class="sub-photos">
-          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub1">
-          </div>
-          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub2">
-          </div>
-          <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub3">
-          </div>
-        </div>
-
-        <div class="profile-summary">
-          <div class="profile-name">みずきさん <span
-              style="font-size: 16px; font-weight: normal; color: var(--c5);">37歳</span></div>
-          <div class="profile-meta">
-            東京都 渋谷区 · 会社員
-            <span class="verify-badge">本人確認済</span>
-          </div>
-        </div>
-
-        <div class="section-title-full">A. 基本情報</div>
-        <div class="intro-section">
-          <div class="intro-text">はじめまして！プロフィールをご覧いただきありがとうございます。
-            普段は都内でIT企業に勤めています。
-
-            休日は美味しいものを食べに行ったり、映画を観たりして過ごすことが多いです。
-            最近は和食の名店巡りにはまっています。
-
-            素敵なお店でゆっくりお話しできる方と出会えたら嬉しいです。
-            よろしくお願いします。</div>
-        </div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">ニックネーム</span><span class="info-value">みずき</span></div>
-          <div class="info-item"><span class="info-label">性別</span><span class="info-value">女性</span></div>
-          <div class="info-item"><span class="info-label">年齢</span><span class="info-value">37歳</span></div>
-          <div class="info-item"><span class="info-label">居住地（都道府県）</span><span class="info-value">東京都</span></div>
-          <div class="info-item"><span class="info-label">居住エリア</span><span class="info-value">渋谷区</span></div>
-          <div class="info-item"><span class="info-label">勤務地</span><span class="info-value">新宿区</span></div>
-          <div class="info-item"><span class="info-label">出身地</span><span class="info-value">神奈川県</span></div>
-          <div class="info-item"><span class="info-label">身長</span><span class="info-value">162cm</span></div>
-          <div class="info-item"><span class="info-label">体型</span><span class="info-value">普通</span></div>
-          <div class="info-item"><span class="info-label">血液型</span><span class="info-value">A型</span></div>
-        </div>
-
-        <div class="section-title-full">B. 職業・経済</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">職業</span><span class="info-value">会社員</span></div>
-          <div class="info-item"><span class="info-label">職種カテゴリ</span><span class="info-value">IT関連</span></div>
-          <div class="info-item"><span class="info-label">勤務スタイル</span><span class="info-value">正社員</span></div>
-          <div class="info-item"><span class="info-label">最終学歴</span><span class="info-value">大学卒業</span></div>
-          <div class="info-item"><span class="info-label">年収レンジ</span><span class="info-value">600〜800万</span></div>
-        </div>
-
-        <div class="section-title-full">C. ライフスタイル・日常</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">休日</span><span class="info-value">土日祝</span></div>
-          <div class="info-item"><span class="info-label">お酒（頻度）</span><span class="info-value">ときどき飲む</span></div>
-          <div class="info-item"><span class="info-label">タバコ</span><span class="info-value">吸わない</span></div>
-          <div class="info-item"><span class="info-label">同居人</span><span class="info-value">一人暮らし</span></div>
-        </div>
-
-        <div class="section-title-full">D. 家族・背景</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">兄弟姉妹</span><span class="info-value">長女</span></div>
-          <div class="info-item"><span class="info-label">子ども（有無）</span><span class="info-value">なし</span></div>
-        </div>
-
-        <div class="section-title-full">E. 趣味・行動嗜好</div>
-        <div class="tag-container">
-          <div class="tag-item active">グルメ</div>
-          <div class="tag-item active">カフェ</div>
-          <div class="tag-item active">映画</div>
-          <div class="tag-item">旅行</div>
-          <div class="tag-item">ジム</div>
-        </div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">よく行く場所</span><span class="info-value">渋谷、代官山</span></div>
-          <div class="info-item"><span class="info-label">インドア／アウトドア</span><span class="info-value">どちらでも</span></div>
-        </div>
-
-        <div class="section-title-full">F. 性格・内面</div>
-        <div class="tag-container">
-          <div class="tag-item active">落ち着いている</div>
-          <div class="tag-item active">誠実</div>
-          <div class="tag-item active">聞き上手</div>
-        </div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">MBTI診断</span><span class="info-value">INFJ (提唱者)</span></div>
-          <div class="info-item"><span class="info-label">ラブタイプ診断</span><span class="info-value">安定型</span></div>
-        </div>
-
-        <div class="section-title-full">G. 恋愛・関係性スタンス</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">希望の関係性</span><span class="info-value">心が癒される</span></div>
-          <div class="info-item"><span class="info-label">連絡頻度</span><span class="info-value">毎日</span></div>
-          <div class="info-item"><span class="info-label">会う頻度</span><span class="info-value">週1回程度</span></div>
-        </div>
-
-        <div class="section-title-full">H. デート・お金の価値観</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">初回デート代</span><span class="info-value">男性が多めに支払う</span></div>
-          <div class="info-item"><span class="info-label">デートの雰囲気</span><span class="info-value">落ち着いたカフェ・和食</span>
-          </div>
-        </div>
-
-        <div class="section-title-full">I. お相手への希望条件</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">希望年代</span><span class="info-value">30〜40代</span></div>
-          <div class="info-item"><span class="info-label">好きなタイプ</span><span class="info-value">清潔感のある、誠実な方</span></div>
-        </div>
-
-        <div class="section-title-full">J. 将来・結婚観</div>
-        <div class="info-list">
-          <div class="info-item"><span class="info-label">結婚歴</span><span class="info-value">未婚</span></div>
-          <div class="info-item"><span class="info-label">結婚願望</span><span class="info-value">良い人がいれば</span></div>
-          <div class="info-item"><span class="info-label">子ども希望</span><span class="info-value">どちらでも良い</span></div>
-        </div>
-
-        <div style="height: 40px;"></div> <!-- Spacing -->
-      </div>
-
-      <div class="bottom-cta">
-        <div class="secondary-btn">❤</div>
-        <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat.html'">メッセージを送る</button>
-      </div>
+      <div class="back-btn" onclick="history.back()">&#8249;</div>
     </div>
 
-    <div class="blp-wrap">
-      <div class="blp-head">
-        <div>
-          <div style="font-size:9px; color:var(--c3);">SCR-062</div>
-          <div style="font-weight:bold;">Partner Profile (Full)</div>
+    <!-- Absolute overlay: state toggle button -->
+    <button class="state-toggle" onclick="window.location.href='wireframe_SCR062_partner_profile_public.html'">🔒
+      写真を公開する (Demo)</button>
+
+    <!-- Scrollable main content -->
+    <div class="scroll-content">
+      <div class="photo-section">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki" class="main-photo" alt="Profile">
+        <div id="blur-overlay" class="photo-blur-overlay">
+          <div class="blur-icon">🔒</div>
+          <div class="blur-text">マッチング後に公開されます</div>
         </div>
       </div>
-      <div class="blp-body">
+
+      <div class="sub-photos">
+        <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub1">
+        </div>
+        <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub2">
+        </div>
+        <div class="sub-photo blurred js-sub-photo"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sub3">
+        </div>
+      </div>
+
+      <div class="profile-summary">
+        <div class="profile-name">みずきさん <span
+            style="font-size: 16px; font-weight: normal; color: var(--c5);">37歳</span></div>
+        <div class="profile-meta">
+          東京都 渋谷区 · 会社員
+          <span class="verify-badge">本人確認済</span>
+        </div>
+      </div>
+
+      <div class="section-title-full">A. 基本情報</div>
+      <div class="intro-section">
+        <div class="intro-text">はじめまして！プロフィールをご覧いただきありがとうございます。
+普段は都内でIT企業に勤めています。
+
+休日は美味しいものを食べに行ったり、映画を観たりして過ごすことが多いです。
+最近は和食の名店巡りにはまっています。
+
+素敵なお店でゆっくりお話しできる方と出会えたら嬉しいです。
+よろしくお願いします。</div>
+      </div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">ニックネーム</span><span class="info-value">みずき</span></div>
+        <div class="info-item"><span class="info-label">性別</span><span class="info-value">女性</span></div>
+        <div class="info-item"><span class="info-label">年齢</span><span class="info-value">37歳</span></div>
+        <div class="info-item"><span class="info-label">居住地（都道府県）</span><span class="info-value">東京都</span></div>
+        <div class="info-item"><span class="info-label">居住エリア</span><span class="info-value">渋谷区</span></div>
+        <div class="info-item"><span class="info-label">勤務地</span><span class="info-value">新宿区</span></div>
+        <div class="info-item"><span class="info-label">出身地</span><span class="info-value">神奈川県</span></div>
+        <div class="info-item"><span class="info-label">身長</span><span class="info-value">162cm</span></div>
+        <div class="info-item"><span class="info-label">体型</span><span class="info-value">普通</span></div>
+        <div class="info-item"><span class="info-label">血液型</span><span class="info-value">A型</span></div>
+      </div>
+
+      <div class="section-title-full">B. 職業・経済</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">職業</span><span class="info-value">会社員</span></div>
+        <div class="info-item"><span class="info-label">職種カテゴリ</span><span class="info-value">IT関連</span></div>
+        <div class="info-item"><span class="info-label">勤務スタイル</span><span class="info-value">正社員</span></div>
+        <div class="info-item"><span class="info-label">最終学歴</span><span class="info-value">大学卒業</span></div>
+        <div class="info-item"><span class="info-label">年収レンジ</span><span class="info-value">600〜800万</span></div>
+      </div>
+
+      <div class="section-title-full">C. ライフスタイル・日常</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">休日</span><span class="info-value">土日祝</span></div>
+        <div class="info-item"><span class="info-label">お酒（頻度）</span><span class="info-value">ときどき飲む</span></div>
+        <div class="info-item"><span class="info-label">タバコ</span><span class="info-value">吸わない</span></div>
+        <div class="info-item"><span class="info-label">同居人</span><span class="info-value">一人暮らし</span></div>
+      </div>
+
+      <div class="section-title-full">D. 家族・背景</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">兄弟姉妹</span><span class="info-value">長女</span></div>
+        <div class="info-item"><span class="info-label">子ども（有無）</span><span class="info-value">なし</span></div>
+      </div>
+
+      <div class="section-title-full">E. 趣味・行動嗜好</div>
+      <div class="tag-container">
+        <div class="tag-item active">グルメ</div>
+        <div class="tag-item active">カフェ</div>
+        <div class="tag-item active">映画</div>
+        <div class="tag-item">旅行</div>
+        <div class="tag-item">ジム</div>
+      </div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">よく行く場所</span><span class="info-value">渋谷、代官山</span></div>
+        <div class="info-item"><span class="info-label">インドア／アウトドア</span><span class="info-value">どちらでも</span></div>
+      </div>
+
+      <div class="section-title-full">F. 性格・内面</div>
+      <div class="tag-container">
+        <div class="tag-item active">落ち着いている</div>
+        <div class="tag-item active">誠実</div>
+        <div class="tag-item active">聞き上手</div>
+      </div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">MBTI診断</span><span class="info-value">INFJ (提唱者)</span></div>
+        <div class="info-item"><span class="info-label">ラブタイプ診断</span><span class="info-value">安定型</span></div>
+      </div>
+
+      <div class="section-title-full">G. 恋愛・関係性スタンス</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">希望の関係性</span><span class="info-value">心が癒される</span></div>
+        <div class="info-item"><span class="info-label">連絡頻度</span><span class="info-value">毎日</span></div>
+        <div class="info-item"><span class="info-label">会う頻度</span><span class="info-value">週1回程度</span></div>
+      </div>
+
+      <div class="section-title-full">H. デート・お金の価値観</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">初回デート代</span><span class="info-value">男性が多めに支払う</span></div>
+        <div class="info-item"><span class="info-label">デートの雰囲気</span><span class="info-value">落ち着いたカフェ・和食</span>
+        </div>
+      </div>
+
+      <div class="section-title-full">I. お相手への希望条件</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">希望年代</span><span class="info-value">30〜40代</span></div>
+        <div class="info-item"><span class="info-label">好きなタイプ</span><span class="info-value">清潔感のある、誠実な方</span></div>
+      </div>
+
+      <div class="section-title-full">J. 将来・結婚観</div>
+      <div class="info-list">
+        <div class="info-item"><span class="info-label">結婚歴</span><span class="info-value">未婚</span></div>
+        <div class="info-item"><span class="info-label">結婚願望</span><span class="info-value">良い人がいれば</span></div>
+        <div class="info-item"><span class="info-label">子ども希望</span><span class="info-value">どちらでも良い</span></div>
+      </div>
+
+      <div style="height: 40px;"></div>
+    </div><!-- /.scroll-content -->
+
+    <!-- Fixed bottom CTA -->
+    <div class="bottom-cta">
+      <div class="secondary-btn">❤</div>
+      <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat.html'">メッセージを送る</button>
+    </div>
+
+  </div><!-- /.device -->
+
+  <!-- BLP Panel (fixed, outside device) -->
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-062</div>
+        <div class="blp-head-title">相手プロフィール</div>
+        <div class="blp-head-sub">相手プロフィール / Hồ sơ đối phương</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Fullscreen" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.marginRight=isFs?(window.innerWidth-200)+'px':'280px';})(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <!-- JA VERSION -->
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">相手ユーザーの全プロフィールを閲覧。いいね送信 or スキップを判断するための情報ページ。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">表示内容（SCR-112と対応）</div>
+          <div class="blp-rule"><div class="blp-rule-dot">A</div><div class="blp-rule-text"><strong>基本情報</strong> — ニックネーム・年齢・エリア・職業・身長・体型・血液型。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">B</div><div class="blp-rule-text"><strong>写真</strong> — マッチ前はメイン写真モザイク（設定による）。サブ写真はブラー表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">C</div><div class="blp-rule-text"><strong>自己紹介文</strong> — 全文表示（250文字まで）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">D</div><div class="blp-rule-text"><strong>好みの属性</strong> — 食事の好み・趣味・理想の相手像など10セクション。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">アクション</div>
+          <div class="blp-rule"><div class="blp-rule-dot">♥</div><div class="blp-rule-text">「いいね」ボタン → eKYC確認後に送信 → SCR-063 送ったいいね一覧に追加。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">✕</div><div class="blp-rule-text">「スキップ」→ このユーザーを当面探索カードから非表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">🚩</div><div class="blp-rule-text">「報告する」→ SCR-103 報告フォームへ。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">プライバシー制御</div>
+          <div class="blp-note">ブロックされたユーザーはこのページへアクセス不可。全体が「ユーザーが見つかりません」と表示される。</div>
+        </div>
+      </div>
+      <!-- VI VERSION -->
+      <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Nội dung</div>
           <div class="blp-note highlight">Hiển thị đầy đủ tất cả các trường thông tin từ A đến J tương ứng với màn Edit
@@ -630,20 +775,30 @@
         </div>
       </div>
     </div>
+  </div><!-- /.blp-wrap -->
 
-    <script>
-      function toggleBlur() {
-        const overlay = document.getElementById('blur-overlay');
-        const subPhotos = document.querySelectorAll('.js-sub-photo');
-        if (overlay.style.display === 'none') {
-          overlay.style.display = 'flex';
-          subPhotos.forEach(p => p.classList.add('blurred'));
-        } else {
-          overlay.style.display = 'none';
-          subPhotos.forEach(p => p.classList.remove('blurred'));
-        }
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+  </script>
+
+  <script>
+    function toggleBlur() {
+      const overlay = document.getElementById('blur-overlay');
+      const subPhotos = document.querySelectorAll('.js-sub-photo');
+      if (overlay.style.display === 'none') {
+        overlay.style.display = 'flex';
+        subPhotos.forEach(p => p.classList.add('blurred'));
+      } else {
+        overlay.style.display = 'none';
+        subPhotos.forEach(p => p.classList.remove('blurred'));
       }
-    </script>
+    }
+  </script>
 
 </body>
 
