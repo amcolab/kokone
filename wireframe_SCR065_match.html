@@ -984,6 +984,56 @@
           </div>
           <div class="arrow-icon">></div>
         </div>
+
+        <!-- M-A17b: Aoi (Admin booking failed → reschedule request) -->
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Aoi · 36歳</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
+              <div class="status-pill active" style="background:#fff8e1; border-color:#ffe082; color:#f57f17;">
+                <span class="status-icon">⚠️</span>予約が取れませんでした
+              </div>
+              <div class="match-preview" style="color:#f57f17; font-weight:600;">事務局から再調整のリクエストが届いています</div>
+              <div class="match-preview" style="color:#888; font-size:10px; margin-top:2px;">日程・お店を再度選んでください</div>
+            </div>
+          </div>
+          <div class="arrow-icon" style="color:#ffe082;">></div>
+        </div>
+      </div>
+
+      <!-- 再調整モーダル -->
+      <div id="rebookOverlay" onclick="closeRebookModal()" style="
+        display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45);
+        z-index:200; border-radius:36px;"></div>
+      <div id="rebookDialog" style="
+        display:none; position:absolute; top:50%; left:50%;
+        transform:translate(-50%,-50%);
+        background:#fff; border-radius:12px; padding:24px 20px 20px;
+        width:300px; z-index:201; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">⚠️ 予約が取れませんでした</div>
+        <div style="font-size:12px; color:#555; margin-bottom:6px; line-height:1.7;">
+          選択された日程・お店の予約が取れませんでした。<br>
+          別の日程とお店を選び直してください。
+        </div>
+        <div style="font-size:11px; color:#999; margin-bottom:20px;">
+          ※ 再調整はAoiさんとの合意が必要です
+        </div>
+        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR081_schedule.html'" style="
+          width:100%; padding:11px; background:var(--c6); color:#fff; border:none;
+          border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:8px;">
+          📅 日程を選び直す
+        </button>
+        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR083_restaurant.html'" style="
+          width:100%; padding:11px; background:#f5f5f5; color:#333; border:none;
+          border-radius:8px; font-size:12px; cursor:pointer; margin-bottom:8px;">
+          🍴 お店を選び直す
+        </button>
+        <button onclick="closeRebookModal()" style="
+          width:100%; padding:10px; background:#fff; color:#aaa; border:1px solid #e0e0e0;
+          border-radius:8px; font-size:12px; cursor:pointer;">
+          後で対応する
+        </button>
       </div>
 
       <!-- TAB: CONFIRMED -->
@@ -1112,6 +1162,15 @@
     </div>
 
     <script>
+      function openRebookModal() {
+        document.getElementById('rebookOverlay').style.display = 'block';
+        document.getElementById('rebookDialog').style.display = 'block';
+      }
+      function closeRebookModal() {
+        document.getElementById('rebookOverlay').style.display = 'none';
+        document.getElementById('rebookDialog').style.display = 'none';
+      }
+
       function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
         document.getElementById('section-' + tabId).style.display = 'block';
