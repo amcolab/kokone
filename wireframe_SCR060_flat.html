@@ -1275,6 +1275,7 @@
       <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
       <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
       <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
       <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
       <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
@@ -1634,6 +1635,51 @@
     })();
   </script>
 
+  <!-- Welcome toast (shown when ?welcome=true) -->
+  <style>
+    .welcome-toast{
+      position:fixed;bottom:-120px;left:50%;transform:translateX(-50%);
+      width:320px;background:#212121;color:#fff;
+      border-radius:12px;padding:16px 20px;
+      display:flex;align-items:flex-start;gap:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,.25);
+      z-index:99999;
+      transition:bottom .45s cubic-bezier(.34,1.56,.64,1);
+      font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+    }
+    .welcome-toast.show{bottom:32px;}
+    .welcome-toast-icon{font-size:28px;flex-shrink:0;line-height:1;}
+    .welcome-toast-body{flex:1;}
+    .welcome-toast-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+    .welcome-toast-sub{font-size:12px;color:#bdbdbd;line-height:1.5;}
+    .welcome-toast-close{width:20px;height:20px;flex-shrink:0;cursor:pointer;color:#757575;font-size:16px;line-height:1;margin-top:1px;}
+  </style>
+  <div class="welcome-toast" id="welcomeToast">
+    <div class="welcome-toast-icon">🎉</div>
+    <div class="welcome-toast-body">
+      <div class="welcome-toast-title">登録完了！ようこそ Otona Table へ</div>
+      <div class="welcome-toast-sub">さっそくお相手を探してみましょう。</div>
+    </div>
+    <div class="welcome-toast-close" onclick="closeWelcomeToast()">✕</div>
+  </div>
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      if(params.get('welcome') === 'true'){
+        setTimeout(function(){
+          document.getElementById('welcomeToast').classList.add('show');
+        }, 400);
+        setTimeout(function(){
+          closeWelcomeToast();
+        }, 5000);
+      }
+    })();
+    function closeWelcomeToast(){
+      var t = document.getElementById('welcomeToast');
+      t.style.transition = 'bottom .3s ease';
+      t.style.bottom = '-120px';
+    }
+  </script>
 
 </body>
 

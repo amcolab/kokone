@@ -516,6 +516,7 @@
     <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
     <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
     <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
     <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
     <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
     <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
@@ -697,6 +698,21 @@
         <button class="add-restaurant-btn" onclick="const name = prompt('店名を入力してください'); if(name) alert('追加しました: ' + name)">+ お店を追加する</button>
       </div>
 
+      <!-- Max Applicants Section -->
+      <div class="form-section">
+        <div class="section-label">応募人数の上限<span class="required">（必須）</span></div>
+        <div style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">この募集に応募できる最大人数を選択してください。</div>
+        <div class="chip-group" id="max-applicants-chips">
+          <div class="chip" onclick="selectMaxApplicants(this)">1人</div>
+          <div class="chip active" onclick="selectMaxApplicants(this)">2人</div>
+          <div class="chip" onclick="selectMaxApplicants(this)">3人</div>
+          <div class="chip" onclick="selectMaxApplicants(this)">4人</div>
+          <div class="chip" onclick="selectMaxApplicants(this)">5人</div>
+          <div class="chip" onclick="selectMaxApplicants(this)">制限なし</div>
+        </div>
+        <div style="font-size: 10px; color: var(--c4); margin-top: 8px;">※ 上限に達した時点で自動的に募集が締め切られます</div>
+      </div>
+
       <!-- Period Section -->
       <div class="form-section">
         <div class="section-label">募集期間</div>
@@ -748,9 +764,10 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 曜日、時間帯、希望エリア、ひとことメッセージ、店舗提案。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 曜日、時間帯、希望エリア、ひとことメッセージ、店舗提案、応募人数上限。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗提案</strong> — 自分のお気に入りリストから最大3件まで選択。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>募集期間</strong> — 24時間, 3日間, 1週間から選択可（デフォルト3日間）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期間</strong> — 24時間, 3日間, 1週間から選択可（デフォルト3日間）。</div></div>
       </div>
     </div>
 
@@ -762,9 +779,10 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Thứ, buổi, khu vực, lời nhắn, đề xuất quán.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Thứ, buổi, khu vực, lời nhắn, đề xuất quán, giới hạn số người.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đề xuất quán</strong> — Chọn tối đa 3 quán từ danh sách "Favorites" của mình.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Thời hạn</strong> — 24h, 3 ngày, 1 tuần (mặc định 3 ngày).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn</strong> — 24h, 3 ngày, 1 tuần (mặc định 3 ngày).</div></div>
       </div>
     </div>
   </div>
@@ -775,6 +793,10 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+    function selectMaxApplicants(el) {
+      document.querySelectorAll('#max-applicants-chips .chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
     }
   </script>
 </div>

@@ -625,6 +625,7 @@
       <a class="wf-nav-link wf-active" href="wireframe_SCR021_register.html"><span
           class="wf-nav-id">021</span>Register</a>
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
       <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Step 1</a>
       <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
       <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
@@ -696,42 +697,58 @@
             Table β</div>
         </div>
 
-        <div class="screen-title">新規会員登録</div>
+        <div class="screen-title">アカウント作成</div>
 
         <div class="form-group">
-          <label class="form-label">メールアドレス</label>
-          <input type="email" class="form-input" placeholder="example@mail.com">
+          <input id="inp-email" type="email" class="form-input" placeholder="メールアドレス" style="border-radius:6px; border:1px solid #ccc;" oninput="checkForm()">
         </div>
+
         <div class="form-group">
-          <label class="form-label">パスワード</label>
-          <div class="input-wrapper">
-            <input type="password" class="form-input" placeholder="パスワード">
-            <div class="input-icon">👁</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">パスワード（確認）</label>
-          <div class="input-wrapper">
-            <input type="password" class="form-input" placeholder="パスワード（確認）">
-            <div class="input-icon">👁</div>
+          <input id="inp-pass" type="password" class="form-input" placeholder="パスワード" style="border-radius:6px; border:1px solid #ccc;" oninput="checkForm()">
+          <div style="margin-top:10px; display:flex; flex-direction:column; gap:5px;">
+            <div style="font-size:12px; color:#555; display:flex; align-items:center; gap:6px;"><span style="color:#555;">✓</span> 8文字以上</div>
+            <div style="font-size:12px; color:#555; display:flex; align-items:center; gap:6px;"><span style="color:#555;">✓</span> 数字を使用</div>
+            <div style="font-size:12px; color:#555; display:flex; align-items:center; gap:6px;"><span style="color:#555;">✓</span> 英字小文字を使用</div>
+            <div style="font-size:12px; color:#555; display:flex; align-items:center; gap:6px;"><span style="color:#555;">✓</span> 英字大文字を使用</div>
           </div>
         </div>
 
-        <div style="margin: 20px 0;">
-          <div class="checkbox-group">
-            <input type="checkbox" class="checkbox" id="chk1">
-            <label for="chk1" class="checkbox-label">既婚者であることを確認しました（必須）</label>
+        <p style="font-size:11px; color:#555; text-align:center; margin: 14px 0; line-height:1.6;">
+          登録すると<a href="#" style="color:#3b82f6; text-decoration:none;">利用規約</a>と<a href="#" style="color:#3b82f6; text-decoration:none;">プライバシーポリシー</a>に同意したものとみなされます。
+        </p>
+
+        <!-- reCAPTCHA mock -->
+        <div style="border:1px solid #d1d5db; border-radius:4px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; background:#f9fafb;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:22px; height:22px; border:1.5px solid #888; border-radius:2px; flex-shrink:0;"></div>
+            <span style="font-size:13px; color:#333; line-height:1.4;">私はロボットでは<br>ありません</span>
           </div>
-          <div class="checkbox-group">
-            <input type="checkbox" class="checkbox" id="chk2">
-            <label for="chk2" class="checkbox-label">利用規約・プライバシーポリシーに同意する（必須）</label>
+          <div style="text-align:center;">
+            <div style="font-size:20px;">🔒</div>
+            <div style="font-size:9px; color:#666; line-height:1.3;">reCAPTCHA<br>プライバシー・利用規約</div>
           </div>
         </div>
 
-        <button class="submit-btn" onclick="window.location.href='wireframe_SCR030_profile1.html'">新規登録する</button>
+        <button id="btn-register" class="submit-btn" style="background:#ccc; color:#fff; cursor:not-allowed;" disabled onclick="window.location.href='wireframe_SCR022_verify_code.html'">登録する</button>
+        <script>
+          function checkForm() {
+            var e = document.getElementById('inp-email').value;
+            var p = document.getElementById('inp-pass').value;
+            var btn = document.getElementById('btn-register');
+            if (e.length > 0 && p.length > 0) {
+              btn.disabled = false;
+              btn.style.background = '#212121';
+              btn.style.cursor = 'pointer';
+            } else {
+              btn.disabled = true;
+              btn.style.background = '#ccc';
+              btn.style.cursor = 'not-allowed';
+            }
+          }
+        </script>
 
-        <div class="link-text">
-          すでに会員の方は<a href="wireframe_SCR020_login.html">ログイン</a>
+        <div class="link-text" style="margin-top:14px;">
+          アカウントをお持ちの方は<a href="wireframe_SCR020_login.html">こちら</a>
         </div>
 
         <div class="app-bottom-nav" style="display:none;">
@@ -761,7 +778,7 @@
             </svg><span class="bn-lbl">マイページ</span></a>
         </div>
         <div class="flow-section">
-          <div class="flow-text">REGISTER → SCR-030 Profile</div>
+          <div class="flow-text">REGISTER → SCR-022 認証コード入力</div>
         </div>
       </div>
     </div>

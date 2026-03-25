@@ -727,11 +727,14 @@
       <div class="wf-group-label">A · Onboarding</div>
       <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
       <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile
-        Step 1</a>
-      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo & Blur</a>
-      <a class="wf-nav-link" href="wireframe_SCR034_profile2.html"><span class="wf-nav-id">034</span>Profile Step 2</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+      
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
@@ -852,160 +855,89 @@
       <div class="status-bar"></div>
       <div class="screen">
         <div class="header">
-          <div class="back-arrow" onclick="window.location.href='wireframe_SCR021_register.html'"
+          <div class="back-arrow" onclick="window.location.href='wireframe_SCR023_verify_done.html'"
             style="cursor:pointer;">←</div>
           <div class="header-text">
-            <div class="title">基本情報登録</div>
-            <div class="step-label">1 / 2</div>
+            <div class="title">プロフィール基本情報</div>
+            <div class="step-label">STEP 4 / 8</div>
           </div>
         </div>
 
         <div class="progress-bar">
-          <div class="progress-fill" style="width:16%;"></div>
+          <div class="progress-fill" style="width:44%;"></div>
         </div>
 
+        <!-- ── 基本情報（必須）────────────────────── -->
         <div class="section">
           <div class="section-title">基本情報（必須）</div>
 
           <div class="form-group">
-            <label class="form-label">ニックネーム</label>
-            <input type="text" class="form-input" placeholder="ニックネーム">
+            <label class="form-label">ニックネーム <span style="color:#c00;">*</span></label>
+            <input type="text" class="form-input" placeholder="例：タロウ">
           </div>
 
           <div class="form-group">
-            <label class="form-label">性別</label>
+            <label class="form-label">性別 <span style="color:#c00;">*</span></label>
             <div class="chip-group">
-              <div class="chip">男性</div>
+              <div class="chip selected">男性</div>
               <div class="chip">女性</div>
-              <div class="chip">その他</div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">生年月日</label>
+            <label class="form-label">生年月日 <span style="color:#c00;">*</span></label>
             <div class="date-inputs">
-              <select class="date-input">
-                <option>年▼</option>
-              </select>
-              <select class="date-input">
-                <option>月▼</option>
-              </select>
-              <select class="date-input">
-                <option>日▼</option>
-              </select>
+              <select class="date-input"><option>1980年</option></select>
+              <select class="date-input"><option>4月</option></select>
+              <select class="date-input"><option>12日</option></select>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">言語</label>
-            <select class="form-select">
-              <option>日本語 ▼</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">自己紹介文</label>
-            <textarea class="textarea" placeholder="自己紹介を入力してください"></textarea>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">好みの食事スタイル（複数選択可）</div>
-          <div class="form-group">
-            <div class="chip-group">
-              <div class="chip selected" onclick="this.classList.toggle('selected')">和食</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">イタリアン</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">フレンチ</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">中華</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">焼肉・肉料理</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">居酒屋</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">ダイニングバー</div>
-              <div class="chip" onclick="this.classList.toggle('selected')">カフェ・スイーツ</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">居住地・行動圏</div>
-
-          <div class="form-group">
-            <label class="form-label">居住地</label>
+            <label class="form-label">居住地 <span style="color:#c00;">*</span></label>
             <select class="form-select">
               <option>都道府県 ▼</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">居住エリア</label>
-            <select class="form-select">
-              <option>市区町村 ▼</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">勤務地</label>
-            <input type="text" class="form-input" placeholder="勤務地">
-          </div>
-          <div class="form-group">
-            <label class="form-label">出身地</label>
-            <select class="form-select">
-              <option>出身都道府県 ▼</option>
+              <option selected>東京都</option>
             </select>
           </div>
         </div>
 
+        <!-- ── マッチング設定（必須）────────────────── -->
         <div class="section">
-          <div class="section-title">空き状況登録（予定登録）</div>
+          <div class="section-title">マッチング設定（必須）</div>
+
           <div class="form-group">
-            <label class="form-label">メインの活動時間帯</label>
+            <label class="form-label">マッチングしたい人 <span style="color:#c00;">*</span></label>
             <div class="chip-group">
-              <div class="chip">平日夜</div>
-              <div class="chip">土日祝（昼）</div>
-              <div class="chip">土日祝（夜）</div>
-              <div class="chip">不定期</div>
+              <div class="chip">男性</div>
+              <div class="chip selected">女性</div>
+              <div class="chip">両方</div>
             </div>
           </div>
+
           <div class="form-group">
-            <label class="form-label">活動可能日（目安）</label>
-            <div class="chip-group">
-              <div class="chip">月</div>
-              <div class="chip">火</div>
-              <div class="chip">水</div>
-              <div class="chip">木</div>
-              <div class="chip">金</div>
-              <div class="chip selected">土</div>
-              <div class="chip selected">日</div>
+            <label class="form-label">希望の関係性 <span style="color:#c00;">*</span>　<span style="font-size:11px;color:#757575;">（1つ選択）</span></label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+              <div class="chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;" class="rel-chip selected">💆 心が癒される</div>
+              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">✨ 今を大切に</div>
+              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">🤝 無理のない距離感</div>
+              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">🌱 将来も視野</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">会うスピード感 <span style="color:#c00;">*</span></label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+              <div class="chip selected spd-chip" onclick="document.querySelectorAll('.spd-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">⚡ 早めに会いたい</div>
+              <div class="chip spd-chip" onclick="document.querySelectorAll('.spd-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">💬 少しメッセージしてから会いたい</div>
             </div>
           </div>
         </div>
 
-        <div class="section">
-          <div class="section-title">行きたいお店・ジャンル</div>
-          <div class="form-group">
-            <label class="form-label">よく行く・行きたいエリア</label>
-            <div class="chip-group">
-              <div class="chip selected">恵比寿</div>
-              <div class="chip">六本木</div>
-              <div class="chip">銀座</div>
-              <div class="chip">新宿</div>
-              <div class="chip">渋谷</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">行きたいお店を追加</label>
-            <input type="text" class="form-input" placeholder="店名で検索して追加...">
-          </div>
-        </div>
-
-        <div class="checkbox-group">
-          <input type="checkbox" class="checkbox" id="chk1" checked disabled>
-          <label for="chk1" class="checkbox-label">既婚者であることを確認しました</label>
-        </div>
-
-        <button class="next-btn" onclick="window.location.href='wireframe_SCR031_photo.html'">次へ（写真設定） →</button>
+        <button class="next-btn" onclick="window.location.href='wireframe_SCR031_photo.html'">次へ（写真アップロード） →</button>
 
         <div class="flow-section">
-          <div class="flow-text">REGISTER → SCR-030 ★ → SCR-031</div>
+          <div class="flow-text">SCR-023 → SCR-030 ★ → SCR-031</div>
         </div>
       </div>
     </div>

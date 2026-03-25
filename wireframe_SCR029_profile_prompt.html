@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-029 プロフィール登録促進</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{--c0:#ffffff;--c1:#f5f5f5;--c2:#e0e0e0;--c3:#bdbdbd;--c4:#757575;--c5:#424242;--c6:#212121;--border:1px solid #e0e0e0;--border-dark:1px solid #212121;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;}
+    .main{display:flex;justify-content:center;padding:20px;}
+    .device{width:360px;height:812px;background:var(--c0);border:1.5px solid var(--c6);flex-shrink:0;overflow:hidden;display:flex;flex-direction:column;position:relative;}
+    .status-bar{height:20px;background:var(--c6);}
+
+    /* Card view background */
+    .card-bg{flex:1;position:relative;overflow:hidden;background:#f0f0f0;}
+
+    /* Profile card */
+    .profile-card{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;}
+    .card-photo{width:100%;flex:1;background:linear-gradient(180deg,#d0c8c0 0%,#b8a898 50%,#a09080 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+    .card-photo-placeholder{font-size:80px;opacity:0.4;}
+    .card-photo-gradient{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,rgba(0,0,0,0.7));}
+    .card-info{position:absolute;bottom:110px;left:16px;right:16px;color:#fff;}
+    .card-name{font-size:22px;font-weight:bold;margin-bottom:4px;}
+    .card-meta{font-size:14px;opacity:0.9;margin-bottom:8px;}
+    .card-bio{font-size:12px;opacity:0.8;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .card-actions{position:absolute;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:24px;padding:0 32px;}
+    .card-btn{width:60px;height:60px;border-radius:50%;border:2.5px solid;display:flex;align-items:center;justify-content:center;font-size:22px;background:#fff;cursor:pointer;}
+    .card-btn-pass{border-color:#e0e0e0;color:#bdbdbd;}
+    .card-btn-like{border-color:#ff4081;color:#ff4081;}
+    .card-btn-super{border-color:#2196f3;color:#2196f3;width:44px;height:44px;font-size:16px;align-self:center;}
+
+    /* Top bar of card view */
+    .card-topbar{position:absolute;top:20px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 16px;z-index:2;}
+    .card-topbar-logo{font-size:16px;font-weight:bold;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+    .card-topbar-icons{display:flex;gap:12px;}
+    .card-topbar-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;}
+
+    /* Dim overlay */
+    .dim-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:10;}
+
+    /* Modal bottom sheet */
+    .modal-sheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;padding:32px 24px 40px;z-index:20;box-shadow:0 -4px 24px rgba(0,0,0,.18);}
+    .modal-handle{width:40px;height:4px;background:#e0e0e0;border-radius:2px;margin:0 auto 24px;}
+    .modal-icon{text-align:center;font-size:40px;margin-bottom:16px;}
+    .modal-title{font-size:17px;font-weight:bold;color:#212121;text-align:center;line-height:1.6;margin-bottom:8px;}
+    .modal-sub{font-size:13px;color:#757575;text-align:center;line-height:1.6;margin-bottom:28px;}
+    .modal-btn{width:100%;height:52px;background:#ff4081;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;letter-spacing:.5px;}
+    .modal-btn:hover{background:#f50057;}
+    .modal-skip{text-align:center;margin-top:16px;font-size:13px;color:#bdbdbd;cursor:pointer;}
+    .modal-skip a{color:#9e9e9e;text-decoration:underline;}
+
+    /* Step indicator bar at top of modal */
+    .step-indicator{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:20px;}
+    .step-dot{width:8px;height:8px;border-radius:50%;background:var(--c2);}
+    .step-dot.active{background:#ff4081;width:20px;border-radius:4px;}
+  </style>
+  <style>
+    .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width .2s ease;}
+    .blp-wrap.fullscreen{width:calc(100vw - 200px);}
+    .blp-wrap.fullscreen .blp-body{max-width:760px;margin:0 auto;columns:2;column-gap:24px;}
+    .blp-wrap.fullscreen .blp-section{break-inside:avoid;}
+    .blp-wrap::-webkit-scrollbar{width:4px;}
+    .blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
+    .blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
+    .blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
+    .blp-head-title{font-size:12px;font-weight:700;}
+    .blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
+    .blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;}
+    .blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+    .blp-body{padding:10px 12px 20px;}
+    .blp-section{margin-bottom:14px;}
+    .blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
+    .blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
+    .blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
+    .blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
+    .blp-rule-text strong{font-weight:700;color:#212121;}
+    .blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
+    .blp-flow-step{display:flex;align-items:flex-start;gap:6px;position:relative;padding-bottom:8px;}
+    .blp-flow-step:last-child{padding-bottom:0;}
+    .blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
+    .blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
+    .blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
+    .blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
+    .blp-step-text strong{color:#212121;}
+    .blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
+    .blp-note.highlight{border-left-color:#212121;color:#424242;}
+    .blp-note.warn{border-left-color:#e65100;background:#fff8f0;color:#5d2e00;}
+    .blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}
+    .blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}
+    .blp-lang-btn.active{background:#444;color:#fff;}
+  </style>
+  <style>
+    .wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+    .wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;text-decoration:none;}
+    .wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+    .wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+    .wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+    .wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+    .wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+    .wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+    .wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+    .wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+    .wf-sidebar::-webkit-scrollbar{width:4px;}
+    .wf-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;}
+  </style>
+</head>
+<body style="margin-left:200px;margin-right:280px;">
+
+  <!-- Sidebar -->
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+      
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+      <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+      <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+      <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+    </div>
+  </nav>
+
+  <!-- Screen -->
+  <div class="main">
+    <div class="device">
+      <div class="status-bar"></div>
+
+      <!-- Card view background (blurred behind overlay) -->
+      <div class="card-bg">
+        <!-- Top bar -->
+        <div class="card-topbar">
+          <div class="card-topbar-logo">Otona Table</div>
+          <div class="card-topbar-icons">
+            <div class="card-topbar-icon">🔔</div>
+            <div class="card-topbar-icon">☰</div>
+          </div>
+        </div>
+
+        <!-- Profile card -->
+        <div class="profile-card">
+          <div class="card-photo">
+            <div class="card-photo-placeholder">👩</div>
+            <div class="card-photo-gradient"></div>
+            <!-- Card detail info -->
+            <div class="card-info">
+              <div class="card-name">あおい　32歳</div>
+              <div class="card-meta">📍 東京都 · 会社員</div>
+              <div class="card-bio">美味しいものを食べながらゆっくり話せる関係を探しています。週末は料理をすることが多いです。</div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="card-actions">
+            <div class="card-btn card-btn-pass">✕</div>
+            <div class="card-btn card-btn-super">⭐</div>
+            <div class="card-btn card-btn-like">♥</div>
+          </div>
+        </div>
+
+        <!-- Dim overlay -->
+        <div class="dim-overlay"></div>
+
+        <!-- Modal bottom sheet -->
+        <div class="modal-sheet">
+          <div class="modal-handle"></div>
+
+          <!-- Step indicator -->
+          <div class="step-indicator">
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+          </div>
+
+          <div class="modal-icon">💬</div>
+          <div class="modal-title">お相手を探す前に<br>あなたについて教えてください</div>
+          <div class="modal-sub">プロフィールを登録すると、<br>あなたにぴったりの相手と出会えます。</div>
+          <button class="modal-btn" onclick="window.location.href='wireframe_SCR030_profile1.html'">プロフィール登録する</button>
+          <div class="modal-skip"><a href="wireframe_SCR030_profile1.html">後で登録する</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLP Panel -->
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-029</div>
+        <div class="blp-head-title">プロフィール登録促進</div>
+        <div class="blp-head-sub">Màn gợi nhắc đăng ký profile</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Mở rộng" onclick="(function(b){var w=b.closest('.blp-wrap');var f=w.classList.toggle('fullscreen');document.body.style.marginRight=f?(window.innerWidth-200)+'px':'280px';})(this)"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">メール認証完了後、カードビューをプレビューしながら「プロフィール登録」を促す。ユーザーにアプリ体験を先見せすることでモチベーションを高める。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">表示要素</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>背景:</strong> カードビュー（ぼかし＋薄暗オーバーレイ）。実際のカード一覧を背景に表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>モーダル（ボトムシート）:</strong> 白い角丸シートが下から表示される。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>ステップインジケーター:</strong> 8ドット中4番目がアクティブ（ピンク）</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>本文:</strong>「お相手を探す前にあなたについて教えてください」</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>CTAボタン（ピンク）:</strong>「プロフィール登録する」→ SCR-030へ遷移</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>スキップリンク:</strong>「後で登録する」→ 同じくSCR-030へ遷移</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step">
+              <div class="blp-step-line"><div class="blp-step-num">←</div><div class="blp-step-connector"></div></div>
+              <div class="blp-step-text">SCR-023 メール認証完了 から遷移</div>
+            </div>
+            <div class="blp-flow-step">
+              <div class="blp-step-line"><div class="blp-step-num">→</div></div>
+              <div class="blp-step-text">ボタン / スキップ → SCR-030 プロフィール基本情報</div>
+            </div>
+          </div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">備考</div>
+          <div class="blp-note warn">背景のカードは実際のユーザーデータではなくダミーデータを表示する（個人情報保護）。</div>
+          <div class="blp-note" style="margin-top:6px;">backdrop-filter:blur でぼかし効果を実装。未対応ブラウザはオーバーレイ透明度で対応。</div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Sau khi xác thực email, hiển thị preview card view phía sau để tạo động lực, kèm modal nhắc đăng ký profile.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Các thành phần hiển thị</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Background:</strong> Card view (blur + dim overlay). Hiển thị card danh sách thật phía sau.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Modal (bottom sheet):</strong> Sheet trắng bo tròn trượt lên từ dưới.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Step indicator:</strong> 8 chấm, chấm thứ 4 active màu hồng</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Text:</strong>「お相手を探す前にあなたについて教えてください」</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Nút CTA (hồng):</strong>「プロフィール登録する」→ chuyển sang SCR-030</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>Skip link:</strong>「後で登録する」→ cũng chuyển sang SCR-030</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Chuyển màn</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step">
+              <div class="blp-step-line"><div class="blp-step-num">←</div><div class="blp-step-connector"></div></div>
+              <div class="blp-step-text">Từ SCR-023 Xác thực email thành công</div>
+            </div>
+            <div class="blp-flow-step">
+              <div class="blp-step-line"><div class="blp-step-num">→</div></div>
+              <div class="blp-step-text">Nút / Skip → SCR-030 Profile cơ bản</div>
+            </div>
+          </div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Ghi chú</div>
+          <div class="blp-note warn">Card phía sau dùng dữ liệu dummy, không hiển thị thông tin thật (bảo vệ quyền riêng tư).</div>
+        </div>
+      </div>
+      <script>
+      function setBlpLang(lang){
+        document.querySelectorAll('.blp-lang').forEach(el=>el.style.display='none');
+        document.querySelector('.lang-'+lang).style.display='block';
+        document.querySelectorAll('.blp-lang-btn').forEach(b=>b.classList.remove('active'));
+        document.getElementById('lang'+lang.charAt(0).toUpperCase()+lang.slice(1)).classList.add('active');
+      }
+      </script>
+    </div>
+  </div>
+</body>
+</html>
