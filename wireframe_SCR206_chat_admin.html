@@ -160,9 +160,113 @@
       align-items: center;
       gap: 4px;
     }
+  
+    .wf-sidebar {
+      width: 200px; min-width: 200px; background: #fff;
+      border-right: 1px solid #e0e0e0; position: fixed;
+      top: 0; left: 0; height: 100vh; overflow-y: auto;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    }
+    .wf-sidebar-logo {
+      height: 44px; display: flex; align-items: center;
+      padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px;
+    }
+    .wf-logo-mark {
+      width: 22px; height: 22px; border: 2px solid #424242;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: #424242; flex-shrink: 0;
+    }
+    .wf-logo-text { font-size: 12px; font-weight: 700; color: #212121; }
+    .wf-sidebar-group { border-bottom: 1px solid #e0e0e0; }
+    .wf-group-label {
+      padding: 7px 14px 3px; font-size: 9px; font-weight: 700;
+      color: #bdbdbd; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .wf-nav-link {
+      display: flex; align-items: center; gap: 6px; padding: 6px 14px;
+      text-decoration: none; color: #424242; font-size: 11px;
+      transition: background .1s;
+    }
+    .wf-nav-link:hover { background: #f5f5f5; }
+    .wf-nav-link.wf-active { background: #212121; color: #fff; }
+    .wf-nav-id {
+      font-size: 9px; color: #bdbdbd; min-width: 26px;
+      font-family: monospace;
+    }
+    .wf-nav-link.wf-active .wf-nav-id { color: #9e9e9e; }
+
   </style>
 </head>
-<body>
+<body style="margin-left:200px;">
+<nav class="wf-sidebar">
+  <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">A · Onboarding</div>
+    <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+    <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+    <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+    <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+    <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">B · Home</div>
+    <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+    <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+    <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+    <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">C · 募集</div>
+    <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+    <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+    <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+    <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">D · Booking</div>
+    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">E · Chat & Review</div>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">F · My Page</div>
+    <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+    <a class="wf-nav-link" href="wireframe_SCR118_notification_list.html"><span class="wf-nav-id">118</span>通知一覧</a>
+    <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+  </div>
+  <div class="wf-sidebar-group">
+    <div class="wf-group-label">G · Admin</div>
+    <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Admin Dashboard</a>
+    <a class="wf-nav-link" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR205_match_mgmt.html"><span class="wf-nav-id">205</span>Match Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR206_boshuu_mgmt.html"><span class="wf-nav-id">206</span>募集 Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
+    <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
+  </div>
+</nav>
 
 <div class="sidebar">
   <div class="sidebar-title">ダッシュボード</div>
