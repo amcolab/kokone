@@ -1067,31 +1067,33 @@
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
-    <!-- 写真リクエスト取消モーダル -->
+    <!-- 写真リクエスト取消モーダル (webapp dialog style) -->
     <div id="photoReqCancelOverlay" onclick="closePhotoRequestCancelModal()" style="
       display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45);
       z-index:200; border-radius:36px;">
     </div>
     <div id="photoReqCancelSheet" style="
-      display:none; position:absolute; bottom:0; left:0; right:0;
-      background:#fff; border-radius:20px 20px 0 0; padding:20px 16px 28px;
-      z-index:201; box-shadow:0 -4px 20px rgba(0,0,0,0.12);">
-      <div style="width:36px;height:4px;background:#e0e0e0;border-radius:2px;margin:0 auto 18px;"></div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">📸 写真リクエスト送信済み</div>
-      <div id="photoReqCancelName" style="font-size:12px;color:#666;margin-bottom:16px;"></div>
-      <div style="font-size:12px;color:#444;margin-bottom:20px;line-height:1.6;">
+      display:none; position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      background:#fff; border-radius:12px; padding:24px 20px 20px;
+      width:300px; z-index:201; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+      <div style="font-size:14px;font-weight:700;margin-bottom:6px;">📸 写真リクエストの取消</div>
+      <div id="photoReqCancelName" style="font-size:12px;color:#888;margin-bottom:14px;"></div>
+      <div style="font-size:12px;color:#444;margin-bottom:20px;line-height:1.7;">
         リクエストを取り消すと、お相手に通知されます。<br>取り消してもよいですか？
       </div>
-      <button onclick="confirmPhotoRequestCancel()" style="
-        width:100%;padding:13px;background:#c62828;color:#fff;border:none;
-        border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;">
-        リクエストを取り消す
-      </button>
-      <button onclick="closePhotoRequestCancelModal()" style="
-        width:100%;padding:12px;background:#f5f5f5;color:#333;border:none;
-        border-radius:10px;font-size:13px;cursor:pointer;">
-        キャンセル
-      </button>
+      <div style="display:flex;gap:8px;">
+        <button onclick="closePhotoRequestCancelModal()" style="
+          flex:1;padding:10px;background:#f0f0f0;color:#555;border:none;
+          border-radius:8px;font-size:12px;cursor:pointer;">
+          キャンセル
+        </button>
+        <button onclick="confirmPhotoRequestCancel()" style="
+          flex:1;padding:10px;background:#c62828;color:#fff;border:none;
+          border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">
+          取り消す
+        </button>
+      </div>
     </div>
 
     <script>
