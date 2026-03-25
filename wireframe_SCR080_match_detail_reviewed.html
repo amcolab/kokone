@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-080 Match Detail — 完了済み</title>
+  <style>
+    :root {
+      --c0:#fff;--c1:#f5f5f5;--c2:#e0e0e0;--c3:#bdbdbd;--c4:#757575;--c5:#424242;--c6:#212121;
+      --green:#2e7d32;--green-l:#e8f5e9;--green-b:#a5d6a7;
+      --star:#f9a825;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--c1);margin-left:200px;margin-right:280px;}
+    .main{display:flex;justify-content:center;padding:20px;}
+    .device{width:360px;height:812px;border:1.5px solid var(--c6);display:flex;flex-direction:column;background:var(--c0);overflow:hidden;position:relative;}
+
+    /* Status bar */
+    .status-bar{height:20px;background:var(--c6);color:var(--c0);font-size:9px;display:flex;justify-content:space-between;align-items:center;padding:0 8px;flex-shrink:0;}
+
+    /* Header */
+    .header{display:flex;align-items:center;padding:12px;border-bottom:1px solid var(--c6);gap:12px;flex-shrink:0;}
+    .back-btn{font-size:14px;cursor:pointer;color:var(--c6);flex-shrink:0;}
+    .header-title{font-size:16px;font-weight:600;color:var(--c6);flex:1;}
+    .header-badge{font-size:10px;font-weight:700;padding:3px 8px;background:var(--green-l);color:var(--green);border:1px solid var(--green-b);}
+
+    /* Scroll content */
+    .scroll{flex:1;overflow-y:auto;padding-bottom:70px;}
+
+    /* Completed banner */
+    .complete-banner{background:var(--green-l);border-bottom:2px solid var(--green-b);padding:14px 16px;display:flex;align-items:center;gap:12px;}
+    .complete-banner-icon{font-size:28px;}
+    .complete-banner-body{}
+    .complete-banner-title{font-size:14px;font-weight:700;color:var(--green);}
+    .complete-banner-sub{font-size:11px;color:#4caf50;margin-top:2px;line-height:1.4;}
+
+    /* Timeline — all completed */
+    .timeline{position:relative;display:flex;justify-content:space-between;padding:20px 10px 14px;margin:12px;border:1px solid var(--c6);background:var(--c0);}
+    .tl-line{position:absolute;top:27px;left:30px;right:30px;height:2px;background:var(--c6);}
+    .tl-step{position:relative;display:flex;flex-direction:column;align-items:center;flex:1;z-index:1;gap:6px;}
+    .tl-circle{width:14px;height:14px;border:2px solid var(--c6);border-radius:50%;background:var(--c6);display:flex;align-items:center;justify-content:center;}
+    .tl-check{font-size:8px;color:#fff;font-weight:900;line-height:1;}
+    .tl-label{font-size:8px;font-weight:700;color:var(--c6);text-align:center;line-height:1.2;white-space:nowrap;}
+
+    /* Section */
+    .section-title{font-size:12px;font-weight:700;color:var(--c4);text-transform:uppercase;letter-spacing:.6px;padding:14px 14px 6px;border-top:1px solid var(--c2);}
+
+    /* Partner card */
+    .partner-card{margin:0 12px 4px;padding:12px;border:1px solid var(--c6);background:var(--c0);display:flex;gap:12px;}
+    .photo-box{width:64px;height:64px;min-width:64px;border:1px solid var(--c6);background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--c4);}
+    .partner-info{flex:1;display:flex;flex-direction:column;gap:4px;}
+    .partner-name{font-size:15px;font-weight:700;color:var(--c6);}
+    .partner-meta{font-size:12px;color:var(--c5);}
+    .partner-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
+    .p-tag{font-size:9px;padding:2px 7px;background:var(--c1);border:1px solid var(--c2);color:var(--c5);}
+    .partner-badge{font-size:11px;color:var(--green);margin-top:2px;font-weight:600;}
+
+    /* Date info card */
+    .info-card{margin:0 12px 4px;border:1px solid var(--c2);background:var(--c0);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--c2);font-size:13px;}
+    .info-row:last-child{border-bottom:none;}
+    .info-label{color:var(--c4);font-size:12px;flex-shrink:0;width:72px;}
+    .info-val{color:var(--c6);font-weight:600;text-align:right;line-height:1.4;}
+    .info-val.green{color:var(--green);}
+
+    /* Restaurant card */
+    .resto-card{margin:0 12px 4px;border:1px solid var(--c2);background:var(--c0);overflow:hidden;}
+    .resto-img{width:100%;height:72px;background:linear-gradient(135deg,#e8eaf6,#c5cae9);display:flex;align-items:center;justify-content:center;font-size:32px;}
+    .resto-body{padding:10px 14px;}
+    .resto-name{font-size:14px;font-weight:700;color:var(--c6);margin-bottom:2px;}
+    .resto-meta{font-size:11px;color:var(--c4);}
+
+    /* Review card */
+    .review-card{margin:0 12px 4px;border:1px solid var(--c2);background:var(--c0);padding:14px;}
+    .review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+    .review-stars{display:flex;gap:2px;}
+    .star{font-size:16px;color:var(--star);}
+    .star.empty{color:var(--c2);}
+    .review-score{font-size:18px;font-weight:700;color:var(--c6);margin-left:6px;}
+    .review-date{font-size:10px;color:var(--c4);}
+    .review-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+    .review-tag{font-size:10px;padding:3px 10px;border:1px solid var(--c6);color:var(--c6);background:var(--c0);}
+    .review-tag.filled{background:var(--c6);color:var(--c0);}
+    .review-text{font-size:12px;color:var(--c5);line-height:1.7;padding:10px;background:var(--c1);border-left:3px solid var(--c6);}
+    .review-done-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--green);padding:2px 8px;background:var(--green-l);border:1px solid var(--green-b);border-radius:2px;margin-bottom:10px;}
+
+    /* Match stats */
+    .stats-grid{margin:0 12px 4px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--c2);border:1px solid var(--c2);}
+    .stat-box{background:var(--c0);padding:12px 14px;display:flex;flex-direction:column;gap:4px;}
+    .stat-label{font-size:10px;color:var(--c4);}
+    .stat-value{font-size:16px;font-weight:700;color:var(--c6);}
+    .stat-sub{font-size:10px;color:var(--c4);}
+
+    /* Action buttons */
+    .action-area{padding:12px 12px 0;}
+    .btn{width:100%;height:42px;border:1px solid var(--c6);background:var(--c0);color:var(--c6);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:500;margin-bottom:8px;}
+    .btn.primary{background:var(--c6);color:var(--c0);}
+    .btn.ghost{border-color:var(--c3);color:var(--c4);}
+    .btn.disabled{opacity:0.4;cursor:not-allowed;}
+
+    /* Bottom nav */
+    .app-bottom-nav{height:70px;background:#fff;border-top:2px solid #000;display:flex;justify-content:space-around;align-items:center;padding-bottom:5px;width:100%;position:absolute;bottom:0;z-index:10;}
+    .bn-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#bbb;gap:4px;}
+    .bn-item svg{width:26px;height:26px;stroke:currentColor;stroke-width:2.5;fill:none;}
+    .bn-item.active{color:#000 !important;font-weight:bold !important;}
+    .bn-lbl{font-size:10px;font-weight:500;}
+  </style>
+
+  <!-- WF Sidebar -->
+  <style>
+    .wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;}
+    .wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;text-decoration:none;}
+    .wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+    .wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+    .wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+    .wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+    .wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+    .wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+    .wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+    .wf-nav-id{font-size:9px;color:#bdbdbd;width:24px;flex-shrink:0;}
+  </style>
+
+  <!-- BLP Panel -->
+  <style>
+    .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;}
+    .blp-wrap::-webkit-scrollbar{width:4px;}
+    .blp-wrap::-webkit-scrollbar-thumb{background:#e0e0e0;}
+    .blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
+    .blp-head-scr{font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;}
+    .blp-head-title{font-size:12px;font-weight:700;}
+    .blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px;}
+    .blp-fullscreen-btn{width:24px;height:24px;border:1px solid #424242;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:#9e9e9e;}
+    .blp-fullscreen-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+    .blp-body{padding:10px 12px 20px;}
+    .blp-section{margin-bottom:14px;}
+    .blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;}
+    .blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5;}
+    .blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575;margin-top:1px;}
+    .blp-rule-text{font-size:11px;color:#212121;line-height:1.55;}
+    .blp-rule-text strong{font-weight:700;}
+    .blp-note{background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;}
+    .blp-note.highlight{border-left-color:#212121;color:#424242;}
+    .blp-note.ok{border-left-color:#2e7d32;background:#f1f8f1;color:#1b5e20;}
+    .blp-flow{display:flex;flex-direction:column;margin-bottom:4px;}
+    .blp-flow-step{display:flex;align-items:flex-start;gap:6px;padding-bottom:8px;}
+    .blp-flow-step:last-child{padding-bottom:0;}
+    .blp-step-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-top:2px;}
+    .blp-step-num{width:16px;height:16px;border:1.5px solid #424242;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#424242;background:#fff;flex-shrink:0;z-index:1;}
+    .blp-step-connector{width:1px;flex:1;background:#e0e0e0;min-height:10px;margin-top:2px;}
+    .blp-step-text{font-size:11px;color:#424242;line-height:1.5;padding-top:1px;}
+    .blp-step-text strong{color:#212121;}
+    .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;cursor:pointer;margin-right:8px;}
+    .blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}
+    .blp-lang-btn.active{background:#444;color:#fff;}
+  </style>
+</head>
+<body>
+
+  <!-- WF Sidebar -->
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR080_match_detail_reviewed.html"><span class="wf-nav-id">080</span>Match 完了済み</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+      <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+      <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+      <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="device">
+      <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">＜ マッチング一覧</div>
+        <div class="header-title">みずきさん</div>
+        <div class="header-badge">完了済み</div>
+      </div>
+
+      <div class="scroll">
+
+        <!-- Completed banner -->
+        <div class="complete-banner">
+          <div class="complete-banner-icon">🎉</div>
+          <div class="complete-banner-body">
+            <div class="complete-banner-title">マッチング・デートが完了しました</div>
+            <div class="complete-banner-sub">レビュー投稿済み ✓　マッチング終了 ✓</div>
+          </div>
+        </div>
+
+        <!-- Timeline — all completed -->
+        <div class="timeline">
+          <div class="tl-line"></div>
+          <div class="tl-step">
+            <div class="tl-circle"><div class="tl-check">✓</div></div>
+            <div class="tl-label">マッチング<br>成立</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-circle"><div class="tl-check">✓</div></div>
+            <div class="tl-label">チャット<br>完了</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-circle"><div class="tl-check">✓</div></div>
+            <div class="tl-label">予約<br>完了</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-circle"><div class="tl-check">✓</div></div>
+            <div class="tl-label">デート<br>当日</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-circle"><div class="tl-check">✓</div></div>
+            <div class="tl-label">レビュー<br>完了</div>
+          </div>
+        </div>
+
+        <!-- ① Partner -->
+        <div class="section-title">お相手</div>
+        <div class="partner-card">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR062_partner_profile.html'">X</div>
+          <div class="partner-info">
+            <div class="partner-name">みずきさん · 37歳</div>
+            <div class="partner-meta">渋谷区 · 会社員</div>
+            <div class="partner-badge">✓ 本人確認済</div>
+            <div class="partner-tags">
+              <span class="p-tag">グルメ</span>
+              <span class="p-tag">カフェ</span>
+              <span class="p-tag">映画</span>
+              <span class="p-tag">落ち着いている</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ② Match stats -->
+        <div class="section-title">マッチングサマリー</div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">マッチング日</div>
+            <div class="stat-value" style="font-size:13px;font-weight:700;">3月10日</div>
+            <div class="stat-sub">2026年</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">デート日</div>
+            <div class="stat-value" style="font-size:13px;font-weight:700;">3月25日</div>
+            <div class="stat-sub">2026年 19:00〜</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">チャット期間</div>
+            <div class="stat-value">15日間</div>
+            <div class="stat-sub">メッセージ 28通</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">総所要時間</div>
+            <div class="stat-value">15日</div>
+            <div class="stat-sub">マッチ→デート完了</div>
+          </div>
+        </div>
+
+        <!-- ③ Dinner info -->
+        <div class="section-title">デート情報</div>
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-label">日時</span>
+            <span class="info-val">2026年3月25日（水）<br>19:00〜21:30</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">場所</span>
+            <span class="info-val">和食ダイニング 結<br><span style="font-size:11px;font-weight:400;color:var(--c4);">渋谷区道玄坂1-2-3</span></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">予約番号</span>
+            <span class="info-val" style="font-family:monospace;">#OT-20260325-0842</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">ステータス</span>
+            <span class="info-val green">✓ 来店済み</span>
+          </div>
+        </div>
+
+        <!-- ④ Restaurant -->
+        <div class="section-title">飲食店</div>
+        <div class="resto-card">
+          <div class="resto-img">🍱</div>
+          <div class="resto-body">
+            <div class="resto-name">和食ダイニング 結</div>
+            <div class="resto-meta">和食 · 渋谷 · ¥¥¥ · 個室あり</div>
+          </div>
+        </div>
+
+        <!-- ⑤ Review submitted -->
+        <div class="section-title">あなたのレビュー</div>
+        <div class="review-card">
+          <div class="review-done-badge">✓ レビュー投稿済み</div>
+          <div class="review-header">
+            <div style="display:flex;align-items:center;">
+              <div class="review-stars">
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span>
+              </div>
+              <span class="review-score">4.0</span>
+            </div>
+            <div class="review-date">2026年3月26日</div>
+          </div>
+          <div class="review-tags">
+            <span class="review-tag filled">雰囲気が良い</span>
+            <span class="review-tag filled">料理が美味しい</span>
+            <span class="review-tag">個室あり</span>
+            <span class="review-tag">接客が丁寧</span>
+          </div>
+          <div class="review-text">
+            落ち着いた個室で、会話に集中できました。和食のコースが丁寧で、デートにぴったりのお店です。次回もぜひ利用したいと思います。
+          </div>
+        </div>
+
+        <!-- ⑥ Actions -->
+        <div class="section-title">次のアクション</div>
+        <div class="action-area">
+          <button class="btn primary" onclick="window.location.href='wireframe_SCR062_partner_profile.html'">
+            ♥ みずきさんにもう一度いいねを送る
+          </button>
+          <button class="btn" onclick="window.location.href='wireframe_SCR090_chat.html'">
+            💬 チャット履歴を見る
+          </button>
+          <button class="btn ghost" onclick="window.location.href='wireframe_SCR100_review.html'">
+            ✏️ レビューを編集する
+          </button>
+        </div>
+
+        <div style="height:16px;"></div>
+
+      </div><!-- /.scroll -->
+
+      <!-- Bottom nav -->
+      <div class="app-bottom-nav">
+        <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
+        <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span></a>
+        <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+        <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+        <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+      </div>
+
+    </div><!-- /.device -->
+  </div>
+
+  <!-- BLP Panel -->
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-080-R</div>
+        <div class="blp-head-title">Match Detail — 完了済み</div>
+        <div class="blp-head-sub">Toàn bộ hoàn tất + Review</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" onclick="(function(b){var w=b.closest('.blp-wrap');var f=w.classList.toggle('fullscreen');document.body.style.marginRight=f?(window.innerWidth-200)+'px':'280px';})(this)"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">マッチング〜デート〜レビューまで全ステップ完了した状態のサマリー画面。履歴として閲覧でき、再マッチングへの導線も提供。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">表示セクション</div>
+          <div class="blp-rule"><div class="blp-rule-dot">①</div><div class="blp-rule-text"><strong>完了バナー</strong> — 緑背景でレビュー投稿済み・マッチング終了を明示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">②</div><div class="blp-rule-text"><strong>タイムライン</strong> — 全5ステップが黒塗り（完了）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">③</div><div class="blp-rule-text"><strong>お相手</strong> — パートナー情報・タグ・プロフィールへのリンク。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">④</div><div class="blp-rule-text"><strong>マッチングサマリー</strong> — マッチング日・デート日・チャット期間・通数の数値サマリー。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑤</div><div class="blp-rule-text"><strong>デート情報</strong> — 日時・場所・予約番号・来店済みステータス。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑥</div><div class="blp-rule-text"><strong>飲食店カード</strong> — 訪問レストランのサムネイル。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑦</div><div class="blp-rule-text"><strong>レビュー</strong> — 投稿済みバッジ・星評価・タグ・コメント全文。編集リンクあり。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑧</div><div class="blp-rule-text"><strong>次のアクション</strong> — 再いいね送信・チャット履歴閲覧・レビュー編集。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移元</div>
+          <div class="blp-note">SCR-065 マッチング一覧で status=REVIEWED のカードをタップして遷移。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">注意事項</div>
+          <div class="blp-note ok">この状態ではマッチング解除ボタンは表示しない（既に終了済みのため）。</div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Màn tổng kết sau khi toàn bộ các bước hoàn tất: match → chat → đặt bàn → đi ăn → review. Hiển thị như lịch sử và cung cấp đường dẫn để match lại.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Các section hiển thị</div>
+          <div class="blp-rule"><div class="blp-rule-dot">①</div><div class="blp-rule-text"><strong>Banner hoàn tất</strong> — nền xanh, xác nhận đã review và kết thúc match.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">②</div><div class="blp-rule-text"><strong>Timeline</strong> — 5 bước đều tô đen (hoàn tất).</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">③</div><div class="blp-rule-text"><strong>Đối phương</strong> — thông tin partner, tags, link profile.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">④</div><div class="blp-rule-text"><strong>Match Summary</strong> — ngày match, ngày ăn, thời gian chat, số tin nhắn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑤</div><div class="blp-rule-text"><strong>Thông tin buổi hẹn</strong> — ngày giờ, địa điểm, mã đặt bàn, trạng thái đã đến.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑥</div><div class="blp-rule-text"><strong>Nhà hàng</strong> — thumbnail nhà hàng đã đến.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑦</div><div class="blp-rule-text"><strong>Review</strong> — badge đã đăng, sao, tags, toàn bộ nội dung. Có link sửa.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">⑧</div><div class="blp-rule-text"><strong>Hành động tiếp theo</strong> — gửi like lại, xem lịch sử chat, sửa review.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Ghi chú</div>
+          <div class="blp-note ok">Không hiển thị nút hủy match vì đã kết thúc.</div>
+        </div>
+      </div>
+      <script>
+        function setBlpLang(lang){
+          document.querySelectorAll('.blp-lang').forEach(el=>el.style.display='none');
+          document.querySelector('.lang-'+lang).style.display='block';
+          document.querySelectorAll('.blp-lang-btn').forEach(b=>b.classList.remove('active'));
+          document.getElementById('lang'+lang.charAt(0).toUpperCase()+lang.slice(1)).classList.add('active');
+        }
+      </script>
+    </div>
+  </div>
+
+</body>
+</html>

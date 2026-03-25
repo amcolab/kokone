@@ -288,6 +288,77 @@
       cursor: pointer;
     }
 
+    /* 通報エリア */
+    .report-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 16px 0 4px;
+      border-top: 1px solid var(--c2);
+      margin-top: 8px;
+    }
+    .report-link {
+      font-size: 12px;
+      color: var(--c4);
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .report-link:hover { color: var(--c6); }
+    .report-link.danger { color: #c62828; }
+    .report-link.danger:hover { color: #b71c1c; }
+    /* 通報 modal */
+    .report-modal-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 50;
+      align-items: flex-end;
+    }
+    .report-modal-overlay.open { display: flex; }
+    .report-modal-sheet {
+      width: 100%;
+      background: var(--c0);
+      border-radius: 16px 16px 0 0;
+      padding: 20px 20px 32px;
+    }
+    .report-modal-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--c6);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .report-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--c2);
+      font-size: 13px;
+      color: var(--c6);
+      cursor: pointer;
+    }
+    .report-option:last-child { border-bottom: none; }
+    .report-option:hover { background: var(--c1); }
+    .report-option.red { color: #c62828; }
+    .report-option-icon { font-size: 16px; width: 24px; text-align: center; flex-shrink: 0; }
+    .report-cancel {
+      width: 100%;
+      height: 44px;
+      margin-top: 12px;
+      background: var(--c1);
+      border: none;
+      font-size: 14px;
+      color: var(--c5);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
     .state-toggle {
       position: absolute;
       top: 60px;
@@ -811,8 +882,38 @@
         <div class="info-item"><span class="info-label">子ども希望</span><span class="info-value">どちらでも良い</span></div>
       </div>
 
+      <!-- 通報・ブロック -->
+      <div class="report-area">
+        <a class="report-link" onclick="openReportModal()">
+          <span>🚩</span> 通報する
+        </a>
+        <a class="report-link danger" onclick="openReportModal('block')">
+          <span>🚫</span> ブロックする
+        </a>
+      </div>
+
       <div style="height: 40px;"></div>
     </div><!-- /.scroll-content -->
+
+    <!-- 通報 modal -->
+    <div class="report-modal-overlay" id="reportModal">
+      <div class="report-modal-sheet">
+        <div class="report-modal-title" id="reportModalTitle">このユーザーを通報する</div>
+        <div class="report-option" onclick="window.location.href='wireframe_SCR103_report.html'">
+          <span class="report-option-icon">💬</span>不適切なメッセージ・言動
+        </div>
+        <div class="report-option" onclick="window.location.href='wireframe_SCR103_report.html'">
+          <span class="report-option-icon">🖼️</span>不適切な写真・プロフィール内容
+        </div>
+        <div class="report-option" onclick="window.location.href='wireframe_SCR103_report.html'">
+          <span class="report-option-icon">🤥</span>なりすまし・虚偽情報
+        </div>
+        <div class="report-option" onclick="window.location.href='wireframe_SCR103_report.html'">
+          <span class="report-option-icon">⚠️</span>迷惑行為・その他
+        </div>
+        <button class="report-cancel" onclick="closeReportModal()">キャンセル</button>
+      </div>
+    </div>
 
     <!-- Fixed bottom CTA -->
     <div class="bottom-cta">
@@ -903,6 +1004,22 @@
         overlay.style.display = 'none';
         subPhotos.forEach(p => p.classList.remove('blurred'));
       }
+    }
+  </script>
+
+  <script>
+    function openReportModal(type) {
+      var modal = document.getElementById('reportModal');
+      var title = document.getElementById('reportModalTitle');
+      if (type === 'block') {
+        title.textContent = 'このユーザーをブロックしますか？';
+      } else {
+        title.textContent = 'このユーザーを通報する';
+      }
+      modal.classList.add('open');
+    }
+    function closeReportModal() {
+      document.getElementById('reportModal').classList.remove('open');
     }
   </script>
 
