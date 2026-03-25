@@ -493,6 +493,52 @@
           </div>
         </div>
 
+        <!-- Upcoming plan change notice -->
+        <div style="
+          background:#e3f2fd; border:1px solid #90caf9; border-radius:8px;
+          padding:10px 12px; margin-top:8px; font-size:11px; color:#1565c0;">
+          <div style="font-weight:700; margin-bottom:4px;">📅 プラン変更予定</div>
+          <div style="line-height:1.7; color:#1976d2;">
+            4月16日から <strong>3ヶ月プラン（¥6,500/月）</strong> に変更されます。<br>
+            初回請求日: <strong>4月16日</strong>
+          </div>
+          <div style="margin-top:8px;">
+            <a href="#" onclick="openCancelPlanChangeDialog(); return false;" style="
+              display:inline-block; font-size:11px; font-weight:700;
+              color:#c62828; text-decoration:underline; cursor:pointer;">
+              変更を取り消す
+            </a>
+          </div>
+        </div>
+
+        <!-- キャンセル確認ダイアログ -->
+        <div id="cancelPlanChangeOverlay" onclick="closeCancelPlanChangeDialog()" style="
+          display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45);
+          z-index:200; border-radius:36px;"></div>
+        <div id="cancelPlanChangeDialog" style="
+          display:none; position:absolute; top:50%; left:50%;
+          transform:translate(-50%,-50%);
+          background:#fff; border-radius:12px; padding:22px 20px 18px;
+          width:290px; z-index:201; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+          <div style="font-size:14px; font-weight:700; margin-bottom:10px;">プラン変更を取り消しますか？</div>
+          <div style="font-size:12px; color:#555; margin-bottom:18px; line-height:1.7;">
+            取り消すと、4月16日以降も<br>
+            現在の<strong>1ヶ月プラン</strong>が継続されます。
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="closeCancelPlanChangeDialog()" style="
+              flex:1; padding:11px; background:#f0f0f0; color:#555; border:none;
+              border-radius:8px; font-size:12px; cursor:pointer;">
+              戻る
+            </button>
+            <button onclick="confirmCancelPlanChange()" style="
+              flex:1; padding:11px; background:#c62828; color:#fff; border:none;
+              border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
+              取り消す
+            </button>
+          </div>
+        </div>
+
 
         <div class="menu-section">
           <div class="section-title">設定</div>
@@ -611,6 +657,27 @@
   </div>
 
   <script>
+    function openCancelPlanChangeDialog() {
+      document.getElementById('cancelPlanChangeOverlay').style.display = 'block';
+      document.getElementById('cancelPlanChangeDialog').style.display = 'block';
+    }
+    function closeCancelPlanChangeDialog() {
+      document.getElementById('cancelPlanChangeOverlay').style.display = 'none';
+      document.getElementById('cancelPlanChangeDialog').style.display = 'none';
+    }
+    function confirmCancelPlanChange() {
+      closeCancelPlanChangeDialog();
+      // Hide the upcoming plan change notice
+      var notice = document.querySelector('[style*="プラン変更予定"]');
+      if (notice) notice.closest('div').style.display = 'none';
+      // Show toast
+      var t = document.createElement('div');
+      t.textContent = 'プラン変更を取り消しました';
+      t.style.cssText = 'position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;font-size:11px;z-index:300;white-space:nowrap;';
+      document.querySelector('.device-mockup, .device-frame').appendChild(t);
+      setTimeout(function(){ t.remove(); }, 2500);
+    }
+
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
       document.querySelector('.lang-' + lang).style.display = 'block';
