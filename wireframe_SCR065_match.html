@@ -871,7 +871,7 @@
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Haruka · 37歳</div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
+            <div class="action-wrap" style="cursor:pointer;" onclick="openPhotoRequestCancelModal('Haruka')">
               <div class="status-pill"><span class="status-icon">📸</span>写真リクエスト送信済</div>
               <div class="match-preview">写真公開リクエストを送りました</div>
             </div>
@@ -1067,6 +1067,33 @@
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
+    <!-- 写真リクエスト取消モーダル -->
+    <div id="photoReqCancelOverlay" onclick="closePhotoRequestCancelModal()" style="
+      display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45);
+      z-index:200; border-radius:36px;">
+    </div>
+    <div id="photoReqCancelSheet" style="
+      display:none; position:absolute; bottom:0; left:0; right:0;
+      background:#fff; border-radius:20px 20px 0 0; padding:20px 16px 28px;
+      z-index:201; box-shadow:0 -4px 20px rgba(0,0,0,0.12);">
+      <div style="width:36px;height:4px;background:#e0e0e0;border-radius:2px;margin:0 auto 18px;"></div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">📸 写真リクエスト送信済み</div>
+      <div id="photoReqCancelName" style="font-size:12px;color:#666;margin-bottom:16px;"></div>
+      <div style="font-size:12px;color:#444;margin-bottom:20px;line-height:1.6;">
+        リクエストを取り消すと、お相手に通知されます。<br>取り消してもよいですか？
+      </div>
+      <button onclick="confirmPhotoRequestCancel()" style="
+        width:100%;padding:13px;background:#c62828;color:#fff;border:none;
+        border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;">
+        リクエストを取り消す
+      </button>
+      <button onclick="closePhotoRequestCancelModal()" style="
+        width:100%;padding:12px;background:#f5f5f5;color:#333;border:none;
+        border-radius:10px;font-size:13px;cursor:pointer;">
+        キャンセル
+      </button>
+    </div>
+
     <script>
       function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
@@ -1074,6 +1101,25 @@
         document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
         // Correctly handle event for clicked element
         if (event) event.currentTarget.classList.add('active');
+      }
+
+      function openPhotoRequestCancelModal(name) {
+        document.getElementById('photoReqCancelName').textContent = name + 'さんへのリクエスト';
+        document.getElementById('photoReqCancelOverlay').style.display = 'block';
+        document.getElementById('photoReqCancelSheet').style.display = 'block';
+      }
+      function closePhotoRequestCancelModal() {
+        document.getElementById('photoReqCancelOverlay').style.display = 'none';
+        document.getElementById('photoReqCancelSheet').style.display = 'none';
+      }
+      function confirmPhotoRequestCancel() {
+        closePhotoRequestCancelModal();
+        // Show brief toast feedback
+        var t = document.createElement('div');
+        t.textContent = 'リクエストを取り消しました';
+        t.style.cssText = 'position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;font-size:11px;z-index:300;white-space:nowrap;';
+        document.querySelector('.device-mockup').appendChild(t);
+        setTimeout(function(){ t.remove(); }, 2500);
       }
     </script>
   </div>
