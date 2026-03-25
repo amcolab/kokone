@@ -3,33 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-900 Admin System Settings</title>
+  <title>NOT-01 プッシュ通知仕様</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #f5f5f5;
-      display: flex;
       min-height: 100vh;
     }
 
-    .sidebar {
-      width: 220px; background: #ffffff; border-right: 1px solid #e0e0e0;
-      padding: 20px 0; flex-shrink: 0;
-    }
-    .sidebar-item {
-      padding: 12px 16px; border-left: 3px solid transparent;
-      color: #757575; font-size: 13px; cursor: pointer; border-bottom: 1px solid #f5f5f5;
-    }
-    .sidebar-item.active { border-left-color: #212121; background: #f5f5f5; color: #212121; font-weight: 600; }
-    .sidebar-title { padding: 12px 16px; color: #424242; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-top: 16px; margin-bottom: 4px; }
+    .main-content { padding: 32px 40px; }
+    .content-wrapper { max-width: 800px; margin: 0 auto; }
+    .page-title { font-size: 20px; font-weight: bold; color: #212121; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .page-sub { font-size: 13px; color: #757575; margin-bottom: 28px; }
 
-    .main-content { flex: 1; padding: 24px; overflow-y: auto; }
-    .content-wrapper { max-width: 760px; margin: 0 auto; }
-    .page-title { font-size: 20px; font-weight: bold; color: #212121; margin-bottom: 24px; }
-
-    .card { background: #ffffff; border: 1px solid #e0e0e0; padding: 24px; margin-bottom: 24px; border-radius: 4px; }
+    .card { background: #ffffff; border: 1px solid #e0e0e0; padding: 28px; margin-bottom: 24px; border-radius: 4px; }
     .card-title {
       font-size: 14px; font-weight: bold; color: #212121;
       margin-bottom: 16px; border-bottom: 2px solid #212121;
@@ -37,29 +26,17 @@
     }
     .card-id { font-size: 9px; font-family: monospace; background: #212121; color: #fff; padding: 2px 6px; border-radius: 2px; font-weight: 400; }
 
-    .setting-group { margin-bottom: 20px; }
-    .setting-label { display: block; font-size: 12px; font-weight: 600; color: #757575; margin-bottom: 8px; }
-    .setting-input { width: 100%; height: 36px; border: 1px solid #e0e0e0; padding: 0 10px; font-size: 13px; border-radius: 3px; }
-    .setting-description { font-size: 11px; color: #9e9e9e; margin-top: 6px; line-height: 1.6; }
-
-    .input-inline { display: flex; align-items: center; gap: 10px; }
-    .input-inline input { width: 100px; height: 36px; border: 1px solid #e0e0e0; padding: 0 10px; font-size: 13px; border-radius: 3px; }
-    .input-unit { font-size: 12px; color: #757575; }
-
-    .save-btn { height: 40px; background: #212121; color: #ffffff; border: none; padding: 0 28px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 3px; margin-top: 8px; }
-    .save-btn:hover { background: #424242; }
-
     .notif-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
-    .notif-table th { background: #f5f5f5; border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 700; color: #424242; white-space: nowrap; }
-    .notif-table td { border: 1px solid #e0e0e0; padding: 8px 10px; vertical-align: top; line-height: 1.5; color: #333; }
+    .notif-table th { background: #f5f5f5; border: 1px solid #e0e0e0; padding: 9px 10px; text-align: left; font-size: 11px; font-weight: 700; color: #424242; white-space: nowrap; }
+    .notif-table td { border: 1px solid #e0e0e0; padding: 9px 10px; vertical-align: top; line-height: 1.5; color: #333; }
     .notif-table tr:hover td { background: #fafafa; }
     .notif-id { font-family: monospace; font-size: 10px; background: #f0f0f0; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
     .trigger-chip { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; white-space: nowrap; margin: 1px; }
     .trigger-chip.system { background: #f3e5f5; color: #6a1b9a; border-color: #ce93d8; }
-    .trigger-chip.payment { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
     .trigger-chip.alert { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
     .msg-text { color: #555; font-style: italic; font-size: 11px; }
     .var { color: #e91e8c; font-weight: 600; font-style: normal; }
+    .note { font-size: 11px; color: #9e9e9e; margin-top: 12px; line-height: 1.7; background: #fafafa; border: 1px solid #eeeeee; padding: 10px 12px; border-radius: 3px; }
 
     /* BLP Panel */
     .blp-wrap { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: #1e1e1e; overflow-y: auto; z-index: 8000; font-family: -apple-system, sans-serif; }
@@ -109,12 +86,9 @@
     <div class="wf-group-label">A · Onboarding</div>
     <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
     <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
-    <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
-    <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
-    <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-    <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
-    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
-    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+    <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>Profile Prompt</a>
+    <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile Setup</a>
+    <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>Photo Upload</a>
     <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
   </div>
   <div class="wf-sidebar-group">
@@ -122,7 +96,6 @@
     <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
     <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
     <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
-    <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
     <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
     <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
   </div>
@@ -131,14 +104,13 @@
     <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
     <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
     <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-    <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+    <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>Applicants</a>
     <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">D · Booking</div>
     <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
     <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
-    <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
     <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
     <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
     <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
@@ -153,8 +125,9 @@
     <div class="wf-group-label">F · My Page</div>
     <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
     <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+    <a class="wf-nav-link" href="wireframe_SCR112_edit_profile.html"><span class="wf-nav-id">112</span>Edit Profile</a>
     <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
-    <a class="wf-nav-link" href="wireframe_SCR118_notification_list.html"><span class="wf-nav-id">118</span>通知一覧</a>
+    <a class="wf-nav-link" href="wireframe_SCR118_notification_list.html"><span class="wf-nav-id">118</span>Notification List</a>
     <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
   </div>
   <div class="wf-sidebar-group">
@@ -168,89 +141,28 @@
     <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
-    <a class="wf-nav-link" href="wireframe_NOT01_push_notification.html"><span class="wf-nav-id" style="font-size:9px;">NOT-01</span>プッシュ通知仕様</a>
+    <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
+    <a class="wf-nav-link wf-active" href="wireframe_NOT01_push_notification.html"><span class="wf-nav-id" style="font-size:9px;">NOT-01</span>プッシュ通知仕様</a>
     <a class="wf-nav-link" href="wireframe_NOT02_email_notification.html"><span class="wf-nav-id" style="font-size:9px;">NOT-02</span>メール通知仕様</a>
   </div>
 </nav>
 
-<!-- Admin inner sidebar -->
-<div class="sidebar">
-  <div class="sidebar-title">ダッシュボード</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR200_admin_dashboard.html'">ダッシュボード</div>
-  <div class="sidebar-title">管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR210_booking_mgmt.html'">予約管理</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR220_report_mgmt.html'">通報管理</div>
-  <div class="sidebar-title">業績</div>
-  <div class="sidebar-item" onclick="location.href='wireframe_SCR230_revenue.html'">収益管理</div>
-  <div class="sidebar-title">システム</div>
-  <div class="sidebar-item active" onclick="document.getElementById('card-display').scrollIntoView({behavior:'smooth'})">システム設定</div>
-  <div class="sidebar-item" onclick="document.getElementById('card-push').scrollIntoView({behavior:'smooth'})">NOT-01 プッシュ通知仕様</div>
-  <div class="sidebar-item" onclick="document.getElementById('card-mail').scrollIntoView({behavior:'smooth'})">NOT-02 メール通知仕様</div>
-</div>
-
-<!-- Main content -->
 <div class="main-content">
   <div class="content-wrapper">
-    <div class="page-title">⚙️ システム設定</div>
+    <div class="page-title">
+      <span class="card-id" style="font-size:11px;padding:3px 8px;">NOT-01</span>
+      プッシュ通知仕様
+    </div>
+    <div class="page-sub">Push Notification — 種別・メッセージ定義 (18種)</div>
 
-    <!-- 基本設定 -->
     <div class="card">
-      <div class="card-title">基本設定</div>
-      <div class="setting-group">
-        <label class="setting-label">サービス名</label>
-        <input type="text" class="setting-input" value="Otona Table">
-      </div>
-      <div class="setting-group">
-        <label class="setting-label">運営メールアドレス</label>
-        <input type="email" class="setting-input" value="support@otona-table.jp">
-      </div>
-    </div>
-
-    <!-- SET-01 マッチング・表示設定 -->
-    <div class="card" id="card-display">
-      <div class="card-title"><span class="card-id">SET-01</span> マッチング・表示設定</div>
-      <div class="setting-group">
-        <label class="setting-label">1日のサジェスト表示人数</label>
-        <div class="input-inline">
-          <input type="number" value="30" min="1" max="999">
-          <span class="input-unit">名 / 日（全プラン共通）</span>
-        </div>
-        <div class="setting-description">
-          「今日の提案」カードに1日あたり表示されるユーザーの最大数。プラン区分なし。
-        </div>
-      </div>
-      <div class="setting-group">
-        <label class="setting-label">マッチング自動キャンセルまでの日数</label>
-        <div class="input-inline">
-          <input type="number" value="7" min="1" max="30">
-          <span class="input-unit">日（マッチング成立後・日程未確定の場合）</span>
-        </div>
-        <div class="setting-description">2日目・5日目にリマインダー通知（N-016）を送信。</div>
-      </div>
-      <div class="setting-group">
-        <label class="setting-label">同時マッチング上限数（1ユーザーあたり）</label>
-        <div class="input-inline">
-          <input type="number" value="5" min="1" max="99">
-          <span class="input-unit">件</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- NOT-01 プッシュ通知仕様 -->
-    <div class="card" id="card-push">
       <div class="card-title"><span class="card-id">NOT-01</span> プッシュ通知 — 種別・メッセージ定義</div>
       <table class="notif-table">
         <thead>
           <tr>
-            <th style="width:68px;">ID</th>
-            <th style="width:140px;">種別</th>
-            <th style="width:108px;">トリガー</th>
+            <th style="width:72px;">ID</th>
+            <th style="width:160px;">種別</th>
+            <th style="width:120px;">トリガー</th>
             <th>通知メッセージ</th>
           </tr>
         </thead>
@@ -275,48 +187,12 @@
           <tr><td><span class="notif-id">N-018</span></td><td>レビュー依頼</td><td><span class="trigger-chip system">食事翌日</span></td><td class="msg-text">「<span class="var">{name}</span>さんとのお食事はいかがでしたか？レビューをお願いします ⭐」</td></tr>
         </tbody>
       </table>
-      <div class="setting-description" style="margin-top:10px;">
-        ※ <span style="color:#e91e8c;font-weight:600;">{var}</span> はテンプレート変数。送信時にシステムが自動置換。<br>
-        ※ ユーザーは SCR-119 の設定画面で種別ごとにON/OFFが可能（N-002・N-006・N-016 は OFF不可）。
+      <div class="note">
+        ※ <span class="var">{var}</span> はテンプレート変数。送信時にシステムが自動置換。<br>
+        ※ ユーザーは SCR-119 の設定画面で種別ごとにON/OFFが可能。<br>
+        ※ <strong>N-002・N-006・N-016</strong> は重要通知のためOFF不可。
       </div>
     </div>
-
-    <!-- NOT-02 メール通知仕様 -->
-    <div class="card" id="card-mail">
-      <div class="card-title"><span class="card-id">NOT-02</span> メール通知 — 種別・内容定義</div>
-      <table class="notif-table">
-        <thead>
-          <tr>
-            <th style="width:68px;">ID</th>
-            <th style="width:200px;">件名</th>
-            <th style="width:108px;">トリガー</th>
-            <th>本文の主な内容</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="notif-id">M-001</span></td><td>Otona Tableへようこそ</td><td><span class="trigger-chip system">会員登録完了</span></td><td>ウェルカムメッセージ / プロフィール設定CTA / サービス説明リンク</td></tr>
-          <tr><td><span class="notif-id">M-002</span></td><td>メールアドレスの認証</td><td><span class="trigger-chip system">メール認証</span></td><td>認証コード（6桁）/ 有効期限 30分 / 再送リンク</td></tr>
-          <tr><td><span class="notif-id">M-003</span></td><td>マッチングが成立しました 🎉</td><td><span class="trigger-chip">マッチング成立</span></td><td>相手の基本情報（名前・年齢・地域）/ チャット画面へのリンク / 期限の注意書き</td></tr>
-          <tr><td><span class="notif-id">M-004</span></td><td>食事の予約が確定しました</td><td><span class="trigger-chip system">予約確定</span></td><td>店舗名・日時・住所・予約番号 / キャンセルポリシー / アクセスマップリンク</td></tr>
-          <tr><td><span class="notif-id">M-005</span></td><td>明日のお食事のご案内 🍽️</td><td><span class="trigger-chip system">前日 18:00</span></td><td>店舗名・日時・予約番号 / 遅刻・キャンセル連絡先 / アクセスマップ</td></tr>
-          <tr><td><span class="notif-id">M-006</span></td><td>予約の再調整が必要です ⚠️</td><td><span class="trigger-chip alert">予約NG</span></td><td>予約不可の旨 / 再調整リクエスト内容 / アプリへのディープリンク</td></tr>
-          <tr><td><span class="notif-id">M-007</span></td><td>マッチングがキャンセルされました</td><td><span class="trigger-chip">解除・自動キャンセル</span></td><td>キャンセル日・理由区分 / 再マッチングへのCTA / サポート連絡先</td></tr>
-          <tr><td><span class="notif-id">M-008</span></td><td>食事のレビューをお願いします ⭐</td><td><span class="trigger-chip system">食事完了翌日</span></td><td>相手の名前・食事日・店舗名 / レビュー画面へのリンク / 有効期限 7日</td></tr>
-          <tr><td><span class="notif-id">M-009</span></td><td>プラン変更のご確認</td><td><span class="trigger-chip payment">プラン変更予約</span></td><td>変更後プラン名・月額・適用開始日・初回請求日 / 取消方法 / Stripeリンク</td></tr>
-          <tr><td><span class="notif-id">M-010</span></td><td>お支払い完了のご案内</td><td><span class="trigger-chip payment">Stripe決済完了</span></td><td>プラン名・請求金額・請求日・次回更新日 / 領収書PDF / 解約方法</td></tr>
-          <tr><td><span class="notif-id">M-011</span></td><td>お支払いに失敗しました ⚠️</td><td><span class="trigger-chip alert">Stripe決済失敗</span></td><td>失敗理由・再試行日 / 支払い方法更新リンク / アカウント停止予告日</td></tr>
-          <tr><td><span class="notif-id">M-012</span></td><td>パスワードリセットのご案内</td><td><span class="trigger-chip system">パスワード忘れ</span></td><td>リセットリンク（有効期限 1時間）/ 申請していない場合の対処法</td></tr>
-          <tr><td><span class="notif-id">M-013</span></td><td>通報を受け付けました</td><td><span class="trigger-chip system">通報送信</span></td><td>受付番号 / 対応予定期間（3営業日）/ 追加情報の提出先</td></tr>
-          <tr><td><span class="notif-id">M-014</span></td><td>アカウントが一時停止されました</td><td><span class="trigger-chip alert">管理者操作</span></td><td>停止理由区分 / 停止期間 / 異議申し立て方法 / サポートメール</td></tr>
-        </tbody>
-      </table>
-      <div class="setting-description" style="margin-top:10px;">
-        ※ 送信基盤: <strong>Sendgrid</strong>。From: <code>noreply@otona-table.jp</code><br>
-        ※ M-001・M-002 はトランザクションメールのため OFF 不可。その他はユーザーがSCR-119でON/OFF可能。
-      </div>
-    </div>
-
-    <button class="save-btn">設定を保存する</button>
   </div>
 </div>
 
@@ -324,9 +200,9 @@
 <div class="blp-wrap">
   <div class="blp-head">
     <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-900</div>
-      <div class="blp-head-title">System Settings</div>
-      <div class="blp-head-sub">システム設定 / Cài đặt hệ thống</div>
+      <div class="blp-head-scr">NOT-01</div>
+      <div class="blp-head-title">Push Notification Spec</div>
+      <div class="blp-head-sub">プッシュ通知仕様 / Thông báo đẩy</div>
     </div>
     <div style="display:flex;align-items:center;">
       <div class="blp-lang-switch">
@@ -343,25 +219,12 @@
     <!-- JA -->
     <div class="blp-lang lang-ja">
       <div class="blp-section">
-        <div class="blp-section-title">SET-01 · 表示設定</div>
-        <div class="blp-note highlight">サジェスト人数は全プラン共通。プランによる差別化は廃止済み。</div>
-        <div class="blp-rule" style="margin-top:8px;">
-          <div class="blp-rule-dot">1</div>
-          <div class="blp-rule-text"><strong>1日のサジェスト人数</strong> — デフォルト 30名。全ユーザー共通上限。</div>
-        </div>
-        <div class="blp-rule">
-          <div class="blp-rule-dot">2</div>
-          <div class="blp-rule-text"><strong>自動キャンセル日数</strong> — デフォルト 7日。2日目・5日目にN-016送信。</div>
-        </div>
-        <div class="blp-rule">
-          <div class="blp-rule-dot">3</div>
-          <div class="blp-rule-text"><strong>同時マッチング上限</strong> — デフォルト 5件。上限到達時は新規マッチ不可。</div>
-        </div>
+        <div class="blp-section-title">概要</div>
+        <div class="blp-note highlight">18種のプッシュ通知を定義。N-002・N-006・N-016 は重要通知のためユーザーによるOFF不可。</div>
       </div>
 
       <div class="blp-section">
-        <div class="blp-section-title">NOT-01 · Push通知 18種</div>
-        <div class="blp-note" style="margin-bottom:8px;">N-002・N-006・N-016 はOFF不可（重要通知）。</div>
+        <div class="blp-section-title">カテゴリ一覧</div>
         <table class="blp-mini-table">
           <tr><th>カテゴリ</th><th>ID</th><th>種別</th></tr>
           <tr><td>いいね</td><td>N-001</td><td>いいね受信</td></tr>
@@ -386,61 +249,46 @@
       </div>
 
       <div class="blp-section">
-        <div class="blp-section-title">NOT-02 · メール通知 14種</div>
-        <div class="blp-note" style="margin-bottom:8px;">M-001・M-002 は必須（OFF不可）。送信: Sendgrid。</div>
-        <table class="blp-mini-table">
-          <tr><th>カテゴリ</th><th>ID</th><th>タイミング</th></tr>
-          <tr><td rowspan="2">認証・登録</td><td>M-001 🔒</td><td>会員登録完了</td></tr>
-          <tr><td>M-002 🔒</td><td>メール認証</td></tr>
-          <tr><td>マッチング</td><td>M-003</td><td>成立時</td></tr>
-          <tr><td rowspan="3">予約</td><td>M-004</td><td>予約確定</td></tr>
-          <tr><td>M-005</td><td>前日リマインダー</td></tr>
-          <tr><td>M-006</td><td>予約NG・再調整</td></tr>
-          <tr><td>キャンセル</td><td>M-007</td><td>解除・自動キャンセル</td></tr>
-          <tr><td>レビュー</td><td>M-008</td><td>食事完了翌日</td></tr>
-          <tr><td rowspan="3">決済</td><td>M-009</td><td>プラン変更予約</td></tr>
-          <tr><td>M-010</td><td>決済完了</td></tr>
-          <tr><td>M-011</td><td>決済失敗</td></tr>
-          <tr><td>アカウント</td><td>M-012</td><td>パスワードリセット</td></tr>
-          <tr><td>通報</td><td>M-013</td><td>通報受付</td></tr>
-          <tr><td>管理</td><td>M-014</td><td>アカウント停止</td></tr>
-        </table>
+        <div class="blp-section-title">トリガー種別</div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot" style="background:#e3f2fd;color:#1565c0;">U</div>
+          <div class="blp-rule-text"><strong>ユーザー操作</strong> — 相手のアクションで即時送信</div>
+        </div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot" style="background:#f3e5f5;color:#6a1b9a;">S</div>
+          <div class="blp-rule-text"><strong>システム</strong> — 時刻・イベントで自動送信</div>
+        </div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot" style="background:#fff3e0;color:#e65100;">!</div>
+          <div class="blp-rule-text"><strong>アラート</strong> — 期限・失敗などの警告通知</div>
+        </div>
+      </div>
+
+      <div class="blp-section">
+        <div class="blp-section-title">テンプレート変数</div>
+        <div class="blp-rule">
+          <div class="blp-rule-dot">{}</div>
+          <div class="blp-rule-text"><strong>{name}</strong> 相手の表示名 / <strong>{store}</strong> 店舗名 / <strong>{date}</strong> 日付 / <strong>{time}</strong> 時刻 / <strong>{n}</strong> 残日数</div>
+        </div>
       </div>
     </div>
 
     <!-- VI -->
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
-        <div class="blp-section-title">SET-01 · Cài đặt hiển thị</div>
-        <div class="blp-note highlight">Số lượng gợi ý chung cho tất cả gói — không phân biệt gói nữa.</div>
-        <div class="blp-rule" style="margin-top:8px;">
-          <div class="blp-rule-dot">1</div>
-          <div class="blp-rule-text"><strong>Số gợi ý / ngày</strong> — Mặc định 30. Chung cho tất cả user.</div>
-        </div>
-        <div class="blp-rule">
-          <div class="blp-rule-dot">2</div>
-          <div class="blp-rule-text"><strong>Ngày tự động hủy</strong> — Mặc định 7 ngày. Gửi N-016 vào ngày 2 và 5.</div>
-        </div>
-        <div class="blp-rule">
-          <div class="blp-rule-dot">3</div>
-          <div class="blp-rule-text"><strong>Giới hạn match đồng thời</strong> — Mặc định 5. Vượt giới hạn thì không match mới được.</div>
+        <div class="blp-section-title">Tổng quan</div>
+        <div class="blp-note highlight">18 loại push notification. N-002, N-006, N-016 là bắt buộc — user không tắt được.</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Danh sách theo nhóm</div>
+        <div class="blp-rule" style="margin-top:4px;">
+          <div class="blp-rule-dot">→</div>
+          <div class="blp-rule-text">Like (N-001), Match ON/OFF (N-002🔒/N-010), Tin nhắn (N-003), Lịch x2 (N-004/005), Quán🔒 (N-006), Ảnh x3 (N-007/008/009), Nhắc x2 (N-011/012), Đơn ứng x3 (N-013/014/015), Cảnh báo🔒 (N-016), Đặt lại (N-017), Review (N-018)</div>
         </div>
       </div>
       <div class="blp-section">
-        <div class="blp-section-title">NOT-01 · Push Notification 18 loại</div>
-        <div class="blp-note">N-002, N-006, N-016 là bắt buộc (không tắt được). Các loại còn lại user tự ON/OFF trong SCR-119.</div>
-        <div class="blp-rule" style="margin-top:8px;">
-          <div class="blp-rule-dot">→</div>
-          <div class="blp-rule-text">Like, Match, Tin nhắn, Đề xuất lịch, Xác nhận lịch, Xác nhận quán, Yêu cầu ảnh × 3, Hủy match, Nhắc trước / ngày hẹn, Đơn ứng tuyển, Được chọn, Không được chọn, Cảnh báo tự hủy, Đặt lại, Review</div>
-        </div>
-      </div>
-      <div class="blp-section">
-        <div class="blp-section-title">NOT-02 · Email 14 loại</div>
-        <div class="blp-note">M-001/002 bắt buộc. Gửi qua Sendgrid (noreply@otona-table.jp).</div>
-        <div class="blp-rule" style="margin-top:8px;">
-          <div class="blp-rule-dot">→</div>
-          <div class="blp-rule-text">Chào mừng, Xác thực, Match, Xác nhận đặt bàn, Nhắc hôm trước, Đặt lại quán, Hủy match, Yêu cầu review, Thay đổi gói, Thanh toán OK/NG, Reset mật khẩu, Tiếp nhận tố cáo, Đình chỉ tài khoản</div>
-        </div>
+        <div class="blp-section-title">Biến template</div>
+        <div class="blp-note">{name} tên đối phương · {store} tên quán · {date} ngày · {time} giờ · {n} số ngày còn lại</div>
       </div>
     </div>
 
