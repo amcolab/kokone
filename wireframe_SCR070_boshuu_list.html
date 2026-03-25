@@ -1666,6 +1666,30 @@
         }
       });
     }
+
+    // Make card titles clickable → detail screen
+    document.addEventListener('DOMContentLoaded', function() {
+      // 自分の募集 tab → SCR-071?mode=my
+      document.querySelectorAll('#content-recruit .m-card-title').forEach(function(el) {
+        el.style.cursor = 'pointer';
+        el.style.textDecoration = 'underline';
+        el.style.textDecorationColor = 'rgba(0,0,0,0.2)';
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          window.location.href = 'wireframe_SCR071_boshuu_detail.html?mode=my';
+        });
+      });
+      // 応募中 tab → SCR-071?mode=apply
+      document.querySelectorAll('#content-apply .m-card-title').forEach(function(el) {
+        el.style.cursor = 'pointer';
+        el.style.textDecoration = 'underline';
+        el.style.textDecorationColor = 'rgba(0,0,0,0.2)';
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          window.location.href = 'wireframe_SCR071_boshuu_detail.html?mode=apply';
+        });
+      });
+    });
   </script>
 
   <div class="blp-wrap">
