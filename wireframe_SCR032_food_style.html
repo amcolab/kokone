@@ -197,7 +197,7 @@
         <div class="step-indicator"><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div></div>
         <div class="screen-title">好みの食事スタイル</div>
 
-        <p class="hint" style="margin-bottom:14px;">デートで行きたいお店のジャンルを選んでください（複数選択可・必須）</p>
+        <p class="hint" style="margin-bottom:14px;">デートで行きたいお店のジャンルを選んでください（3つ以上選択・必須）</p>
 
         <div class="food-grid" id="foodGrid">
 
@@ -299,7 +299,7 @@
 
         </div>
 
-        <div id="food-hint" style="display:none;font-size:11px;color:#c00;margin-bottom:8px;text-align:center;">1つ以上選択してください</div>
+        <div id="food-hint" style="display:none;font-size:11px;color:#c00;margin-bottom:8px;text-align:center;">3つ以上選択してください</div>
         <button class="submit-btn" id="foodNextBtn" onclick="goNext()">次へ</button>
 
         <script>
@@ -308,15 +308,15 @@
           checkFoodSelection();
         }
         function checkFoodSelection(){
-          var any = document.querySelectorAll('#foodGrid .food-card.selected').length > 0;
+          var count = document.querySelectorAll('#foodGrid .food-card.selected').length;
           var btn = document.getElementById('foodNextBtn');
           var hint = document.getElementById('food-hint');
-          btn.style.opacity = any ? '1' : '0.45';
+          btn.style.opacity = count >= 3 ? '1' : '0.45';
           hint.style.display = 'none';
         }
         function goNext(){
-          var any = document.querySelectorAll('#foodGrid .food-card.selected').length > 0;
-          if(!any){ document.getElementById('food-hint').style.display='block'; return; }
+          var count = document.querySelectorAll('#foodGrid .food-card.selected').length;
+          if(count < 3){ document.getElementById('food-hint').style.display='block'; return; }
           window.location.href='wireframe_SCR060_flat.html?welcome=true';
         }
         checkFoodSelection();
@@ -349,7 +349,7 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">入力ルール</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須・複数選択可</strong> — 最低1つ以上選択しないと次へ進めない。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須・3つ以上選択</strong> — 最低3つ以上選択しないと次へ進めない。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>上限なし</strong> — 全カテゴリ選択可能。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>レコメンド用途</strong> — 新規登録時のみ必須。後から マイページ > プロフィール編集 で変更可。</div></div>
       </div>
@@ -372,7 +372,7 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Quy tắc</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — phải chọn ít nhất 1 tag mới sang bước tiếp.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — phải chọn ít nhất 3 lựa chọn mới sang bước tiếp.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Multi-select</strong> — không giới hạn số lượng chọn.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Có thể chỉnh sửa sau trong My Page > Edit Profile.</div></div>
       </div>

@@ -601,15 +601,24 @@
         <div class="section-label">日時帯<span class="required">（必須）</span></div>
 
         <div style="margin-bottom: 12px;">
-          <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">曜日</div>
-          <div class="day-chips">
-            <div class="day-chip">月</div>
-            <div class="day-chip">火</div>
-            <div class="day-chip active">水</div>
-            <div class="day-chip">木</div>
-            <div class="day-chip">金</div>
-            <div class="day-chip">土</div>
-            <div class="day-chip">日</div>
+          <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">日付</div>
+          <div class="chip-group" id="date-chips" style="margin-bottom: 8px;">
+            <div class="chip active" onclick="selectDate(this, 'today')">今日</div>
+            <div class="chip" onclick="selectDate(this, 'tomorrow')">明日</div>
+            <div class="chip" onclick="selectDate(this, 'other')">カレンダーから選択...</div>
+          </div>
+          
+          <div id="day-selector" style="display:none;">
+            <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">曜日</div>
+            <div class="day-chips">
+              <div class="day-chip">月</div>
+              <div class="day-chip">火</div>
+              <div class="day-chip active">水</div>
+              <div class="day-chip">木</div>
+              <div class="day-chip">金</div>
+              <div class="day-chip">土</div>
+              <div class="day-chip">日</div>
+            </div>
           </div>
         </div>
 
@@ -693,25 +702,6 @@
         </div>
       </div>
 
-      <!-- Restaurant Suggestion Section -->
-      <div class="form-section">
-        <div class="section-label">おすすめの店（任意）</div>
-        <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">候補者に提案するお店を最大3件まで追加できます</div>
-        
-        <div class="restaurant-list">
-          <div class="restaurant-item">
-            <span>ビストロ・オー (新宿)</span>
-            <span class="remove-btn">×</span>
-          </div>
-          <div class="restaurant-item">
-            <span>和食処 みやび (渋谷)</span>
-            <span class="remove-btn">×</span>
-          </div>
-        </div>
-        
-        <button class="add-restaurant-btn" onclick="const name = prompt('店名を入力してください'); if(name) alert('追加しました: ' + name)">+ お店を追加する</button>
-      </div>
-
       <!-- Max Applicants Section -->
       <div class="form-section">
         <div class="section-label">応募人数の上限<span class="required">（必須）</span></div>
@@ -729,11 +719,12 @@
 
       <!-- Period Section -->
       <div class="form-section">
-        <div class="section-label">募集期間</div>
-        <div class="period-chips">
-          <div class="period-chip">24時間</div>
-          <div class="period-chip active">3日間</div>
-          <div class="period-chip">1週間</div>
+        <div class="section-label">募集期限<span class="required">（必須）</span></div>
+        <div id="kigen-hint" style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">食事日の前日がデフォルトの期限となります。</div>
+        <div class="period-chips" id="kigen-chips">
+          <div class="period-chip active" onclick="selectKigen(this)">前日まで</div>
+          <div class="period-chip" onclick="selectKigen(this)">3時間前</div>
+          <div class="period-chip" onclick="selectKigen(this)">1時間前</div>
         </div>
       </div>
     </div>
@@ -741,7 +732,29 @@
     <div class="note" style="font-size: 10px; color: var(--c4); padding: 8px 16px; background: var(--c1); border-top: var(--border);">※ 公開後、相手が選ばれると自動で非公開になります</div>
 
     <div class="bottom-sticky">
-      <button class="publish-button" onclick="alert('募集を公開しました！'); window.location.href='wireframe_SCR070_boshuu_list.html'">募集を公開する</button>
+      <button class="publish-button" onclick="showConfirmModal()">募集を公開する</button>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="publish-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:#fff; width:100%; max-width:320px; padding:24px; border:2px solid #212121;">
+        <div style="font-size:16px; font-weight:bold; margin-bottom:16px; text-align:center;">募集内容の確認</div>
+        
+        <div style="margin-bottom:16px; font-size:12px; line-height:1.6;">
+          <div style="color:#757575; margin-bottom:4px;">日時:</div>
+          <div id="confirm-datetime" style="font-weight:600; margin-bottom:12px;">今日 / 夜</div>
+          
+          <div style="color:#757575; margin-bottom:4px;">提案するお店:</div>
+          <div id="confirm-restaurants" style="font-weight:600;"></div>
+        </div>
+        
+        <div style="font-size:11px; color:#c00; margin-bottom:20px; text-align:center;">この内容で公開してよろしいですか？</div>
+        
+        <div style="display:flex; gap:12px;">
+          <button onclick="hideConfirmModal()" style="flex:1; height:40px; border:1px solid #bdbdbd; background:#fff; font-size:12px; font-weight:bold; cursor:pointer;">修正する</button>
+          <button onclick="executePublish()" style="flex:1; height:40px; border:none; background:#212121; color:#fff; font-size:12px; font-weight:bold; cursor:pointer;">公開する</button>
+        </div>
+      </div>
     </div>
 
     <div class="app-bottom-nav">
@@ -778,10 +791,11 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 曜日、時間帯、希望エリア、ひとことメッセージ、店舗提案、応募人数上限。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 日付、時間帯、希望エリア、ひとことメッセージ、店舗提案、応募人数上限。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>日付選択</strong> — 「今日」「明日」をクイック選択可能。それ以外はカレンダーから指定。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗提案</strong> — 自分のお気に入りリストから最大3件まで選択。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期間</strong> — 24時間, 3日間, 1週間から選択可（デフォルト3日間）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期限</strong> — 基本は「食事日の前日」がデフォルトの期限。食事日が「今日」の場合は当日期限となる。</div></div>
       </div>
     </div>
 
@@ -793,10 +807,11 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Thứ, buổi, khu vực, lời nhắn, đề xuất quán, giới hạn số người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Ngày, buổi, khu vực, lời nhắn, đề xuất quán, giới hạn số người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>Chọn ngày</strong> — Cho phép chọn nhanh "Hôm nay", "Ngày mai". Khác thì chọn từ lịch.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đề xuất quán</strong> — Chọn tối đa 3 quán từ danh sách "Favorites" của mình.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn</strong> — 24h, 3 ngày, 1 tuần (mặc định 3 ngày).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn (Deadline)</strong> — Mặc định là "Trước ngày đi ăn". Nếu đi ăn ngày mai thì hôm nay là hạn. Nếu đi hôm nay thì hạn là vài tiếng trước khi ăn.</div></div>
       </div>
     </div>
   </div>
@@ -811,6 +826,70 @@
     function selectMaxApplicants(el) {
       document.querySelectorAll('#max-applicants-chips .chip').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
+    }
+    function selectDate(el, type) {
+      document.querySelectorAll('#date-chips .chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const daySelector = document.getElementById('day-selector');
+      const kigenHint = document.getElementById('kigen-hint');
+      const kigenChips = document.getElementById('kigen-chips');
+      
+      // Default behavior
+      document.querySelectorAll('#kigen-chips .period-chip').forEach(c => {
+        c.classList.remove('active');
+        c.style.display = 'block';
+      });
+
+      if (type === 'today') {
+        daySelector.style.display = 'none';
+        kigenHint.textContent = '今日が食事日のため、当日の期限を選択してください。';
+        kigenChips.children[0].style.display = 'none'; // "Before the day" is impossible
+        kigenChips.children[1].classList.add('active'); // Default to 3 hours
+      } else if (type === 'tomorrow') {
+        daySelector.style.display = 'none';
+        kigenHint.textContent = '明日の食事のため、今日中（前日）が期限となります。';
+        kigenChips.children[0].classList.add('active');
+      } else {
+        daySelector.style.display = 'block';
+        kigenHint.textContent = '食事日の前日がデフォルトの募集期限となります。';
+        kigenChips.children[0].classList.add('active');
+      }
+    }
+    
+    function selectKigen(el) {
+      document.querySelectorAll('#kigen-chips .period-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+    
+    function showConfirmModal() {
+      // Get selected date/time
+      const dateText = document.querySelector('#date-chips .chip.active').textContent;
+      const timeText = document.querySelector('.time-chip.active').textContent;
+      const kigenText = document.querySelector('#kigen-chips .period-chip.active').textContent;
+      document.getElementById('confirm-datetime').innerHTML = 
+        `${dateText} / ${timeText}<br><span style="font-weight:400; color:#c00;">(募集期限: ${kigenText})</span>`;
+      
+      // Get selected restaurants
+      const selectedRes = Array.from(document.querySelectorAll('.restaurant-choice-item.selected'))
+        .map(el => el.querySelector('.res-name').textContent);
+      
+      const resContainer = document.getElementById('confirm-restaurants');
+      if (selectedRes.length > 0) {
+        resContainer.innerHTML = selectedRes.map(name => `<div style="margin-bottom:4px;">・${name}</div>`).join('');
+      } else {
+        resContainer.textContent = '選択なし';
+      }
+      
+      document.getElementById('publish-confirm-modal').style.display = 'flex';
+    }
+    
+    function hideConfirmModal() {
+      document.getElementById('publish-confirm-modal').style.display = 'none';
+    }
+    
+    function executePublish() {
+      alert('募集を公開しました！');
+      window.location.href='wireframe_SCR070_boshuu_list.html';
     }
   </script>
 </div>

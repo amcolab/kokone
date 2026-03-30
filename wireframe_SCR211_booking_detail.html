@@ -447,32 +447,12 @@
 
         <!-- Proposal Section (Visible when re-adjustment is needed) -->
         <div id="proposal-section" style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed #e0e0e0; display: none;">
-          <div style="font-size: 13px; font-weight: bold; margin-bottom: 16px; color: #212121;">日程の再提案 (予約不可時)</div>
+          <div style="font-size: 13px; font-weight: bold; margin-bottom: 16px; color: #212121;">日程調整の依頼</div>
           
-          <p style="font-size: 11px; color: #d32f2f; margin-bottom: 12px;">※指定の日時で予約が取れなかった場合、ユーザーに新しい候補日時を提案します。</p>
+          <p style="font-size: 11px; color: #d32f2f; margin-bottom: 12px;">※指定の日時で予約が取れなかった場合、ユーザーに日程の再調整を依頼します。</p>
 
           <div class="detail-row">
-            <div class="detail-label">候補日時1</div>
-            <div class="detail-value">
-              <div style="display: flex; gap: 8px;">
-                <input type="date" class="status-dropdown" style="width: 150px;">
-                <input type="time" class="status-dropdown" style="width: 100px;">
-              </div>
-            </div>
-          </div>
-
-          <div class="detail-row">
-            <div class="detail-label">候補日時2</div>
-            <div class="detail-value">
-              <div style="display: flex; gap: 8px;">
-                <input type="date" class="status-dropdown" style="width: 150px;">
-                <input type="time" class="status-dropdown" style="width: 100px;">
-              </div>
-            </div>
-          </div>
-
-          <div class="detail-row">
-            <div class="detail-label">理由 (ユーザー宛)</div>
+            <div class="detail-label">調整理由 (ユーザー宛)</div>
             <div class="detail-value">
               <select class="status-dropdown" style="width: 100%;">
                 <option>希望日時が満席のため</option>
@@ -489,15 +469,13 @@
               <div style="background: #fff3e0; padding: 12px; border-radius: 4px; font-size: 12px; border: 1px solid #ffe0b2;">
                 <strong>ユーザー向けの通知内容:</strong><br><br>
                 大変申し訳ございません。ご希望の日時（3/20 19:00）は、店舗が満席のため予約を承ることができませんでした。<br><br>
-                代わりとして、以下の日時で調整可能でしょうか？<br>
-                ・候補1: [入力した日時1]<br>
-                ・候補2: [入力した日時2]<br><br>
-                マイページよりご回答をお願いいたします。
+                お手数ですが、改めてマイページより別の日程候補の入力をお願いいたします。<br><br>
+                マイページより再入力へ進んでください。
               </div>
             </div>
           </div>
           <div style="margin-top: 12px; text-align: right;">
-            <button class="action-btn" style="background:#ff9800;">再提案を送付する</button>
+            <button class="action-btn" style="background:#ff9800;" onclick="requestAdjustment()">日程調整を依頼する</button>
           </div>
         </div>
 
@@ -521,16 +499,29 @@
     function toggleConfirmedSection(status) {
       const confirmedSection = document.getElementById('confirmed-section');
       const proposalSection = document.getElementById('proposal-section');
+      const statusBadge = document.querySelector('.status-badge');
       
       // Reset visibility
       confirmedSection.style.display = 'none';
       proposalSection.style.display = 'none';
+
+      // Update badge text based on selection
+      const statusSelect = document.querySelector('.status-dropdown');
+      const selectedText = statusSelect.options[statusSelect.selectedIndex].text;
+      statusBadge.textContent = selectedText;
 
       if (status === 'confirmed') {
         confirmedSection.style.display = 'block';
       } else if (status === 'adjusting') {
         proposalSection.style.display = 'block';
       }
+    }
+
+    function requestAdjustment() {
+      const statusSelect = document.querySelector('.status-dropdown');
+      statusSelect.value = 'adjusting';
+      toggleConfirmedSection('adjusting');
+      alert('日程調整を依頼しました。ステータスを「日程調整中」に更新しました。');
     }
 
     // Initial check
