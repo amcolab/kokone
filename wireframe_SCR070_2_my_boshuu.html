@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-070-2 - My Recruitments</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --c0: #ffffff; --c1: #f5f5f5; --c2: #e0e0e0; --c3: #bdbdbd; --c4: #757575; --c5: #424242; --c6: #212121;
+      --border: 1px solid #e0e0e0;
+    }
+    body { font-family: -apple-system, sans-serif; background: var(--c0); }
+    .device {
+      width: 360px; height: 812px; border: 1.5px solid var(--c6); margin: 20px auto;
+      display: flex; flex-direction: column; background: var(--c1); overflow: hidden; position: relative;
+    }
+    .status-bar { height: 20px; background: var(--c6); color: var(--c0); font-size: 9px; display: flex; align-items: center; padding: 0 8px; justify-content: space-between; }
+    .app-header { background: var(--c0); border-bottom: var(--border); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+    .back-btn { font-size: 18px; cursor: pointer; color: var(--c6); }
+    .app-title { font-size: 14px; font-weight: 600; color: var(--c6); flex: 1; }
+    .filter-strip { background: var(--c0); border-bottom: var(--border); padding: 8px 16px; display: flex; gap: 6px; overflow-x: auto; }
+    .filter-chip { background: var(--c1); border: 1px solid var(--c3); padding: 6px 10px; font-size: 11px; white-space: nowrap; cursor: pointer; }
+    .filter-chip.active { background: var(--c5); color: var(--c0); border-color: var(--c5); }
+    .content-area { flex: 1; overflow-y: auto; padding: 12px; }
+    .m-card { background: var(--c0); border: 1px solid var(--c6); margin-bottom: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .m-card-header { display: flex; justify-content: space-between; }
+    .m-card-title { font-size: 14px; font-weight: 700; color: var(--c6); }
+    .m-status-tag { font-size: 9px; font-weight: 700; padding: 2px 6px; border: 1px solid var(--c6); }
+    .m-status-tag.OPEN { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+    .m-status-tag.FULL { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+    .m-status-tag.SELECTING { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+    .m-status-tag.MATCH_CONFIRMED { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+    .m-status-tag.CLOSED { background: #f5f5f5; color: #757575; border-color: #e0e0e0; }
+    .m-card-row { display: flex; gap: 12px; font-size: 12px; color: var(--c5); }
+    .m-card-meta { font-size: 11px; color: var(--c4); display: flex; justify-content: space-between; margin-top: 4px; }
+    .m-card-footer { display: flex; gap: 8px; margin-top: 4px; }
+    .m-btn { flex: 1; height: 32px; font-size: 11px; font-weight: 600; border: 1px solid var(--c6); background: var(--c0); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .m-btn.primary { background: var(--c6); color: var(--c0); }
+    .m-partner-info { font-size: 11px; color: #2e7d32; font-weight: 600; background: #e8f5e9; padding: 4px 8px; margin-top: 4px; }
+    
+    /* Common Sidebar & BLP Styles */
+    .wf-sidebar { width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999; }
+    .wf-sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px; }
+    .wf-logo-mark { width: 22px; height: 22px; border: 2px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; }
+    .wf-logo-text { font-size: 12px; font-weight: 700; }
+    .wf-sidebar-group { border-bottom: 1px solid #e0e0e0; }
+    .wf-group-label { padding: 7px 14px 3px; font-size: 9px; color: #bdbdbd; text-transform: uppercase; }
+    .wf-nav-link { display: flex; align-items: center; gap: 5px; padding: 5px 14px; font-size: 11px; color: #757575; text-decoration: none; }
+    .wf-nav-link:hover { background: #f5f5f5; }
+    .wf-nav-id { font-size: 9px; color: #bdbdbd; width: 24px; }
+    .blp-wrap { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; overflow-y: auto; background: #fff; border-left: 2px solid #212121; z-index: 9998; font-size: 11px; }
+    .blp-head { position: sticky; top: 0; background: #212121; color: #fff; padding: 10px 14px; }
+    .blp-head-scr { font-size: 9px; color: #bdbdbd; }
+    .blp-head-title { font-size: 12px; font-weight: 700; }
+    .blp-body { padding: 12px; }
+    .blp-section { margin-bottom: 14px; }
+    .blp-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9e9e9e; border-bottom: 1px solid #f0f0f0; margin-bottom: 7px; }
+  </style>
+</head>
+
+<body style="margin-left:200px; margin-right:280px;">
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR070_2_my_boshuu.html" style="background:#f5f5f5; font-weight:600; color:#212121;"><span class="wf-nav-id">070-2</span>自分の募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR070_3_applied_boshuu.html"><span class="wf-nav-id">070-3</span>応募中の募集</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    </div>
+  </nav>
+
+  <div class="device">
+    <div class="status-bar"><span>9:41</span><span>●●●●● 100%</span></div>
+    <div class="app-header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR110_mypage.html'">←</div>
+      <span class="app-title">自分の募集</span>
+    </div>
+
+    <div class="filter-strip">
+      <div class="filter-chip active" onclick="filterCards('ALL', this)">すべて</div>
+      <div class="filter-chip" onclick="filterCards('OPEN', this)">募集中</div>
+      <div class="filter-chip" onclick="filterCards('SELECTING|FULL', this)">選定中</div>
+      <div class="filter-chip" onclick="filterCards('MATCH_CONFIRMED', this)">成立</div>
+      <div class="filter-chip" onclick="filterCards('CLOSED', this)">終了</div>
+    </div>
+
+    <div class="content-area" id="list-container">
+      <!-- R-001 -->
+      <div class="m-card">
+        <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my'" style="cursor:pointer;">
+          <div class="m-card-title">金曜夜に軽くご飯行ける方</div>
+          <div class="m-status-tag OPEN">募集中</div>
+        </div>
+        <div class="m-card-row"><span>📍 渋谷</span><span>📅 3/28 夜</span></div>
+        <div class="m-card-meta"><span>応募者: 0/6名</span><span>期限: 3/27 18:00</span></div>
+        <div class="m-card-footer">
+          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my'">詳細を見る</button>
+          <button class="m-btn" onclick="confirm('募集を終了しますか？')">募集を終了</button>
+        </div>
+      </div>
+
+      <!-- R-002 -->
+      <div class="m-card">
+        <div class="m-card-header" onclick="window.location.href='wireframe_SCR073_boshuu_applicants.html'" style="cursor:pointer;">
+          <div class="m-card-title">平日ランチで話せる方募集</div>
+          <div class="m-status-tag OPEN">募集中</div>
+        </div>
+        <div class="m-card-row"><span>📍 新宿</span><span>📅 3/29 昼</span></div>
+        <div class="m-card-meta"><span>応募者: 3/6名</span><span>期限: 3/28 12:00</span></div>
+        <div class="m-card-footer">
+          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR073_boshuu_applicants.html'">応募者を見る</button>
+          <button class="m-btn">募集を終了</button>
+        </div>
+      </div>
+
+      <!-- R-003 -->
+      <div class="m-card">
+        <div class="m-card-header">
+          <div class="m-card-title">横浜で落ち着いたお店に行きたいです</div>
+          <div class="m-status-tag FULL">満員</div>
+        </div>
+        <div style="font-size: 11px; color: #c62828; font-weight: 700; margin-bottom: 4px;">⚠️ 募集期限が切れました。</div>
+        <div class="m-card-row"><span>📍 横浜</span><span>📅 3/30 夜</span></div>
+        <div class="m-card-meta"><span>応募者: 6/6名</span><span style="color: #c62828;">期限: 終了(3/29)</span></div>
+        <div class="m-card-footer">
+          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR073_boshuu_applicants.html'">候補者を選定する</button>
+        </div>
+      </div>
+
+      <!-- R-004 -->
+      <div class="m-card">
+        <div class="m-card-header">
+          <div class="m-card-title">仕事帰りにご飯できる方</div>
+          <div class="m-status-tag SELECTING">選定中</div>
+        </div>
+        <div class="m-card-row"><span>📍 恵比寿</span><span>📅 3/31 夜</span></div>
+        <div class="m-card-meta"><span>応募者: 4/6名</span><span>期限: 3/30 18:00</span></div>
+        <div class="m-card-footer"><button class="m-btn primary">応募者を見る</button></div>
+      </div>
+
+      <!-- R-005 -->
+      <div class="m-card">
+        <div class="m-card-header">
+          <div class="m-card-title">土曜ランチでゆっくり話したいです</div>
+          <div class="m-status-tag MATCH_CONFIRMED">マッチング成立</div>
+        </div>
+        <div class="m-card-row"><span>📍 銀座</span><span>📅 4/1 昼</span></div>
+        <div class="m-partner-info">✓ Ayaさんとマッチングしました</div>
+        <div class="m-card-footer">
+          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR074_selection_result.html'">選定結果を見る</button>
+        </div>
+      </div>
+
+      <!-- R-006 -->
+      <div class="m-card">
+        <div class="m-card-header">
+          <div class="m-card-title">落ち着いた和食をご一緒できる方</div>
+          <div class="m-status-tag CLOSED">終了</div>
+        </div>
+        <div class="m-card-row"><span>📍 品川</span><span>📅 3/24 夜</span></div>
+        <div class="m-partner-info">✓ Mikaさんとマッチング済み</div>
+        <div class="m-card-footer">
+          <button class="m-btn primary">詳細を見る</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-scr">SCR-070-2</div>
+      <div class="blp-head-title">自分の募集管理</div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <p>自分が投稿した募集の一覧表示と管理。</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterCards(status, chipEl) {
+      const container = chipEl.parentElement;
+      container.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+      chipEl.classList.add('active');
+      const cards = document.querySelectorAll('.m-card');
+      const targetStatuses = status.split('|');
+      cards.forEach(card => {
+        if (status === 'ALL') {
+          card.style.display = 'flex';
+        } else {
+          const statusTag = card.querySelector('.m-status-tag');
+          const hasStatus = targetStatuses.some(s => statusTag.classList.contains(s));
+          card.style.display = hasStatus ? 'flex' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
