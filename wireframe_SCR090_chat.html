@@ -244,6 +244,129 @@
             padding: 8px;
             border-top: 1px solid var(--c2);
         }
+
+        /* === WIZARD STYLES === */
+        .wizard-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: flex-end;
+        }
+        .wizard-sheet {
+            background: var(--c0);
+            width: 100%;
+            border-radius: 16px 16px 0 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: slideUp 0.3s ease-out;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .wizard-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--c6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wizard-step-info {
+            font-size: 11px;
+            color: var(--c4);
+            margin-bottom: 4px;
+        }
+        .wizard-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .restaurant-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid var(--c2);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .restaurant-item.selected {
+            border-color: var(--c6);
+            background: var(--c1);
+        }
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--c3);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .selected .checkbox-custom {
+            background: var(--c6);
+            border-color: var(--c6);
+        }
+        .selected .checkbox-custom::after {
+            content: '✓';
+            color: #fff;
+            font-size: 12px;
+        }
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .date-slot {
+            padding: 8px 4px;
+            border: 1px solid var(--c2);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .date-slot.selected {
+            background: var(--c6);
+            color: #fff;
+            border-color: var(--c6);
+        }
+        .date-slot.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .wizard-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .wizard-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--c6);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .wizard-btn.primary {
+            background: var(--c6);
+            color: #fff;
+        }
+        .wizard-btn.secondary {
+            background: #fff;
+            color: var(--c6);
+        }
+        .wizard-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
 .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
@@ -452,7 +575,7 @@
                 <span>⏱ お店の予約完了期限：</span>
                 <span class="timer-highlight">23:59:59</span>
             </div>
-            <button class="timer-btn" onclick="window.location.href='wireframe_SCR081_schedule.html'">日程を決める →</button>
+            <button class="timer-btn" onclick="openWizard()">日程を決める →</button>
         </div>
 
         <!-- Chat Area -->
@@ -493,10 +616,6 @@
                 </div>
             </div>
 
-            <!-- Action Button -->
-            <div class="action-btn-chat">
-                📅 食事日程を一緒に決めましょう →
-            </div>
         </div>
 
         <!-- Input Area -->
@@ -517,6 +636,78 @@
         <!-- Footer -->
         <div class="footer-note">
             フロー: SCR-065/SCR-080 → SCR-090 ★ (24h limit) → 日程決定後も継続 → 食事後72hで終了
+        </div>
+
+        <!-- Wizard Overlay -->
+        <div id="wizardOverlay" class="wizard-overlay">
+            <div class="wizard-sheet">
+                <div class="wizard-title">
+                    <span id="wizardStepTitle">お店を選ぶ (1/2)</span>
+                    <span style="cursor:pointer; font-size: 20px;" onclick="closeWizard()">×</span>
+                </div>
+                
+                <!-- Step 1: Restaurant -->
+                <div id="step1" class="wizard-content">
+                    <div class="wizard-step-info">お相手に提案するお店を最大3つ選んでください。</div>
+                    <div class="restaurant-item" onclick="toggleSelection(this, 'res')">
+                        <div class="checkbox-custom"></div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600;">ビストロ青葉 (フレンチ)</div>
+                            <div style="font-size:11px; color:var(--c4);">恵比寿駅 徒歩5分</div>
+                        </div>
+                    </div>
+                    <div class="restaurant-item" onclick="toggleSelection(this, 'res')">
+                        <div class="checkbox-custom"></div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600;">和食 しずく (懐石)</div>
+                            <div style="font-size:11px; color:var(--c4);">六本木駅 徒歩3分</div>
+                        </div>
+                    </div>
+                    <div class="restaurant-item" onclick="toggleSelection(this, 'res')">
+                        <div class="checkbox-custom"></div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600;">鮨 みなと (江戸前)</div>
+                            <div style="font-size:11px; color:var(--c4);">銀座駅 徒歩4分</div>
+                        </div>
+                    </div>
+                    <div class="restaurant-item" onclick="toggleSelection(this, 'res')">
+                        <div class="checkbox-custom"></div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600;">イタリアン・ラ・ボラ</div>
+                            <div style="font-size:11px; color:var(--c4);">渋谷駅 徒歩6分</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Schedule -->
+                <div id="step2" class="wizard-content" style="display: none;">
+                    <div class="wizard-step-info">候補日時を最大5つ選んでください。</div>
+                    <div style="font-size:11px; font-weight:600; margin-bottom: 4px;">来週 (3/23 - 3/29)</div>
+                    <div class="date-grid">
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/23<br>18:30-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/23<br>19:30-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/24<br>19:00-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/25<br>18:00-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/26<br>19:30-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/27<br>18:30-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/28<br>12:00-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/29<br>13:00-</div>
+                    </div>
+                    <div style="font-size:11px; font-weight:600; margin-top: 8px; margin-bottom: 4px;">再来週 (3/30 - 4/5)</div>
+                    <div class="date-grid">
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/30<br>19:00-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">3/31<br>19:00-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">4/01<br>18:30-</div>
+                        <div class="date-slot" onclick="toggleSelection(this, 'date')">4/02<br>19:30-</div>
+                    </div>
+                </div>
+
+                <div class="wizard-footer">
+                    <button id="prevBtn" class="wizard-btn secondary" style="display:none;" onclick="prevStep()">戻る</button>
+                    <button id="nextBtn" class="wizard-btn primary" onclick="nextStep()">次へ</button>
+                    <button id="sendBtn" class="wizard-btn primary" style="display:none;" onclick="sendProposal()">提案を送る</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -573,6 +764,76 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+
+    let currentStep = 1;
+    let selectedRestaurants = 0;
+    let selectedDates = 0;
+
+    function openWizard() {
+        document.getElementById('wizardOverlay').style.display = 'flex';
+        currentStep = 1;
+        updateWizardUI();
+    }
+
+    function closeWizard() {
+        document.getElementById('wizardOverlay').style.display = 'none';
+    }
+
+    function toggleSelection(el, type) {
+        if (type === 'res') {
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedRestaurants--;
+            } else if (selectedRestaurants < 3) {
+                el.classList.add('selected');
+                selectedRestaurants++;
+            }
+        } else {
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedDates--;
+            } else if (selectedDates < 5) {
+                el.classList.add('selected');
+                selectedDates++;
+            }
+        }
+        updateWizardUI();
+    }
+
+    function nextStep() {
+        if (currentStep === 1 && selectedRestaurants > 0) {
+            currentStep = 2;
+        }
+        updateWizardUI();
+    }
+
+    function prevStep() {
+        if (currentStep === 2) {
+            currentStep = 1;
+        }
+        updateWizardUI();
+    }
+
+    function updateWizardUI() {
+        document.getElementById('step1').style.display = currentStep === 1 ? 'flex' : 'none';
+        document.getElementById('step2').style.display = currentStep === 2 ? 'flex' : 'none';
+        
+        document.getElementById('prevBtn').style.display = currentStep === 2 ? 'block' : 'none';
+        document.getElementById('nextBtn').style.display = currentStep === 1 ? 'block' : 'none';
+        document.getElementById('sendBtn').style.display = currentStep === 2 ? 'block' : 'none';
+        
+        document.getElementById('wizardStepTitle').textContent = currentStep === 1 ? 'お店を選ぶ (1/2)' : '日程を選ぶ (2/2)';
+        
+        // Button states
+        document.getElementById('nextBtn').disabled = selectedRestaurants === 0;
+        document.getElementById('sendBtn').disabled = selectedDates === 0;
+    }
+
+    function sendProposal() {
+        alert('日程とお店の提案を送信しました！');
+        closeWizard();
+        // Optionally redirect or add message to chat
     }
   </script>
 </div>

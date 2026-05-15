@@ -74,154 +74,152 @@
         }
         
         .tabs {
-            display: flex;
-            border-bottom: 2px solid var(--c2);
+            padding: 12px;
             background: var(--c0);
+            display: flex;
+            gap: 4px;
         }
         .tab {
             flex: 1;
-            padding: 14px 0;
+            padding: 8px 0;
             text-align: center;
             font-size: 13px;
             font-weight: 600;
             color: var(--c4);
             cursor: pointer;
-            position: relative;
+            background: #eee;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
         .tab.active {
             color: var(--c6);
+            background: var(--c0);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: var(--c6);
-        }
-
         .scroll-area {
             flex: 1;
             overflow-y: auto;
-            background: var(--c1);
+            background: var(--c0);
         }
         .content-section {
             display: none;
-            padding: 16px;
+            padding: 20px;
         }
         .content-section.active {
             display: block;
         }
 
-        .section-desc {
-            font-size: 12px;
-            color: var(--c5);
-            line-height: 1.5;
-            margin-bottom: 20px;
+        .meal-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
+        .lunch-color { color: #f57c00; }
+        .dinner-color { color: #5e35b1; }
 
-        /* Weekly Layout */
-        .weekly-grid {
+        .day-selector {
             display: grid;
-            grid-template-columns: 80px 1fr 1fr;
-            gap: 1px;
-            background: var(--c2);
-            border: 1px solid var(--c2);
-        }
-        .grid-header {
-            background: var(--c1);
-            padding: 10px;
-            font-size: 11px;
-            font-weight: 700;
-            text-align: center;
-            color: var(--c4);
-        }
-        .grid-cell-day {
-            background: var(--c0);
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .day-sun { color: #d32f2f; }
-        .day-sat { color: #1976d2; }
-
-        .slot-btn {
-            background: var(--c0);
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .slot-btn::before {
-            content: '×';
-            color: var(--c2);
-            font-size: 16px;
-        }
-        .slot-btn.active {
-            background: #fff;
-        }
-        .slot-btn.active::before {
-            content: '○';
-            color: var(--c6);
-            font-weight: 900;
-        }
-        .slot-btn:active {
-            background: #f0f0f0;
-        }
-
-        /* Specific Days Layout */
-        .date-list {
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: repeat(7, 1fr);
             gap: 12px;
+            margin-bottom: 24px;
         }
-        .date-card {
-            background: var(--c0);
-            border: 1px solid var(--c6);
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .date-info {
+        .day-col {
             display: flex;
             flex-direction: column;
-            gap: 2px;
-        }
-        .date-val {
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .date-dow {
-            font-size: 11px;
-            color: var(--c4);
-        }
-        .slot-selection {
-            display: flex;
+            align-items: center;
             gap: 8px;
         }
-        .slot-chip {
-            border: 1px solid var(--c3);
-            background: var(--c0);
-            color: var(--c4);
-            padding: 6px 12px;
+        .day-lbl {
             font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
+            font-weight: 700;
+        }
+        .symbol-box {
+            width: 32px;
+            height: 32px;
             border-radius: 4px;
+            background: #f8f8f8;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .slot-chip.active {
-            border-color: var(--c6);
-            background: var(--c6);
-            color: var(--c0);
+        .symbol-box.o { color: #212121; font-weight: 700; }
+        .symbol-box.x { color: #ccc; }
+        .symbol-box.delta { color: #999; }
+
+        .sub-title {
+            font-size: 11px;
+            color: #999;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .time-chip {
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #212121;
+            background: var(--c0);
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        .time-chip.lunch-active {
+            background: #ffe0b2;
+            box-shadow: inset 0 0 0 2px #f57c00;
+        }
+        .time-chip.dinner-active {
+            background: #d1c4e9;
+            box-shadow: inset 0 0 0 2px #5e35b1;
+        }
+        .time-chip .start-badge {
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            padding: 0 4px;
+            background: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 2px;
+        }
+
+        /* Specific Days */
+        .date-row {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+            gap: 16px;
+        }
+        .date-box {
+            width: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .date-num { font-size: 14px; font-weight: 700; }
+        .date-day { font-size: 10px; color: #999; }
+        .date-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .date-meal-row { display: flex; align-items: center; justify-content: space-between; }
+        .date-meal-lbl { font-size: 12px; font-weight: 600; }
+        .date-time-list { display: flex; flex-wrap: wrap; gap: 4px; }
+        .mini-chip { font-size: 9px; padding: 2px 6px; border-radius: 4px; background: #eee; }
+        .mini-chip.active { background: #212121; color: #fff; }
 
         /* Logic Panel */
         .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;}
@@ -260,111 +258,108 @@
     </div>
 
     <div class="tabs">
-        <div class="tab active" onclick="switchTab(this, 'weekly')">週次</div>
-        <div class="tab" onclick="switchTab(this, 'specific')">14日間</div>
+        <div class="tab active" onclick="switchTab(this, 'weekly')">基本設定</div>
+        <div class="tab" onclick="switchTab(this, 'specific')">日付指定</div>
     </div>
 
     <div class="scroll-area">
         <!-- Weekly Mode -->
         <div id="weekly-section" class="content-section active">
-            <p class="section-desc">毎週決まった曜日の空き時間を登録します。<br>マッチングの際の基本スケジュールとなります。</p>
+            <!-- Lunch -->
+            <div class="meal-title lunch-color">☀️ ランチ</div>
+            <div class="day-selector">
+                <div class="day-col"><span class="day-lbl" style="color:#d32f2f;">日</span><div class="symbol-box x" onclick="cycleSymbol(this)">×</div></div>
+                <div class="day-col"><span class="day-lbl">月</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl">火</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl">水</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl">木</span><div class="symbol-box delta" onclick="cycleSymbol(this)">Δ</div></div>
+                <div class="day-col"><span class="day-lbl">金</span><div class="symbol-box delta" onclick="cycleSymbol(this)">Δ</div></div>
+                <div class="day-col"><span class="day-lbl" style="color:#1976d2;">土</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+            </div>
+
+            <div class="sub-title">開始希望時刻</div>
+            <div class="time-grid">
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">11:00</div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">11:30</div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">12:00</div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">12:30</div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">13:00</div>
+                <div class="time-chip lunch-active" onclick="this.classList.toggle('lunch-active')">13:30<span class="start-badge">開始</span></div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">14:00</div>
+                <div class="time-chip lunch-active" onclick="this.classList.toggle('lunch-active')">14:30<span class="start-badge">開始</span></div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">15:00</div>
+                <div class="time-chip" onclick="this.classList.toggle('lunch-active')">15:30</div>
+            </div>
+
+            <div style="height:1px; background:#eee; margin: 32px 0;"></div>
+
+            <!-- Dinner -->
+            <div class="meal-title dinner-color">🌙 ディナー</div>
+            <div class="day-selector">
+                <div class="day-col"><span class="day-lbl" style="color:#d32f2f;">日</span><div class="symbol-box x" onclick="cycleSymbol(this)">×</div></div>
+                <div class="day-col"><span class="day-lbl">月</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl">火</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl">水</span><div class="symbol-box delta" onclick="cycleSymbol(this)">Δ</div></div>
+                <div class="day-col"><span class="day-lbl">木</span><div class="symbol-box delta" onclick="cycleSymbol(this)">Δ</div></div>
+                <div class="day-col"><span class="day-lbl">金</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+                <div class="day-col"><span class="day-lbl" style="color:#1976d2;">土</span><div class="symbol-box o" onclick="cycleSymbol(this)">○</div></div>
+            </div>
+
+            <div class="sub-title">開始希望時刻</div>
+            <div class="time-grid">
+                <div class="time-chip" onclick="this.classList.toggle('dinner-active')">17:00</div>
+                <div class="time-chip" onclick="this.classList.toggle('dinner-active')">17:30</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">18:00<span class="start-badge">開始</span></div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">18:30</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">19:00</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">19:30</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">20:00</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">20:30</div>
+                <div class="time-chip dinner-active" onclick="this.classList.toggle('dinner-active')">21:00<span class="start-badge">開始</span></div>
+                <div class="time-chip" onclick="this.classList.toggle('dinner-active')">21:30</div>
+                <div class="time-chip" onclick="this.classList.toggle('dinner-active')">22:00</div>
+                <div class="time-chip" onclick="this.classList.toggle('dinner-active')">22:30</div>
+            </div>
             
-            <div class="weekly-grid">
-                <div class="grid-header">曜日</div>
-                <div class="grid-header">ランチ</div>
-                <div class="grid-header">ディナー</div>
-                
-                <div class="grid-cell-day day-sun">月</div>
-                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day">火</div>
-                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day">水</div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day">木</div>
-                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day">金</div>
-                <div class="slot-btn" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day day-sat">土</div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-
-                <div class="grid-cell-day day-sun">日</div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
-                <div class="slot-btn active" onclick="this.classList.toggle('active')"></div>
+            <div style="font-size:10px; color:#ccc; display:flex; align-items:center; gap:4px; justify-content:center; padding: 20px 0;">
+                <span style="font-size:14px;">?</span> 開始希望時刻の設定について
             </div>
         </div>
 
         <!-- Specific Mode -->
         <div id="specific-section" class="content-section">
-            <p class="section-desc">これから14日間の具体的な予定を登録します。<br>週次スケジュールより優先されます。</p>
+            <div style="font-size:11px; color:#999; margin-bottom:16px;">
+                特定の日時を指定して登録します（基本設定より優先されます）。<br>
+                直近30日間の予定を設定できます。
+            </div>
             
-            <div class="date-list">
-                <!-- Data will be updated dynamically in a real app, here we hardcode 5 items for demo -->
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-val">3/23</div>
-                        <div class="date-dow">(月)</div>
-                    </div>
-                    <div class="slot-selection">
-                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
-                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-val">3/24</div>
-                        <div class="date-dow">(火)</div>
-                    </div>
-                    <div class="slot-selection">
-                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
-                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
+            <div id="date-list-container">
+                <!-- Date Rows -->
+                <div class="date-row">
+                    <div class="date-box"><span class="date-num">3/23</span><span class="date-day">(月)</span></div>
+                    <div class="date-content">
+                        <div class="date-meal-row">
+                            <span class="date-meal-lbl">☀️ ランチ</span>
+                            <div class="date-time-list"><span class="mini-chip">12:00</span><span class="mini-chip active">13:30</span></div>
+                        </div>
+                        <div class="date-meal-row">
+                            <span class="date-meal-lbl">🌙 ディナー</span>
+                            <div class="date-time-list"><span class="mini-chip">18:00</span><span class="mini-chip active">19:30</span></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-val">3/25</div>
-                        <div class="date-dow">(水)</div>
-                    </div>
-                    <div class="slot-selection">
-                        <div class="slot-chip active" onclick="this.classList.toggle('active')">昼</div>
-                        <div class="slot-chip" onclick="this.classList.toggle('active')">夜</div>
+                <div class="date-row">
+                    <div class="date-box"><span class="date-num">3/24</span><span class="date-day">(火)</span></div>
+                    <div class="date-content">
+                        <div class="date-meal-row"><span class="date-meal-lbl">☀️ ランチ</span><span style="font-size:10px; color:#ccc;">未設定</span></div>
+                        <div class="date-meal-row"><span class="date-meal-lbl">🌙 ディナー</span><div class="date-time-list"><span class="mini-chip active">19:00</span></div></div>
                     </div>
                 </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-val">3/26</div>
-                        <div class="date-dow">(木)</div>
-                    </div>
-                    <div class="slot-selection">
-                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
-                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
-                    </div>
+                <!-- ... other days ... -->
+                <div style="padding:20px; text-align:center; color:#ccc; font-size:11px;">
+                    以降30日目まで表示
                 </div>
-
-                <div class="date-card highlight">
-                    <div class="date-info">
-                        <div class="date-val">3/27</div>
-                        <div class="date-dow">(金)</div>
-                    </div>
-                    <div class="slot-selection">
-                        <div class="slot-chip" onclick="this.classList.toggle('active')">昼</div>
-                        <div class="slot-chip active" onclick="this.classList.toggle('active')">夜</div>
-                    </div>
-                </div>
-                
+            </div>
         </div>
     </div>
 
@@ -442,6 +437,16 @@
         
         document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
         document.getElementById(mode + '-section').classList.add('active');
+    }
+
+    function cycleSymbol(el) {
+        const symbols = ['○', 'Δ', '×'];
+        const classes = ['o', 'delta', 'x'];
+        let currentIdx = symbols.indexOf(el.textContent);
+        let nextIdx = (currentIdx + 1) % symbols.length;
+        
+        el.textContent = symbols[nextIdx];
+        el.className = 'symbol-box ' + classes[nextIdx];
     }
 
     // Onboarding Mode Logic
