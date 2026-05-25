@@ -323,26 +323,6 @@
     }
 
     /* === Received panel styles === */
-    .info-banner {
-      background: var(--c1);
-      border-bottom: var(--border);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .banner-text { font-size: 11px; color: var(--c4); flex: 1; line-height: 1.4; }
-    .banner-button {
-      font-size: 11px;
-      color: var(--c6);
-      border: 1px solid var(--c3);
-      padding: 5px 8px;
-      cursor: pointer;
-      white-space: nowrap;
-      background: var(--c0);
-    }
-
     .user-card {
       background: var(--c0);
       border-bottom: var(--border);
@@ -376,11 +356,255 @@
       color: var(--c0);
       border-color: var(--c5);
     }
-    .action-buttons .btn.disabled {
-      background: var(--c2);
-      color: var(--c4);
-      border-color: var(--c3);
-      pointer-events: none;
+    .match-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100001;
+    }
+    .match-modal {
+      width: 100%;
+      max-width: 328px;
+      background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      position: relative;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+    }
+    .match-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: #efebe7;
+      color: #7d736c;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .match-hero {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      padding-top: 22px;
+      margin-bottom: 18px;
+    }
+    .match-photo {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, #d9d9d9 0 26px, #bdbdbd 27px 45px, #efefef 46px 100%);
+      border: 1px solid #d6d6d6;
+      position: relative;
+      overflow: hidden;
+    }
+    .match-photo::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      width: 42px;
+      height: 42px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #6b6b6b;
+      opacity: 0.88;
+    }
+    .match-photo::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      width: 88px;
+      height: 68px;
+      transform: translateX(-50%);
+      border-radius: 46px 46px 22px 22px;
+      background: #8a8a8a;
+      opacity: 0.72;
+    }
+    .match-photo.left::before {
+      background: #555555;
+    }
+    .match-photo.right::before {
+      background: #767676;
+    }
+    .match-mask {
+      position: absolute;
+      left: 50%;
+      top: 28px;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 56px;
+      background: linear-gradient(180deg, #8d8d8d 0%, #b3b3b3 100%);
+      opacity: 0.75;
+      z-index: 2;
+    }
+    .match-heart {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #4d4d4d;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+      margin: 0 -10px;
+      z-index: 3;
+    }
+    .match-spark {
+      position: absolute;
+      top: 12px;
+      width: 34px;
+      height: 86px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0.75;
+    }
+    .match-spark.left {
+      left: 12px;
+      transform: rotate(-14deg);
+    }
+    .match-spark.right {
+      right: 12px;
+      transform: rotate(14deg);
+    }
+    .match-spark span {
+      width: 14px;
+      height: 4px;
+      border-radius: 999px;
+      background: #bdbdbd;
+      display: block;
+    }
+    .match-spark span:nth-child(2) {
+      width: 10px;
+      background: #9f9f9f;
+    }
+    .match-spark span:nth-child(3) {
+      width: 8px;
+      background: #d8d8d8;
+    }
+    .match-modal-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #212121;
+      margin-bottom: 8px;
+    }
+    .match-modal-sub {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .match-modal-sub strong {
+      color: #212121;
+    }
+    .match-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #8d8d8d;
+      margin-bottom: 14px;
+    }
+    .match-divider::before,
+    .match-divider::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: #dddddd;
+    }
+    .match-copy {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 16px;
+    }
+    .match-note {
+      display: flex;
+      gap: 12px;
+      background: #efefef;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    .match-note-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .match-note-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: #777777;
+      fill: none;
+      stroke-width: 1.8;
+    }
+    .match-note-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #3d3d3d;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .match-note-body {
+      font-size: 11px;
+      color: #666666;
+      line-height: 1.55;
+    }
+    .match-modal-action {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #4a4a4a 0%, #2f2f2f 100%);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .match-modal-action span {
+      font-size: 20px;
+      line-height: 1;
+    }
+    .match-modal-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #7a7a7a;
+    }
+    .match-modal-footer svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
     }
     .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
   </style>
@@ -537,47 +761,97 @@
     <!-- header-bar removed -->
 
     <div class="tab-bar">
-      <div class="tab active" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
-        送ったいいね<span class="tab-count" id="cnt-sent">12</span>
+      <div class="tab active" id="tab-received" onclick="switchTab('received')" style="cursor:pointer;">
+        もらったいいね<span class="tab-count" id="cnt-received">5</span>
       </div>
-      <div class="tab" id="tab-received" onclick="switchTab('received')" style="cursor:pointer;">
-        もらったいいね<span class="tab-count muted" id="cnt-received">5</span>
+      <div class="tab" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
+        送ったいいね<span class="tab-count muted" id="cnt-sent">12</span>
       </div>
     </div>
 
     <div class="content">
-      <div class="tab-panel" id="panel-sent">
+      <div class="tab-panel" id="panel-received">
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">なおさん · 32歳</div>
+            <div class="user-location">品川区</div>
+            <div class="tag-row">
+              <div class="tag">グルメ好き</div>
+              <div class="tag">落ち着いている</div>
+            </div>
+            <div class="sent-date">2日前</div>
+            <div class="action-buttons">
+              <div class="btn">ごめんなさい</div>
+              <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">ほなみさん · 28歳</div>
+            <div class="user-location">渋谷区</div>
+            <div class="tag-row">
+              <div class="tag">読書好き</div>
+              <div class="tag">アクティブ</div>
+            </div>
+            <div class="sent-date">4時間前</div>
+            <div class="action-buttons">
+              <div class="btn">ごめんなさい</div>
+              <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-card">
+          <div class="photo-box">✕✕</div>
+          <div class="card-info">
+            <div class="user-name">かなさん · 30歳</div>
+            <div class="user-location">新宿区</div>
+            <div class="tag-row">
+              <div class="tag">旅行好き</div>
+              <div class="tag">食通</div>
+            </div>
+            <div class="sent-date">1日前</div>
+            <div class="action-buttons">
+              <div class="btn">ごめんなさい</div>
+              <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel hidden" id="panel-sent">
         <div class="user-list">
-          <!-- Item 1 -->
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
               <div class="user-name">さくらさん · 34歳</div>
-              <div class="user-location">新宿区 · 会社員</div>
+              <div class="user-location">新宿区</div>
               <div class="status-badge">マッチング待ち</div>
               <div class="sent-date">3日前</div>
             </div>
             <div class="arrow-icon">›</div>
           </div>
 
-          <!-- Item 2 -->
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
               <div class="user-name">あいさん · 31歳</div>
-              <div class="user-location">品川区 · 営業</div>
+              <div class="user-location">品川区</div>
               <div class="status-badge">マッチング待ち</div>
               <div class="sent-date">5日前</div>
             </div>
             <div class="arrow-icon">›</div>
           </div>
 
-          <!-- Item 4 -->
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
               <div class="user-name">ひかりさん · 27歳</div>
-              <div class="user-location">新宿区 · イベント企画</div>
+              <div class="user-location">新宿区</div>
               <div class="status-badge expired">期限切れ (LIKE_EXPIRED)</div>
               <div class="sent-date">1週間前</div>
             </div>
@@ -585,122 +859,92 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- ===== PANEL: もらったいいね ===== -->
-      <div class="tab-panel hidden" id="panel-received">
-
-        <div class="info-banner">
-          <div class="banner-text">有料会員になると、いいねをくれた相手にいいねを返せます</div>
-          <div class="banner-button" onclick="window.location.href='wireframe_SCR111_subscription.html'">プランを確認する →</div>
+    <div class="match-modal-overlay" id="matchPopup">
+      <div class="match-modal">
+        <button class="match-modal-close" type="button" onclick="closeMatchPopup()">×</button>
+        <div class="match-hero">
+          <div class="match-spark left"><span></span><span></span><span></span></div>
+          <div class="match-photo left"><div class="match-mask"></div></div>
+          <div class="match-heart">♥</div>
+          <div class="match-photo right"><div class="match-mask"></div></div>
+          <div class="match-spark right"><span></span><span></span><span></span></div>
         </div>
-
-        <!-- Received card 1 (LIKE_RECEIVED) -->
-        <div class="user-card">
-          <div class="photo-box">✕✕</div>
-          <div class="card-info">
-            <div class="user-name">なおさん · 32歳</div>
-            <div class="user-location">品川区 · コンサルタント</div>
-            <div class="status-badge received" style="margin-bottom:4px;">いいね受信 (LIKE_RECEIVED)</div>
-            <div class="tag-row">
-              <div class="tag">グルメ好き</div>
-              <div class="tag">落ち着いている</div>
-            </div>
-            <div class="sent-date">2日前</div>
-            <div class="action-buttons">
-              <div class="btn">スキップ</div>
-              <div class="btn disabled">いいね返す ♥</div>
-            </div>
+        <div class="match-modal-title">マッチが成立しました！</div>
+        <div class="match-modal-sub">お互いに <strong>「いいね！」</strong> しました</div>
+        <div class="match-divider"><span>♥</span></div>
+        <div class="match-copy">まずは一緒に食事の日程を決めましょう<br>素敵なご縁になりますように。</div>
+        <div class="match-note">
+          <div class="match-note-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+              <line x1="16" y1="3" x2="16" y2="7"></line>
+              <line x1="8" y1="3" x2="8" y2="7"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="match-note-title">Otona Tableは「会うこと」を大切にしています</div>
+            <div class="match-note-body">日程調整からお店選びまで、しっかりサポートします</div>
           </div>
         </div>
-
-        <!-- Received card 2 -->
-        <div class="user-card">
-          <div class="photo-box">✕✕</div>
-          <div class="card-info">
-            <div class="user-name">ほなみさん · 28歳</div>
-            <div class="user-location">渋谷区 · マーケター</div>
-            <div class="tag-row">
-              <div class="tag">読書好き</div>
-              <div class="tag">アクティブ</div>
-            </div>
-            <div class="sent-date">4時間前</div>
-            <div class="action-buttons">
-              <div class="btn">スキップ</div>
-              <div class="btn disabled">いいね返す ♥</div>
-            </div>
-          </div>
+        <button class="match-modal-action" type="button" onclick="goToChat()">メッセージを送る・日程を決める <span>›</span></button>
+        <div class="match-modal-footer">
+          <svg viewBox="0 0 24 24">
+            <rect x="5" y="11" width="14" height="9" rx="2"></rect>
+            <path d="M8 11V8a4 4 0 0 1 8 0v3"></path>
+          </svg>
+          <span>安心・安全な環境でご利用いただけます</span>
         </div>
-
-        <!-- Received card 3 -->
-        <div class="user-card">
-          <div class="photo-box">✕✕</div>
-          <div class="card-info">
-            <div class="user-name">かなさん · 30歳</div>
-            <div class="user-location">新宿区 · 営業企画</div>
-            <div class="tag-row">
-              <div class="tag">旅行好き</div>
-              <div class="tag">食通</div>
-            </div>
-            <div class="sent-date">1日前</div>
-            <div class="action-buttons">
-              <div class="btn">スキップ</div>
-              <div class="btn disabled">いいね返す ♥</div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /panel-received -->
-
-    </div><!-- /content -->
+      </div>
+    </div>
 
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html#received"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
     <script>
-      var COUNTS = { sent: 12, received: 5 };
-
       function switchTab(tab) {
-        var isSent = tab === 'sent';
-
-        // panels
-        document.getElementById('panel-sent').classList.toggle('hidden', !isSent);
-        document.getElementById('panel-received').classList.toggle('hidden', isSent);
-
-        // tabs
-        document.getElementById('tab-sent').classList.toggle('active', isSent);
-        document.getElementById('tab-received').classList.toggle('active', !isSent);
-
-        // badge counts
-        var cntSent = document.getElementById('cnt-sent');
-        var cntRcv  = document.getElementById('cnt-received');
-        cntSent.className = 'tab-count' + (isSent ? '' : ' muted');
-        cntRcv.className  = 'tab-count' + (!isSent ? '' : ' muted');
-
-        // header
-        document.getElementById('likes-title').textContent = isSent ? '送ったいいね' : 'もらったいいね';
-        document.getElementById('likes-count').textContent = COUNTS[tab];
-
-        // update URL hash without reload
+        var isReceived = tab === 'received';
+        document.getElementById('panel-received').classList.toggle('hidden', !isReceived);
+        document.getElementById('panel-sent').classList.toggle('hidden', isReceived);
+        document.getElementById('tab-received').classList.toggle('active', isReceived);
+        document.getElementById('tab-sent').classList.toggle('active', !isReceived);
+        document.getElementById('cnt-received').className = 'tab-count' + (isReceived ? '' : ' muted');
+        document.getElementById('cnt-sent').className = 'tab-count' + (!isReceived ? '' : ' muted');
         history.replaceState(null, '', '#' + tab);
       }
 
-      // Tab hash support
       function handleHash() {
         var hash = location.hash.replace('#', '');
-        if (hash === 'received') switchTab('received');
-        else if (hash === 'sent') switchTab('sent');
+        if (hash === 'sent' || hash === 'received') {
+          switchTab(hash);
+          return;
+        }
+        switchTab('received');
       }
 
-      // Initialise from hash
       (function() {
         handleHash();
         window.addEventListener('hashchange', handleHash);
       })();
+
+      function showMatchPopup() {
+        document.getElementById('matchPopup').style.display = 'flex';
+      }
+
+      function closeMatchPopup() {
+        document.getElementById('matchPopup').style.display = 'none';
+      }
+
+      function goToChat() {
+        window.location.href = 'wireframe_SCR090_chat.html';
+      }
     </script>
   </div><!-- /device -->
 

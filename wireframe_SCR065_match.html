@@ -67,7 +67,12 @@
       color: var(--c6);
     }
 
-    .bell-icon {
+    .header-icon-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-icon {
       width: 20px;
       height: 20px;
       background: var(--c1);
@@ -75,7 +80,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .header-icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--c5);
+      fill: none;
+      stroke-width: 2;
     }
 
     .title-bar {
@@ -182,6 +195,17 @@
       font-size: 14px;
       font-weight: 600;
       color: var(--c6);
+    }
+
+    .match-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill.inline {
+      margin-top: 0;
     }
 
     .status-pill {
@@ -308,48 +332,15 @@
       border-radius: 50%;
     }
 
-    .tab-bar {
-      background: var(--c0);
-      border-bottom: 2px solid #000;
-      display: flex;
-      height: 44px;
-    }
-
-    .tab {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--c4);
-      border-right: var(--border);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .tab:last-child {
-      border-right: none;
-    }
-
-    .tab.active {
-      color: var(--c6);
-      font-weight: 600;
-    }
-
-    .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--c6);
-    }
-
     .search-row {
       padding: 8px 16px;
       background: var(--c0);
       border-bottom: var(--border);
+      display: none;
+    }
+
+    .search-row.open {
+      display: block;
     }
     .search-input-wrap {
       background: var(--c1);
@@ -359,6 +350,13 @@
       align-items: center;
       padding: 0 10px;
       gap: 8px;
+    }
+    .search-input-wrap svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--c4);
+      fill: none;
+      stroke-width: 2;
     }
     .search-input-wrap input {
       background: transparent;
@@ -853,27 +851,120 @@
     </div>
 
     <div class="app-header">
-      <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">Otona
-        Table β</span>
-      <div class="bell-icon" onclick="window.location.href='wireframe_SCR118_notification_list.html'" style="cursor:pointer;">🔔</div>
+      <span class="app-title" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR060_flat.html'">マッチング</span>
+      <div class="header-icon-group">
+        <div class="header-icon" onclick="toggleSearch()" title="検索">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <div class="header-icon" onclick="window.location.href='wireframe_SCR118_notification_list.html'" title="通知">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </div>
+      </div>
     </div>
 
-    <div class="tab-bar">
-      <div id="tab-progress" class="tab active" onclick="switchTab('progress')">やり取り・日程調整</div>
-      <div id="tab-confirmed" class="tab" onclick="switchTab('confirmed')">確定済み</div>
-      <div id="tab-history" class="tab" onclick="switchTab('history')">履歴</div>
-    </div>
-
-    <div class="search-row">
+    <div id="searchRow" class="search-row">
       <div class="search-input-wrap">
-        <span>🔍</span>
-        <input type="text" placeholder="名前で検索...">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="matchSearchInput" type="text" placeholder="名前で検索..." oninput="filterMatches()">
       </div>
     </div>
 
     <div class="content">
       <!-- TAB: ACTIVE (Scheduling/Chat) -->
       <div id="section-progress" class="tab-content">
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Mika · 36歳</div>
+              <div class="status-pill active inline">マッチ成立</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
+              <div class="match-preview">まずはチャットでご挨拶しましょう</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Rei · 34歳</div>
+              <div class="status-pill active inline">日程調整中</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
+              <div class="match-preview">候補日をすり合わせています</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Yui · 39歳</div>
+              <div class="status-pill inline">店舗調整中</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
+              <div class="match-preview">お店の候補を確認中です</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Sana · 35歳</div>
+              <div class="status-pill inline">確定待ち</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
+              <div class="match-preview">最終回答を待っています</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">Mai · 41歳</div>
+              <div class="status-pill confirmed inline">予約確定</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
+              <div class="match-preview">3/28 19:00 〜 和食 しずく</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Airi · 33歳</div>
+              <div class="status-pill active inline">再調整中</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
+              <div class="match-preview">日程と店舗を再調整しています</div>
+            </div>
+          </div>
+          <div class="arrow-icon">></div>
+        </div>
+
         <!-- M-A01: Yuki -->
         <div class="match-item">
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
@@ -1095,7 +1186,7 @@
       </div>
 
       <!-- TAB: CONFIRMED -->
-      <div id="section-confirmed" class="tab-content" style="display:none;">
+      <div id="section-confirmed" class="tab-content">
         <!-- M-A17: Miyu (Confirmed/Booking Prep) -->
         <div class="match-item">
           <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
@@ -1140,7 +1231,7 @@
       </div>
 
       <!-- TAB: HISTORY -->
-      <div id="section-history" class="tab-content" style="display:none;">
+      <div id="section-history" class="tab-content">
         <!-- M-A09: Kaori -->
         <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail_reviewed.html'">
           <div class="photo-box">✕✕</div>
@@ -1231,12 +1322,26 @@
         document.getElementById('rebookDialog').style.display = 'none';
       }
 
-      function switchTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-        document.getElementById('section-' + tabId).style.display = 'block';
-        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-        // Correctly handle event for clicked element
-        if (event) event.currentTarget.classList.add('active');
+      function toggleSearch() {
+        var row = document.getElementById('searchRow');
+        var input = document.getElementById('matchSearchInput');
+        var opened = row.classList.toggle('open');
+
+        if (opened) {
+          input.focus();
+        } else {
+          input.value = '';
+          filterMatches();
+        }
+      }
+
+      function filterMatches() {
+        var keyword = document.getElementById('matchSearchInput').value.trim().toLowerCase();
+        document.querySelectorAll('.match-item').forEach(function(item) {
+          var name = item.querySelector('.match-name');
+          var matched = !keyword || (name && name.textContent.toLowerCase().indexOf(keyword) !== -1);
+          item.style.display = matched ? 'flex' : 'none';
+        });
       }
 
       function openPhotoRequestCancelModal(name) {
@@ -1250,11 +1355,10 @@
       }
       function confirmPhotoRequestCancel() {
         closePhotoRequestCancelModal();
-        // Show brief toast feedback
         var t = document.createElement('div');
         t.textContent = 'リクエストを取り消しました';
         t.style.cssText = 'position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;font-size:11px;z-index:300;white-space:nowrap;';
-        document.querySelector('.device-mockup').appendChild(t);
+        document.querySelector('.device').appendChild(t);
         setTimeout(function(){ t.remove(); }, 2500);
       }
     </script>

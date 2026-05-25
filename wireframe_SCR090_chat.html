@@ -13,11 +13,19 @@
             --c4: #757575;
             --c5: #424242;
             --c6: #212121;
+            --accent: #616161;
+            --accent-deep: #212121;
+            --accent-soft: #f0f0f0;
+            --line-soft: #e0e0e0;
+            --surface-soft: #f5f5f5;
         }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        button, input {
+            font-family: inherit;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -46,110 +54,186 @@
             flex-shrink: 0;
         }
         .status-time {
-            font-weight: 600;
+            font-weight: 700;
         }
         .status-icons {
             font-size: 8px;
             letter-spacing: 1px;
+            font-weight: 700;
         }
         .chat-header {
             display: flex;
             align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid var(--c6);
+            padding: 10px 16px 14px;
+            border-bottom: 1px solid var(--line-soft);
             gap: 12px;
+            background: var(--c0);
         }
         .back-btn {
-            font-size: 14px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1;
             cursor: pointer;
-            color: var(--c6);
+            color: var(--c5);
             flex-shrink: 0;
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
         }
         .photo-placeholder {
-            width: 32px;
-            height: 32px;
-            border: 1px solid var(--c6);
-            background: var(--c2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: var(--c4);
+            width: 42px;
+            height: 42px;
+            border: 1px solid #d8d8d8;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #d7d7d7 0%, #f1f1f1 100%);
+            position: relative;
+            overflow: hidden;
             flex-shrink: 0;
         }
-        .header-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--c6);
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6d6d6d;
         }
-        .menu-icon {
-            font-size: 16px;
-            cursor: pointer;
-            color: var(--c6);
+        .photo-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 34px;
+            height: 26px;
+            border-radius: 18px 18px 10px 10px;
+            background: #9d9d9d;
         }
-        .timer-bar {
-            background: #fff8f0;
-            border-bottom: 1px solid #ffe0b2;
-            padding: 10px 12px;
-            font-size: 12px;
-            color: #e65100;
+        .header-meta {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            flex-direction: column;
+            gap: 3px;
         }
-        .timer-text {
-            flex: 1;
+        .header-topline {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .header-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--c6);
+        }
+        .header-age {
+            font-size: 12px;
+            color: #6d6d6d;
+        }
+        .header-status {
             display: flex;
             align-items: center;
             gap: 6px;
+            font-size: 11px;
+            color: #6d6d6d;
+            font-weight: 600;
         }
-        .timer-highlight {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            background: #e65100;
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--c4);
         }
-        .timer-text {
-            flex: 1;
-        }
-        .timer-btn {
-            font-size: 10px;
-            padding: 4px 6px;
-            border: 1px solid var(--c6);
-            background: var(--c0);
-            color: var(--c6);
+        .menu-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
             cursor: pointer;
-            white-space: nowrap;
+            color: var(--c5);
         }
         .chat-area {
             flex: 1;
-            background: var(--c1);
-            padding: 12px;
+            background: var(--surface-soft);
+            padding: 14px 14px 8px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .chat-area::-webkit-scrollbar {
+            width: 0;
+        }
+        .match-banner {
+            width: 100%;
+            border: 1px solid var(--c2);
+            border-radius: 16px;
+            background: #ffffff;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .match-banner-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c5);
+            flex-shrink: 0;
+        }
+        .match-banner-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+        }
+        .match-banner-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--c6);
+            margin-bottom: 3px;
+        }
+        .match-banner-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2f2f2f;
+            line-height: 1.45;
+        }
+        .chat-timeline {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
         .date-divider {
-            text-align: center;
+            align-self: center;
+            padding: 4px 16px;
+            background: #ffffff;
+            border: 1px solid var(--line-soft);
+            border-radius: 999px;
             font-size: 11px;
-            color: var(--c5);
-            margin: 8px 0;
+            color: #6d6d6d;
         }
         .message-group {
             display: flex;
-            gap: 8px;
-            margin-bottom: 4px;
+            gap: 10px;
+            align-items: flex-start;
         }
         .message-group.received {
             justify-content: flex-start;
@@ -157,92 +241,193 @@
         .message-group.sent {
             justify-content: flex-end;
         }
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #757575 0%, #424242 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .message-stack {
+            max-width: 252px;
+            display: flex;
+            flex-direction: column;
+        }
         .message-bubble {
-            max-width: 240px;
-            padding: 8px 12px;
-            border: 1px solid var(--c6);
+            padding: 14px 16px;
+            border-radius: 20px;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.75;
             word-wrap: break-word;
+            position: relative;
         }
         .message-group.received .message-bubble {
-            background: var(--c0);
-            color: var(--c6);
+            background: #ffffff;
+            color: #212121;
+            border: 1px solid #ececec;
+        }
+        .message-group.received .message-bubble::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 18px;
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-left: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+            transform: rotate(45deg);
+            border-bottom-left-radius: 3px;
         }
         .message-group.sent .message-bubble {
-            background: var(--c0);
-            color: var(--c6);
-            border: 1px solid var(--c6);
+            background: #2d2d2d;
+            color: #ffffff;
+        }
+        .message-group.sent .message-bubble::after {
+            content: '';
+            position: absolute;
+            right: -7px;
+            top: 18px;
+            width: 14px;
+            height: 14px;
+            background: #2d2d2d;
+            transform: rotate(45deg);
+            border-top-right-radius: 3px;
+        }
+        .system-bubble strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
         }
         .message-time {
-            font-size: 10px;
-            color: var(--c5);
-            margin-top: 2px;
+            font-size: 11px;
+            color: var(--c4);
+            margin-top: 6px;
+            padding: 0 4px;
         }
-        .message-status {
-            font-size: 9px;
-            color: var(--c5);
-            margin-left: 4px;
+        .message-group.sent .message-time {
+            text-align: right;
+            color: #7b7b7b;
         }
-        .action-btn-chat {
-            background: var(--c1);
-            border: 1px solid var(--c6);
-            padding: 8px 12px;
+        .suggestion-card {
+            background: #ffffff;
+            border: 1px solid var(--c2);
+            border-radius: 18px;
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .suggestion-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--c5);
             text-align: center;
-            font-size: 12px;
-            color: var(--c6);
+        }
+        .suggestion-item {
+            width: 100%;
+            border: 1px solid var(--line-soft);
+            background: #ffffff;
+            border-radius: 999px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #303030;
             cursor: pointer;
-            margin: 8px 0;
-            font-weight: 500;
+            text-align: left;
+        }
+        .suggestion-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--c1);
+            border: 1px solid var(--line-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--c5);
+        }
+        .suggestion-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.9;
         }
         .input-area {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            border-top: 1px solid var(--c6);
-            background: var(--c0);
-            height: 52px;
+            gap: 10px;
+            padding: 12px 14px 8px;
+            border-top: 1px solid var(--line-soft);
+            background: rgba(255, 255, 255, 0.96);
         }
         .attachment-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--c6);
-            background: var(--c0);
-            color: var(--c6);
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--c3);
+            border-radius: 50%;
+            background: #ffffff;
+            color: var(--c5);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 28px;
+            line-height: 1;
             flex-shrink: 0;
         }
         .input-field {
             flex: 1;
-            border: 1px solid var(--c6);
-            padding: 6px 8px;
-            font-size: 12px;
-            color: var(--c5);
-            background: var(--c0);
-            height: 36px;
-            font-family: inherit;
+            border: 1px solid var(--line-soft);
+            padding: 0 16px;
+            font-size: 13px;
+            color: #444444;
+            background: #fbfbfb;
+            height: 42px;
+            border-radius: 999px;
+            outline: none;
         }
         .send-btn {
-            width: 44px;
-            height: 36px;
-            border: 1px solid var(--c6);
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
             background: var(--c6);
-            color: var(--c0);
+            color: #ffffff;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .send-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+        .home-indicator {
+            width: 126px;
+            height: 5px;
+            border-radius: 999px;
+            background: #111111;
+            margin: 4px auto 10px;
             flex-shrink: 0;
         }
         .footer-note {
-            font-size: 10px;
-            color: var(--c4);
-            padding: 8px;
-            border-top: 1px solid var(--c2);
+            display: none;
         }
 
         /* === WIZARD STYLES === */
@@ -553,92 +738,111 @@
 
 
     <div class="device">
-        <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-time">9:41</div>
             <div class="status-icons">●●● WiFi ▮▮▮</div>
         </div>
 
-        <!-- Chat Header -->
         <div class="chat-header">
-            <div class="back-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'" style="cursor:pointer;"><</div>
+            <div class="back-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'" style="cursor:pointer;">&lt;</div>
             <div class="header-left">
-                <div class="photo-placeholder">N</div>
-                <div class="header-name">なつみさん</div>
+                <div class="photo-placeholder"></div>
+                <div class="header-meta">
+                    <div class="header-topline">
+                        <div class="header-name">みずき</div>
+                        <div class="header-age">37歳</div>
+                    </div>
+                    <div class="header-status"><span class="status-dot"></span>オンライン</div>
+                </div>
             </div>
             <div class="menu-icon">⋮</div>
         </div>
 
-        <!-- Timer Bar -->
-        <div class="timer-bar">
-            <div class="timer-text">
-                <span>⏱ お店の予約完了期限：</span>
-                <span class="timer-highlight">23:59:59</span>
-            </div>
-            <button class="timer-btn" onclick="openWizard()">日程を決める →</button>
-        </div>
-
-        <!-- Chat Area -->
-        <div class="chat-area">
-            <!-- Date Divider -->
-            <div class="date-divider">—— 3月17日 ——</div>
-
-            <!-- Received Message -->
-            <div class="message-group received">
-                <div>
-                    <div class="photo-placeholder" style="width: 24px; height: 24px;">X</div>
+        <div class="chat-area" id="chatArea">
+            <button class="match-banner" type="button" onclick="openWizard()">
+                <div class="match-banner-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 5h5l-1 5a2.5 2.5 0 0 1-5 0L4 5z"></path>
+                        <path d="M15 5h5l1 5a2.5 2.5 0 0 1-5 0L15 5z"></path>
+                        <path d="M9 5l3 14"></path>
+                        <path d="M15 5l-3 14"></path>
+                        <path d="M9 21h6"></path>
+                    </svg>
                 </div>
                 <div>
-                    <div class="message-bubble">はじめまして！よろしくお願いします😊</div>
-                    <div class="message-time">10:32</div>
+                    <div class="match-banner-title">マッチが成立しました！</div>
+                    <div class="match-banner-text">まずは一緒に食事の日程を決めましょう♪</div>
                 </div>
-            </div>
+            </button>
 
-            <!-- Sent Message -->
-            <div class="message-group sent">
-                <div>
-                    <div class="message-bubble">こちらこそよろしくお願いします。食事の日程、決めてみませんか？</div>
-                    <div style="display: flex; gap: 4px; margin-top: 2px; justify-content: flex-end;">
-                        <div class="message-time">10:35</div>
-                        <div class="message-status">既読</div>
+            <div class="chat-timeline" id="chatTimeline">
+                <div class="date-divider">今日</div>
+                <div class="message-group received">
+                    <div class="brand-badge">OT</div>
+                    <div class="message-stack">
+                        <div class="message-bubble system-bubble"><strong>OtonaTableへようこそ！</strong>マッチありがとうございます。<br>まずは気軽にメッセージを<br>送ってみましょう！</div>
+                        <div class="message-time">09:41</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Received Message -->
-            <div class="message-group received">
-                <div>
-                    <div class="photo-placeholder" style="width: 24px; height: 24px;">X</div>
-                </div>
-                <div>
-                    <div class="message-bubble">ぜひ！来週あたりいかがですか？</div>
-                    <div class="message-time">10:36</div>
-                </div>
+            <div class="suggestion-card" id="quickReplyCard">
+                <div class="suggestion-title">まずはメッセージを送ってみましょう！</div>
+                <button class="suggestion-item" type="button" onclick="fillMessage('はじめまして！よろしくお願いします')">
+                    <span class="suggestion-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="8"></circle>
+                            <path d="M8 14c1 1.2 2.3 2 4 2s3-.8 4-2"></path>
+                            <line x1="9" y1="10" x2="9.01" y2="10"></line>
+                            <line x1="15" y1="10" x2="15.01" y2="10"></line>
+                        </svg>
+                    </span>
+                    <span>はじめまして！よろしくお願いします</span>
+                </button>
+                <button class="suggestion-item" type="button" onclick="fillMessage('美味しいごはん好きです')">
+                    <span class="suggestion-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7 3h10v2a5 5 0 0 1-10 0V3z"></path>
+                            <path d="M12 10v7"></path>
+                            <path d="M9 21h6"></path>
+                        </svg>
+                    </span>
+                    <span>美味しいごはん好きです</span>
+                </button>
+                <button class="suggestion-item" type="button" onclick="fillMessage('最近ハマっていることありますか？')">
+                    <span class="suggestion-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H7l-4 3v-6.5A8.5 8.5 0 1 1 21 11.5z"></path>
+                        </svg>
+                    </span>
+                    <span>最近ハマっていることありますか？</span>
+                </button>
+                <button class="suggestion-item" type="button" onclick="fillMessage('休日はどんな風に過ごしていますか？')">
+                    <span class="suggestion-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                            <line x1="16" y1="3" x2="16" y2="7"></line>
+                            <line x1="8" y1="3" x2="8" y2="7"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </span>
+                    <span>休日はどんな風に過ごしていますか？</span>
+                </button>
             </div>
-
         </div>
 
-        <!-- Input Area -->
         <div class="input-area">
-            <button class="attachment-btn" onclick="window.location.href='wireframe_SCR081_schedule.html'">📅</button>
-            <input class="input-field" type="text" placeholder="メッセージを入力..." />
-            <button class="send-btn">送信</button>
+            <button class="attachment-btn" type="button" onclick="openWizard()">+</button>
+            <input id="chatInput" class="input-field" type="text" placeholder="メッセージを入力..." />
+            <button class="send-btn" type="button" onclick="sendMessage()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22l-4-9-9-4 20-7z"></path>
+                </svg>
+            </button>
         </div>
+        <div class="home-indicator"></div>
 
-        <div class="app-bottom-nav">
-          <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-          <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-          <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
-          <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
-          <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer-note">
-            フロー: SCR-065/SCR-080 → SCR-090 ★ (24h limit) → 日程決定後も継続 → 食事後72hで終了
-        </div>
-
-        <!-- Wizard Overlay -->
         <div id="wizardOverlay" class="wizard-overlay">
             <div class="wizard-sheet">
                 <div class="wizard-title">
@@ -780,6 +984,46 @@
         document.getElementById('wizardOverlay').style.display = 'none';
     }
 
+    function fillMessage(text) {
+        const input = document.getElementById('chatInput');
+        input.value = text;
+        input.focus();
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+
+        const group = document.createElement('div');
+        group.className = 'message-group sent';
+
+        const stack = document.createElement('div');
+        stack.className = 'message-stack';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'message-bubble';
+        bubble.textContent = text;
+
+        const time = document.createElement('div');
+        time.className = 'message-time';
+        time.textContent = hh + ':' + mm;
+
+        stack.appendChild(bubble);
+        stack.appendChild(time);
+        group.appendChild(stack);
+
+        document.getElementById('chatTimeline').appendChild(group);
+        input.value = '';
+        input.focus();
+        document.getElementById('chatArea').scrollTop = document.getElementById('chatArea').scrollHeight;
+    }
+
     function toggleSelection(el, type) {
         if (type === 'res') {
             if (el.classList.contains('selected')) {
@@ -833,8 +1077,14 @@
     function sendProposal() {
         alert('日程とお店の提案を送信しました！');
         closeWizard();
-        // Optionally redirect or add message to chat
     }
+
+    document.getElementById('chatInput').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
   </script>
 </div>
 
