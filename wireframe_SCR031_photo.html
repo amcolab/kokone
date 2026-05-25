@@ -308,6 +308,276 @@
       overflow-x: auto;
       padding: 8px 0;
     }
+
+    .status-bar {
+      height: 0;
+      background: transparent;
+    }
+
+    .device {
+      background: #f3f3f3;
+    }
+
+    .screen {
+      padding: 0 12px 14px;
+      background: #f3f3f3;
+      overflow-y: auto;
+    }
+
+    .header {
+      margin: 0 -12px 18px;
+      min-height: 48px;
+      justify-content: center;
+      position: relative;
+      background: var(--c0);
+      padding: 14px 16px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .back-arrow {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+
+    .header-text {
+      text-align: center;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .step-label,
+    .progress-bar,
+    .info-box,
+    .flow-section {
+      display: none;
+    }
+
+    .section {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #555555;
+      margin-bottom: 14px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .photo-card {
+      min-height: 220px;
+      border: 1px dashed #c7c7c7;
+      border-radius: 14px;
+      background: #f8f8f8;
+      padding: 10px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .photo-card.filled {
+      --photo-blur: 4px;
+      background: #f5f5f5;
+    }
+
+    .remove-photo-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: #777777;
+      font-size: 19px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .photo-preview {
+      height: 154px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #d5d5d5;
+    }
+
+    .mock-photo {
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(90deg, #b9b9b9 0%, #dcdcdc 28%, #c8c8c8 52%, #e3e3e3 72%, #aaaaaa 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mock-photo-scene {
+      position: absolute;
+      inset: 0;
+      filter: blur(var(--photo-blur));
+      background:
+        radial-gradient(circle at 27% 20%, rgba(245, 245, 245, 0.92) 0 14%, transparent 15%),
+        radial-gradient(circle at 52% 22%, #565656 0 14%, transparent 15%),
+        radial-gradient(circle at 52% 37%, #9b9b9b 0 16%, transparent 17%),
+        radial-gradient(ellipse at 52% 56%, #aaaaaa 0 17%, transparent 18%),
+        radial-gradient(ellipse at 48% 85%, #2c2c2c 0 34%, transparent 35%),
+        radial-gradient(ellipse at 26% 86%, #232323 0 22%, transparent 23%);
+      transform: scale(1.06);
+    }
+
+    .blur-control {
+      margin-top: 10px;
+    }
+
+    .blur-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #444444;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .blur-row strong {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .blur-slider {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      background: #d1d1d1;
+      outline: none;
+    }
+
+    .blur-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #737373;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .blur-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #737373;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .upload-card {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #b3b3b3;
+    }
+
+    .upload-icon-shell {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e7e7e7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .camera-mini {
+      width: 18px;
+      height: 12px;
+      border: 2px solid #8c8c8c;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .camera-mini::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: -5px;
+      width: 7px;
+      height: 4px;
+      border: 2px solid #8c8c8c;
+      border-bottom: 0;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .camera-lens {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 5px;
+      height: 5px;
+      border: 2px solid #8c8c8c;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .plus-mini {
+      position: absolute;
+      right: -9px;
+      bottom: -8px;
+      color: #8c8c8c;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .upload-hint {
+      font-size: 11px;
+      color: #a9a9a9;
+      line-height: 1.35;
+    }
+
+    .next-btn {
+      width: 100%;
+      height: 44px;
+      background: #424242;
+      color: #fff;
+      border: none;
+      border-radius: 22px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: auto;
+    }
+
+    .skip-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #757575;
+      text-decoration: none;
+      font-weight: 600;
+    }
   </style>
 
 
@@ -938,82 +1208,65 @@
       <div class="screen">
         <div class="header">
           <div class="back-arrow" onclick="window.location.href='wireframe_SCR030_profile1.html'"
-            style="cursor:pointer;">←</div>
+            style="cursor:pointer;">‹</div>
           <div class="header-text">
-            <div class="title">写真設定</div>
-            <div class="step-label">2 / 2</div>
-          </div>
-        </div>
-
-        <div class="progress-bar">
-          <div class="progress-fill" style="width:33%;"></div>
-        </div>
-
-        <div class="section">
-          <div class="main-upload-zone"
-            style="background:url('/Users/quynt/.gemini/antigravity/brain/cdbc9101-be0a-4eb1-bcc0-f848b99002ee/avatar_taro_original_1774148552839.png') center/cover;">
-            <div class="upload-pattern" style="display:none;"></div>
-            <div class="upload-content" style="display:none;">
-              <div class="upload-icon">[+]</div>
-              <div>メイン写真をアップロード</div>
-            </div>
-          </div>
-          <div style="font-size: 12px; color: var(--c4); text-align: center;">推奨: 顔がはっきり写った写真</div>
-        </div>
-
-        <div class="section">
-          <div class="sub-photos">
-            <div class="sub-photo-box">
-              <div class="sub-photo-zone">[+]</div>
-              <div class="sub-photo-label">サブ写真 1</div>
-            </div>
-            <div class="sub-photo-box">
-              <div class="sub-photo-zone">[+]</div>
-              <div class="sub-photo-label">サブ写真 2</div>
-            </div>
-            <div class="sub-photo-box">
-              <div class="sub-photo-zone">[+]</div>
-              <div class="sub-photo-label">サブ写真 3</div>
-            </div>
+            <div class="title">写真を設定する</div>
+            <div class="step-label"></div>
           </div>
         </div>
 
         <div class="section">
-          <div class="section-title">ぼかし設定</div>
-          <div style="font-size:11px;color:var(--c4);margin-bottom:10px;">メイン写真・サブ写真すべてに適用されます</div>
-
-          <div class="form-group">
-            <div class="radio-group">
-              <div class="radio-option selected">
-                <div class="radio"></div>
-                <div class="radio-label">マッチング後にぼかし解除申請可能</div>
+          <div class="section-title">写真設定</div>
+          <div class="description">マッチング後、相手のぼかし解除申請を承認すると、メイン写真・サブ写真すべてのぼかしが解除されます。</div>
+          <div class="photo-grid">
+            <div class="photo-card filled" id="previewCard">
+              <button type="button" class="remove-photo-btn">×</button>
+              <div class="photo-preview">
+                <div class="mock-photo">
+                  <div class="mock-photo-scene"></div>
+                </div>
               </div>
-              <div class="radio-option">
-                <div class="radio"></div>
-                <div class="radio-label">常にぼかし表示</div>
-              </div>
-              <div class="radio-option">
-                <div class="radio"></div>
-                <div class="radio-label">写真を非公開にする</div>
+              <div class="blur-control">
+                <div class="blur-row">
+                  <span>ぼかしの強度</span>
+                  <strong id="blurValue">25%</strong>
+                </div>
+                <input class="blur-slider" type="range" min="0" max="100" value="25" oninput="updateBlur(this.value)">
               </div>
             </div>
+            <div class="photo-card upload-card">
+              <div class="upload-icon-shell">
+                <div class="camera-mini">
+                  <span class="camera-lens"></span>
+                  <span class="plus-mini">+</span>
+                </div>
+              </div>
+              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
+            </div>
+            <div class="photo-card upload-card">
+              <div class="upload-icon-shell">
+                <div class="camera-mini">
+                  <span class="camera-lens"></span>
+                  <span class="plus-mini">+</span>
+                </div>
+              </div>
+              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
+            </div>
+            <div class="photo-card upload-card">
+              <div class="upload-icon-shell">
+                <div class="camera-mini">
+                  <span class="camera-lens"></span>
+                  <span class="plus-mini">+</span>
+                </div>
+              </div>
+              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
+            </div>
           </div>
-        </div>
-
-        <div class="info-box">
-          マッチング後、相手のぼかし解除申請を承認すると、メイン写真・サブ写真すべてのぼかしが解除されます。
         </div>
 
         <button class="next-btn"
-          onclick="window.location.href='wireframe_SCR032_food_style.html'">次へ（食事スタイル選択） →</button>
-
-        <div style="text-align:center;margin-top:8px;">
-          <a href="wireframe_SCR032_food_style.html" style="font-size:12px;color:#757575;text-decoration:underline;">スキップする（後で登録）</a>
-        </div>
-
-        <div class="flow-section">
-          <div class="flow-text">SCR-030 → SCR-031 ★ → SCR-032</div>
-        </div>
+          onclick="window.location.href='wireframe_SCR032_food_style.html'">次に進む</button>
+        <a href="wireframe_SCR032_food_style.html" class="skip-link">スキップ</a>
       </div>
     </div>
   </div>
@@ -1105,6 +1358,11 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+
+    function updateBlur(value) {
+      document.getElementById('blurValue').textContent = value + '%';
+      document.getElementById('previewCard').style.setProperty('--photo-blur', (value / 12 + 2) + 'px');
     }
   </script>
 

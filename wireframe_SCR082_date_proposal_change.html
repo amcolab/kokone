@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-082 Date Proposal Change</title>
+  <style>
+    :root {
+      --c0: #ffffff;
+      --c1: #f6f6f6;
+      --c2: #e3e3e3;
+      --c3: #c7c7c7;
+      --c4: #8a8a8a;
+      --c5: #4f4f4f;
+      --c6: #212121;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--c6);
+      padding: 20px 20px 20px 220px;
+    }
+    .device {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid var(--c2);
+    }
+    .back-btn {
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .title {
+      font-size: 17px;
+      font-weight: 700;
+      flex: 1;
+    }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+      padding: 16px 14px 24px;
+    }
+    .lead {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option {
+      width: 100%;
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      background: var(--c0);
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .option.selected {
+      border-color: var(--c5);
+      background: #f0f0f0;
+      box-shadow: inset 0 0 0 1px var(--c5);
+    }
+    .option-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .option-date {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .option-arrow {
+      font-size: 18px;
+      color: var(--c4);
+    }
+    .option-note {
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.5;
+    }
+    .footer {
+      padding: 12px 14px 16px;
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .primary-btn {
+      width: 100%;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--c3);
+      color: var(--c0);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary-btn.enabled {
+      background: var(--c5);
+    }
+    .text-link {
+      text-align: center;
+      color: var(--c4);
+      font-size: 12px;
+      text-decoration: none;
+    }
+    .wf-sidebar {
+      width: 200px;
+      min-width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+    .wf-sidebar-logo {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .wf-logo-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #424242;
+      flex-shrink: 0;
+    }
+    .wf-logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #212121;
+    }
+    .wf-sidebar-group {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .wf-group-label {
+      padding: 7px 14px 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .wf-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 14px;
+      font-size: 11px;
+      color: #757575;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      line-height: 1.3;
+    }
+    .wf-nav-link:hover {
+      background: #f5f5f5;
+      color: #424242;
+    }
+    .wf-nav-link.wf-active {
+      background: #f5f5f5;
+      color: #212121;
+      font-weight: 600;
+      border-left-color: #424242;
+    }
+    .wf-nav-id {
+      font-size: 9px;
+      color: #bdbdbd;
+      width: 32px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
+      <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+  </nav>
+  <div class="device">
+    <div class="status-bar">
+      <div>9:41</div>
+      <div>●●● WiFi ▮▮▮</div>
+    </div>
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR082_date_proposal_primary.html'">‹</div>
+      <div class="title">日程を変更する</div>
+    </div>
+    <div class="content">
+      <div class="lead">他の候補日から1つ選んでください。最大5件まで表示しています。</div>
+      <div class="list">
+        <button class="option" type="button" data-value="5/25（日）19:00〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/25（日）19:00〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">日曜の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="5/26（月）20:00〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/26（月）20:00〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">平日の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="5/31（土）18:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/31（土）18:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">週末でゆっくりできる時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="6/1（日）19:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">6/1（日）19:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">日曜の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="6/2（月）19:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">6/2（月）19:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">平日の夜で調整しやすい時間帯です</div>
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <button id="submitBtn" class="primary-btn" type="button" onclick="submitProposal()">この日程で提案する</button>
+      <a class="text-link" href="wireframe_SCR082_date_proposal_primary.html">第1候補に戻る</a>
+    </div>
+  </div>
+  <script>
+    var selectedValue = "";
+    function selectOption(button) {
+      document.querySelectorAll(".option").forEach(function (option) {
+        option.classList.remove("selected");
+      });
+      button.classList.add("selected");
+      selectedValue = button.getAttribute("data-value");
+      document.getElementById("submitBtn").classList.add("enabled");
+    }
+    function submitProposal() {
+      if (!selectedValue) {
+        return;
+      }
+      localStorage.setItem("ot-schedule-proposal", selectedValue);
+      window.location.href = "wireframe_SCR090_chat_schedule_pending.html";
+    }
+  </script>
+</body>
+</html>
