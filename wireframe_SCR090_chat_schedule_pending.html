@@ -629,7 +629,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
@@ -689,15 +688,6 @@
         <div>
           <div class="pending-title">お相手の確認待ち</div>
           <div class="pending-text">お相手が候補日を確認すると、次のステップに進みます。日程が確定したら店舗提案へ移動します。</div>
-          <a class="hint-link" href="wireframe_SCR080_match_detail.html">マッチ詳細を見る</a>
-        </div>
-      </div>
-      <div class="pending-card">
-        <div class="pending-icon">🍽</div>
-        <div>
-          <div class="pending-title">次の流れ</div>
-          <div class="pending-text">日程が確定した後は、既存フローの店舗提案・予約完了ステップに進みます。</div>
-          <a class="hint-link" href="wireframe_SCR083_restaurant.html">店舗提案の画面を見る</a>
         </div>
       </div>
     </div>
@@ -753,7 +743,7 @@
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案した日時</strong>をチャットバブルに再表示し、何を送ったかを残します。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>お相手の確認待ち</strong>カードで、現在は待機状態だと案内します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>次の流れ</strong>カードで、承認後に既存の店舗提案フローへ繋がることを説明します。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>待機状態のみ</strong>をシンプルに表示し、今は相手の回答待ちであることに集中させます。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
@@ -777,7 +767,7 @@
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Ngày giờ đã gửi</strong> được render lại trong bubble chat.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Thẻ chờ xác nhận</strong> cho biết hiện chưa cần thao tác thêm.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Thẻ bước tiếp theo</strong> giải thích rằng sau khi chốt lịch sẽ sang flow chọn nhà hàng.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Màn chỉ giữ trạng thái chờ</strong>, giúp user hiểu hiện tại chỉ cần đợi phản hồi từ đối phương.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>

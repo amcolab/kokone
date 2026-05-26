@@ -199,8 +199,17 @@
 
     .match-name-row {
       display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .match-name-main {
+      display: flex;
       align-items: center;
       gap: 6px;
+      flex: 1;
+      min-width: 0;
       flex-wrap: wrap;
     }
 
@@ -252,13 +261,13 @@
       line-height: 1.3;
     }
 
-    .arrow-icon {
-      width: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .match-time {
+      flex-shrink: 0;
+      margin-left: auto;
+      padding-top: 2px;
+      font-size: 11px;
       color: var(--c4);
-      font-size: 16px;
+      white-space: nowrap;
     }
 
     .action-wrap {
@@ -813,7 +822,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
@@ -899,137 +907,151 @@
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">Mika · 36歳</div>
-              <div class="status-pill active inline">マッチ成立</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">Mika · 36歳</div>
+                <div class="status-pill active inline">マッチ成立</div>
+              </div>
+              <div class="match-time">5分前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
               <div class="match-preview">まずはメッセージを送ってみましょう！</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">Misaki · 39歳</div>
+              <div class="match-time">18分前</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
+              <div class="match-preview">メイン写真の公開リクエストが届いています</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_deadline.html'">
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_deadline.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_deadline.html'">Momo · 35歳</div>
+                <div class="status-pill inline" style="background:#f2f2f2; border-color:#d0d0d0; color:#424242;">残り時間 05:22:48</div>
+              </div>
+              <div class="match-time">27分前</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_deadline.html'">
+              <div class="match-preview">そうですね！予定が分かり次第すぐ見て...</div>
+            </div>
+          </div>
         </div>
 
         <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">Rei · 34歳</div>
-              <div class="status-pill active inline">日程調整中</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">Rei · 34歳</div>
+                <div class="status-pill active inline">日程調整中</div>
+              </div>
+              <div class="match-time">42分前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">
               <div class="match-preview">まずは一緒に食事の日程を決めてみませんか？</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+        <div class="match-item" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR082_date_confirm.html'">
+          <div class="photo-box" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR082_date_confirm.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Yui · 39歳</div>
-              <div class="status-pill inline">店舗調整中</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR082_date_confirm.html'">Noa · 32歳</div>
+                <div class="status-pill active inline">候補日受信</div>
+              </div>
+              <div class="match-time">1時間前</div>
             </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
-              <div class="match-preview">お店の候補を確認中です</div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR082_date_confirm.html'">
+              <div class="match-preview">お相手から 5/24（土）19:00〜 の提案が届いています</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
+        </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">
+          <div class="photo-box" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">Yui · 39歳</div>
+                <div class="status-pill inline">店舗調整中</div>
+              </div>
+              <div class="match-time">2時間前</div>
+            </div>
+            <div class="action-wrap" style="cursor:pointer;" onclick="localStorage.setItem('ot-schedule-proposal','5/24（土）19:00〜'); window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">
+              <div class="match-preview">おすすめのお店をご提案しました</div>
+            </div>
+          </div>
         </div>
 
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Sana · 35歳</div>
-              <div class="status-pill inline">確定待ち</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Sana · 35歳</div>
+                <div class="status-pill inline">確定待ち</div>
+              </div>
+              <div class="match-time">3時間前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
               <div class="match-preview">最終回答を待っています</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
         <div class="match-item">
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">Mai · 41歳</div>
-              <div class="status-pill confirmed inline">予約確定</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">Mai · 41歳</div>
+                <div class="status-pill confirmed inline">予約確定</div>
+              </div>
+              <div class="match-time">5時間前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
               <div class="match-preview">3/28 19:00 〜 和食 しずく</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Airi · 33歳</div>
-              <div class="status-pill active inline">再調整中</div>
+              <div class="match-name-main">
+                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Airi · 33歳</div>
+                <div class="status-pill active inline">再調整中</div>
+              </div>
+              <div class="match-time">8時間前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
               <div class="match-preview">日程と店舗を再調整しています</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A01: Yuki -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer; opacity:0.55;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Yuki · 38歳 <span class="record-label label-new">新着</span>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
-              <div class="status-pill active"><span class="status-icon">✨</span>新しくマッチしました</div>
-              <div class="match-preview">チャットを始めて日程を調整しましょう</div>
-            </div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- M-A02: Aya -->
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Aya · 42歳 <span class="record-label label-chat">チャット</span>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat.html'">
-              <div class="status-pill"><span class="status-icon">💬</span>チャット中</div>
-              <div class="match-preview" style="color:var(--c6); font-weight:600;">こんばんは！ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">2</span></div>
-            </div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- M-A11: Haruka -->
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Haruka · 37歳 <span class="record-label label-photo">写真</span>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="openPhotoRequestCancelModal('Haruka')">
-              <div class="status-pill"><span class="status-icon">📸</span>写真リクエスト送信済</div>
-              <div class="match-preview">写真公開リクエストを送りました</div>
-            </div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- M-A11b: Yuna (photo request declined) -->
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer; opacity:0.55;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Yuna · 33歳 <span class="record-label label-warn">中断</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Yuna · 33歳 <span class="record-label label-warn">中断</span>
+              </div>
+              <div class="match-time">12時間前</div>
             </div>
             <div class="action-wrap">
               <div class="status-pill" style="background:#fafafa; border-color:#e0e0e0; color:#999;">
@@ -1038,120 +1060,112 @@
               <div class="match-preview" style="color:#aaa;">お相手が写真の公開を断りました</div>
             </div>
           </div>
-          <div class="arrow-icon" style="color:#ccc;">></div>
         </div>
 
-        <!-- M-A12: Misaki -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Misaki · 39歳 <span class="record-label label-photo">写真</span>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_photo_request.html'">
-              <div class="status-pill active"><span class="status-icon">📸</span>写真リクエストが届いています</div>
-              <div class="match-preview" style="color:var(--c6); font-weight:600;">お相手から写真公開リクエストが届いています <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
-            </div>
-          </div>
-          <div class="arrow-icon">></div>
-        </div>
-
-        <!-- M-A03: Ren -->
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Ren · 35歳 <span class="record-label label-date">日程</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Ren · 35歳 <span class="record-label label-date">日程</span>
+              </div>
+              <div class="match-time">18時間前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
               <div class="status-pill active"><span class="status-icon">📅</span>日程の提案待ち</div>
               <div class="match-preview">「日程を提案する」ボタンから候補日を送ってください</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A04: Rina -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Rina · 40歳 <span class="record-label label-date">日程</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Rina · 40歳 <span class="record-label label-date">日程</span>
+              </div>
+              <div class="match-time">20時間前</div>
             </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
+            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
               <div class="status-pill"><span class="status-icon">⌛</span>回答待ち</div>
               <div class="match-preview">「日程送りました！」</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A05: Nanami -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Nanami · 34歳 <span class="record-label label-date">日程</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Nanami · 34歳 <span class="record-label label-date">日程</span>
+              </div>
+              <div class="match-time">23時間前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR082_date_confirm.html'">
               <div class="status-pill active"><span class="status-icon">📩</span>候補日が届いています</div>
               <div class="match-preview" style="color:var(--c6); font-weight:600;">この日どうですか？ <span style="background:var(--c6); color:var(--c0); padding:0 5px; font-size:10px; margin-left:4px;">1</span></div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A06: Kana -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Kana · 37歳 <span class="record-label label-warn">期限</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Kana · 37歳 <span class="record-label label-warn">期限</span>
+              </div>
+              <div class="match-time">1日前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR081_schedule.html'">
               <div class="status-pill active" style="background:#fff3e0; border-color:#ffcc80; color:#e65100;"><span class="status-icon">⚠️</span>マッチングから2日経過</div>
               <div class="match-preview" style="color:#e65100;">早めに日程を提案しましょう（期限まであと5日）</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A15: Eri -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Eri · 41歳 <span class="record-label label-shop">お店</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Eri · 41歳 <span class="record-label label-shop">お店</span>
+              </div>
+              <div class="match-time">1日前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
               <div class="status-pill"><span class="status-icon">🍴</span>お店を提案済</div>
               <div class="match-preview" style="font-weight:600;">3/24 19:00 〜 和食 しずく</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A16: Saki -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Saki · 35歳 <span class="record-label label-shop">お店</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Saki · 35歳 <span class="record-label label-shop">お店</span>
+              </div>
+              <div class="match-time">2日前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR083_restaurant.html'">
               <div class="status-pill active"><span class="status-icon">🍴</span>店舗候補が届いています</div>
               <div class="match-preview" style="font-weight:600; color:var(--c6);">3/23 18:30 〜 ビストロ青葉</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A17b: Aoi (Admin booking failed → reschedule request) -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">
-              Aoi · 36歳 <span class="record-label label-warn">再調整</span>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
+                Aoi · 36歳 <span class="record-label label-warn">再調整</span>
+              </div>
+              <div class="match-time">2日前</div>
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
               <div class="status-pill active" style="background:#fff8e1; border-color:#ffe082; color:#f57f17;">
@@ -1161,7 +1175,6 @@
               <div class="match-preview" style="color:#888; font-size:10px; margin-top:2px;">日程・お店を再度選んでください</div>
             </div>
           </div>
-          <div class="arrow-icon" style="color:#ffe082;">></div>
         </div>
       </div>
 
@@ -1201,56 +1214,60 @@
 
       <!-- TAB: CONFIRMED -->
       <div id="section-confirmed" class="tab-content">
-        <!-- M-A17: Miyu (Confirmed/Booking Prep) -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR080_match_detail.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
+          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR065_match.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Miyu · 41歳</div>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Miyu · 41歳</div>
+              <div class="match-time">3日前</div>
+            </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
               <div class="status-pill active" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;"><span class="status-icon">✅</span>店舗確定・予約依頼中</div>
               <div class="match-preview" style="font-weight:600; color:#2e7d32;">3/25 19:30 〜 鮨 みなと</div>
               <div class="match-preview" style="margin-top:0;">店舗が確定しました。事務局が予約を行っています。</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A10: Akari -->
         <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">✕✕</div>
+          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail.html'">Akari · 33歳</div>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Akari · 33歳</div>
+              <div class="match-time">4日前</div>
+            </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
               <div class="status-pill confirmed"><span class="status-icon">📅</span>3/22 18:00 (明日)</div>
               <div class="match-preview" style="font-weight:600;">イタリアン・ラ・ボラ</div>
               <div class="match-preview" style="margin-top:0;">予約が確定しています</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-A08: Mio -->
         <div class="match-item">
           <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">✕✕</div>
           <div class="match-info">
-            <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">Mio · 35歳</div>
+            <div class="match-name-row">
+              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">Mio · 35歳</div>
+              <div class="match-time">6日前</div>
+            </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">
               <div class="status-pill active" style="background:#e3f2fd; border-color:#90caf9; color:#1565c0;"><span class="status-icon">🚀</span>本日 19:30</div>
               <div class="match-preview" style="font-weight:600; color:#1565c0;">和食バル・一期一会</div>
               <div class="match-preview" style="margin-top:0;">当日リマインド。時間に注意して向かいましょう</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
       </div>
 
-      <!-- TAB: HISTORY -->
       <div id="section-history" class="tab-content">
-        <!-- M-A09: Kaori -->
         <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail_reviewed.html'">
           <div class="photo-box">✕✕</div>
           <div class="match-info">
-            <div class="match-name">Kaori · 45歳</div>
+            <div class="match-name-row">
+              <div class="match-name">Kaori · 45歳</div>
+              <div class="match-time">2週間前</div>
+            </div>
             <div class="action-wrap">
               <div class="status-pill" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;">
                 <span class="status-icon">✅</span>食事完了・評価済
@@ -1258,33 +1275,34 @@
               <div class="match-preview">3/5 和食 花 での食事が完了しました</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-H01: Momo -->
         <div class="match-item completed-item">
           <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Momo" style="width:100%; height:100%; border-radius:0;"></div>
           <div class="match-info">
-            <div class="match-name">Momo · 36歳</div>
+            <div class="match-name-row">
+              <div class="match-name">Momo · 36歳</div>
+              <div class="match-time">3週間前</div>
+            </div>
             <div class="action-wrap">
               <div class="status-pill" style="color:var(--c4);">キャンセル済（あなた）</div>
               <div class="match-preview">マッチングをキャンセルしました (2026-03-11)</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
 
-        <!-- M-H02: Noa -->
         <div class="match-item completed-item">
           <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Noa" style="width:100%; height:100%; border-radius:0;"></div>
           <div class="match-info">
-            <div class="match-name">Noa · 32歳</div>
+            <div class="match-name-row">
+              <div class="match-name">Noa · 32歳</div>
+              <div class="match-time">22日前</div>
+            </div>
             <div class="action-wrap">
               <div class="status-pill" style="color:var(--c4);">キャンセル済（相手）</div>
               <div class="match-preview">お相手によりキャンセルされました (2026-03-10)</div>
             </div>
           </div>
-          <div class="arrow-icon">></div>
         </div>
       </div>
     </div>

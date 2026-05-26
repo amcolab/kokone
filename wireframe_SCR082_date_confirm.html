@@ -74,22 +74,24 @@
         .subtitle {
             font-size: 12px;
             color: var(--c5);
-            padding: 12px;
-            background: var(--c1);
+            padding: 12px 14px 0;
+            background: var(--c0);
+            line-height: 1.6;
         }
         .partner-card {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px;
-            border: 1px solid var(--c6);
-            margin: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--c2);
+            margin: 12px 14px 0;
             background: var(--c0);
+            border-radius: 18px;
         }
         .partner-photo {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--c6);
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--c3);
             background: var(--c2);
             display: flex;
             align-items: center;
@@ -97,95 +99,115 @@
             font-size: 16px;
             color: var(--c4);
             flex-shrink: 0;
+            border-radius: 50%;
         }
         .partner-text {
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--c6);
+            line-height: 1.45;
         }
         .cards-section {
-            padding: 12px;
+            padding: 12px 14px 0;
             flex: 1;
             overflow-y: auto;
         }
         .candidate-card {
-            border: 1px solid var(--c6);
+            border: 1px solid var(--c2);
             margin-bottom: 12px;
             background: var(--c0);
-            border-left: 1px solid var(--c6);
+            border-radius: 22px;
+            overflow: hidden;
         }
         .candidate-card.primary {
-            border-left: 2px solid var(--c6);
+            border-color: var(--c3);
         }
         .card-header {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--c6);
+            padding: 14px 16px 0;
         }
         .card-badge {
-            background: var(--c6);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 88px;
+            height: 28px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: var(--c5);
             color: var(--c0);
-            font-size: 10px;
-            padding: 3px 6px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
         }
         .card-date {
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 25px;
+            font-weight: 800;
             color: var(--c6);
-            padding: 12px;
-        }
-        .status-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--c5);
-            padding: 0 12px 8px;
-            gap: 8px;
-        }
-        .status-item {
-            flex: 1;
-            text-align: center;
-        }
-        .card-tag {
-            display: inline-block;
-            background: var(--c0);
-            border: 1px solid var(--c6);
-            color: var(--c6);
-            font-size: 11px;
-            padding: 2px 6px;
-            margin: 0 12px 12px 0;
+            padding: 14px 16px 8px;
+            line-height: 1.2;
         }
         .card-body {
-            padding: 0 12px 12px;
+            padding: 0 16px 16px;
+        }
+        .proposal-intro {
+            font-size: 12px;
+            color: var(--c4);
+            line-height: 1.55;
+            margin-bottom: 14px;
+        }
+        .detail-list {
+            border-top: 1px solid #efefef;
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .detail-label {
+            color: var(--c4);
+            min-width: 68px;
+        }
+        .detail-value {
+            color: var(--c6);
+            font-weight: 600;
+            text-align: right;
+            flex: 1;
+            line-height: 1.5;
         }
         .deadline-note {
             font-size: 12px;
             color: var(--c5);
-            padding: 12px;
-            background: var(--c1);
-            border: 1px solid var(--c6);
-            margin: 12px;
-            line-height: 1.4;
+            padding: 12px 14px;
+            background: #fafafa;
+            border: 1px solid var(--c2);
+            margin: 12px 14px;
+            line-height: 1.55;
+            border-radius: 16px;
         }
         .confirm-btn {
-            margin: 0 12px;
+            margin: 0 14px 8px;
             padding: 0 12px;
             height: 44px;
             border: 1px solid var(--c6);
             background: var(--c6);
             color: var(--c0);
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-weight: 700;
+            border-radius: 999px;
         }
         .re-propose-link {
             font-size: 12px;
             color: var(--c4);
-            padding: 0 12px 12px;
+            padding: 0 14px 14px;
             cursor: pointer;
             text-decoration: none;
             display: block;
@@ -350,7 +372,6 @@
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">D · Booking</div>
-    <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
     <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
     <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
     <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
@@ -404,81 +425,54 @@
 
         <!-- Header -->
         <div class="header">
-            <div class="back-btn" onclick="window.location.href='wireframe_SCR081_schedule.html'" style="cursor:pointer;"><</div>
-            <div class="header-title">食事候補日</div>
+            <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'" style="cursor:pointer;"><</div>
+            <div class="header-title">候補日が届きました</div>
         </div>
 
-        <!-- Subtitle -->
         <div class="subtitle">
-            双方のスケジュールから候補日を自動で提案しました
+            お相手から食事候補日の提案が届いています。問題なければこのまま確定し、難しければ別候補を送り返せます。
         </div>
 
-        <!-- Partner Card -->
         <div class="partner-card">
-            <div class="partner-photo">X</div>
-            <div class="partner-text">みずきさんとの食事</div>
+            <div class="partner-photo">✕✕</div>
+            <div class="partner-text">Noaさんから日程提案が届きました</div>
         </div>
 
-        <!-- Candidate Cards -->
         <div class="cards-section">
-            <!-- Card 1 -->
             <div class="candidate-card primary">
                 <div class="card-header">
-                    <div class="card-badge">第1候補</div>
+                    <div class="card-badge">受信した候補日</div>
                 </div>
-                <div class="card-date">3月20日（木）夜</div>
-                <div class="status-row">
-                    <div class="status-item">あなた ○ 空き</div>
-                    <div class="status-item">みずきさん ○ 空き</div>
-                </div>
+                <div class="card-date" id="receivedProposalDate">5/24（土）19:00〜</div>
                 <div class="card-body">
-                    <span class="card-tag">✓ 双方空き確認済</span>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="candidate-card">
-                <div class="card-header">
-                    <div class="card-badge">第2候補</div>
-                </div>
-                <div class="card-date">3月22日（土）昼</div>
-                <div class="status-row">
-                    <div class="status-item">あなた ○ 空き</div>
-                    <div class="status-item">みずきさん ○ 空き</div>
-                </div>
-                <div class="card-body">
-                    <span class="card-tag">✓ 双方空き確認済</span>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="candidate-card">
-                <div class="card-header">
-                    <div class="card-badge">第3候補</div>
-                </div>
-                <div class="card-date">3月25日（火）夜</div>
-                <div class="status-row">
-                    <div class="status-item">あなた ○ 空き</div>
-                    <div class="status-item">みずきさん ○ 空き</div>
-                </div>
-                <div class="card-body">
-                    <span class="card-tag">✓ 双方空き確認済</span>
+                    <div class="proposal-intro">お相手が選んだ候補日時です。この日時で問題なければ確定へ進みます。</div>
+                    <div class="detail-list">
+                        <div class="detail-row">
+                            <div class="detail-label">提案者</div>
+                            <div class="detail-value">Noaさん</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">状態</div>
+                            <div class="detail-value">あなたの返答待ち</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">次の操作</div>
+                            <div class="detail-value">確定する / 別候補を再提案する</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Deadline Note -->
         <div class="deadline-note">
-            食事日の3日前（3月17日）までに確定してください
+            この候補日で問題なければ確定してください。別の日時にしたい場合は「候補日を再提案する」から新しい候補を送り返せます。
         </div>
 
-        <!-- Buttons -->
-        <button class="confirm-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'">この候補日で確定する →</button>
-        <a class="re-propose-link" onclick="window.location.href='wireframe_SCR080_match_detail.html'">候補日を再提案してもらう</a>
+        <button class="confirm-btn" onclick="window.location.href='wireframe_SCR083_restaurant.html'">この候補日で確定する</button>
+        <a class="re-propose-link" onclick="window.location.href='wireframe_SCR082_date_proposal_change.html'">候補日を再提案する</a>
 
-        <!-- Footer Note -->
         <div class="footer-note" style="font-size: 10px; color: var(--c4); padding: 12px; border-top: 1px solid var(--c2);">
-            フロー: SCR-081 → SCR-082 ★ → [確定] → SCR-083 Restaurant
+            フロー: SCR-065 → SCR-082 → [確定] SCR-083 / [再提案] SCR-082B
         </div>
 
     <div class="blp-wrap">
@@ -503,12 +497,12 @@
     <div class="blp-lang lang-ja">
       <div class="blp-section">
         <div class="blp-section-title">目的</div>
-        <div class="blp-note highlight">双方が合意できる候補日の提示と確定。システムが最適な3日間を自動提案。</div>
+        <div class="blp-note highlight">お相手から届いた候補日時を確認し、そのまま確定するか、別候補を再提案するかを選ぶ返答画面です。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案</strong> — 双方のカレンダー空き情報を照合して3件表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>期限</strong> — 食事日の3日前までに確定。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>受信候補日</strong> — 提案元の日時を1件だけ大きく表示します。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>返答</strong> — 「この候補日で確定する」または「候補日を再提案する」の2択です。</div></div>
       </div>
     </div>
 
@@ -516,17 +510,20 @@
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
         <div class="blp-section-title">Mục đích</div>
-        <div class="blp-note highlight">Đề xuất và chốt ngày ăn phù hợp cho cả hai.</div>
+        <div class="blp-note highlight">Màn phản hồi khi user nhận được đề xuất lịch từ đối phương, cho phép chấp nhận ngay hoặc gửi lại đề xuất khác.</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Gợi ý</strong> — Hệ thống lọc 3 ngày phù hợp nhất từ lịch của 2 người.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Hạn chốt</strong> — Muộn nhất 3 ngày trước buổi ăn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Ngày được gửi tới</strong> được hiển thị nổi bật theo đúng proposal hiện có.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>2 lựa chọn</strong> gồm xác nhận luôn hoặc chuyển sang flow đề xuất lại ngày khác.</div></div>
       </div>
     </div>
   </div>
 
   <script>
+    var receivedProposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
+    document.getElementById('receivedProposalDate').textContent = receivedProposal;
+
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
       document.querySelector('.lang-' + lang).style.display = 'block';
@@ -539,7 +536,6 @@
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
-      <a class="bn-item active" href="wireframe_SCR080_match_detail.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
     </div>

@@ -37,6 +37,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
     .status-bar {
       height: 20px;
@@ -114,18 +115,121 @@
       color: var(--c4);
       margin-top: 2px;
     }
-    .ot-badge {
+    .menu-icon {
       width: 26px;
       height: 26px;
-      border-radius: 50%;
-      background: var(--c5);
-      color: var(--c0);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 18px;
+      color: var(--c5);
+      cursor: pointer;
       flex-shrink: 0;
+    }
+    .header-menu-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.12);
+      display: none;
+      z-index: 40;
+    }
+    .header-menu-overlay.open {
+      display: block;
+    }
+    .header-menu-sheet {
+      position: absolute;
+      top: 60px;
+      right: 14px;
+      width: 176px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .header-menu-item {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c6);
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .header-menu-item:last-child {
+      border-bottom: 0;
+    }
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.26);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .confirm-overlay.open {
+      display: flex;
+    }
+    .confirm-dialog {
+      width: 280px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 18px;
+      padding: 18px 16px 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+    }
+    .confirm-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .confirm-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .confirm-btn {
+      flex: 1;
+      height: 38px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .confirm-btn.secondary {
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      color: var(--c5);
+    }
+    .confirm-btn.primary {
+      border: 0;
+      background: var(--c5);
+      color: var(--c0);
+    }
+    .toast {
+      position: absolute;
+      left: 50%;
+      bottom: 84px;
+      transform: translateX(-50%);
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 11px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      display: none;
+      z-index: 60;
+      white-space: nowrap;
+    }
+    .toast.show {
+      display: block;
     }
     .progress {
       display: grid;
@@ -648,7 +752,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
@@ -675,14 +778,14 @@
     </div>
     <div class="chat-header">
       <div class="header-left">
-        <div class="back-btn" onclick="window.location.href='wireframe_SCR080_match_detail.html'">‹</div>
+        <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
         <div class="avatar"></div>
         <div class="header-meta">
           <div class="name-row">さやか</div>
           <div class="online">オンライン</div>
         </div>
       </div>
-      <div class="ot-badge">OT</div>
+      <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
     </div>
     <div class="progress">
       <div class="step active">日程調整</div>
@@ -725,6 +828,24 @@
       <div class="input-placeholder">メッセージを入力...</div>
       <button class="send-btn">➤</button>
     </div>
+    <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
+      <div class="header-menu-sheet" onclick="event.stopPropagation()">
+        <button class="header-menu-item" type="button" onclick="openPhotoRequestConfirm()">写真公開リクエスト</button>
+        <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
+        <button class="header-menu-item" type="button" onclick="blockUser()">ブロックする</button>
+      </div>
+    </div>
+    <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">写真公開リクエストを送りますか？</div>
+        <div class="confirm-text">お相手にプロフィール写真の公開リクエストを送信します。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn secondary" type="button" onclick="closePhotoRequestConfirm()">キャンセル</button>
+          <button class="confirm-btn primary" type="button" onclick="submitPhotoRequest()">送信する</button>
+        </div>
+      </div>
+    </div>
+    <div id="actionToast" class="toast"></div>
   </div>
   <div class="blp-wrap">
     <div class="blp-head">
@@ -792,6 +913,8 @@
     </div>
   </div>
   <script>
+    let actionToastTimer;
+
     function setBlpLang(lang) {
       document.querySelectorAll(".blp-lang").forEach(function (el) {
         el.style.display = "none";
@@ -801,6 +924,54 @@
         btn.classList.remove("active");
       });
       document.getElementById("lang" + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add("active");
+    }
+
+    function toggleHeaderMenu() {
+      document.getElementById("headerMenuOverlay").classList.toggle("open");
+    }
+
+    function closeHeaderMenu() {
+      document.getElementById("headerMenuOverlay").classList.remove("open");
+    }
+
+    function openPhotoRequestConfirm() {
+      closeHeaderMenu();
+      document.getElementById("photoRequestConfirm").classList.add("open");
+    }
+
+    function closePhotoRequestConfirm() {
+      document.getElementById("photoRequestConfirm").classList.remove("open");
+    }
+
+    function submitPhotoRequest() {
+      closePhotoRequestConfirm();
+      showActionToast("写真公開リクエストを送りました");
+    }
+
+    function goToReport() {
+      closeHeaderMenu();
+      window.location.href = "wireframe_SCR103_report.html";
+    }
+
+    function blockUser() {
+      closeHeaderMenu();
+      showActionToast("ブロックしました");
+    }
+
+    function showActionToast(message) {
+      var toast = document.getElementById("actionToast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(actionToastTimer);
+      actionToastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+    function toggleBlpFullscreen(button) {
+      var wrap = button.closest(".blp-wrap");
+      var isFullscreen = wrap.classList.toggle("fullscreen");
+      document.body.style.paddingRight = isFullscreen ? (window.innerWidth - 200) + "px" : "300px";
     }
   </script>
 </body>

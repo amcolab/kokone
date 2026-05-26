@@ -1408,6 +1408,12 @@
       font-weight: 700;
       color: #616161;
     }
+    .shop-note {
+      margin-top: 6px;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.5;
+    }
     
     .shop-arrow {
       color: #9e9e9e;
@@ -1620,7 +1626,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR080_match_detail.html"><span class="wf-nav-id">080</span>Match Detail</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
@@ -1813,6 +1818,7 @@
           var shopsHtml = '';
           if (c.shops && c.shops.length > 0) {
             shopsHtml += '<div class="shop-section-header"><span>★ おすすめのお店</span></div>';
+            shopsHtml += '<div class="shop-note">※ Likeする前にお店を1つ選択してください</div>';
             shopsHtml += '<div class="shop-grid">';
             c.shops.forEach(function (shop) {
               shopsHtml += '<div class="shop-card" style="background-image: url(\'' + shop.image + '\');">' +
