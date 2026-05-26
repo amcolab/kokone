@@ -186,16 +186,32 @@
       flex-direction: column;
       gap: 6px;
     }
+    .user-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
     .user-name {
       font-size: 14px;
       font-weight: 600;
       color: var(--c6);
+      flex: 1;
+      min-width: 0;
     }
 
     .user-location {
       font-size: 12px;
       color: var(--c4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .user-location::before {
+      content: '📍';
+      font-size: 11px;
+      line-height: 1;
     }
 
     .status-badge {
@@ -234,9 +250,10 @@
     .sent-date {
       font-size: 11px;
       color: var(--c4);
-      margin-top: 2px;
+      margin-top: 0;
+      flex-shrink: 0;
+      text-align: right;
     }
-
     .arrow-icon {
       width: 20px;
       display: flex;
@@ -701,7 +718,6 @@
   <div class="wf-sidebar-group">
     <div class="wf-group-label">B · Home</div>
     <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
     <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
     <a class="wf-nav-link wf-active" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
     <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
@@ -770,26 +786,24 @@
     <!-- header-bar removed -->
 
     <div class="tab-bar">
-      <div class="tab active" id="tab-received" onclick="switchTab('received')" style="cursor:pointer;">
-        もらったいいね<span class="tab-count" id="cnt-received">5</span>
+      <div class="tab" id="tab-received" onclick="switchTab('received')" style="cursor:pointer;">
+        もらったいいね<span class="tab-count muted" id="cnt-received">1</span>
       </div>
-      <div class="tab" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
-        送ったいいね<span class="tab-count muted" id="cnt-sent">12</span>
+      <div class="tab active" id="tab-sent" onclick="switchTab('sent')" style="cursor:pointer;">
+        送ったいいね
       </div>
     </div>
 
     <div class="content">
-      <div class="tab-panel" id="panel-received">
+      <div class="tab-panel hidden" id="panel-received">
         <div class="user-card">
           <div class="photo-box">✕✕</div>
           <div class="card-info">
-            <div class="user-name">なおさん · 32歳</div>
+            <div class="user-top-row">
+              <div class="user-name">なおさん · 32歳</div>
+              <div class="sent-date">2日前</div>
+            </div>
             <div class="user-location">品川区</div>
-            <div class="tag-row">
-              <div class="tag">グルメ好き</div>
-              <div class="tag">落ち着いている</div>
-            </div>
-            <div class="sent-date">2日前</div>
             <div class="action-buttons">
               <div class="btn">ごめんなさい</div>
               <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
@@ -800,13 +814,11 @@
         <div class="user-card">
           <div class="photo-box">✕✕</div>
           <div class="card-info">
-            <div class="user-name">ほなみさん · 28歳</div>
+            <div class="user-top-row">
+              <div class="user-name">ほなみさん · 28歳</div>
+              <div class="sent-date">4時間前</div>
+            </div>
             <div class="user-location">渋谷区</div>
-            <div class="tag-row">
-              <div class="tag">読書好き</div>
-              <div class="tag">アクティブ</div>
-            </div>
-            <div class="sent-date">4時間前</div>
             <div class="action-buttons">
               <div class="btn">ごめんなさい</div>
               <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
@@ -817,13 +829,11 @@
         <div class="user-card">
           <div class="photo-box">✕✕</div>
           <div class="card-info">
-            <div class="user-name">かなさん · 30歳</div>
-            <div class="user-location">新宿区</div>
-            <div class="tag-row">
-              <div class="tag">旅行好き</div>
-              <div class="tag">食通</div>
+            <div class="user-top-row">
+              <div class="user-name">かなさん · 30歳</div>
+              <div class="sent-date">1日前</div>
             </div>
-            <div class="sent-date">1日前</div>
+            <div class="user-location">新宿区</div>
             <div class="action-buttons">
               <div class="btn">ごめんなさい</div>
               <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
@@ -832,39 +842,39 @@
         </div>
       </div>
 
-      <div class="tab-panel hidden" id="panel-sent">
+      <div class="tab-panel" id="panel-sent">
         <div class="user-list">
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
-              <div class="user-name">さくらさん · 34歳</div>
+              <div class="user-top-row">
+                <div class="user-name">さくらさん · 34歳</div>
+                <div class="sent-date">3日前</div>
+              </div>
               <div class="user-location">新宿区</div>
-              <div class="status-badge">マッチング待ち</div>
-              <div class="sent-date">3日前</div>
             </div>
-            <div class="arrow-icon">›</div>
           </div>
 
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
-              <div class="user-name">あいさん · 31歳</div>
+              <div class="user-top-row">
+                <div class="user-name">あいさん · 31歳</div>
+                <div class="sent-date">5日前</div>
+              </div>
               <div class="user-location">品川区</div>
-              <div class="status-badge">マッチング待ち</div>
-              <div class="sent-date">5日前</div>
             </div>
-            <div class="arrow-icon">›</div>
           </div>
 
           <div class="user-item">
             <div class="photo-box">✕✕</div>
             <div class="user-info">
-              <div class="user-name">ひかりさん · 27歳</div>
+              <div class="user-top-row">
+                <div class="user-name">ひかりさん · 27歳</div>
+                <div class="sent-date">1週間前</div>
+              </div>
               <div class="user-location">新宿区</div>
-              <div class="status-badge expired">期限切れ (LIKE_EXPIRED)</div>
-              <div class="sent-date">1週間前</div>
             </div>
-            <div class="arrow-icon">›</div>
           </div>
         </div>
       </div>
@@ -911,7 +921,7 @@
 
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
-      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html#received"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
+      <a class="bn-item active" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
@@ -924,8 +934,10 @@
         document.getElementById('panel-sent').classList.toggle('hidden', isReceived);
         document.getElementById('tab-received').classList.toggle('active', isReceived);
         document.getElementById('tab-sent').classList.toggle('active', !isReceived);
-        document.getElementById('cnt-received').className = 'tab-count' + (isReceived ? '' : ' muted');
-        document.getElementById('cnt-sent').className = 'tab-count' + (!isReceived ? '' : ' muted');
+        var receivedCount = document.getElementById('cnt-received');
+        if (receivedCount) {
+          receivedCount.className = 'tab-count' + (isReceived ? '' : ' muted');
+        }
         history.replaceState(null, '', '#' + tab);
       }
 
@@ -935,7 +947,7 @@
           switchTab(hash);
           return;
         }
-        switchTab('received');
+        switchTab('sent');
       }
 
       (function() {

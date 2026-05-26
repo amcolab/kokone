@@ -74,78 +74,193 @@
       flex: 1;
       overflow-y: auto;
       background: var(--c1);
-      padding: 14px 14px 24px;
+      padding: 12px 14px 24px;
     }
-    .info-card {
+    .mode-switch {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
       border: 1px solid var(--c2);
-      background: var(--c0);
-      border-radius: 18px;
-      padding: 14px;
-      font-size: 12px;
+      border-radius: 14px;
+      background: #ebebeb;
+      margin-bottom: 14px;
+    }
+    .mode-tab {
+      flex: 1;
+      height: 38px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
       color: var(--c5);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-    .section {
-      border: 1px solid var(--c2);
-      background: var(--c0);
-      border-radius: 20px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .section-title {
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 12px;
+      cursor: pointer;
     }
-    .slot-row {
+    .mode-tab.active {
+      background: var(--c0);
+      color: var(--c6);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .availability-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .availability-panel.hidden {
+      display: none;
+    }
+    .meal-section {
+      border-top: 1px solid var(--c2);
+      padding-top: 16px;
+    }
+    .meal-section:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .meal-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--c6);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .meal-symbol {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      background: var(--c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c5);
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .weekday-cell {
+      text-align: center;
+      font-size: 11px;
+      color: var(--c4);
+      font-weight: 700;
+    }
+    .state-chip {
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c5);
+      font-size: 19px;
+      cursor: pointer;
+    }
+    .state-chip.tentative {
+      color: var(--c4);
+    }
+    .state-chip.off {
+      color: #d6d6d6;
+      background: #f1f1f1;
+    }
+    .slot-label {
+      font-size: 12px;
+      color: var(--c4);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .time-pill {
+      min-height: 48px;
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      color: var(--c6);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .time-pill.active {
+      background: #d9d9d9;
+      border-color: #d9d9d9;
+    }
+    .time-caption {
+      font-size: 10px;
+      color: var(--c4);
+      font-weight: 600;
+    }
+    .time-pill.active .time-caption {
+      color: var(--c6);
+    }
+    .date-note {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .date-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .date-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid #efefef;
+      gap: 12px;
     }
-    .slot-row:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
+    .date-label-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
-    .slot-row:first-child {
-      padding-top: 0;
+    .date-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c6);
     }
     .date-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 86px;
-    }
-    .date-main {
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .date-sub {
-      font-size: 10px;
+      font-size: 12px;
       color: var(--c4);
+      font-weight: 600;
     }
-    .chip-group {
+    .date-toggle-group {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: flex-end;
+      gap: 10px;
     }
-    .chip {
-      min-width: 64px;
-      height: 30px;
-      padding: 0 10px;
+    .date-toggle {
+      min-width: 74px;
+      height: 38px;
+      padding: 0 12px;
       border-radius: 999px;
       border: 1px solid var(--c2);
-      background: #fafafa;
-      color: var(--c5);
+      background: #efefef;
+      color: #b6b6b6;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
       cursor: pointer;
     }
-    .chip.active {
+    .date-toggle.active {
       background: var(--c5);
       border-color: var(--c5);
       color: var(--c0);
@@ -153,7 +268,7 @@
     .helper-link {
       display: block;
       text-align: center;
-      margin-top: 14px;
+      margin-top: 4px;
       color: var(--c4);
       font-size: 12px;
       text-decoration: none;
@@ -512,7 +627,6 @@
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
       <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-      <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
       <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
       <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
       <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
@@ -555,69 +669,174 @@
     </div>
     <div class="header">
       <div class="back-btn" onclick="window.location.href='wireframe_SCR081_schedule_empty.html'">‹</div>
-      <div class="title">空いている日時を登録</div>
-      <div class="save">保存</div>
+      <div class="title">空き日時の設定</div>
     </div>
     <div class="content">
-      <div class="info-card">この画面では、直近で会いやすい時間帯だけを簡単に登録できます。詳細な週次設定が必要な場合は、既存のスケジュール管理画面も開けます。</div>
-      <div class="section">
-        <div class="section-title">今週の候補</div>
-        <div class="slot-row">
-          <div class="date-meta">
-            <div class="date-main">5/24 土</div>
-            <div class="date-sub">夜の予定</div>
+      <div class="mode-switch">
+        <button class="mode-tab active" id="mode-basic" type="button" onclick="switchAvailabilityMode('basic')">基本設定</button>
+        <button class="mode-tab" id="mode-date" type="button" onclick="switchAvailabilityMode('date')">日付指定</button>
+      </div>
+
+      <div class="availability-panel" id="panel-basic">
+        <div class="meal-section">
+          <div class="meal-heading"><span class="meal-symbol">昼</span><span>ランチ</span></div>
+          <div class="week-grid">
+            <div class="weekday-cell">日</div>
+            <div class="weekday-cell">月</div>
+            <div class="weekday-cell">火</div>
+            <div class="weekday-cell">水</div>
+            <div class="weekday-cell">木</div>
+            <div class="weekday-cell">金</div>
+            <div class="weekday-cell">土</div>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip tentative" type="button" data-seq="open,tentative,off" data-index="1">△</button>
+            <button class="state-chip off" type="button" data-seq="open,tentative,off" data-index="2">×</button>
+            <button class="state-chip tentative" type="button" data-seq="open,tentative,off" data-index="1">△</button>
+            <button class="state-chip tentative" type="button" data-seq="open,tentative,off" data-index="1">△</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
           </div>
-          <div class="chip-group">
-            <button class="chip active" type="button">18:30</button>
-            <button class="chip active" type="button">19:00</button>
-            <button class="chip active" type="button">19:30</button>
+          <div class="slot-label">開始希望時刻</div>
+          <div class="time-grid">
+            <button class="time-pill" type="button"><span>11:00</span></button>
+            <button class="time-pill" type="button"><span>11:30</span></button>
+            <button class="time-pill" type="button"><span>12:00</span></button>
+            <button class="time-pill" type="button"><span>12:30</span></button>
+            <button class="time-pill active" type="button"><span>13:00</span><span class="time-caption">開始</span></button>
+            <button class="time-pill" type="button"><span>13:30</span></button>
+            <button class="time-pill" type="button"><span>14:00</span></button>
+            <button class="time-pill active" type="button"><span>14:30</span><span class="time-caption">開始</span></button>
+            <button class="time-pill" type="button"><span>15:00</span></button>
+            <button class="time-pill" type="button"><span>15:30</span></button>
           </div>
         </div>
-        <div class="slot-row">
-          <div class="date-meta">
-            <div class="date-main">5/25 日</div>
-            <div class="date-sub">夜の予定</div>
+
+        <div class="meal-section">
+          <div class="meal-heading"><span class="meal-symbol">夜</span><span>ディナー</span></div>
+          <div class="week-grid">
+            <div class="weekday-cell">日</div>
+            <div class="weekday-cell">月</div>
+            <div class="weekday-cell">火</div>
+            <div class="weekday-cell">水</div>
+            <div class="weekday-cell">木</div>
+            <div class="weekday-cell">金</div>
+            <div class="weekday-cell">土</div>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip tentative" type="button" data-seq="open,tentative,off" data-index="1">△</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip off" type="button" data-seq="open,tentative,off" data-index="2">×</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
+            <button class="state-chip" type="button" data-seq="open,tentative,off" data-index="0">○</button>
           </div>
-          <div class="chip-group">
-            <button class="chip" type="button">18:30</button>
-            <button class="chip active" type="button">19:00</button>
-            <button class="chip" type="button">19:30</button>
-          </div>
-        </div>
-        <div class="slot-row">
-          <div class="date-meta">
-            <div class="date-main">5/26 月</div>
-            <div class="date-sub">夜の予定</div>
-          </div>
-          <div class="chip-group">
-            <button class="chip" type="button">19:00</button>
-            <button class="chip active" type="button">20:00</button>
+          <div class="slot-label">開始希望時刻</div>
+          <div class="time-grid">
+            <button class="time-pill" type="button"><span>17:00</span></button>
+            <button class="time-pill" type="button"><span>17:30</span></button>
+            <button class="time-pill active" type="button"><span>18:00</span><span class="time-caption">開始</span></button>
+            <button class="time-pill" type="button"><span>18:30</span></button>
+            <button class="time-pill" type="button"><span>19:00</span></button>
+            <button class="time-pill" type="button"><span>19:30</span></button>
+            <button class="time-pill" type="button"><span>20:00</span></button>
+            <button class="time-pill" type="button"><span>20:30</span></button>
+            <button class="time-pill active" type="button"><span>21:00</span><span class="time-caption">開始</span></button>
+            <button class="time-pill" type="button"><span>21:30</span></button>
+            <button class="time-pill" type="button"><span>22:00</span></button>
+            <button class="time-pill" type="button"><span>22:30</span></button>
           </div>
         </div>
       </div>
-      <div class="section">
-        <div class="section-title">来週の候補</div>
-        <div class="slot-row">
-          <div class="date-meta">
-            <div class="date-main">5/31 土</div>
-            <div class="date-sub">夜の予定</div>
+
+      <div class="availability-panel hidden" id="panel-date">
+        <div class="date-note">特定の日時に食事の予約を入れたい場合は、こちらから選択してください。この設定は、基本設定よりも優先されます。</div>
+        <div class="date-list">
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">今日</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle active" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
           </div>
-          <div class="chip-group">
-            <button class="chip active" type="button">18:30</button>
-            <button class="chip" type="button">19:00</button>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">27</div><div class="date-meta">(水)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
           </div>
-        </div>
-        <div class="slot-row">
-          <div class="date-meta">
-            <div class="date-main">6/1 日</div>
-            <div class="date-sub">夜の予定</div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">28</div><div class="date-meta">(木)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle active" type="button">夜</button>
+            </div>
           </div>
-          <div class="chip-group">
-            <button class="chip active" type="button">19:30</button>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">29</div><div class="date-meta">(金)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle active" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">30</div><div class="date-meta">(土)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">31</div><div class="date-meta">(日)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">1</div><div class="date-meta">(月)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">2</div><div class="date-meta">(火)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">3</div><div class="date-meta">(水)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">4</div><div class="date-meta">(木)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">5</div><div class="date-meta">(金)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
+          </div>
+          <div class="date-item">
+            <div class="date-label-wrap"><div class="date-label">6</div><div class="date-meta">(土)</div></div>
+            <div class="date-toggle-group">
+              <button class="date-toggle" type="button">昼</button>
+              <button class="date-toggle" type="button">夜</button>
+            </div>
           </div>
         </div>
       </div>
-      <a class="helper-link" href="wireframe_SCR121_availability.html">詳細なスケジュール管理を開く</a>
+
     </div>
     <div class="footer">
       <button class="primary-btn" onclick="window.location.href='wireframe_SCR082_date_proposal_primary.html'">候補日を確認する</button>
@@ -625,11 +844,88 @@
     </div>
   </div>
   <script>
-    document.querySelectorAll(".chip").forEach(function (chip) {
-      chip.addEventListener("click", function () {
-        chip.classList.toggle("active");
+    function switchAvailabilityMode(mode) {
+      var isBasic = mode === "basic";
+      document.getElementById("panel-basic").classList.toggle("hidden", !isBasic);
+      document.getElementById("panel-date").classList.toggle("hidden", isBasic);
+      document.getElementById("mode-basic").classList.toggle("active", isBasic);
+      document.getElementById("mode-date").classList.toggle("active", !isBasic);
+    }
+
+    function renderTimeRange(grid) {
+      var buttons = Array.from(grid.querySelectorAll(".time-pill"));
+      var startAttr = grid.getAttribute("data-start-index");
+      var endAttr = grid.getAttribute("data-end-index");
+      var hasStart = startAttr !== null && startAttr !== "";
+      var hasEnd = endAttr !== null && endAttr !== "";
+      var startIndex = hasStart ? Number(startAttr) : -1;
+      var endIndex = hasEnd ? Number(endAttr) : -1;
+      var minIndex = hasStart ? Math.min(startIndex, hasEnd ? endIndex : startIndex) : -1;
+      var maxIndex = hasStart ? Math.max(startIndex, hasEnd ? endIndex : startIndex) : -1;
+
+      buttons.forEach(function (button, index) {
+        var inRange = hasStart && index >= minIndex && index <= maxIndex;
+        var showStart = hasStart && (index === startIndex || (hasEnd && index === endIndex));
+        button.classList.toggle("active", inRange);
+        button.innerHTML = "<span>" + button.getAttribute("data-label") + "</span>" + (showStart ? '<span class="time-caption">開始</span>' : "");
+      });
+    }
+
+    document.querySelectorAll(".time-grid").forEach(function (grid) {
+      var buttons = Array.from(grid.querySelectorAll(".time-pill"));
+      var initialActiveIndexes = buttons.map(function (button, index) {
+        return button.classList.contains("active") ? index : -1;
+      }).filter(function (index) {
+        return index >= 0;
+      });
+
+      buttons.forEach(function (button) {
+        var label = button.querySelector("span") ? button.querySelector("span").textContent : button.textContent.trim();
+        button.setAttribute("data-label", label);
+      });
+
+      grid.setAttribute("data-start-index", initialActiveIndexes.length ? String(initialActiveIndexes[0]) : "");
+      grid.setAttribute("data-end-index", initialActiveIndexes.length > 1 ? String(initialActiveIndexes[initialActiveIndexes.length - 1]) : "");
+
+      buttons.forEach(function (button, index) {
+        button.addEventListener("click", function () {
+          var startAttr = grid.getAttribute("data-start-index");
+          var endAttr = grid.getAttribute("data-end-index");
+          var hasStart = startAttr !== null && startAttr !== "";
+          var hasEnd = endAttr !== null && endAttr !== "";
+
+          if (!hasStart || hasEnd) {
+            grid.setAttribute("data-start-index", String(index));
+            grid.setAttribute("data-end-index", "");
+          } else {
+            grid.setAttribute("data-start-index", startAttr);
+            grid.setAttribute("data-end-index", String(index));
+          }
+
+          renderTimeRange(grid);
+        });
+      });
+
+      renderTimeRange(grid);
+    });
+
+    document.querySelectorAll(".date-toggle").forEach(function (toggle) {
+      toggle.addEventListener("click", function () {
+        toggle.classList.toggle("active");
       });
     });
+
+    document.querySelectorAll(".state-chip").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var states = ["open", "tentative", "off"];
+        var nextIndex = (Number(chip.getAttribute("data-index")) + 1) % states.length;
+        var nextState = states[nextIndex];
+        chip.setAttribute("data-index", String(nextIndex));
+        chip.className = "state-chip" + (nextState === "open" ? "" : " " + nextState);
+        chip.textContent = nextState === "open" ? "○" : nextState === "tentative" ? "△" : "×";
+      });
+    });
+
     function setBlpLang(lang) {
       document.querySelectorAll(".blp-lang").forEach(function (el) {
         el.style.display = "none";
@@ -671,8 +967,8 @@
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>時間チップをON/OFF</strong>して、会える時間帯を複数選択します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>詳細なスケジュール管理</strong>へのリンクで既存の本格画面にも移動できます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>基本設定</strong>では、ランチ・ディナーごとに曜日と開始希望時刻をまとめて設定します。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日付指定</strong>では、特定の日だけを個別に上書き設定できます。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>候補日を確認する</strong>で次の提案確認画面へ進みます。</div></div>
         </div>
         <div class="blp-section">
@@ -695,8 +991,8 @@
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bấm chip thời gian</strong> để bật hoặc tắt từng slot rảnh.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>詳細なスケジュール管理を開く</strong> để chuyển sang màn quản lý lịch đầy đủ nếu cần.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Tab 基本設定</strong> dùng để chọn nhanh theo bữa ăn, theo thứ và theo giờ bắt đầu mong muốn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Tab 日付指定</strong> dùng để ghi đè cho từng ngày cụ thể khi có lịch đặc biệt.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>候補日を確認する</strong> sẽ sang màn xem đề xuất ngày ưu tiên.</div></div>
         </div>
         <div class="blp-section">

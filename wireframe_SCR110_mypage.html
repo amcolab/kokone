@@ -185,6 +185,105 @@
             font-size: 10px;
             text-decoration: underline;
         }
+    .availability-card {
+      border: 1px solid #90caf9;
+      background: #ffffff;
+      margin: 8px 12px 0;
+      padding: 12px;
+    }
+    .availability-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .availability-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #212121;
+    }
+    .availability-edit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 64px;
+      height: 28px;
+      padding: 0 12px;
+      border: 1px solid #d8d8d8;
+      border-radius: 999px;
+      background: #f6f6f6;
+      color: #616161;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .availability-grid {
+      display: grid;
+      grid-template-columns: 34px repeat(7, 1fr);
+      gap: 8px 10px;
+      align-items: center;
+    }
+    .availability-empty {
+      height: 1px;
+    }
+    .availability-weekday {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #212121;
+    }
+    .availability-weekday.sun,
+    .availability-weekday.sat {
+      color: #616161;
+    }
+    .availability-row-label {
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #424242;
+      background: #f3f3f3;
+    }
+    .availability-row-label.night {
+      background: #ececec;
+    }
+    .availability-state {
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f3f3;
+      font-size: 16px;
+      font-weight: 700;
+      color: #616161;
+    }
+    .availability-state.night {
+      background: #ececec;
+    }
+    .availability-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .availability-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      color: #424242;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .availability-tag.alt {
+      background: #e7e7e7;
+    }
 
     /* Verification Status Alert */
     .verify-alert {
@@ -416,7 +515,6 @@
   <div class="wf-sidebar-group">
     <div class="wf-group-label">B · Home</div>
     <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-    <a class="wf-nav-link" href="wireframe_SCR061_filter.html"><span class="wf-nav-id">061</span>Filter</a>
     <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
     <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
     <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
@@ -519,49 +617,42 @@
           </div>
         </div>
 
-        <!-- Upcoming plan change notice -->
-        <div style="
-          background:#e3f2fd; border:1px solid #90caf9; border-radius:8px;
-          padding:10px 12px; margin-top:8px; font-size:11px; color:#1565c0;">
-          <div style="font-weight:700; margin-bottom:4px;">📅 プラン変更予定</div>
-          <div style="line-height:1.7; color:#1976d2;">
-            4月16日から <strong>3ヶ月プラン（¥6,500/月）</strong> に変更されます。<br>
-            初回請求日: <strong>4月16日</strong>
+        <div class="availability-card">
+          <div class="availability-head">
+            <div class="availability-title">空き日時</div>
+            <a href="wireframe_SCR121_availability.html" class="availability-edit">編集する</a>
           </div>
-          <div style="margin-top:8px;">
-            <a href="#" onclick="openCancelPlanChangeDialog(); return false;" style="
-              display:inline-block; font-size:11px; font-weight:700;
-              color:#c62828; text-decoration:underline; cursor:pointer;">
-              変更を取り消す
-            </a>
-          </div>
-        </div>
+          <div class="availability-grid">
+            <div class="availability-empty"></div>
+            <div class="availability-weekday sun">日</div>
+            <div class="availability-weekday">月</div>
+            <div class="availability-weekday">火</div>
+            <div class="availability-weekday">水</div>
+            <div class="availability-weekday">木</div>
+            <div class="availability-weekday">金</div>
+            <div class="availability-weekday sat">土</div>
 
-        <!-- キャンセル確認ダイアログ -->
-        <div id="cancelPlanChangeOverlay" onclick="closeCancelPlanChangeDialog()" style="
-          display:none; position:absolute; inset:0; background:rgba(0,0,0,0.45);
-          z-index:200; border-radius:36px;"></div>
-        <div id="cancelPlanChangeDialog" style="
-          display:none; position:absolute; top:50%; left:50%;
-          transform:translate(-50%,-50%);
-          background:#fff; border-radius:12px; padding:22px 20px 18px;
-          width:290px; z-index:201; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
-          <div style="font-size:14px; font-weight:700; margin-bottom:10px;">プラン変更を取り消しますか？</div>
-          <div style="font-size:12px; color:#555; margin-bottom:18px; line-height:1.7;">
-            取り消すと、4月16日以降も<br>
-            現在の<strong>1ヶ月プラン</strong>が継続されます。
+            <div class="availability-row-label">☀</div>
+            <div class="availability-state">○</div>
+            <div class="availability-state">○</div>
+            <div class="availability-state">△</div>
+            <div class="availability-state">×</div>
+            <div class="availability-state">△</div>
+            <div class="availability-state">△</div>
+            <div class="availability-state">○</div>
+
+            <div class="availability-row-label night">☾</div>
+            <div class="availability-state night">○</div>
+            <div class="availability-state night">○</div>
+            <div class="availability-state night">△</div>
+            <div class="availability-state night">○</div>
+            <div class="availability-state night">×</div>
+            <div class="availability-state night">○</div>
+            <div class="availability-state night">○</div>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="closeCancelPlanChangeDialog()" style="
-              flex:1; padding:11px; background:#f0f0f0; color:#555; border:none;
-              border-radius:8px; font-size:12px; cursor:pointer;">
-              戻る
-            </button>
-            <button onclick="confirmCancelPlanChange()" style="
-              flex:1; padding:11px; background:#c62828; color:#fff; border:none;
-              border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
-              取り消す
-            </button>
+          <div class="availability-tags">
+            <div class="availability-tag">☾ 5月28日(木)</div>
+            <div class="availability-tag alt">☀ 5月29日(金)</div>
           </div>
         </div>
 
@@ -695,27 +786,6 @@
   </div>
 
   <script>
-    function openCancelPlanChangeDialog() {
-      document.getElementById('cancelPlanChangeOverlay').style.display = 'block';
-      document.getElementById('cancelPlanChangeDialog').style.display = 'block';
-    }
-    function closeCancelPlanChangeDialog() {
-      document.getElementById('cancelPlanChangeOverlay').style.display = 'none';
-      document.getElementById('cancelPlanChangeDialog').style.display = 'none';
-    }
-    function confirmCancelPlanChange() {
-      closeCancelPlanChangeDialog();
-      // Hide the upcoming plan change notice
-      var notice = document.querySelector('[style*="プラン変更予定"]');
-      if (notice) notice.closest('div').style.display = 'none';
-      // Show toast
-      var t = document.createElement('div');
-      t.textContent = 'プラン変更を取り消しました';
-      t.style.cssText = 'position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;font-size:11px;z-index:300;white-space:nowrap;';
-      document.querySelector('.device-mockup, .device-frame').appendChild(t);
-      setTimeout(function(){ t.remove(); }, 2500);
-    }
-
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
       document.querySelector('.lang-' + lang).style.display = 'block';
