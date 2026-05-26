@@ -363,6 +363,7 @@
       min-height: 480px;
       display: flex;
       flex-direction: column;
+      padding-bottom: 120px;
     }
 
     .card-area {
@@ -1396,6 +1397,76 @@
       font-weight: 500;
     }
     
+    .profile-detail-wrap {
+      margin-top: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    
+    #profileDetails {
+      width: 100%;
+      padding: 0 10px 18px;
+    }
+    
+    .profile-detail-section {
+      background: transparent;
+      margin-top: 0;
+      border-top: 1px solid #eaeaea;
+    }
+    
+    .profile-detail-section:first-child {
+      border-top: none;
+    }
+    
+    .profile-detail-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #757575;
+      padding: 14px 14px 8px;
+      background: #fafafa;
+      border-bottom: 1px solid #eeeeee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .profile-detail-icon {
+      width: 18px;
+      color: #212121;
+      font-size: 13px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    
+    .profile-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eeeeee;
+    }
+    
+    .profile-detail-row:last-child {
+      border-bottom: none;
+    }
+    
+    .profile-detail-label {
+      font-size: 13px;
+      color: #212121;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    
+    .profile-detail-value {
+      font-size: 12px;
+      color: #757575;
+      text-align: right;
+      line-height: 1.5;
+    }
+    
     /* Recommended Shops - Grayscale */
     .shop-section-header {
       display: flex;
@@ -1478,7 +1549,18 @@
       justify-content: center !important;
       align-items: center !important;
       gap: 24px !important;
-      padding: 10px 0 14px 0 !important;
+      padding: 18px 0 16px 0 !important;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 64px;
+      z-index: 40;
+      background: linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.92) 28%, rgba(245,245,245,1) 100%);
+      pointer-events: none;
+    }
+    
+    .action-row button {
+      pointer-events: auto;
     }
     
     .act-btn-skip {
@@ -1688,24 +1770,21 @@
           <div class="card-behind-2"></div>
           <div class="card-behind-1"></div>
           <div class="user-card" id="userCard"></div>
-          <div class="action-row">
-            <button class="act-btn-skip" id="btnSkip" onclick="skipCard()" title="スキップ">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-            <button class="act-btn-like" id="btnLike" onclick="showLikePopup()" title="いいね">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </button>
-          </div>
-          <div class="remain-row">
-            <div class="remain-dots" id="remainDots"></div>
-            <span class="remain-lbl" id="remainLbl"></span>
-          </div>
+          <div id="profileDetails"></div>
         </div>
+      </div>
+      <div class="action-row">
+        <button class="act-btn-skip" id="btnSkip" onclick="skipCard()" title="スキップ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <button class="act-btn-like" id="btnLike" onclick="showLikePopup()" title="いいね">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
       </div>
       <script>
         var CANDIDATES = [
@@ -1810,10 +1889,185 @@
             ]
           }
         ];
+        var DETAIL_PRESETS = [
+          {
+            hometown: '神奈川県',
+            workplace: '千代田区',
+            holidays: '土日',
+            alcohol: 'ワイン / シャンパン',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: 'ワイン / 和食 / 美術館',
+            spots: '銀座 / 日本橋 / ホテルラウンジ',
+            indoorOutdoor: 'インドア',
+            untilMeet: 'まずはメッセージで安心したい',
+            contact: '毎日1〜2往復',
+            dateFrequency: '月2回くらい',
+            looks: '清潔感がある人',
+            personality: '穏やかで誠実',
+            bodyType: '普通体型',
+            marriage: '良いご縁があれば考えたい',
+            children: '相手と相談したい',
+            transfer: 'できればしたくない'
+          },
+          {
+            hometown: '埼玉県',
+            workplace: '渋谷区',
+            holidays: '平日休みあり',
+            alcohol: '白ワイン / ノンアル',
+            smoke: '吸わない',
+            housing: '子どもと同居',
+            hobbies: 'アート / 和食 / 散歩',
+            spots: '代官山 / 表参道 / 美術館',
+            indoorOutdoor: 'どちらかというとアウトドア',
+            untilMeet: '気が合えば早めに会いたい',
+            contact: '無理のない頻度で',
+            dateFrequency: '月1〜2回',
+            looks: '優しい雰囲気',
+            personality: '話を聞いてくれる人',
+            bodyType: 'こだわらない',
+            marriage: 'まずは自然な関係から',
+            children: '理解のある方が理想',
+            transfer: '相談して決めたい'
+          },
+          {
+            hometown: '東京都',
+            workplace: '新宿区',
+            holidays: '土日',
+            alcohol: 'カクテル / ワイン',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: 'アート / 読書 / インドア',
+            spots: '新宿 / 神保町 / ギャラリー',
+            indoorOutdoor: '完全インドア寄り',
+            untilMeet: '価値観を知ってから会いたい',
+            contact: '毎日少しずつ',
+            dateFrequency: '月2回ほど',
+            looks: '雰囲気が柔らかい人',
+            personality: '知的で丁寧',
+            bodyType: '普通体型',
+            marriage: '将来も視野に入れたい',
+            children: '前向きに考えたい',
+            transfer: '状況次第'
+          },
+          {
+            hometown: '千葉県',
+            workplace: '港区',
+            holidays: '不定期',
+            alcohol: 'ワイン / ハイボール',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: 'ワイン / 和食 / 旅行',
+            spots: '麻布 / 六本木 / ジム帰りのお店',
+            indoorOutdoor: 'どちらかというとアウトドア',
+            untilMeet: '会う前に数日やり取りしたい',
+            contact: 'テンポよくやり取りしたい',
+            dateFrequency: '月2〜3回',
+            looks: '大人っぽい雰囲気',
+            personality: '前向きで会話が楽しい',
+            bodyType: '健康的な体型',
+            marriage: 'タイミングが合えば考えたい',
+            children: '相手と相談したい',
+            transfer: '必要なら対応できる'
+          },
+          {
+            hometown: '静岡県',
+            workplace: '目黒区',
+            holidays: 'シフト制',
+            alcohol: 'ノンアル / ビール少し',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: '料理 / 自然 / 散歩',
+            spots: '目黒川 / 代々木公園 / カフェ',
+            indoorOutdoor: 'どちらかというとアウトドア',
+            untilMeet: '安心できたら会いたい',
+            contact: 'ゆっくりでも続けたい',
+            dateFrequency: '月1〜2回',
+            looks: '清潔感重視',
+            personality: '穏やかで思いやりがある',
+            bodyType: 'こだわらない',
+            marriage: '良い方がいれば考えたい',
+            children: '相手に合わせて相談',
+            transfer: 'したくない'
+          },
+          {
+            hometown: '大阪府',
+            workplace: '中央区',
+            holidays: '土日',
+            alcohol: 'シャンパン / 赤ワイン',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: 'フレンチ / ジム / ビジネス',
+            spots: '丸の内 / 銀座 / 会員制ラウンジ',
+            indoorOutdoor: '完全アウトドア寄り',
+            untilMeet: 'テンポ良く進めたい',
+            contact: '毎日やり取りしたい',
+            dateFrequency: '週1回くらい',
+            looks: 'スタイルが合う人',
+            personality: '知的で自立している',
+            bodyType: '引き締まった体型',
+            marriage: '価値観が合えば前向き',
+            children: 'まずは相手の考えを知りたい',
+            transfer: '仕事次第で対応可能'
+          },
+          {
+            hometown: '宮城県',
+            workplace: '品川区',
+            holidays: '土日',
+            alcohol: 'ハイボール / ノンアル',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: 'ランニング / 音楽 / 穏やか',
+            spots: '品川 / 皇居周辺 / ライブハウス',
+            indoorOutdoor: 'どちらかというとアウトドア',
+            untilMeet: '自然に会う流れになれば',
+            contact: '気が向いた時にやり取りしたい',
+            dateFrequency: '月1回くらい',
+            looks: '笑顔が素敵な人',
+            personality: '落ち着いていて優しい',
+            bodyType: '普通体型',
+            marriage: '急がず仲を深めたい',
+            children: '相手と相談したい',
+            transfer: 'あまり考えていない'
+          },
+          {
+            hometown: '福岡県',
+            workplace: '杉並区',
+            holidays: '不定期',
+            alcohol: '和食に合うお酒',
+            smoke: '吸わない',
+            housing: 'ひとり暮らし',
+            hobbies: '和食 / 猫 / 感受性豊か',
+            spots: '中野 / 神楽坂 / 小さなバー',
+            indoorOutdoor: 'インドア',
+            untilMeet: '少し話してから会いたい',
+            contact: '心地よい頻度で続けたい',
+            dateFrequency: '月2回ほど',
+            looks: '清潔感と柔らかさ',
+            personality: '感性が合う人',
+            bodyType: 'こだわらない',
+            marriage: '良い関係が続けば考えたい',
+            children: '自然に相談したい',
+            transfer: 'できれば避けたい'
+          }
+        ];
         var idx = 0;
+        function renderDetailSection(icon, title, rows) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
+            rows.map(function (row) {
+              return '<div class="profile-detail-row">' +
+                '<div class="profile-detail-label">' + row[0] + '</div>' +
+                '<div class="profile-detail-value">' + row[1] + '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>';
+        }
         function renderCard() {
           var c = CANDIDATES[idx];
+          var d = DETAIL_PRESETS[idx % DETAIL_PRESETS.length];
           var tags = c.tags.map(function (t) { return '<span class="c-tag">' + t + '</span>'; }).join('');
+          var hobbyText = c.tags && c.tags.length ? c.tags.join(' / ') : d.hobbies;
           
           var shopsHtml = '';
           if (c.shops && c.shops.length > 0) {
@@ -1831,10 +2085,43 @@
             });
             shopsHtml += '</div>';
           }
+          var detailHtml =
+            '<div class="profile-detail-wrap">' +
+              renderDetailSection('◉', '基本情報', [
+                ['職業', c.job],
+                ['勤務地', d.workplace],
+                ['出身地', d.hometown]
+              ]) +
+              renderDetailSection('◌', 'ライフスタイル', [
+                ['休日', d.holidays],
+                ['好きなお酒の種類', d.alcohol],
+                ['タバコ', d.smoke],
+                ['住居形態', d.housing]
+              ]) +
+              renderDetailSection('◈', '趣味・行動嗜好', [
+                ['趣味', hobbyText],
+                ['よく行く場所', d.spots],
+                ['インドア / アウトドア', d.indoorOutdoor]
+              ]) +
+              renderDetailSection('♡', '恋愛・関係性スタンス', [
+                ['会うまでの希望', d.untilMeet],
+                ['連絡頻度の希望', d.contact],
+                ['会う頻度の希望', d.dateFrequency]
+              ]) +
+              renderDetailSection('◇', 'お相手への希望条件', [
+                ['見た目', d.looks],
+                ['性格', d.personality],
+                ['体型', d.bodyType]
+              ]) +
+              renderDetailSection('◎', '将来・結婚観', [
+                ['結婚願望', d.marriage],
+                ['子ども希望', d.children],
+                ['将来の転勤', d.transfer]
+              ]) +
+            '</div>';
 
           document.getElementById('userCard').innerHTML =
-            '<div style="cursor:pointer;" onclick="window.location.href=\'wireframe_SCR062_partner_profile.html\'">' +
-            '<div class="card-photo-container">' +
+            '<div class="card-photo-container" style="cursor:pointer;" onclick="window.location.href=\'wireframe_SCR062_partner_profile.html\'">' +
             '</div>' +
             '<div class="card-body">' +
             '<div class="card-name-row">' +
@@ -1849,15 +2136,9 @@
             '<div class="tag-row">' + tags + '</div>' +
             shopsHtml +
             '</div>' +
-            '</div>';
+            '';
+          document.getElementById('profileDetails').innerHTML = detailHtml;
 
-          var remain = CANDIDATES.length - idx - 1;
-          document.getElementById('remainLbl').textContent = 'あと ' + remain + ' 人';
-          var dots = '';
-          for (var i = 0; i < CANDIDATES.length; i++) {
-            dots += '<div class="r-dot' + (i <= idx ? ' on' : '') + '"></div>';
-          }
-          document.getElementById('remainDots').innerHTML = dots;
         }
         function skipCard() {
           var card = document.getElementById('userCard');
