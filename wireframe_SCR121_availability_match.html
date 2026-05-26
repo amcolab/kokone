@@ -27,7 +27,7 @@
       background: var(--c1);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--c6);
-      padding: 20px 20px 20px 220px;
+      padding: 20px 300px 20px 220px;
     }
     .device {
       width: 360px;
@@ -260,6 +260,229 @@
       width: 32px;
       flex-shrink: 0;
     }
+    .blp-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 2px solid #212121;
+      z-index: 9998;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-size: 11px;
+      color: #212121;
+      transition: width 0.2s ease;
+    }
+    .blp-wrap.fullscreen {
+      width: calc(100vw - 200px);
+    }
+    .blp-wrap.fullscreen .blp-body {
+      max-width: 760px;
+      margin: 0 auto;
+      columns: 2;
+      column-gap: 24px;
+    }
+    .blp-wrap.fullscreen .blp-section {
+      break-inside: avoid;
+    }
+    .blp-wrap::-webkit-scrollbar {
+      width: 4px;
+    }
+    .blp-wrap::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+    }
+    .blp-head {
+      position: sticky;
+      top: 0;
+      background: #212121;
+      color: #fff;
+      padding: 10px 14px 9px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .blp-head-scr {
+      font-size: 9px;
+      color: #bdbdbd;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+    .blp-head-title {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .blp-head-sub {
+      font-size: 10px;
+      color: #9e9e9e;
+      margin-top: 2px;
+    }
+    .blp-fullscreen-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #424242;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #9e9e9e;
+      transition: background .15s;
+    }
+    .blp-fullscreen-btn:hover {
+      background: #424242;
+      color: #fff;
+    }
+    .blp-fullscreen-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+    .blp-body {
+      padding: 10px 12px 20px;
+    }
+    .blp-section {
+      margin-bottom: 14px;
+    }
+    .blp-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #9e9e9e;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 4px;
+      margin-bottom: 7px;
+    }
+    .blp-rule {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+      line-height: 1.5;
+    }
+    .blp-rule-dot {
+      width: 14px;
+      height: 14px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #757575;
+      margin-top: 1px;
+    }
+    .blp-rule-text {
+      font-size: 11px;
+      color: #212121;
+      line-height: 1.55;
+    }
+    .blp-rule-text strong {
+      font-weight: 700;
+      color: #212121;
+    }
+    .blp-flow {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px;
+    }
+    .blp-flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding-bottom: 8px;
+    }
+    .blp-flow-step:last-child {
+      padding-bottom: 0;
+    }
+    .blp-step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .blp-step-num {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #424242;
+      background: #fff;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .blp-step-connector {
+      width: 1px;
+      flex: 1;
+      background: #e0e0e0;
+      min-height: 10px;
+      margin-top: 2px;
+    }
+    .blp-step-text {
+      font-size: 11px;
+      color: #424242;
+      line-height: 1.5;
+      padding-top: 1px;
+    }
+    .blp-step-text strong {
+      color: #212121;
+    }
+    .blp-note {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-left: 3px solid #bdbdbd;
+      padding: 7px 9px;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+    .blp-note.highlight {
+      border-left-color: #212121;
+      color: #424242;
+    }
+    .blp-note.warn {
+      border-left-color: #e65100;
+      background: #fff8f0;
+      color: #5d2e00;
+    }
+    .blp-note.ok {
+      border-left-color: #2e7d32;
+      background: #f1f8f1;
+      color: #1b5e20;
+    }
+    .blp-lang-switch {
+      display: flex;
+      border: 1px solid #444;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: 9px;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .blp-lang-btn {
+      padding: 2px 6px;
+      background: transparent;
+      color: #9e9e9e;
+    }
+    .blp-lang-btn.active {
+      background: #444;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -398,6 +621,85 @@
         chip.classList.toggle("active");
       });
     });
+    function setBlpLang(lang) {
+      document.querySelectorAll(".blp-lang").forEach(function (el) {
+        el.style.display = "none";
+      });
+      document.querySelector(".lang-" + lang).style.display = "block";
+      document.querySelectorAll(".blp-lang-btn").forEach(function (btn) {
+        btn.classList.remove("active");
+      });
+      document.getElementById("lang" + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add("active");
+    }
   </script>
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-121A</div>
+        <div class="blp-head-title">Availability Quick</div>
+        <div class="blp-head-sub">簡易日程登録 / Đăng lịch nhanh</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.paddingRight=isFs?(window.innerWidth-200)+'px':'300px';})(this)">
+          <svg viewBox="0 0 24 24">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">直近で会える候補日を、詳細なスケジュール管理よりも軽く素早く登録するための簡易入力画面です。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">主要な挙動</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>時間チップをON/OFF</strong>して、会える時間帯を複数選択します。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>詳細なスケジュール管理</strong>へのリンクで既存の本格画面にも移動できます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>候補日を確認する</strong>で次の提案確認画面へ進みます。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Schedule Empty</strong> から登録開始</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で複数の候補時間を選択</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Date Proposal Primary</strong> で第1候補を確認</div></div>
+          </div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">補足</div>
+          <div class="blp-note ok">ここでは保存処理よりも「選びながら次へ進む」軽さを優先したワイヤーフローです。</div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Màn nhập nhanh các khung giờ có thể gặp, dùng khi user muốn đăng lịch rảnh ngay trong flow chat mà không cần mở màn quản lý lịch chi tiết.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bấm chip thời gian</strong> để bật hoặc tắt từng slot rảnh.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>詳細なスケジュール管理を開く</strong> để chuyển sang màn quản lý lịch đầy đủ nếu cần.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>候補日を確認する</strong> sẽ sang màn xem đề xuất ngày ưu tiên.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Luồng</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Schedule Empty</strong> dẫn vào đăng lịch</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> cho phép chọn nhanh nhiều slot</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Date Proposal Primary</strong> hiển thị ngày được gợi ý đầu tiên</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -91,6 +91,16 @@
       padding: 16px 12px 8px;
       background: var(--c1);
       border-bottom: 1px solid var(--c2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-icon {
+      width: 18px;
+      color: var(--c6);
+      font-size: 14px;
+      text-align: center;
+      flex-shrink: 0;
     }
     .form-item {
       display: flex;
@@ -102,10 +112,19 @@
       text-decoration: none;
       color: #333;
       cursor: pointer;
+      width: 100%;
+      background: var(--c0);
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      font-family: inherit;
     }
     .form-item:active { background: #f9f9f9; }
     .form-item:last-child {
       border-bottom: none;
+    }
+    .form-item.readonly {
+      cursor: default;
     }
     .label {
       color: var(--c6);
@@ -117,13 +136,109 @@
       align-items: center;
       gap: 4px;
       text-align: right;
+      justify-content: flex-end;
+      flex: 1;
+      min-width: 0;
     }
     .value.placeholder {
       color: var(--c3);
     }
+    .value-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 180px;
+    }
     .arrow {
       color: var(--c3);
       font-size: 12px;
+      flex-shrink: 0;
+    }
+    .section-note {
+      padding: 10px 16px 14px;
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.6;
+      background: var(--c0);
+      border-bottom: 1px solid var(--c2);
+    }
+    .section-note a {
+      color: var(--c5);
+    }
+    .intro-note {
+      margin: 12px;
+      padding: 12px;
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.6;
+    }
+    .profile-top-card {
+      margin: 12px;
+      padding: 14px;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+    }
+    .profile-photo-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+    .profile-photo-frame {
+      position: relative;
+      width: 100%;
+    }
+    .profile-photo-preview {
+      width: 100%;
+      aspect-ratio: 188 / 212;
+      border: 1px solid var(--c2);
+      background:
+        radial-gradient(circle at 50% 30%, #9b9b9b 0 14%, transparent 15%),
+        radial-gradient(ellipse at 50% 64%, #b3b3b3 0 18%, transparent 19%),
+        radial-gradient(ellipse at 50% 92%, #3f3f3f 0 40%, transparent 41%),
+        linear-gradient(135deg, #d7d7d7 0%, #efefef 55%, #cccccc 100%);
+      flex-shrink: 0;
+    }
+    .photo-edit-btn {
+      position: absolute;
+      right: 0;
+      bottom: -14px;
+      height: 34px;
+      padding: 0 14px;
+      border: 1px solid var(--c6);
+      background: var(--c0);
+      color: var(--c6);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .field-block {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      background: var(--c0);
+    }
+    .field-block:last-child {
+      border-bottom: none;
+    }
+    .field-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--c6);
+      margin-bottom: 8px;
+    }
+    .field-textarea {
+      width: 100%;
+      min-height: 88px;
+      padding: 10px;
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      color: var(--c6);
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+      line-height: 1.5;
     }
     .textarea-container {
       padding: 12px;
@@ -297,6 +412,51 @@
       max-height: 300px;
       overflow-y: auto;
     }
+    .modal-body {
+      padding: 12px 16px 0;
+    }
+    .modal-subtitle {
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .modal-subtitle a {
+      color: var(--c5);
+    }
+    .modal-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 10px;
+      border: 1px solid var(--c2);
+      border-radius: 4px;
+      font-size: 14px;
+      color: var(--c6);
+      margin-bottom: 12px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px 16px;
+      border-top: 1px solid var(--c2);
+      margin-top: 12px;
+    }
+    .modal-btn {
+      flex: 1;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid var(--c2);
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--c0);
+      color: var(--c6);
+    }
+    .modal-btn.primary {
+      background: var(--c6);
+      color: var(--c0);
+      border-color: var(--c6);
+    }
     .picker-item {
       padding: 14px 16px;
       font-size: 14px;
@@ -460,173 +620,127 @@
 
     <div class="content">
       <div class="scrollable">
-        <!-- A. 基本情報（必須） -->
-        <div class="section-title">A. 基本情報 <span style="color:var(--c6); margin-left:4px;">(必須)</span></div>
-        
-        <!-- 写真・ビジュアル -->
-        <div class="label" style="padding: 16px 16px 4px; font-size:12px; color:var(--c4);">写真・ビジュアル</div>
-        <div style="padding: 12px 16px; border-bottom: 1px solid #eee;">
-          <div style="display:flex; gap:12px; overflow-x:auto;">
-            <div id="main-photo" style="width:80px; height:80px; background:url('/Users/quynt/.gemini/antigravity/brain/cdbc9101-be0a-4eb1-bcc0-f848b99002ee/avatar_taro_original_1774148552839.png') center/cover; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; overflow:hidden;">
-              <div id="blur-overlay" class="onboarding-show" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:inherit; filter:blur(10px); z-index:2;"></div>
-              <div class="onboarding-show" style="display:none; position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.5); color:#fff; font-size:8px; text-align:center; padding:2px 0; z-index:3;">ぼかし表示中</div>
-            </div>
-            <div style="width:80px; height:80px; background:#f5f5f5; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <span style="font-size:24px; color:#ccc;">+</span>
+        <div class="profile-top-card">
+          <div class="profile-photo-row">
+            <div class="profile-photo-frame">
+              <div class="profile-photo-preview"></div>
+              <button class="photo-edit-btn" type="button" onclick="window.location.href='wireframe_SCR031_photo.html'">写真を編集</button>
             </div>
           </div>
-          <div style="margin-top:12px; font-size:11px; color:var(--c4);">
-            <div>写真公開段階: <strong>マッチング後に可能</strong></div>
-            <div style="margin-top:4px; color:var(--c5); text-decoration:underline;">ぼかし解除の申請ボタン等で依頼</div>
+          <div class="field-block" style="padding:0; border-bottom:0;">
+            <label class="field-label" for="bioInput">自己紹介文</label>
+            <textarea id="bioInput" class="field-textarea" placeholder="自己紹介を入力">はじめまして。都内でIT関連の仕事をしています。休日はカフェ巡りや映画鑑賞をして過ごすことが多いです。自然体で会話できる方と出会えたら嬉しいです。</textarea>
           </div>
         </div>
 
-        <!-- A-1. 個人基本 -->
-        <div class="label" style="padding: 16px 16px 4px; font-size:11px; color:var(--c4);">A-1. 個人基本</div>
+        <div class="section-title"><span class="section-icon">◉</span>基本情報</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">ニックネーム</span><span class="value">たろう <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">性別</span><span class="value">男性 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">生年月日</span><span class="value">1986/04/10 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">年齢</span><span class="value">38歳</span></a>
-          <a href="#" class="form-item"><span class="label">言語</span><span class="value">日本語 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">自己紹介文</span><span class="value placeholder">未登録 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="nickname"><span class="label">ニックネーム</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="gender"><span class="label">性別</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="birthDate"><span class="label">生年月日</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <div class="form-item readonly" data-field="age"><span class="label">年齢</span><span class="value"><span class="value-text"></span></span></div>
+          <button class="form-item" type="button" data-field="residencePref"><span class="label">居住地</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="matchingTarget"><span class="label">マッチングしたい人</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="relationPreference"><span class="label">希望の関係性</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="height"><span class="label">身長</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="bodyType"><span class="label">体型</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="alcoholFrequency"><span class="label">お酒（頻度）</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <div class="field-block">
+            <label class="field-label" for="commentInput">一言コメント</label>
+            <textarea id="commentInput" class="field-textarea" placeholder="一言コメントを入力">よろしくお願いします！</textarea>
+          </div>
         </div>
 
-        <!-- A-2. 居住・行動圏 -->
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">A-2. 居住・行動圏</div>
+        <div class="section-title"><span class="section-icon">◎</span>個人傾向・内面</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">居住地（都道府県）</span><span class="value">東京都 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">居住エリア</span><span class="value">渋谷区 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">勤務地</span><span class="value">新宿区 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">出身地</span><span class="value">神奈川県 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="bloodType"><span class="label">血液型</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="personalityTags"><span class="label">性格タグ</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="mbti"><span class="label">MBTI16タイプ診断</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="loveType"><span class="label">ラブタイプ診断</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- A-3. 身体的プロフィール -->
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">A-3. 身体的プロフィール</div>
+        <div class="section-title"><span class="section-icon">⌂</span>居住・行動圏</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">身長</span><span class="value">175cm <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">体型</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">血液型</span><span class="value">A型 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="residenceArea"><span class="label">居住エリア詳細</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="workplace"><span class="label">勤務地</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="hometown"><span class="label">出身地</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- B. 職業・経済（任意） -->
-        <div class="section-title">B. 職業・経済 <span class="optional-badge">任意</span></div>
+        <div class="section-title"><span class="section-icon">▣</span>職業・経済</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">職業</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">職種カテゴリ</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">勤務スタイル</span><span class="value">会社員 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">職場名</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">最終学歴</span><span class="value">大学卒業 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">学校名</span><span class="value placeholder">未設定 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">年収レンジ</span><span class="value">800〜1000万 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">資産</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="jobCategory"><span class="label">職種カテゴリ</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="workplaceName"><span class="label">職場名</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="education"><span class="label">最終学歴</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="schoolName"><span class="label">学校名</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="incomeRange"><span class="label">年収</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="assets"><span class="label">資産</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- C. ライフスタイル・日常（任意） -->
-        <div class="section-title">C. ライフスタイル・日常 <span class="optional-badge">任意</span></div>
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">C-1. 生活習慣</div>
+        <div class="section-title"><span class="section-icon">◌</span>ライフスタイル・日常</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">休日</span><span class="value">土日祝 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">休みの取り方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-        </div>
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">C-2. 嗜好</div>
-        <div class="section-group">
-          <a href="#" class="form-item"><span class="label">お酒（頻度）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">好きなお酒の種類</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">タバコ</span><span class="value">吸わない <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">自動車</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">住居形態</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="holidays"><span class="label">休日</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="timeOffStyle"><span class="label">休みの取り方</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="favoriteAlcohol"><span class="label">好きなお酒の種類</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="smoking"><span class="label">タバコ</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="car"><span class="label">自動車</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="housing"><span class="label">住居形態</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- D. 家族・背景（任意） -->
-        <div class="section-title">D. 家族・背景 <span class="optional-badge">任意</span></div>
+        <div class="section-title"><span class="section-icon">◍</span>家族・背景</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">兄弟姉妹</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">家族との仲</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">同居人</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">子ども（有無）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">家族関係の継続意向</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="siblings"><span class="label">兄弟姉妹</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="familyRelation"><span class="label">家族との仲</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="cohabitants"><span class="label">同居人</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="hasChildren"><span class="label">子ども（有無）</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="familyIntent"><span class="label">家族関係の継続意向</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- E. 趣味・行動嗜好（任意） -->
-        <div class="section-title">E. 趣味・行動嗜好 <span class="optional-badge">任意</span></div>
-        <div class="label" style="padding: 12px 16px 0; font-size:13px; font-weight:bold;">趣味・タグ（複数選択）</div>
-        <div class="tag-container">
-          <div class="tag-item active">グルメ</div> <div class="tag-item active">カフェ</div>
-          <div class="tag-item">音楽</div> <div class="tag-item active">映画</div>
-          <div class="tag-item">旅行</div> <div class="tag-item">ジム</div>
-          <div class="tag-item" style="border-style:dashed;">+ 編集</div>
-        </div>
+        <div class="section-title"><span class="section-icon">♪</span>趣味・行動嗜好</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">よく行く場所</span><span class="value placeholder">未登録 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">インドア／アウトドア傾向</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="hobbies"><span class="label">趣味</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="favoritePlaces"><span class="label">よく行く場所</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="indoorOutdoor"><span class="label">インドア／アウトドア傾向</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- F. 性格・内面（任意） -->
-        <div class="section-title">F. 性格・内面 <span class="optional-badge">任意</span></div>
-        <div class="label" style="padding: 12px 16px 0; font-size:13px; font-weight:bold;">性格タグ（複数選択）</div>
-        <div class="tag-container">
-          <div class="tag-item active">素直</div> <div class="tag-item active">誠実</div>
-          <div class="tag-item">明るい</div> <div class="tag-item">落ち着いている</div>
-          <div class="tag-item" style="border-style:dashed;">+ 編集</div>
-        </div>
+        <div class="section-title"><span class="section-icon">♡</span>恋愛・関係性スタンス</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">mbti16タイプ診断</span><span class="value placeholder">未診断 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">ラブタイプ診断</span><span class="value placeholder">未診断 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="beforeMeet"><span class="label">会うまでの希望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="datingMeetCount"><span class="label">付き合うまでに会う回数</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="contactFrequency"><span class="label">連絡頻度の希望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="meetFrequency"><span class="label">会う頻度の希望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="soloBalance"><span class="label">ひとり時間とのバランス</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- G. 恋愛・関係性スタンス（任意） -->
-        <div class="section-title">G. 恋愛・関係性スタンス <span class="optional-badge">任意</span></div>
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-1. 出会い方</div>
+        <div class="section-title"><span class="section-icon">¤</span>デート・お金の価値観</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">会うまでの希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">付き合うまでに会う回数</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-        </div>
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-2. コミュニケーション</div>
-        <div class="section-group">
-          <a href="#" class="form-item"><span class="label">連絡頻度の希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">会う頻度の希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-        </div>
-        <div class="label" style="padding: 8px 16px 4px; font-size:11px; color:var(--c4);">G-3. 関係性の価値観</div>
-        <div class="section-group">
-          <a href="#" class="form-item"><span class="label">希望の関係性</span><span class="value">心が癒される <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">ひとり時間とのバランス</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="firstDateBudget"><span class="label">初回デート代の考え方</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="dateAtmosphere"><span class="label">デートの雰囲気</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="moneyStyle"><span class="label">お金の管理スタイル</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- H. デート・お金の価値観（任意） -->
-        <div class="section-title">H. デート・お金の価値観 <span class="optional-badge">任意</span></div>
+        <div class="section-title"><span class="section-icon">⌕</span>お相手への希望条件</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">初回デート代の考え方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">デートの雰囲気</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">お金の管理スタイル</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="preferredAge"><span class="label">希望年代</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="appearanceType"><span class="label">見た目</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="personalityTypePreference"><span class="label">性格</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="bodyTypePreference"><span class="label">体型</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- I. お相手への希望条件（任意） -->
-        <div class="section-title">I. お相手への希望条件 <span class="optional-badge">任意</span></div>
+        <div class="section-title"><span class="section-icon">◇</span>将来・結婚観</div>
         <div class="section-group">
-          <a href="#" class="form-item"><span class="label">希望年代</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">好きなタイプ（見た目）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">好きなタイプ（性格）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">好きなタイプ（体型）</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
+          <button class="form-item" type="button" data-field="maritalHistory"><span class="label">結婚歴</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="marriageIntention"><span class="label">結婚願望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="childPreference"><span class="label">子ども希望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="postMarriageWork"><span class="label">結婚後の仕事</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="transferPlan"><span class="label">将来の転勤</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="houseworkView"><span class="label">家事育児の考え方</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="commonLaw"><span class="label">事実婚</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="postMarriageLiving"><span class="label">結婚後の同居</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
+          <button class="form-item" type="button" data-field="postMarriageSurname"><span class="label">結婚後の姓</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <!-- J. 将来・結婚観（任意） -->
-        <div class="section-title">J. 将来・結婚観 <span class="optional-badge">任意</span></div>
-        <div class="section-group">
-          <a href="#" class="form-item"><span class="label">結婚歴</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">結婚願望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">子ども希望</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">結婚式</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">結婚後の仕事</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">将来の転勤</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">家事育児の考え方</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">事実婚</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">結婚後の同居</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-          <a href="#" class="form-item"><span class="label">結婚後の姓</span><span class="value placeholder">未選択 <span class="arrow">></span></span></a>
-        </div>
-
-        </div> <!-- end scrollable -->
-      </div> <!-- end content -->
+      </div>
+    </div>
 
       <div class="app-bottom-nav onboarding-hide">
         <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
@@ -648,123 +762,236 @@
             <div class="modal-title" id="modalTitle">項目の選択</div>
             <div class="modal-close" onclick="closeModal()">&times;</div>
           </div>
-          <div class="picker-list" id="pickerList">
-            <!-- Items injected here -->
+          <div class="modal-body">
+            <div class="modal-subtitle" id="modalSubtitle"></div>
+            <input id="modalTextInput" class="modal-input" type="text" style="display:none;">
+            <div class="picker-list" id="pickerList">
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="modal-btn" type="button" onclick="closeModal()">キャンセル</button>
+            <button class="modal-btn primary" type="button" onclick="saveModal()">保存</button>
           </div>
         </div>
       </div>
     </div> <!-- end device-frame -->
 
     <script>
-      function openModal(title, options, currentVal) {
-        document.getElementById('modalTitle').textContent = title;
-        const list = document.getElementById('pickerList');
-        list.innerHTML = '';
-        options.forEach(opt => {
-          const div = document.createElement('div');
-          div.className = 'picker-item' + (opt === currentVal ? ' selected' : '');
-          div.textContent = opt;
-          div.onclick = () => {
-             // Logic to "save" or update could go here
-             closeModal();
-          };
-          list.appendChild(div);
-        });
-        document.getElementById('editModal').classList.add('active');
-      }
-      function closeModal() {
-        document.getElementById('editModal').classList.remove('active');
-      }
+      const PREFECTURES = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+      const HEIGHT_OPTIONS = Array.from({ length: 61 }, (_, index) => `${140 + index}cm`);
+      const AREA_OPTIONS = ["東京都 / 渋谷・恵比寿","東京都 / 新宿・代々木","東京都 / 銀座・有楽町","東京都 / 六本木・麻布","東京都 / 品川・大崎","神奈川県 / 横浜","神奈川県 / みなとみらい","大阪府 / 梅田","大阪府 / 心斎橋","愛知県 / 名古屋駅"];
+      const WORKPLACE_OPTIONS = ["東京都 / 丸の内・大手町","東京都 / 新宿・西新宿","東京都 / 渋谷・表参道","東京都 / 品川・田町","東京都 / 六本木・赤坂","神奈川県 / 横浜","大阪府 / 梅田","愛知県 / 名古屋駅"];
+      const HOMETOWN_OPTIONS = ["東京都 / 多摩","神奈川県 / 横浜","神奈川県 / 湘南","埼玉県 / さいたま","千葉県 / 船橋","大阪府 / 北摂","京都府 / 京都市","福岡県 / 福岡市","北海道 / 札幌"];
+      const MBTI_OPTIONS = ["INTJ","INTP","ENTJ","ENTP","INFJ","INFP","ENFJ","ENFP","ISTJ","ISFJ","ESTJ","ESFJ","ISTP","ISFP","ESTP","ESFP"];
+      const LOVE_TYPE_OPTIONS = ["未選択","尽くし型","バランス型","ロマンチスト型","慎重派型","自由人型","甘え上手型","リード型"];
+      const ASSET_OPTIONS = ["〜499万円","500〜999万円","1000〜2999万円","3000〜4999万円","5000〜9999万円","1億円以上"];
 
-      // Extended Dummy Data Options for A-J
-      const OPTIONS_MAP = {
-        "性別": ["男性", "女性", "回答しない"],
-        "言語": ["日本語", "英語", "中国語", "韓国語", "その他"],
-        "居住地（都道府県）": ["東京都", "神奈川県", "埼玉県", "千葉県", "大阪府", "愛知県", "福岡県", "北海道", "兵庫県"],
-        "居住エリア": ["港区", "渋谷区", "新宿区", "世田谷区", "目黒区", "品川区", "中央区", "千代田区"],
-        "勤務地": ["丸の内", "大手町", "新宿", "渋谷", "六本木", "品川", "横浜"],
-        "出身地": ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "東京都"],
-        "身長": ["150cm以下", "155cm前後", "160cm前後", "165cm前後", "170cm前後", "175cm前後", "180cm以上"],
-        "体型": ["スリム", "やや細め", "普通", "グラマー", "ぽっちゃり", "筋肉質"],
-        "血液型": ["A型", "B型", "O型", "AB型", "不明"],
-        
-        "職業": ["大手企業", "上場企業", "公務員", "医師", "弁護士", "IT関連", "クリエイティブ", "自営業", "学生"],
-        "職種カテゴリ": ["営業", "事務・企画", "技術職", "専門職", "経営・コンサル", "サービス業", "主婦・主夫"],
-        "勤務スタイル": ["会社員", "経営者・役員", "フリーランス", "自営業", "派遣社員", "パート・アルバイト"],
-        "最終学歴": ["大学卒業", "大学院卒業", "短期大学卒業", "専門学校卒業", "高校卒業", "その他"],
-        "年収レンジ": ["〜200万", "200〜400万", "400〜600万", "600〜800万", "800〜1000万", "1000〜1500万", "1500万〜"],
-        "資産": ["100万未満", "100〜500万", "500〜1000万", "1000〜3000万", "3000〜5000万", "5000万以上"],
-        
-        "休日": ["土日祝", "平日", "不定休", "シフト制", "カレンダー通り"],
-        "休みの取り方": ["固定休み", "週末休み", "平日休み", "自分で調整可能"],
-        "お酒（頻度）": ["飲まない", "ときどき飲む", "毎日飲む", "付き合い程度"],
-        "好きなお酒の種類": ["ビール", "日本酒", "ワイン", "ウイスキー", "カクテル", "焼酎", "なんでも"],
-        "タバコ": ["吸わない", "ときどき吸う", "吸う", "非喫煙者の前では吸わない"],
-        "自動車": ["持っている", "持っていない", "近々購入予定", "カーシェア利用"],
-        "住居形態": ["一人暮らし", "実家暮らし", "ルームシェア", "賃貸マンション", "持ち家"],
-        
-        "兄弟姉妹": ["一人っ子", "長男・長女", "次男・次女", "末っ子"],
-        "家族との仲": ["非常に良い", "良い", "普通", "あまり連絡をとらない"],
-        "同居人": ["一人", "親", "兄弟", "子ども", "ペット"],
-        "子ども（有無）": ["なし", "あり（同居）", "あり（別居）"],
-        "家族関係の継続意向": ["今のままを維持", "解消も視野", "相手に合わせる"],
-        
-        "インドア／アウトドア傾向": ["完全インドア", "ややインドア", "どちらでも", "ややアウトドア", "完全アウトドア"],
-        "mbti16タイプ診断": ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"],
-        "ラブタイプ診断": ["安定型", "不安型", "回避型", "恐れ・回避型"],
-        
-        "会うまでの希望": ["ビデオ通話から", "メッセージを重ねてから", "気が合えばすぐに会いたい", "まずは一度お会いしたい"],
-        "付き合うまでに会う回数": ["1〜2回", "3〜5回", "6回以上", "決めていない"],
-        "連絡頻度の希望": ["毎日", "週に2〜3回", "週に1回程度", "必要な時だけ"],
-        "会う頻度の希望": ["週に数回", "週1回程度", "月2〜3回", "月1回程度"],
-        "希望の関係性": ["心が癒される", "刺激し合える", "今を大切に", "将来も視野に", "まずは友達から"],
-        "ひとり時間とのバランス": ["ひとりの時間を大切にしたい", "二人で過ごしたい", "バランスよく"],
-        
-        "初回デート代の考え方": ["男性が全て支払う", "男性が多めに支払う", "割り勘", "持っている方が支払う", "相手に合わせる"],
-        "デートの雰囲気": ["高級感のある場所", "落ち着いたカフェ", "賑やかな居酒屋", "隠れ家的なお店", "公園や散歩", "ドライブ"],
-        "お金の管理スタイル": ["各自で管理", "共通口座を作成", "相談して決める"],
-        
-        "希望年代": ["同年代", "年上", "年下", "気にしない"],
-        "好きなタイプ（見た目）": ["清潔感のある", "クールな", "可愛いらしい", "落ち着いた", "華やかな"],
-        "好きなタイプ（体型）": ["スリムな人", "普通", "ふくよかな人", "筋肉質な人", "気にしない"],
-        
-        "結婚歴": ["未婚", "離婚", "死別"],
-        "結婚願望": ["すぐにでもしたい", "2〜3年以内にしたい", "良い人がいれば", "今は考えていない", "したくない"],
-        "子ども希望": ["欲しくない", "欲しい", "相手に合わせる", "どちらでも良い"],
-        "結婚式": ["こだわりたい", "身内だけでしたい", "したくない", "写真だけで良い"],
-        "結婚後の仕事": ["続けたい", "相手と相談したい", "専業主婦・主夫になりたい", "パート・アルバイト程度"],
-        "将来の転勤": ["あり", "なし", "相談して決める"],
-        "家事育児の考え方": ["積極的に参加したい", "分担したい", "相手に任せたい", "外部サービスも活用したい"],
-        "事実婚": ["理解がある", "考えていない", "状況による"],
-        "結婚後の同居": ["二人きりが良い", "親と同居も可", "近居が良い"],
-        "結婚後の姓": ["どちらでも良い", "夫の姓", "妻の姓", "夫婦別姓希望"]
+      const FIELD_CONFIG = {
+        nickname: { label: "ニックネーム", type: "text", value: "たろう", placeholder: "未入力" },
+        gender: { label: "性別", type: "single", value: "男性", options: ["男性", "女性", "回答しない"] },
+        birthDate: { label: "生年月日", type: "date", value: "1986-04-10" },
+        age: { label: "年齢", type: "derived" },
+        residencePref: { label: "居住地", type: "single", value: "東京都", options: PREFECTURES },
+        matchingTarget: { label: "マッチングしたい人", type: "single", value: "女性", options: ["男性", "女性", "両方"] },
+        relationPreference: { label: "希望の関係性", type: "single", value: "心が癒される", options: ["心が癒される", "今を大切に", "無理のない距離感", "将来も視野に", "まずは友達から"] },
+        height: { label: "身長", type: "single", value: "175cm", options: HEIGHT_OPTIONS },
+        bodyType: { label: "体型", type: "single", value: "普通", options: ["細め", "やや細め", "普通", "グラマー／筋肉質", "ややぽっちゃり", "ぽっちゃり"] },
+        alcoholFrequency: { label: "お酒（頻度）", type: "single", value: "たまに飲む", options: ["ほとんど飲まない", "たまに飲む", "時々飲む", "よく飲む"] },
+        comment: { label: "一言コメント", type: "text", value: "よろしくお願いします！", placeholder: "未入力" },
+        bloodType: { label: "血液型", type: "single", value: "A", options: ["A", "B", "O", "AB", "分からない"] },
+        personalityTags: { label: "性格タグ", type: "multi", value: ["明るい・ポジティブ", "行動力がある"], options: ["明るい・ポジティブ", "落ち着いている", "マイペース", "好奇心旺盛", "面倒見がいい", "ロジカル", "行動力がある"], placeholder: "未選択" },
+        mbti: { label: "MBTI16タイプ診断", type: "single", value: "ENFP", options: MBTI_OPTIONS },
+        loveType: { label: "ラブタイプ診断", type: "single", value: "", options: LOVE_TYPE_OPTIONS, placeholder: "未選択" },
+        residenceArea: { label: "居住エリア詳細", type: "single", value: "東京都 / 渋谷・恵比寿", options: AREA_OPTIONS },
+        workplace: { label: "勤務地", type: "single", value: "東京都 / 新宿・代々木", options: WORKPLACE_OPTIONS },
+        hometown: { label: "出身地", type: "single", value: "神奈川県 / 横浜", options: HOMETOWN_OPTIONS },
+        jobCategory: { label: "職種カテゴリ", type: "single", value: "IT・Web・エンジニア", options: ["会社員（総合職・一般職）", "経営者・役員", "個人事業主・フリーランス", "弁護士・士業（税理士・社労士など）", "金融・コンサル", "IT・Web・エンジニア", "その他"] },
+        workplaceName: { label: "職場名", type: "text", value: "OT Systems", placeholder: "未入力" },
+        education: { label: "最終学歴", type: "single", value: "大学卒", options: ["中学卒", "高校卒", "大学卒", "大学院卒", "その他"] },
+        schoolName: { label: "学校名", type: "text", value: "青山学院大学", placeholder: "未入力" },
+        incomeRange: { label: "年収", type: "single", value: "800〜999万円", options: ["〜399万円", "400〜599万円", "600〜799万円", "800〜999万円", "1000〜1499万円", "1500万円以上"] },
+        assets: { label: "資産", type: "single", value: "1000〜2999万円", options: ASSET_OPTIONS },
+        holidays: { label: "休日", type: "single", value: "土日", options: ["土日", "平日", "不定期"] },
+        timeOffStyle: { label: "休みの取り方", type: "single", value: "事前に計画して取る", options: ["事前に計画して取る", "直前に取りやすい", "あまり休みが取れない"] },
+        favoriteAlcohol: { label: "好きなお酒の種類", type: "multi", value: ["ビール", "ワイン"], options: ["ビール", "ワイン", "日本酒", "焼酎", "ハイボール", "カクテル", "ノンアル系"], placeholder: "未選択" },
+        smoking: { label: "タバコ", type: "single", value: "吸わない", options: ["吸わない", "電子タバコのみ", "紙タバコ", "時々吸う"] },
+        car: { label: "自動車", type: "single", value: "持っていない", options: ["所有している", "カーシェアのみ", "持っていない"] },
+        housing: { label: "住居形態", type: "single", value: "ひとり暮らし", options: ["ひとり暮らし", "同居（家族・パートナー等）"] },
+        siblings: { label: "兄弟姉妹", type: "single", value: "長男・長女", options: ["一人っ子", "長男・長女", "次男・次女", "末っ子"] },
+        familyRelation: { label: "家族との仲", type: "single", value: "良い", options: ["とても良い", "良い", "普通", "距離がある"] },
+        cohabitants: { label: "同居人", type: "single", value: "いない", options: ["いない", "親と同居", "兄弟姉妹と同居", "子どもと同居", "パートナーと同居"] },
+        hasChildren: { label: "子ども（有無）", type: "single", value: "いない", options: ["いない", "いる（同居）", "いる（別居）"] },
+        familyIntent: { label: "家族関係の継続意向", type: "single", value: "相手と相談したい", options: ["今の関係を大切にしたい", "相手と相談したい", "柔軟に考えたい"] },
+        hobbies: { label: "趣味", type: "multi", value: ["グルメ", "カフェ", "映画"], options: ["グルメ", "カフェ", "音楽", "映画", "旅行", "ジム・フィットネス", "読書", "アート"], placeholder: "未選択" },
+        favoritePlaces: { label: "よく行く場所", type: "text", value: "恵比寿・代官山のカフェ", placeholder: "未入力" },
+        indoorOutdoor: { label: "インドア／アウトドア傾向", type: "single", value: "どちらかというとインドア", options: ["完全インドア寄り", "どちらかというとインドア", "どちらかというとアウトドア", "完全アウトドア寄り"] },
+        beforeMeet: { label: "会うまでの希望", type: "single", value: "メッセージを重ねてから", options: ["まずはメッセージを重ねたい", "ビデオ通話してから会いたい", "気が合えばすぐに会いたい"] },
+        datingMeetCount: { label: "付き合うまでに会う回数", type: "single", value: "3〜5回", options: ["1〜2回", "3〜5回", "6回以上", "決めていない"] },
+        contactFrequency: { label: "連絡頻度の希望", type: "single", value: "毎日", options: ["毎日", "2〜3日に1回", "週1回程度", "必要な時だけ"] },
+        meetFrequency: { label: "会う頻度の希望", type: "single", value: "週1回程度", options: ["週に数回", "週1回程度", "月2〜3回", "月1回程度"] },
+        soloBalance: { label: "ひとり時間とのバランス", type: "single", value: "バランスよく", options: ["ひとり時間を多めに取りたい", "バランスよく", "なるべく一緒に過ごしたい"] },
+        firstDateBudget: { label: "初回デート代の考え方", type: "single", value: "男性が多めに支払う", options: ["男性が全て支払う", "男性が多めに支払う", "割り勘", "相手に合わせる"] },
+        dateAtmosphere: { label: "デートの雰囲気", type: "single", value: "落ち着いたお店でゆっくり", options: ["落ち着いたお店でゆっくり", "カジュアルに楽しく", "アクティブに外出したい", "その日の気分で決めたい"] },
+        moneyStyle: { label: "お金の管理スタイル", type: "single", value: "相談して決めたい", options: ["きっちり分けたい", "相談して決めたい", "柔軟に考えたい"] },
+        preferredAge: { label: "希望年代", type: "single", value: "同年代", options: ["年下", "同年代", "年上", "気にしない"] },
+        appearanceType: { label: "見た目", type: "multi", value: ["清潔感がある", "笑顔が多い"], options: ["清潔感がある", "笑顔が多い", "大人っぽい", "可愛い系", "ナチュラル系", "きれいめ"], placeholder: "未選択" },
+        personalityTypePreference: { label: "性格", type: "multi", value: ["誠実", "落ち着いている"], options: ["誠実", "落ち着いている", "明るい", "自立している", "優しい", "好奇心旺盛"], placeholder: "未選択" },
+        bodyTypePreference: { label: "体型", type: "multi", value: ["普通", "スリム"], options: ["スリム", "普通", "筋肉質", "ふくよか", "気にしない"], placeholder: "未選択" },
+        maritalHistory: { label: "結婚歴", type: "single", value: "未婚", options: ["未婚", "離婚", "死別"] },
+        marriageIntention: { label: "結婚願望", type: "single", value: "良い人がいれば", options: ["すぐにでもしたい", "2〜3年以内にしたい", "良い人がいれば", "今は考えていない"] },
+        childPreference: { label: "子ども希望", type: "single", value: "相手と相談したい", options: ["欲しい", "欲しくない", "相手と相談したい"] },
+        postMarriageWork: { label: "結婚後の仕事", type: "single", value: "続けたい", options: ["続けたい", "相手と相談したい", "状況次第で調整したい"] },
+        transferPlan: { label: "将来の転勤", type: "single", value: "できれば避けたい", options: ["転勤の可能性がある", "できれば避けたい", "柔軟に考えたい"] },
+        houseworkView: { label: "家事育児の考え方", type: "single", value: "一緒に分担したい", options: ["一緒に分担したい", "得意分野で分けたい", "外部サービスも活用したい"] },
+        commonLaw: { label: "事実婚", type: "single", value: "状況によってはあり", options: ["考えていない", "状況によってはあり", "前向きに考えられる"] },
+        postMarriageLiving: { label: "結婚後の同居", type: "single", value: "二人で暮らしたい", options: ["二人で暮らしたい", "親との同居も可", "近居が理想"] },
+        postMarriageSurname: { label: "結婚後の姓", type: "single", value: "どちらでもよい", options: ["どちらでもよい", "夫の姓", "妻の姓", "夫婦別姓が理想"] }
       };
 
-      // Add click listeners to form items for demo
-      document.querySelectorAll('.form-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          if (item.getAttribute('href') === '#') {
-            e.preventDefault();
-            const labelSpan = item.querySelector('.label');
-            if(!labelSpan) return;
-            const label = labelSpan.textContent.trim();
-            const valSpan = item.querySelector('.value');
-            const currentVal = valSpan ? valSpan.textContent.replace(' >', '').trim() : '';
-            
-            // Get options from map or use default
-            const options = OPTIONS_MAP[label] || ["選択肢 A", "選択肢 B", "選択肢 C"];
-            
-            openModal(label, options, currentVal);
-          }
+      let activeFieldKey = null;
+      let modalValue = null;
+
+      function calculateAge(dateString) {
+        if (!dateString) return "";
+        const today = new Date();
+        const birth = new Date(dateString);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+          age -= 1;
+        }
+        return `${age}歳`;
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "未選択";
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return dateString;
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}/${month}/${day}`;
+      }
+
+      function isPlaceholder(fieldKey) {
+        const field = FIELD_CONFIG[fieldKey];
+        if (!field) return false;
+        if (field.type === "derived") return false;
+        if (field.type === "multi") return !field.value || field.value.length === 0;
+        return !field.value;
+      }
+
+      function getDisplayValue(fieldKey) {
+        const field = FIELD_CONFIG[fieldKey];
+        if (!field) return "";
+        if (field.type === "derived") return calculateAge(FIELD_CONFIG.birthDate.value);
+        if (field.type === "date") return formatDate(field.value);
+        if (field.type === "multi") return field.value && field.value.length ? field.value.join(" / ") : (field.placeholder || "未選択");
+        return field.value || field.placeholder || "未入力";
+      }
+
+      function renderField(fieldKey) {
+        const row = document.querySelector(`[data-field="${fieldKey}"]`);
+        if (!row) return;
+        const valueText = row.querySelector(".value-text");
+        const valueWrap = row.querySelector(".value");
+        if (valueText) valueText.textContent = getDisplayValue(fieldKey);
+        if (valueWrap) valueWrap.classList.toggle("placeholder", isPlaceholder(fieldKey));
+      }
+
+      function renderAllFields() {
+        Object.keys(FIELD_CONFIG).forEach(renderField);
+      }
+
+      function buildPicker() {
+        const field = FIELD_CONFIG[activeFieldKey];
+        const list = document.getElementById("pickerList");
+        list.innerHTML = "";
+        field.options.forEach(option => {
+          const item = document.createElement("div");
+          const selected = field.type === "multi" ? modalValue.includes(option) : modalValue === option;
+          item.className = "picker-item" + (selected ? " selected" : "");
+          item.textContent = option;
+          item.onclick = () => {
+            if (field.type === "multi") {
+              if (modalValue.includes(option)) {
+                modalValue = modalValue.filter(value => value !== option);
+              } else {
+                modalValue.push(option);
+              }
+            } else {
+              modalValue = option;
+            }
+            buildPicker();
+          };
+          list.appendChild(item);
         });
+      }
+
+      function openModal(fieldKey) {
+        activeFieldKey = fieldKey;
+        const field = FIELD_CONFIG[fieldKey];
+        const list = document.getElementById("pickerList");
+        const input = document.getElementById("modalTextInput");
+        document.getElementById("modalTitle").textContent = field.label;
+        document.getElementById("modalSubtitle").innerHTML = field.help || "";
+        if (field.type === "multi") {
+          modalValue = [...field.value];
+        } else {
+          modalValue = field.value;
+        }
+        if (field.type === "text" || field.type === "date") {
+          list.style.display = "none";
+          input.style.display = "block";
+          input.type = field.type === "date" ? "date" : "text";
+          input.value = field.value || "";
+          input.placeholder = field.placeholder || "";
+        } else {
+          input.style.display = "none";
+          list.style.display = "block";
+          buildPicker();
+        }
+        document.getElementById("editModal").classList.add("active");
+      }
+
+      function closeModal() {
+        document.getElementById("editModal").classList.remove("active");
+        activeFieldKey = null;
+        modalValue = null;
+      }
+
+      function saveModal() {
+        if (!activeFieldKey) return;
+        const field = FIELD_CONFIG[activeFieldKey];
+        const input = document.getElementById("modalTextInput");
+        if (field.type === "text" || field.type === "date") {
+          field.value = input.value.trim();
+        } else if (field.type === "multi") {
+          field.value = [...modalValue];
+        } else {
+          field.value = modalValue;
+        }
+        renderField(activeFieldKey);
+        renderField("age");
+        closeModal();
+      }
+
+      document.querySelectorAll(".form-item[data-field]").forEach(item => {
+        if (item.classList.contains("readonly")) return;
+        item.addEventListener("click", () => openModal(item.dataset.field));
       });
 
-      // Onboarding Mode Logic
+      document.getElementById("editModal").addEventListener("click", event => {
+        if (event.target.id === "editModal") closeModal();
+      });
+
+      renderAllFields();
+
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('mode') === 'onboarding') {
-          document.querySelectorAll('.onboarding-show').forEach(el => el.style.display = 'block');
-          document.querySelectorAll('.onboarding-hide').forEach(el => el.style.display = 'none');
-          document.querySelector('.header-title').textContent = '詳細プロフィール登録';
+      if (urlParams.get("mode") === "onboarding") {
+        document.querySelectorAll(".onboarding-show").forEach(el => el.style.display = "block");
+        document.querySelectorAll(".onboarding-hide").forEach(el => el.style.display = "none");
+        document.querySelector(".header-title").textContent = "詳細プロフィール登録";
       }
     </script>
 
