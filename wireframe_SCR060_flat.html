@@ -1508,6 +1508,226 @@
       background-position: center;
       filter: grayscale(100%) !important;
       border: 1px solid #e0e0e0;
+      cursor: pointer;
+    }
+
+    .shop-detail-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 260;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+
+    .shop-detail-sheet {
+      width: 100%;
+      max-width: 328px;
+      height: 580px;
+      max-height: calc(100% - 40px);
+      background: var(--c0);
+      border-radius: 14px;
+      border: 1px solid var(--c2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      position: relative;
+    }
+
+    .shop-detail-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .shop-detail-footer {
+      flex-shrink: 0;
+      padding: 10px 14px 14px;
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+    }
+
+    .shop-detail-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--c6);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .shop-detail-hero-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .shop-detail-hero {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--c2);
+      filter: grayscale(100%);
+    }
+
+    .shop-detail-body {
+      padding: 14px 14px 4px;
+    }
+
+    .shop-detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .shop-detail-badge {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--c3);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+
+    .shop-detail-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.3;
+    }
+
+    .shop-detail-price-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+      margin-bottom: 10px;
+    }
+
+    .shop-detail-help {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      color: var(--c4);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .shop-detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .shop-detail-tag {
+      padding: 5px 12px;
+      border: 1px solid var(--c2);
+      background: var(--c1);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--c5);
+      font-weight: 600;
+    }
+
+    .shop-detail-section {
+      margin-bottom: 14px;
+    }
+
+    .shop-detail-section.muted .shop-detail-section-title,
+    .shop-detail-section.muted .shop-detail-section-text {
+      color: var(--c4);
+    }
+
+    .shop-detail-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 6px;
+    }
+
+    .shop-detail-section-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.65;
+    }
+
+    .shop-detail-map {
+      border: 1px solid var(--c2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: var(--c1);
+    }
+
+    .shop-detail-map-visual {
+      height: 110px;
+      background: linear-gradient(180deg, #ececec 0%, #d8d8d8 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c4);
+      font-size: 11px;
+    }
+
+    .shop-detail-map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c6);
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .shop-detail-address {
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.5;
+      background: var(--c1);
+      border-top: 1px solid var(--c2);
+    }
+
+    .shop-detail-request-btn {
+      width: 100%;
+      margin: 0;
+      height: 46px;
+      border: 1px solid var(--c6);
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
     }
     
     .shop-overlay {
@@ -2074,8 +2294,8 @@
             shopsHtml += '<div class="shop-section-header"><span>★ おすすめのお店</span></div>';
             shopsHtml += '<div class="shop-note">※ Likeする前にお店を1つ選択してください</div>';
             shopsHtml += '<div class="shop-grid">';
-            c.shops.forEach(function (shop) {
-              shopsHtml += '<div class="shop-card" style="background-image: url(\'' + shop.image + '\');">' +
+            c.shops.forEach(function (shop, shopIdx) {
+              shopsHtml += '<div class="shop-card" style="background-image: url(\'' + shop.image + '\');" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
                            '<div class="shop-overlay"></div>' +
                            '<div class="shop-text-overlay">' +
                            '<div class="shop-name">' + shop.name.replace('\n', '<br>') + '</div>' +
@@ -2170,6 +2390,88 @@
           document.getElementById('welcomePopup').style.display = 'none';
         }
 
+        var SHOP_DETAILS = {
+          'restaurant_xex.png': {
+            displayName: 'XEX 日本橋 The BAR',
+            category: 'バー',
+            area: '日本橋',
+            overview: '落ち着いた照明とカウンター席が特徴のバー。仕事帰りにもデートにも使いやすく、会話がはずみやすい空間です。',
+            note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+            address: '中央区日本橋2-1-17 日本橋高島屋S.C.新館 13F',
+            mapLabel: 'XEX 日本橋'
+          },
+          'restaurant_ginza.png': {
+            displayName: '銀座でワイン。',
+            category: 'ワインバー',
+            area: '銀座',
+            overview: '厳選ワインと軽めのおつまみが楽しめるバー。初対面でも話しやすい落ち着いた雰囲気が魅力です。',
+            note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+            address: '中央区銀座3-6-17 銀座マロニエビル 5F',
+            mapLabel: '銀座でワイン。'
+          },
+          'restaurant_brussels.png': {
+            displayName: 'ブラッセルズ 神楽坂',
+            category: 'バー',
+            area: '神楽坂',
+            overview: 'ダーツやボードゲームなどが楽しめるカジュアルなバー。お酒を片手に、いつもと違った刺激的なデートができます。',
+            note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+            address: '新宿区神楽坂1-12-4 神楽坂アイダビル 3F',
+            mapLabel: 'ブラッセルズ 神楽坂'
+          }
+        };
+
+        function getShopDetail(shop) {
+          var preset = SHOP_DETAILS[shop.image] || {
+            displayName: shop.name.replace(/\n/g, ' '),
+            category: 'レストラン',
+            area: '東京',
+            overview: 'おふたりに合う雰囲気のお店です。料理と空間を楽しみながら、ゆっくりお話しください。',
+            note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+            address: '東京都内',
+            mapLabel: shop.name.replace(/\n/g, ' ')
+          };
+          return {
+            image: shop.image,
+            price: shop.price,
+            displayName: preset.displayName,
+            category: preset.category,
+            area: preset.area,
+            overview: preset.overview,
+            note: preset.note,
+            address: preset.address,
+            mapLabel: preset.mapLabel
+          };
+        }
+
+        function openShopDetail(candidateIdx, shopIdx) {
+          var shop = CANDIDATES[candidateIdx].shops[shopIdx];
+          if (!shop) return;
+          var detail = getShopDetail(shop);
+          document.getElementById('shopDetailHero').style.backgroundImage = "url('" + detail.image + "')";
+          document.getElementById('shopDetailName').textContent = detail.displayName;
+          document.getElementById('shopDetailPrice').textContent = detail.price;
+          document.getElementById('shopDetailTags').innerHTML =
+            '<span class="shop-detail-tag">' + detail.category + '</span>' +
+            '<span class="shop-detail-tag">' + detail.area + '</span>';
+          document.getElementById('shopDetailOverview').textContent = detail.overview;
+          document.getElementById('shopDetailNote').textContent = detail.note;
+          document.getElementById('shopDetailMapLabel').textContent = detail.mapLabel;
+          document.getElementById('shopDetailAddress').textContent = detail.address;
+          var scrollEl = document.querySelector('.shop-detail-scroll');
+          if (scrollEl) scrollEl.scrollTop = 0;
+          document.getElementById('shopDetailPopup').style.display = 'flex';
+        }
+
+        function closeShopDetail(event) {
+          if (event && event.target !== event.currentTarget) return;
+          document.getElementById('shopDetailPopup').style.display = 'none';
+        }
+
+        function requestShop() {
+          document.getElementById('shopDetailPopup').style.display = 'none';
+          alert('このお店でリクエストを送信しました');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
           const params = new URLSearchParams(window.location.search);
           if (params.get('welcome') === 'true') {
@@ -2194,6 +2496,46 @@
           </div>
           <button class="m-btn primary" onclick="closeWelcomePopup()"
             style="background:var(--c6); color:#fff; border:none; padding:12px; font-weight:bold; width:100%; cursor:pointer; margin-top:20px;">はじめる</button>
+        </div>
+      </div>
+
+      <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+        <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+          <div class="shop-detail-hero-wrap">
+            <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+            <div class="shop-detail-hero" id="shopDetailHero"></div>
+          </div>
+          <div class="shop-detail-scroll">
+            <div class="shop-detail-body">
+              <div class="shop-detail-title-row">
+                <span class="shop-detail-badge">★</span>
+                <div class="shop-detail-name" id="shopDetailName">BAR G.O.A.T.</div>
+              </div>
+              <div class="shop-detail-price-row">
+                <span id="shopDetailPrice">￥</span>
+                <span class="shop-detail-help">?</span>
+              </div>
+              <div class="shop-detail-tags" id="shopDetailTags"></div>
+              <div class="shop-detail-section">
+                <div class="shop-detail-section-title">概要</div>
+                <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+              </div>
+              <div class="shop-detail-section muted">
+                <div class="shop-detail-section-title">備考</div>
+                <div class="shop-detail-section-text" id="shopDetailNote"></div>
+              </div>
+              <div class="shop-detail-map">
+                <div class="shop-detail-map-visual">
+                  地図
+                  <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
+                </div>
+                <div class="shop-detail-address" id="shopDetailAddress"></div>
+              </div>
+            </div>
+          </div>
+          <div class="shop-detail-footer">
+            <button type="button" class="shop-detail-request-btn" onclick="requestShop()">このお店でリクエスト</button>
+          </div>
         </div>
       </div>
 

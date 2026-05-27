@@ -47,6 +47,307 @@
       font-size: 9px;
       flex-shrink: 0;
     }
+
+    /* === Chat layout (like SCR090 schedule screens) === */
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #d8d8d8 0%, #b9b9b9 100%);
+      border: 1px solid var(--c3);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .avatar::before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #9a9a9a;
+      left: 50%;
+      top: 7px;
+      transform: translateX(-50%);
+    }
+    .avatar::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 10px;
+      border-radius: 12px 12px 8px 8px;
+      background: #9a9a9a;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+    }
+    .header-meta {
+      min-width: 0;
+    }
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .online {
+      font-size: 10px;
+      color: var(--c4);
+      margin-top: 2px;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      padding: 14px 18px 10px;
+      border-bottom: 1px solid var(--c2);
+      background: #fbfbfb;
+      flex-shrink: 0;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+      color: var(--c3);
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .step::before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin: 0 auto 6px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      background: var(--c0);
+    }
+    .step.active {
+      color: var(--c6);
+    }
+    .step.active::before {
+      background: var(--c6);
+    }
+
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+      padding: 14px 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .date-divider {
+      align-self: center;
+      padding: 4px 10px;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c4);
+      font-size: 10px;
+      border-radius: 999px;
+    }
+
+    .message-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .message-row.sent {
+      justify-content: flex-end;
+    }
+    .mini-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #cfcfcf;
+      flex-shrink: 0;
+    }
+    .message-stack {
+      max-width: 258px;
+    }
+    .bubble {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 18px;
+      padding: 11px 13px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--c6);
+    }
+    .bubble.sent {
+      background: #ececec;
+    }
+    .time {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--c4);
+      padding: 0 4px;
+    }
+
+    .pending-card {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 20px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .pending-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--c3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+    .pending-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pending-sub-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 2px 0 4px;
+    }
+    .pending-sub-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid var(--c3);
+      background: #f2f2f2;
+      color: var(--c5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pending-sub {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--c6);
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .pending-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .pending-store {
+      border-top: 0;
+      padding-top: 0;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pending-store-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid var(--c3);
+      background: #f2f2f2;
+      color: var(--c5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 0;
+    }
+    .pending-store-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .pending-store-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--c6);
+      line-height: 1.35;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+    .pending-store-meta {
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .input-bar {
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      padding: 10px 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .circle-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c5);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .input-placeholder {
+      flex: 1;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      color: var(--c4);
+      font-size: 12px;
+    }
+    .send-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--c5);
+      color: var(--c0);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
     .header {
       display: flex;
       align-items: center;
@@ -78,15 +379,51 @@
     }
     .card-title { font-size: 13px; font-weight: 700; }
     .small-link { font-size: 10px; color: var(--c4); text-decoration: none; }
-    .info-grid {
-      display: grid;
-      grid-template-columns: 72px 1fr 54px 1fr;
-      gap: 8px 10px;
+    .info-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       font-size: 11px;
-      line-height: 1.5;
+      line-height: 1.45;
     }
-    .label { color: var(--c4); }
-    .value { color: var(--c6); font-weight: 600; }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .info-icon {
+      width: 18px;
+      flex-shrink: 0;
+      color: var(--c5);
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .info-row-body {
+      flex: 1;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(72px, auto) 1fr;
+      gap: 2px 12px;
+      align-items: start;
+    }
+    .info-label {
+      color: var(--c4);
+      white-space: nowrap;
+    }
+    .info-value {
+      color: var(--c6);
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+      line-height: 1.55;
+    }
+    .info-datetime {
+      color: var(--c6);
+      font-weight: 600;
+      line-height: 1.45;
+      white-space: nowrap;
+    }
     .section-title {
       font-size: 12px;
       font-weight: 700;
@@ -105,7 +442,7 @@
       background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%);
     }
     .restaurant-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .restaurant-meta, .restaurant-price {
+    .restaurant-meta {
       font-size: 11px;
       color: var(--c4);
       line-height: 1.5;
@@ -186,41 +523,76 @@
   </nav>
 
   <div class="device">
-    <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
-    <div class="header"><div class="back-btn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html'">‹</div><div class="title">店舗提案</div><div style="width:18px;"></div></div>
-    <div class="content">
-      <div class="card">
-        <div class="card-head"><div class="card-title">予約情報</div><a class="small-link" href="wireframe_SCR082_date_proposal_change.html">変更する</a></div>
-        <div class="info-grid">
-          <div class="label">日程</div><div class="value" id="proposalDate">5/24（土）</div>
-          <div class="label">時間</div><div class="value" id="proposalTime">19:00〜</div>
-          <div class="label">予約予定人数</div><div class="value">2名</div>
-          <div class="label">お会計</div><div class="value">当日相談</div>
-          <div class="label">予約者</div><div class="value">あなたが予約します</div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div>●●● WiFi ▮▮▮</div>
+    </div>
+
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="back-btn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html?candidate=' + candidate">‹</div>
+        <div class="avatar"></div>
+        <div class="header-meta">
+          <div class="name-row">さやか</div>
+          <div class="online">オンライン</div>
         </div>
       </div>
-      <div class="section-title">第1候補（おすすめ）</div>
-      <div class="card">
-        <div class="restaurant">
-          <div class="photo"></div>
-          <div>
-            <div class="restaurant-name">レストラン オトナ</div>
-            <div class="restaurant-meta">イタリアン ｜ 恵比寿</div>
-            <div class="restaurant-price">¥8,000〜¥12,000 / 人</div>
+    </div>
+
+    <div class="progress">
+      <div class="step">日程調整</div>
+      <div class="step active">店舗提案</div>
+      <div class="step">予約完了</div>
+    </div>
+
+    <div class="chat-body">
+      <div class="date-divider">今日</div>
+      <div class="message-row">
+        <div class="mini-avatar"></div>
+        <div class="message-stack">
+          <div class="bubble">お店の候補、見ました！<br>いい感じですね。</div>
+          <div class="time">18:24</div>
+        </div>
+      </div>
+      <div class="message-row sent">
+        <div class="message-stack">
+          <div class="bubble sent">ありがとうございます！<br>このお店で提案してみます。</div>
+          <div class="time" style="text-align:right;">18:25</div>
+        </div>
+      </div>
+      <div class="message-row">
+        <div class="mini-avatar"></div>
+        <div class="message-stack">
+          <div class="bubble">了解です！<br>確認しますね。</div>
+          <div class="time">18:26</div>
+        </div>
+      </div>
+      <div class="pending-card">
+        <div class="pending-icon">⌛</div>
+        <div style="flex: 1; min-width: 0;">
+          <div class="pending-title">お相手の確認待ち</div>
+          <div class="pending-sub-row">
+            <div class="pending-sub-icon">📅</div>
+            <div class="pending-sub" id="pendingProposalTime">5/24（土）19:00〜</div>
           </div>
-        </div>
-      </div>
-      <div class="card" onclick="window.location.href='wireframe_SCR083_restaurant_approved.html'">
-        <div class="waiting">
-          <div class="waiting-icon">⌛</div>
-          <div>
-            <div class="waiting-title">お相手の承認を待っています</div>
-            <div class="waiting-text">お相手が内容を確認中です。承認されると、お店の予約に進みます。</div>
-            <div class="waiting-sub">進行状況はチャットでも確認いただけます。</div>
+
+          <div class="pending-store">
+            <div class="pending-store-icon">🏬</div>
+            <div class="pending-store-body">
+              <div class="pending-store-name" id="pendingStoreName">レストラン オトナ</div>
+              <div class="pending-store-meta" id="pendingStoreMeta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
+            </div>
           </div>
+
+          <div class="pending-text" id="pendingWaitText">お相手が店舗提案を確認すると、次のステップに進みます。</div>
         </div>
       </div>
-      <a class="cancel-link" href="wireframe_SCR083_restaurant_recommend.html">提案をキャンセルする</a>
+    </div>
+
+    <div class="input-bar">
+      <div class="circle-btn">+</div>
+      <div class="input-placeholder">メッセージを入力...</div>
+      <button class="send-btn">➤</button>
     </div>
   </div>
 
@@ -242,10 +614,33 @@
   </div>
 
   <script>
+    var params = new URLSearchParams(window.location.search);
+    var candidate = params.get('candidate') || '1';
+
     var proposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
-    var proposalMatch = proposal.match(/^(.*?)(\d{1,2}:\d{2}〜?)$/);
-    document.getElementById('proposalDate').textContent = proposalMatch ? proposalMatch[1].trim() : proposal;
-    document.getElementById('proposalTime').textContent = proposalMatch ? proposalMatch[2] : '19:00〜';
+    var proposalMatch = proposal.match(/^(.+?)(\d{1,2}:\d{2}〜?)$/);
+    var pendingProposalText = proposalMatch
+      ? proposalMatch[1].trim() + '　' + proposalMatch[2]
+      : proposal;
+    var pendingProposalEl = document.getElementById('pendingProposalTime');
+    if (pendingProposalEl) pendingProposalEl.textContent = pendingProposalText;
+
+    var storeMap = {
+      '1': {
+        name: 'レストラン オトナ',
+        meta: 'イタリアン ｜ 恵比寿 ｜ ¥¥¥'
+      },
+      '2': {
+        name: 'ビストロ青葉',
+        meta: 'ビストロ ｜ 代官山 ｜ ¥¥¥'
+      }
+    };
+    var store = storeMap[candidate] || storeMap['1'];
+    var pendingStoreNameEl = document.getElementById('pendingStoreName');
+    var pendingStoreMetaEl = document.getElementById('pendingStoreMeta');
+    if (pendingStoreNameEl) pendingStoreNameEl.textContent = store.name;
+    if (pendingStoreMetaEl) pendingStoreMetaEl.textContent = store.meta;
+
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
       document.querySelector('.lang-' + lang).style.display = 'block';

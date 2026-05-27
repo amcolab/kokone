@@ -373,6 +373,37 @@
       background: var(--c5);
       color: var(--c0);
     }
+    .request-card.is-approved {
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+    }
+    .request-card.is-declined {
+      background: var(--c0);
+    }
+    .request-card.is-resolved .request-icon {
+      display: none;
+    }
+    .request-text.result {
+      margin-bottom: 0;
+    }
+    .request-status-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--c6);
+    }
+    .request-status-line .status-check {
+      color: #66bb6a;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .request-status-line.declined {
+      font-weight: 500;
+      color: var(--c5);
+    }
     .input-bar {
       border-top: 1px solid var(--c2);
       background: var(--c0);
@@ -682,6 +713,7 @@
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link wf-active" href="wireframe_SCR080_photo_request.html"><span class="wf-nav-id">080A</span>Photo Request</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
@@ -726,12 +758,12 @@
           <div class="time" style="text-align:right;">18:05</div>
         </div>
       </div>
-      <div class="request-card">
-        <div class="request-icon">🛡️</div>
+      <div class="request-card" id="photoRequestCard">
+        <div class="request-icon" id="requestCardIcon">🛡️</div>
         <div style="flex:1;">
-          <div class="request-title">写真公開リクエスト</div>
-          <div class="request-text">まいさんが、お互いのメイン写真を公開することを希望しています。承認するとあなたの写真も相手に公開されます。</div>
-          <div class="request-actions">
+          <div class="request-title" id="requestCardTitle">写真公開リクエスト</div>
+          <div class="request-text" id="requestCardText">まいさんが、お互いのメイン写真を公開することを希望しています。承認するとあなたの写真も相手に公開されます。</div>
+          <div class="request-actions" id="requestActions">
             <button class="action-btn secondary" type="button" onclick="declineRequest()">断る</button>
             <button class="action-btn primary" type="button" onclick="approveRequest()">承認する</button>
           </div>
@@ -794,7 +826,7 @@
           <div class="blp-section-title">主な動作</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">カード内の説明で、相互公開であることを明示する。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`断る` で辞退、`承認する` で双方のメイン写真公開を受け入れる。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">承認後は公開完了の状態をトーストで即時に伝える。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">承認後は `✓ 写真の公開を許可しました`、辞退後は `リクエストを見送りました` を1行表示する。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">表示方針</div>
@@ -810,7 +842,7 @@
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card giải thích rõ đây là cơ chế mở ảnh lẫn nhau.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`断る` dùng để từ chối, `承認する` dùng để chấp nhận mở ảnh của cả hai bên.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Sau khi chấp nhận, hiển thị ngay trạng thái đã đồng ý bằng thông báo ngắn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Sau khi chấp nhận/từ chối, hiển thị kết quả ngay trong card bằng một dòng text.</div></div>
         </div>
       </div>
     </div>
@@ -835,7 +867,7 @@
 
     function submitPhotoRequest() {
       closePhotoRequestConfirm();
-      showActionToast('写真公開リクエストを送信しました');
+      alert('写真公開リクエストを送信しました');
     }
 
     function goToReport() {
@@ -847,12 +879,29 @@
       showActionToast('ブロックしました');
     }
 
+    function showRequestResult(type) {
+      var card = document.getElementById('photoRequestCard');
+      var text = document.getElementById('requestCardText');
+      document.getElementById('requestCardTitle').style.display = 'none';
+      document.getElementById('requestActions').style.display = 'none';
+      card.classList.remove('is-approved', 'is-declined', 'is-resolved');
+      card.classList.add('is-resolved');
+      text.className = 'request-text result';
+      if (type === 'approved') {
+        card.classList.add('is-approved');
+        text.innerHTML = '<span class="request-status-line approved"><span class="status-check">✓</span><span>写真の公開を許可しました</span></span>';
+      } else {
+        card.classList.add('is-declined');
+        text.innerHTML = '<span class="request-status-line declined">リクエストを見送りました</span>';
+      }
+    }
+
     function declineRequest() {
-      showActionToast('リクエストを断りました');
+      showRequestResult('declined');
     }
 
     function approveRequest() {
-      showActionToast('写真公開を承認しました');
+      showRequestResult('approved');
     }
 
     function showActionToast(message) {

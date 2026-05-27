@@ -233,6 +233,15 @@
       color: var(--c5);
       line-height: 1.55;
     }
+
+    .pending-time {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--c6);
+      margin: 4px 0 8px;
+      line-height: 1.2;
+      word-break: break-word;
+    }
     .hint-link {
       display: inline-block;
       margin-top: 10px;
@@ -671,12 +680,6 @@
     </div>
     <div class="chat-body">
       <div class="message-row">
-        <div class="message-stack" style="max-width:100%;">
-          <div id="proposalBubble" class="bubble system"></div>
-          <div class="time" style="text-align:right;">18:24</div>
-        </div>
-      </div>
-      <div class="message-row">
         <div class="mini-avatar"></div>
         <div class="message-stack">
           <div class="bubble">わー楽しみです！<br>よろしくお願いします。</div>
@@ -687,7 +690,8 @@
         <div class="pending-icon">⌛</div>
         <div>
           <div class="pending-title">お相手の確認待ち</div>
-          <div class="pending-text">お相手が候補日を確認すると、次のステップに進みます。日程が確定したら店舗提案へ移動します。</div>
+          <div class="pending-time" id="pendingProposalTime">5/24（土）19:00〜</div>
+          <div class="pending-text">お相手が候補日を確認すると、次のステップに進みます。</div>
         </div>
       </div>
     </div>
@@ -699,7 +703,7 @@
   </div>
   <script>
     var proposal = localStorage.getItem("ot-schedule-proposal") || "5/24（土）19:00〜";
-    document.getElementById("proposalBubble").innerHTML = "<strong>" + proposal + "</strong>を<br>お相手に提案しました。<br>お相手に確認してもらいます。";
+    document.getElementById("pendingProposalTime").textContent = proposal;
     function setBlpLang(lang) {
       document.querySelectorAll(".blp-lang").forEach(function (el) {
         el.style.display = "none";

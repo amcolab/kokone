@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-090C Chat Restaurant Intro</title>
+  <title>SCR-090F Photo Request Sent</title>
   <style>
     :root {
       --c0: #ffffff;
-      --c1: #f5f5f5;
-      --c2: #e0e0e0;
-      --c3: #bdbdbd;
-      --c4: #757575;
-      --c5: #424242;
+      --c1: #f6f6f6;
+      --c2: #e3e3e3;
+      --c3: #c7c7c7;
+      --c4: #8a8a8a;
+      --c5: #4f4f4f;
       --c6: #212121;
       --wf-global-zoom: 1.1;
     }
@@ -39,14 +39,15 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
     .status-bar {
       height: 20px;
       background: var(--c6);
       color: var(--c0);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       padding: 0 8px;
       font-size: 9px;
       flex-shrink: 0;
@@ -55,30 +56,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
       padding: 12px 14px;
       border-bottom: 1px solid var(--c2);
-      background: var(--c0);
+      gap: 10px;
     }
     .header-left {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
-      flex: 1;
     }
-    .back-btn, .menu-btn {
+    .back-btn {
       font-size: 18px;
-      color: var(--c6);
       cursor: pointer;
-      flex-shrink: 0;
+      color: var(--c6);
     }
     .avatar {
       width: 34px;
       height: 34px;
       border-radius: 50%;
+      background: linear-gradient(180deg, #d8d8d8 0%, #b9b9b9 100%);
       border: 1px solid var(--c3);
-      background: linear-gradient(180deg, #dadada 0%, #bfbfbf 100%);
       position: relative;
       flex-shrink: 0;
     }
@@ -88,7 +86,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #8e8e8e;
+      background: #9a9a9a;
       left: 50%;
       top: 7px;
       transform: translateX(-50%);
@@ -97,62 +95,157 @@
       content: "";
       position: absolute;
       width: 18px;
-      height: 10px;
-      border-radius: 12px 12px 8px 8px;
-      background: #8e8e8e;
+      height: 11px;
+      border-radius: 12px 12px 7px 7px;
+      background: #9a9a9a;
       left: 50%;
-      bottom: 6px;
+      bottom: 5px;
       transform: translateX(-50%);
     }
     .header-meta {
       min-width: 0;
     }
-    .header-name {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .header-status {
-      font-size: 10px;
-      color: var(--c4);
+    .name-row {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 700;
     }
-    .header-status::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--c4);
+    .online {
+      font-size: 10px;
+      color: var(--c4);
+      margin-top: 2px;
     }
-    .ot-badge {
+    .menu-icon {
       width: 26px;
       height: 26px;
-      border-radius: 50%;
-      background: var(--c5);
-      color: var(--c0);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 18px;
+      color: var(--c5);
+      cursor: pointer;
       flex-shrink: 0;
+    }
+    .header-menu-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.12);
+      display: none;
+      z-index: 40;
+    }
+    .header-menu-overlay.open {
+      display: block;
+    }
+    .header-menu-sheet {
+      position: absolute;
+      top: 60px;
+      right: 14px;
+      width: 176px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .header-menu-item {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c6);
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .header-menu-item:last-child {
+      border-bottom: 0;
+    }
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.26);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .confirm-overlay.open {
+      display: flex;
+    }
+    .confirm-dialog {
+      width: 280px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 18px;
+      padding: 18px 16px 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+    }
+    .confirm-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .confirm-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .confirm-btn {
+      flex: 1;
+      height: 38px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .confirm-btn.secondary {
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      color: var(--c5);
+    }
+    .confirm-btn.primary {
+      border: 0;
+      background: var(--c5);
+      color: var(--c0);
+    }
+    .toast {
+      position: absolute;
+      left: 50%;
+      bottom: 84px;
+      transform: translateX(-50%);
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 11px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      display: none;
+      z-index: 60;
+      white-space: nowrap;
+    }
+    .toast.show {
+      display: block;
     }
     .progress {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 12px 16px 10px;
+      gap: 0;
+      padding: 14px 18px 10px;
       border-bottom: 1px solid var(--c2);
-      background: #fafafa;
+      background: #fbfbfb;
     }
     .step {
       text-align: center;
-      font-size: 10px;
       color: var(--c3);
-      font-weight: 700;
-      position: relative;
+      font-size: 10px;
+      font-weight: 600;
     }
     .step::before {
       content: "";
@@ -163,48 +256,48 @@
       border-radius: 50%;
       border: 1px solid currentColor;
       background: var(--c0);
-      line-height: 22px;
-      font-size: 11px;
-    }
-    .step.done {
-      color: var(--c4);
-    }
-    .step.done::before {
-      content: "✓";
-      border-color: var(--c3);
-      color: var(--c4);
-      font-weight: 700;
     }
     .step.active {
       color: var(--c6);
     }
     .step.active::before {
-      content: "店";
-      border-color: var(--c6);
       background: var(--c6);
-      color: var(--c0);
-      font-size: 10px;
-      font-weight: 700;
     }
     .chat-body {
       flex: 1;
       overflow-y: auto;
       background: var(--c1);
-      padding: 14px 12px 16px;
+      padding: 14px 12px 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
+    .date-divider {
+      align-self: center;
+      padding: 4px 10px;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c4);
+      font-size: 10px;
+      border-radius: 999px;
+    }
     .message-row {
       display: flex;
-      gap: 8px;
       align-items: flex-end;
+      gap: 8px;
     }
     .message-row.sent {
       justify-content: flex-end;
     }
+    .mini-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #cfcfcf;
+      flex-shrink: 0;
+    }
     .message-stack {
-      max-width: 258px;
+      max-width: 250px;
     }
     .bubble {
       background: var(--c0);
@@ -212,72 +305,106 @@
       border-radius: 18px;
       padding: 11px 13px;
       font-size: 12px;
-      line-height: 1.6;
+      line-height: 1.55;
+      color: var(--c6);
     }
     .bubble.sent {
       background: #ececec;
-      border-color: var(--c2);
-    }
-    .read-mark {
-      font-size: 10px;
-      color: var(--c4);
-      margin-right: 4px;
     }
     .time {
       margin-top: 4px;
-      padding: 0 4px;
       font-size: 10px;
       color: var(--c4);
+      padding: 0 4px;
     }
-    .system-card-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      max-width: 100%;
-    }
-    .system-card {
+    .request-card {
       background: var(--c0);
       border: 1px solid var(--c2);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 14px;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: flex-start;
     }
-    .system-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+    .request-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       border: 1px solid var(--c3);
-      background: #f2f2f2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       color: var(--c5);
       flex-shrink: 0;
+      background: #f3f3f3;
     }
-    .system-title {
+    .request-title {
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
-    .system-text {
+    .request-text {
       font-size: 12px;
       color: var(--c5);
       line-height: 1.6;
+      margin-bottom: 12px;
     }
-    .primary-btn {
-      width: 100%;
-      height: 44px;
-      border: 1px solid var(--c6);
+    .request-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+    .action-btn {
+      flex: 1;
+      height: 40px;
       border-radius: 999px;
-      background: var(--c6);
-      color: var(--c0);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 12px;
+    }
+    .action-btn.secondary {
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      color: var(--c5);
+    }
+    .action-btn.primary {
+      border: 0;
+      background: var(--c5);
+      color: var(--c0);
+    }
+    .request-card.is-waiting {
+      background: #f7f7f7;
+      border-color: #e0e0e0;
+    }
+    .request-card.is-approved-partner {
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+    }
+    .request-text {
+      margin-bottom: 0;
+    }
+    .request-status-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--c6);
+    }
+    .request-status-line .status-sparkle {
+      font-size: 15px;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+    .system-notice {
+      align-self: center;
+      max-width: 290px;
+      padding: 6px 10px;
+      font-size: 10px;
+      color: #9e9e9e;
+      line-height: 1.55;
+      text-align: center;
     }
     .input-bar {
       border-top: 1px solid var(--c2);
@@ -294,31 +421,35 @@
       border: 1px solid var(--c2);
       background: var(--c0);
       color: var(--c5);
+      font-size: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      flex-shrink: 0;
     }
     .input-placeholder {
       flex: 1;
       height: 34px;
-      border-radius: 18px;
-      background: #f2f2f2;
-      color: #a0a0a0;
-      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      padding: 0 14px;
       display: flex;
       align-items: center;
-      padding: 0 14px;
+      color: var(--c4);
+      font-size: 12px;
     }
     .send-btn {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: 0;
       background: var(--c5);
       color: var(--c0);
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
+      flex-shrink: 0;
     }
     .wf-sidebar {
       width: 200px;
@@ -511,45 +642,6 @@
       color: #212121;
       line-height: 1.55;
     }
-    .blp-flow-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      padding-bottom: 8px;
-    }
-    .blp-step-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .blp-step-num {
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid #424242;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: 700;
-      color: #424242;
-      background: #fff;
-      z-index: 1;
-    }
-    .blp-step-connector {
-      width: 1px;
-      flex: 1;
-      background: #e0e0e0;
-      min-height: 10px;
-      margin-top: 2px;
-    }
-    .blp-step-text {
-      font-size: 11px;
-      color: #424242;
-      line-height: 1.5;
-      padding-top: 1px;
-    }
     .blp-note {
       background: #fafafa;
       border: 1px solid #e0e0e0;
@@ -563,11 +655,6 @@
     .blp-note.highlight {
       border-left-color: #212121;
       color: #424242;
-    }
-    .blp-note.ok {
-      border-left-color: #2e7d32;
-      background: #f1f8f1;
-      color: #1b5e20;
     }
     .blp-lang-switch {
       display: flex;
@@ -617,29 +704,26 @@
       <div class="wf-group-label">D · Booking</div>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
-      <a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a>
       <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
-      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a>
-      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a>
-      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a>
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR080_photo_request.html"><span class="wf-nav-id">080A</span>Photo Request</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_deadline.html"><span class="wf-nav-id">090E</span>Chat Schedule Deadline</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
   </nav>
-
   <div class="device">
     <div class="status-bar">
       <div>9:41</div>
@@ -650,60 +734,63 @@
         <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
         <div class="avatar"></div>
         <div class="header-meta">
-          <div class="header-name">Noa</div>
-          <div class="header-status">オンライン</div>
+          <div class="name-row">Rina</div>
+          <div class="online">オンライン</div>
         </div>
       </div>
-      <div class="ot-badge">OT</div>
-      <div class="menu-btn">⋯</div>
+      <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
     </div>
     <div class="progress">
-      <div class="step done">日程調整</div>
-      <div class="step active">店舗承認</div>
+      <div class="step active">日程調整</div>
+      <div class="step">店舗提案</div>
       <div class="step">予約完了</div>
     </div>
     <div class="chat-body">
-      <div class="system-card-wrap">
-        <div class="system-card">
-          <div class="system-icon">📋</div>
-          <div>
-            <div class="system-title">日程が確定しました！</div>
-            <div class="system-text">この日時で行けるお店をご提案します。</div>
-          </div>
-        </div>
-        <div class="time">18:24</div>
-      </div>
+      <div class="date-divider">本日</div>
       <div class="message-row sent">
         <div class="message-stack">
-          <div class="bubble sent">楽しみです！ よろしくお願いします😊</div>
-          <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>18:25</div>
+          <div class="bubble sent">写真公開リクエストを送りました。</div>
+          <div class="time" style="text-align:right;">18:02</div>
         </div>
       </div>
-      <div class="system-card-wrap">
-        <div class="system-card">
-          <div class="system-icon">🖼</div>
-          <div style="width:100%;">
-            <div class="system-title">おすすめのお店をご提案します</div>
-            <div class="system-text">おふたりにぴったりのお店を選びました。</div>
-            <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html'">お店を見る</button>
-          </div>
+      <div class="request-card is-waiting" id="photoRequestCard">
+        <div class="request-icon" id="requestCardIcon">⏳</div>
+        <div style="flex:1;">
+          <div class="request-text" id="requestCardText">写真リクエストを送信しました。相手の返答をお待ちください。</div>
         </div>
-        <div class="time">18:26</div>
       </div>
+      <div class="system-notice" id="photoRequestNotice" style="display:none;"></div>
     </div>
     <div class="input-bar">
       <div class="circle-btn">+</div>
       <div class="input-placeholder">メッセージを入力...</div>
       <button class="send-btn">➤</button>
     </div>
+    <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
+      <div class="header-menu-sheet" onclick="event.stopPropagation()">
+        <button class="header-menu-item" type="button" onclick="openPhotoRequestConfirm()">写真公開リクエスト</button>
+        <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
+        <button class="header-menu-item" type="button" onclick="blockUser()">ブロックする</button>
+      </div>
+    </div>
+    <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">写真公開リクエストを送りますか？</div>
+        <div class="confirm-text">お相手にプロフィール写真の公開リクエストを送信します。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn secondary" type="button" onclick="closePhotoRequestConfirm()">キャンセル</button>
+          <button class="confirm-btn primary" type="button" onclick="submitPhotoRequest()">送信する</button>
+        </div>
+      </div>
+    </div>
+    <div id="actionToast" class="toast"></div>
   </div>
-
   <div class="blp-wrap">
     <div class="blp-head">
-      <div>
-        <div class="blp-head-scr">SCR-090C</div>
-        <div class="blp-head-title">Chat Restaurant Intro</div>
-        <div class="blp-head-sub">店舗提案開始 / Bắt đầu đề xuất nhà hàng</div>
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-090F</div>
+        <div class="blp-head-title">Photo Request Sent</div>
+        <div class="blp-head-sub">送信側・返答待ち / Người gửi chờ phản hồi</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -723,50 +810,123 @@
     <div class="blp-body">
       <div class="blp-lang lang-ja">
         <div class="blp-section">
-          <div class="blp-section-title">目的</div>
-          <div class="blp-note highlight">日程確定後、チャット上で店舗提案フェーズへ入ったことを見せる導入画面です。</div>
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">写真公開リクエストを送った側のチャット。相手の返答待ち・承認・辞退後の表示を確認する。</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">システムメッセージで「日程確定済み」を案内します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">おすすめ店舗カードから詳細提案画面へ進みます。</div></div>
+          <div class="blp-section-title">主な状態</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>返答待ち</strong> — `写真リクエストを送信しました。相手の返答をお待ちください。`（ボタンなし）</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>相手が承認</strong> — `✨ 相手が写真を公開しました。プロフィールから確認できます。`</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>相手が辞退</strong> — カードを隠し、小さなシステム通知 `お相手は写真を非公開にしています。仲が深まったら再度リクエストしてみましょう。`</div></div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">遷移</div>
-          <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">`SCR082` の「この候補日で確定する」からこの画面へ（相手名は Noa）</div></div>
-          <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text">`お店を見る` で `SCR083A` を開く</div></div>
-          <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">承認待ちと予約完了チャットへ続く</div></div>
+          <div class="blp-section-title">Wireframe切替</div>
+          <div class="blp-note"><a href="wireframe_SCR090_chat_photo_request_sent.html">返答待ち</a> / <a href="wireframe_SCR090_chat_photo_request_sent.html?state=approved">相手承認</a> / <a href="wireframe_SCR090_chat_photo_request_sent.html?state=declined">相手辞退</a></div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chat báo rằng lịch đã chốt xong và flow hiện tại chuyển sang bước đề xuất nhà hàng.</div>
+          <div class="blp-note highlight">Màn chat phía người đã gửi yêu cầu mở ảnh, chờ hoặc nhận kết quả từ đối phương.</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">Hành vi</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Hiển thị system message xác nhận đã chốt ngày.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Nút `お店を見る` mở màn chi tiết đề xuất nhà hàng.</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">Luồng</div>
-          <div class="blp-note ok">Đây là màn mở đầu cho chuỗi 5 màn mới của flow đề xuất nhà hàng sau khi chốt lịch.</div>
+          <div class="blp-section-title">Trạng thái</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Chờ phản hồi: card xám nhạt, không có nút.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Đối phương đồng ý: thông báo chúc mừng với ✨.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Đối phương từ chối: ẩn card, hiện dòng hệ thống mờ.</div></div>
         </div>
       </div>
     </div>
   </div>
-
   <script>
-    function setBlpLang(lang) {
-      document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
-      document.querySelector('.lang-' + lang).style.display = 'block';
-      document.querySelectorAll('.blp-lang-btn').forEach(function (btn) { btn.classList.remove('active'); });
-      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    function toggleHeaderMenu() {
+      document.getElementById('headerMenuOverlay').classList.toggle('open');
     }
+
+    function closeHeaderMenu() {
+      document.getElementById('headerMenuOverlay').classList.remove('open');
+    }
+
+    function openPhotoRequestConfirm() {
+      closeHeaderMenu();
+      document.getElementById('photoRequestConfirm').classList.add('open');
+    }
+
+    function closePhotoRequestConfirm() {
+      document.getElementById('photoRequestConfirm').classList.remove('open');
+    }
+
+    function submitPhotoRequest() {
+      closePhotoRequestConfirm();
+      alert('写真公開リクエストを送信しました');
+    }
+
+    function goToReport() {
+      window.location.href = 'wireframe_SCR103_report.html';
+    }
+
+    function blockUser() {
+      closeHeaderMenu();
+      showActionToast('ブロックしました');
+    }
+
+    function applySenderPhotoRequestState() {
+      var state = new URLSearchParams(window.location.search).get('state') || 'waiting';
+      var card = document.getElementById('photoRequestCard');
+      var notice = document.getElementById('photoRequestNotice');
+      var icon = document.getElementById('requestCardIcon');
+      var text = document.getElementById('requestCardText');
+      card.style.display = 'flex';
+      notice.style.display = 'none';
+      if (state === 'approved') {
+        card.className = 'request-card is-approved-partner';
+        icon.textContent = '✨';
+        text.innerHTML = '<span class="request-status-line celebrate"><span class="status-sparkle">✨</span><span>相手が写真を公開しました。プロフィールから確認できます。</span></span>';
+      } else if (state === 'declined') {
+        card.style.display = 'none';
+        notice.style.display = 'block';
+        notice.textContent = 'お相手は写真を非公開にしています。仲が深まったら再度リクエストしてみましょう。';
+      } else {
+        card.className = 'request-card is-waiting';
+        icon.textContent = '⏳';
+        text.textContent = '写真リクエストを送信しました。相手の返答をお待ちください。';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', applySenderPhotoRequestState);
+
+    function showActionToast(message) {
+      var toast = document.getElementById('actionToast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.actionToastTimer);
+      window.actionToastTimer = setTimeout(function () {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    function setBlpLang(lang) {
+      var ja = document.querySelector('.lang-ja');
+      var vi = document.querySelector('.lang-vi');
+      var jaBtn = document.getElementById('langJa');
+      var viBtn = document.getElementById('langVi');
+      if (lang === 'vi') {
+        ja.style.display = 'none';
+        vi.style.display = 'block';
+        jaBtn.classList.remove('active');
+        viBtn.classList.add('active');
+      } else {
+        ja.style.display = 'block';
+        vi.style.display = 'none';
+        jaBtn.classList.add('active');
+        viBtn.classList.remove('active');
+      }
+    }
+
     function toggleBlpFullscreen(button) {
       var wrap = button.closest('.blp-wrap');
       var isFullscreen = wrap.classList.toggle('fullscreen');
-      document.body.style.paddingRight = isFullscreen ? (window.innerWidth - 200) + 'px' : '300px';
+      document.body.style.marginRight = isFullscreen ? (window.innerWidth - 200) + 'px' : '280px';
     }
   </script>
 </body>

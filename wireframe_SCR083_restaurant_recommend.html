@@ -85,15 +85,51 @@
       color: var(--c4);
       text-decoration: none;
     }
-    .info-grid {
-      display: grid;
-      grid-template-columns: 72px 1fr 54px 1fr;
-      gap: 8px 10px;
+    .info-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       font-size: 11px;
-      line-height: 1.5;
+      line-height: 1.45;
     }
-    .info-label { color: var(--c4); }
-    .info-value { color: var(--c6); font-weight: 600; }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .info-icon {
+      width: 18px;
+      flex-shrink: 0;
+      color: var(--c5);
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .info-row-body {
+      flex: 1;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(72px, auto) 1fr;
+      gap: 2px 12px;
+      align-items: start;
+    }
+    .info-label {
+      color: var(--c4);
+      white-space: nowrap;
+    }
+    .info-value {
+      color: var(--c6);
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+      line-height: 1.55;
+    }
+    .info-datetime {
+      color: var(--c6);
+      font-weight: 600;
+      line-height: 1.45;
+      white-space: nowrap;
+    }
     .section-title {
       font-size: 12px;
       font-weight: 700;
@@ -122,11 +158,6 @@
       font-size: 11px;
       color: var(--c4);
       line-height: 1.5;
-      margin-bottom: 6px;
-    }
-    .price {
-      font-size: 12px;
-      font-weight: 600;
       margin-bottom: 8px;
     }
     .tags {
@@ -360,29 +391,48 @@
           <div class="info-title">予約情報</div>
           <a class="info-link" href="wireframe_SCR082_date_proposal_change.html">変更する</a>
         </div>
-        <div class="info-grid">
-          <div class="info-label">日程</div><div class="info-value" id="proposalDate">5/24（土）</div>
-          <div class="info-label">時間</div><div class="info-value" id="proposalTime">19:00〜</div>
-          <div class="info-label">予約予定人数</div><div class="info-value">2名</div>
-          <div class="info-label">お会計</div><div class="info-value">当日相談</div>
-          <div class="info-label">予約者</div><div class="info-value">あなたが予約します</div>
+        <div class="info-rows">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div class="info-datetime" id="proposalDateTime">5/24（土）　19:00〜</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">👤</div>
+            <div class="info-row-body">
+              <div class="info-label">予約予定人数</div>
+              <div class="info-value">2 名</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">💴</div>
+            <div class="info-row-body">
+              <div class="info-label">お会計</div>
+              <div class="info-value">当日相談</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">👤</div>
+            <div class="info-row-body">
+              <div class="info-label">予約者</div>
+              <div class="info-value" style="white-space:nowrap;">あなたが予約します</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="section-title">第1候補（おすすめ）</div>
+      <div class="section-title" id="candidateTitle">第1候補（おすすめ）</div>
       <div class="restaurant-card">
-        <div class="photo"></div>
-        <div class="restaurant-name">レストラン オトナ</div>
-        <div class="restaurant-meta">イタリアン ｜ 恵比寿</div>
-        <div class="price">¥8,000〜¥12,000 / 人</div>
-        <div class="tags"><span class="tag">個室あり</span><span class="tag">落ち着いた雰囲気</span><span class="tag">デート向き</span></div>
-        <div class="description">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。</div>
-        <div class="footer-row"><span>恵比寿駅 徒歩5分</span><span>地図で見る</span></div>
+        <div class="photo" id="restaurantPhoto"></div>
+        <div class="restaurant-name" id="restaurantName">レストラン オトナ</div>
+        <div class="restaurant-meta" id="restaurantMeta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
+        <div class="tags" id="restaurantTags"><span class="tag">個室あり</span><span class="tag">落ち着いた雰囲気</span><span class="tag">デート向き</span></div>
+        <div class="description" id="restaurantDescription">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。</div>
+        <div class="footer-row"><span id="restaurantAccess">恵比寿駅 徒歩5分</span><span>地図で見る</span></div>
       </div>
       <div class="note-card">
         <div style="font-size:11px; color:var(--c5); line-height:1.6;">この内容で問題なければ相手に店舗提案を送信します。承認後に予約確定へ進みます。</div>
       </div>
-      <button class="primary-btn" onclick="window.location.href='wireframe_SCR083_restaurant_waiting.html'">この内容で承認する</button>
-      <a class="secondary-link" href="wireframe_SCR083_restaurant.html">他の候補も確認する</a>
+      <button class="primary-btn" onclick="goToWaiting()">この内容で承認する</button>
+      <a class="secondary-link" href="wireframe_SCR083_restaurant_recommend.html?candidate=2">他の候補も確認する</a>
     </div>
   </div>
 
@@ -406,9 +456,26 @@
 
   <script>
     var proposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
-    var proposalMatch = proposal.match(/^(.*?)(\d{1,2}:\d{2}〜?)$/);
-    document.getElementById('proposalDate').textContent = proposalMatch ? proposalMatch[1].trim() : proposal;
-    document.getElementById('proposalTime').textContent = proposalMatch ? proposalMatch[2] : '19:00〜';
+    var proposalMatch = proposal.match(/^(.+?)(\d{1,2}:\d{2}〜?)$/);
+    document.getElementById('proposalDateTime').textContent = proposalMatch
+      ? proposalMatch[1].trim() + '　' + proposalMatch[2]
+      : proposal;
+
+    var params = new URLSearchParams(window.location.search);
+    var candidate = params.get('candidate') || '1';
+    if (params.get('candidate') === '2') {
+      document.getElementById('candidateTitle').textContent = '第2候補';
+      document.getElementById('restaurantPhoto').style.background = 'linear-gradient(135deg, #3d3d3d 0%, #6b6b6b 45%, #2d2d2d 100%)';
+      document.getElementById('restaurantName').textContent = 'ビストロ青葉';
+      document.getElementById('restaurantMeta').textContent = 'ビストロ ｜ 代官山 ｜ ¥¥¥';
+      document.getElementById('restaurantTags').innerHTML = '<span class="tag">カウンター席</span><span class="tag">静かな空間</span><span class="tag">会話しやすい</span>';
+      document.getElementById('restaurantDescription').textContent = '旬の食材を使ったコースが人気。程よく落ち着いた雰囲気で、初回デートでもゆっくり会話を楽しめます。';
+      document.getElementById('restaurantAccess').textContent = '代官山駅 徒歩4分';
+    }
+
+    function goToWaiting() {
+      window.location.href = 'wireframe_SCR083_restaurant_waiting.html?candidate=' + candidate;
+    }
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
       document.querySelector('.lang-' + lang).style.display = 'block';

@@ -27,9 +27,13 @@
     .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .card-title { font-size: 13px; font-weight: 700; }
     .small-link { font-size: 10px; color: var(--c4); text-decoration: none; }
-    .info-grid { display: grid; grid-template-columns: 72px 1fr 54px 1fr; gap: 8px 10px; font-size: 11px; line-height: 1.5; }
-    .label { color: var(--c4); }
-    .value { color: var(--c6); font-weight: 600; }
+    .info-rows { display: flex; flex-direction: column; gap: 8px; font-size: 11px; line-height: 1.45; }
+    .info-row { display: flex; align-items: flex-start; gap: 8px; }
+    .info-icon { width: 18px; flex-shrink: 0; color: var(--c5); font-size: 14px; line-height: 1.4; text-align: center; }
+    .info-row-body { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(72px, auto) 1fr; gap: 2px 12px; align-items: start; }
+    .info-label { color: var(--c4); white-space: nowrap; }
+    .info-value { color: var(--c6); font-weight: 600; text-align: right; word-break: break-word; line-height: 1.55; }
+    .info-datetime { color: var(--c6); font-weight: 600; line-height: 1.45; white-space: nowrap; }
     .success { display: flex; gap: 12px; align-items: flex-start; }
     .success-icon { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #b7d6b9; background: #f1f8f1; color: #2e7d32; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .success-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
@@ -37,7 +41,7 @@
     .restaurant { display: flex; gap: 10px; }
     .photo { width: 92px; height: 72px; border-radius: 12px; flex-shrink: 0; background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%); }
     .restaurant-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .restaurant-meta, .restaurant-price { font-size: 11px; color: var(--c4); line-height: 1.5; }
+    .restaurant-meta { font-size: 11px; color: var(--c4); line-height: 1.5; }
     .footer-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 10px; color: var(--c4); }
     .note { font-size: 12px; color: var(--c5); line-height: 1.6; }
     .primary-btn { width: 100%; height: 44px; border: 0; border-radius: 999px; background: var(--c5); color: var(--c0); font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 6px; }
@@ -90,12 +94,32 @@
     <div class="content">
       <div class="card">
         <div class="card-head"><div class="card-title">予約情報</div><a class="small-link" href="wireframe_SCR082_date_proposal_change.html">変更する</a></div>
-        <div class="info-grid">
-          <div class="label">日程</div><div class="value" id="proposalDate">5/24（土）</div>
-          <div class="label">時間</div><div class="value" id="proposalTime">19:00〜</div>
-          <div class="label">予約予定人数</div><div class="value">2名</div>
-          <div class="label">お会計</div><div class="value">当日相談</div>
-          <div class="label">予約者</div><div class="value">あなたが予約します</div>
+        <div class="info-rows">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div class="info-datetime" id="proposalDateTime">5/24（土）　19:00〜</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">👤</div>
+            <div class="info-row-body">
+              <div class="info-label">予約予定人数</div>
+              <div class="info-value">2 名</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">💴</div>
+            <div class="info-row-body">
+              <div class="info-label">お会計</div>
+              <div class="info-value">当日相談</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">👤</div>
+            <div class="info-row-body">
+              <div class="info-label">予約者</div>
+              <div class="info-value" style="white-space:nowrap;">あなたが予約します</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -112,8 +136,7 @@
           <div class="photo"></div>
           <div>
             <div class="restaurant-name">レストラン オトナ</div>
-            <div class="restaurant-meta">イタリアン ｜ 恵比寿</div>
-            <div class="restaurant-price">¥8,000〜¥12,000 / 人</div>
+            <div class="restaurant-meta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
           </div>
         </div>
         <div class="footer-row"><span>恵比寿駅 徒歩5分</span><span>地図で見る</span></div>
@@ -142,9 +165,10 @@
 
   <script>
     var proposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
-    var proposalMatch = proposal.match(/^(.*?)(\d{1,2}:\d{2}〜?)$/);
-    document.getElementById('proposalDate').textContent = proposalMatch ? proposalMatch[1].trim() : proposal;
-    document.getElementById('proposalTime').textContent = proposalMatch ? proposalMatch[2] : '19:00〜';
+    var proposalMatch = proposal.match(/^(.+?)(\d{1,2}:\d{2}〜?)$/);
+    document.getElementById('proposalDateTime').textContent = proposalMatch
+      ? proposalMatch[1].trim() + '　' + proposalMatch[2]
+      : proposal;
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
       document.querySelector('.lang-' + lang).style.display = 'block';
