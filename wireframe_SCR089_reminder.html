@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -180,6 +180,202 @@
             padding: 12px;
             border-top: 1px solid var(--c2);
         }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--c2);
+            background: var(--c0);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            flex: 1;
+        }
+        .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--c3);
+            background: linear-gradient(180deg, #dadada 0%, #bfbfbf 100%);
+            flex-shrink: 0;
+        }
+        .header-meta {
+            min-width: 0;
+        }
+        .header-name {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .header-status {
+            font-size: 10px;
+            color: var(--c4);
+        }
+        .ot-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--c5);
+            color: var(--c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .progress {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 12px 16px 10px;
+            border-bottom: 1px solid var(--c2);
+            background: #fafafa;
+        }
+        .step {
+            text-align: center;
+            font-size: 10px;
+            color: var(--c3);
+            font-weight: 700;
+            position: relative;
+        }
+        .step::before {
+            content: "";
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 6px;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            background: var(--c0);
+            line-height: 22px;
+            font-size: 11px;
+        }
+        .step.done {
+            color: var(--c4);
+        }
+        .step.done::before {
+            content: "✓";
+            border-color: var(--c3);
+            color: var(--c4);
+            font-weight: 700;
+        }
+        .step.active {
+            color: var(--c6);
+        }
+        .step.active::before {
+            content: "✓";
+            border-color: var(--c6);
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 10px;
+            font-weight: 800;
+        }
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--c1);
+            padding: 14px 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message-row {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+        .message-row.sent {
+            justify-content: flex-end;
+        }
+        .message-stack {
+            max-width: 258px;
+        }
+        .bubble {
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 18px;
+            padding: 11px 13px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .bubble.sent {
+            background: #ececec;
+            border-color: var(--c2);
+        }
+        .read-mark {
+            font-size: 10px;
+            color: var(--c4);
+            margin-right: 4px;
+        }
+        .system-card-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 100%;
+        }
+        .system-card {
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 18px;
+            padding: 14px;
+        }
+        .reminder-title {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .reminder-hero {
+            height: 86px;
+            border-radius: 12px;
+            background: #ececec;
+            border: 1px solid var(--c2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c4);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .store-link {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--c6);
+            text-decoration: underline;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .reminder-datetime {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.6;
+        }
+        .reminder-btn {
+            width: 100%;
+            height: 44px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--c5);
+            color: var(--c0);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        .time {
+            margin-top: 4px;
+            padding: 0 4px;
+            font-size: 10px;
+            color: var(--c4);
+        }
 .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     </style>
 
@@ -344,9 +540,9 @@
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">D · Booking</div>
-    <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+    
     <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
-    <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+    
     <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
     <a class="wf-nav-link wf-active" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
   </div>
@@ -388,64 +584,52 @@
             <div class="status-time">9:41</div>
             <div class="status-icons">●●● WiFi ▮▮▮</div>
         </div>
-
-        <!-- Header -->
-        <div class="header">
-            <div class="back-btn" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'" style="cursor:pointer;"><</div>
-            <div class="header-title">リマインド</div>
-        </div>
-
-        <!-- Date Banner -->
-        <div class="date-banner">
-            📅 明日は食事の日です
-        </div>
-
-        <!-- Booking Summary -->
-        <div class="booking-summary">
-            <div class="summary-row">個室ダイニング 和楽</div>
-            <div class="summary-detail">3月20日（木）19:00〜</div>
-            <div class="summary-detail">新宿区歌舞伎町 ×-×-×</div>
-            <a class="summary-link">Google マップ →</a>
-        </div>
-
-        <!-- Checklist -->
-        <div class="checklist-section">
-            <div class="checklist-title">当日の確認事項</div>
-            <div class="checklist-item">
-                <div class="checkbox"></div>
-                <span>予約名: Otona Table（田中）をお伝えください</span>
+        <div class="chat-header">
+            <div class="header-left">
+                <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
+                <div class="avatar"></div>
+                <div class="header-meta">
+                    <div class="header-name">Mio · 35歳</div>
+                    <div class="header-status">オンライン</div>
+                </div>
             </div>
-            <div class="checklist-item">
-                <div class="checkbox"></div>
-                <span>時間厳守でお願いします</span>
-            </div>
-            <div class="checklist-item">
-                <div class="checkbox"></div>
-                <span>キャンセルの場合は必ず連絡してください</span>
-            </div>
-            <div class="checklist-item">
-                <div class="checkbox"></div>
-                <span>困ったことがあればサポートへご連絡ください</span>
-            </div>
+            <div class="ot-badge">OT</div>
+            <div class="menu-btn">⋯</div>
         </div>
-
-        <!-- Notice -->
-        <div class="notice-box">
-            ⚠ 当日キャンセルは利用制限の対象となる場合があります
+        <div class="progress">
+            <div class="step done">日程調整</div>
+            <div class="step done">店舗提案</div>
+            <div class="step active">予約完了</div>
         </div>
-
-        <!-- Cancel Section -->
-        <div class="cancel-section">
-            <button class="cancel-btn">キャンセルする</button>
-            <div class="cancel-note">前日までのキャンセルはペナルティなし</div>
-        </div>
-
-        <!-- Home Button -->
-        <button class="home-btn" onclick="window.location.href='wireframe_SCR060_flat.html'">ホームに戻る</button>
-
-        <!-- Footer -->
-        <div class="footer-note">
-            フロー: SCR-087 → (前日/当日自動送信) → SCR-089 ★ → 食事 → SCR-100
+        <div class="chat-body">
+            <div class="message-row">
+                <div class="message-stack">
+                    <div class="bubble">明日が楽しみです！ よろしくお願いします😊</div>
+                    <div class="time">昨日 17:45</div>
+                </div>
+            </div>
+            <div class="message-row sent">
+                <div class="message-stack">
+                    <div class="bubble sent">こちらこそ、楽しみにしています！</div>
+                    <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>昨日 17:48</div>
+                </div>
+            </div>
+            <div class="message-row">
+                <div class="message-stack">
+                    <div class="bubble">当日、お店の前で待ち合わせしましょう。</div>
+                    <div class="time">昨日 18:02</div>
+                </div>
+            </div>
+            <div class="system-card-wrap">
+                <div class="system-card">
+                    <div class="reminder-title">📅 明日はいよいよデート当日です！</div>
+                    <div class="reminder-hero">✕✕</div>
+                    <a class="store-link" href="javascript:void(0)">和食バル・一期一会</a>
+                    <div class="reminder-datetime">3月20日（木）19:30〜</div>
+                    <button class="reminder-btn" type="button" onclick="window.location.href='wireframe_SCR087_booking_detail.html?from=089'">予約詳細を見る</button>
+                </div>
+                <div class="time">18:10</div>
+            </div>
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCR-103 Report / Block</title>
+    <title>SCR-087D Booking Done Chat</title>
     <style>
         :root {
             --c0: #ffffff;
@@ -52,163 +52,383 @@
             font-size: 8px;
             letter-spacing: 1px;
         }
-        .header {
+        .chat-header {
             display: flex;
             align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid var(--c6);
-            gap: 12px;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--c2);
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
         }
         .back-btn {
-            font-size: 14px;
+            font-size: 18px;
             cursor: pointer;
+            color: var(--c6);
+        }
+        .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #d8d8d8 0%, #b9b9b9 100%);
+            border: 1px solid var(--c3);
+            flex-shrink: 0;
+        }
+        .header-meta {
+            min-width: 0;
+        }
+        .name-row {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .online {
+            font-size: 10px;
+            color: var(--c4);
+            margin-top: 2px;
+        }
+        .ot-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--c2);
+            background: #f3f3f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
             color: var(--c6);
             flex-shrink: 0;
         }
-        .header-title {
+        .progress {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            padding: 12px 18px 10px;
+            border-bottom: 1px solid var(--c2);
+            background: #fbfbfb;
+            flex-shrink: 0;
+        }
+        .step {
+            text-align: center;
+            color: var(--c3);
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .step::before {
+            content: "";
+            display: block;
+            width: 22px;
+            height: 22px;
+            margin: 0 auto 6px;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            background: var(--c0);
+        }
+        .step.done {
+            color: var(--c6);
+        }
+        .step.done::before {
+            content: "✓";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            background: var(--c0);
+            border-color: var(--c6);
+        }
+        .step.done::after {
+            display: none;
+        }
+        .step.active {
+            color: var(--c6);
+        }
+        .step.active::before {
+            background: var(--c6);
+            border-color: var(--c6);
+        }
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--c1);
+            padding: 14px 12px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .confirm-card {
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 18px;
+            padding: 14px;
+        }
+        .confirm-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .confirm-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--c6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--c6);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .confirm-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--c6);
+            margin-bottom: 3px;
+        }
+        .confirm-sub {
+            font-size: 11px;
+            color: var(--c4);
+            line-height: 1.5;
+        }
+        .booking-card {
+            background: #fafafa;
+            border: 1px solid var(--c2);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .booking-photo {
+            width: 78px;
+            height: 58px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%);
+            filter: grayscale(100%);
+            flex-shrink: 0;
+        }
+        .booking-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--c6);
+            margin-bottom: 6px;
+        }
+        .booking-row {
+            font-size: 11px;
+            color: var(--c5);
+            line-height: 1.55;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .booking-btn {
+            width: 100%;
+            height: 40px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--c5);
+            color: var(--c0);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        .message-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .message-row.sent {
+            justify-content: flex-end;
+        }
+        .bubble {
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 18px;
+            padding: 11px 13px;
+            font-size: 12px;
+            line-height: 1.55;
+            color: var(--c6);
+            max-width: 250px;
+        }
+        .bubble.sent {
+            background: #ececec;
+        }
+        .time {
+            font-size: 10px;
+            color: var(--c4);
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+        .notice-card {
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .notice-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 10px;
+            border: 1px solid var(--c3);
+            background: #f3f3f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .notice-text {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.6;
+        }
+        .input-bar {
+            border-top: 1px solid var(--c2);
+            background: var(--c0);
+            padding: 10px 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .circle-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--c2);
+            background: var(--c0);
+            color: var(--c5);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .input-placeholder {
+            flex: 1;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid var(--c2);
+            background: #fafafa;
+            padding: 0 14px;
+            display: flex;
+            align-items: center;
+            color: var(--c4);
+            font-size: 12px;
+        }
+        .send-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 0;
+            background: var(--c5);
+            color: var(--c0);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .header {
+            text-align: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--c6);
             font-size: 16px;
             font-weight: 600;
             color: var(--c6);
-            flex: 1;
         }
-        .user-card {
+        .success-area {
             border: 1px solid var(--c6);
-            padding: 12px;
+            padding: 20px;
             margin: 12px;
             background: var(--c0);
-            display: flex;
-            gap: 12px;
-            align-items: center;
+            text-align: center;
         }
-        .photo-placeholder {
-            width: 48px;
-            height: 48px;
-            border: 1px solid var(--c6);
-            background: var(--c2);
+        .success-icon {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--c6);
+            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            color: var(--c4);
-            flex-shrink: 0;
+            color: var(--c6);
         }
-        .user-info {
-            flex: 1;
-        }
-        .user-name {
-            font-size: 13px;
+        .success-title {
+            font-size: 16px;
             font-weight: 600;
             color: var(--c6);
             margin-bottom: 4px;
         }
-        .user-badge {
-            font-size: 11px;
+        .success-subtitle {
+            font-size: 13px;
             color: var(--c5);
         }
-        .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--c6);
-            padding: 12px 12px 8px;
-            margin-top: 8px;
+        .detail-card {
+            border: 1px solid var(--c6);
+            margin: 12px;
+            background: var(--c1);
         }
-        .scroll-section {
-            padding: 12px;
-            flex: 1;
-            overflow-y: auto;
-        }
-        .radio-group {
+        .detail-row {
             display: flex;
-            flex-direction: column;
-        }
-        .radio-item {
-            display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
-            padding: 12px 0;
+            padding: 12px;
             border-bottom: 1px solid var(--c6);
-            cursor: pointer;
             font-size: 13px;
-            color: var(--c6);
         }
-        .radio-item:last-child {
+        .detail-row:last-child {
             border-bottom: none;
         }
-        .radio {
-            width: 16px;
-            height: 16px;
-            border: 1px solid var(--c6);
-            background: var(--c0);
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .detail-label {
+            font-weight: 600;
+            color: var(--c6);
+            min-width: 60px;
         }
-        .radio.checked {
-            background: var(--c6);
-            color: var(--c0);
-        }
-        .detail-section {
-            margin-top: 12px;
-        }
-        .textarea {
-            width: 100%;
-            border: 1px solid var(--c6);
-            padding: 8px;
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--c0);
+        .detail-value {
             color: var(--c5);
-            min-height: 70px;
-            resize: vertical;
+            flex: 1;
         }
-        .warning-box {
+        .detail-link {
+            color: var(--c4);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background: var(--c6);
+            margin: 0 12px;
+        }
+        .reminder-box {
             border: 1px solid var(--c6);
             padding: 12px;
-            margin-top: 12px;
+            margin: 12px;
             background: var(--c1);
             font-size: 12px;
             color: var(--c5);
             line-height: 1.4;
         }
-        .block-section {
-            border-top: 1px solid var(--c6);
-            margin-top: 12px;
-            padding-top: 12px;
-        }
-        .block-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .block-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--c6);
-        }
-        .toggle-switch {
-            width: 44px;
-            height: 24px;
-            border: 1px solid var(--c6);
-            background: var(--c0);
-            cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
-        }
-        .toggle-switch.on {
-            background: var(--c6);
-        }
-        .block-note {
-            font-size: 11px;
-            color: var(--c5);
-            margin-top: 6px;
-        }
-        .button-section {
+        .action-buttons {
             display: flex;
             flex-direction: column;
             gap: 8px;
             padding: 12px;
+            flex: 1;
+            justify-content: flex-end;
         }
         .btn {
             padding: 0 12px;
@@ -398,13 +618,14 @@
     <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
     
     <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a>
     <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">E · Chat & Review</div>
     <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
     <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">F · My Page</div>
@@ -433,96 +654,78 @@
 
 
     <div class="device">
-        <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-time">9:41</div>
             <div class="status-icons">●●● WiFi ▮▮▮</div>
         </div>
 
-        <!-- Header -->
-        <div class="header">
-            <div class="back-btn" onclick="window.location.href='wireframe_SCR100_review.html'" style="cursor:pointer;"><</div>
-            <div class="header-title">通報・ブロック</div>
+        <div class="chat-header">
+            <div class="header-left">
+                <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
+                <div class="avatar"></div>
+                <div class="header-meta">
+                    <div class="name-row">さやか</div>
+                    <div class="online">オンライン</div>
+                </div>
+            </div>
+            <div class="ot-badge">OT</div>
         </div>
 
-        <!-- User Card -->
-        <div class="user-card">
-            <div class="photo-placeholder">X</div>
-            <div class="user-info">
-                <div class="user-name">みずきさん · 37歳</div>
-                <div class="user-badge">✓ 本人確認済</div>
-            </div>
+        <div class="progress">
+            <div class="step done">日程調整</div>
+            <div class="step done">店舗提案</div>
+            <div class="step active">予約完了</div>
         </div>
 
-        <!-- Scrollable Content Section -->
-        <div class="scroll-section">
-            <!-- Report Reason Section -->
-            <div class="section-title">通報する理由を選んでください</div>
+        <div class="chat-body">
+            <div class="confirm-card">
+                <div class="confirm-head">
+                    <div class="confirm-icon">✓</div>
+                    <div>
+                        <div class="confirm-title">予約が確定しました！</div>
+                        <div class="confirm-sub">当日の詳細は以下からご確認ください。</div>
+                    </div>
+                </div>
+                <div class="booking-card">
+                    <div class="booking-photo"></div>
+                    <div style="flex:1; min-width:0;">
+                        <div class="booking-name">レストラン オトナ</div>
+                        <div class="booking-row"><span>5/24（土）</span><span>19:00〜</span><span>2名</span></div>
+                        <div class="booking-row"><span>お会計:</span><span>当日相談して決める</span></div>
+                    </div>
+                </div>
+                <button type="button" class="booking-btn" onclick="window.location.href='wireframe_SCR087_booking_detail.html'">予約詳細を見る</button>
+            </div>
 
-            <div class="radio-group">
-                <div class="radio-item">
-                    <div class="radio checked">●</div>
-                    <span>不適切なメッセージを送られた</span>
-                </div>
-                <div class="radio-item">
-                    <div class="radio"></div>
-                    <span>金銭の要求・詐欺的な行為</span>
-                </div>
-                <div class="radio-item">
-                    <div class="radio"></div>
-                    <span>性的な誘い</span>
-                </div>
-                <div class="radio-item">
-                    <div class="radio"></div>
-                    <span>なりすまし・虚偽プロフィール</span>
-                </div>
-                <div class="radio-item">
-                    <div class="radio"></div>
-                    <span>その他</span>
+            <div class="message-row sent">
+                <div>
+                    <div class="bubble sent">楽しみです！<br>よろしくお願いします</div>
+                    <div class="time" style="text-align:right;">19:02</div>
                 </div>
             </div>
 
-            <!-- Detail Section -->
-            <div class="detail-section">
-                <div class="section-title">詳細（任意）</div>
-                <textarea placeholder="具体的な内容を教えてください..."></textarea>
-            </div>
-
-            <!-- Warning Box -->
-            <div class="warning-box">
-                通報後、運営が内容を確認します。悪質な場合はアカウントを停止します。
-            </div>
-
-            <!-- Block Section -->
-            <div class="block-section">
-                <div class="block-row">
-                    <div class="block-label">このユーザーをブロックする</div>
-                    <div class="toggle-switch"></div>
-                </div>
-                <div class="block-note">
-                    ブロックすると相手のプロフィールが見えなくなります
+            <div class="notice-card">
+                <div class="notice-icon">🏠</div>
+                <div style="flex:1;">
+                    <div class="notice-text">当日はお店の中でお待ち合わせです。<br>遅れそうな場合はご連絡をお願いします。</div>
+                    <div class="time">19:03</div>
                 </div>
             </div>
         </div>
 
-        <!-- Button Section -->
-        <div class="button-section">
-            <button class="btn">キャンセル</button>
-            <button class="btn primary">通報する</button>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer-note">
-            フロー: SCR-090 Chat [⋮メニュー] → SCR-103 ★ → 通報送信完了
+        <div class="input-bar">
+            <div class="circle-btn">+</div>
+            <div class="input-placeholder">メッセージを入力...</div>
+            <button type="button" class="send-btn">➤</button>
         </div>
     </div>
 
 <div class="blp-wrap">
   <div class="blp-head">
     <div class="blp-head-info">
-      <div class="blp-head-scr">SCR-103</div>
-      <div class="blp-head-title">Report</div>
-      <div class="blp-head-sub">通報・ブロック / Báo cáo</div>
+      <div class="blp-head-scr">SCR-087D</div>
+      <div class="blp-head-title">Booking Done Chat</div>
+      <div class="blp-head-sub">予約完了チャット / Chat sau khi đặt bàn</div>
     </div>
     <div style="display:flex; align-items:center;">
       <div class="blp-lang-switch">
@@ -539,13 +742,12 @@
     <div class="blp-lang lang-ja">
       <div class="blp-section">
         <div class="blp-section-title">目的</div>
-        <div class="blp-note highlight">迷惑行為や規約違反の報告、および自身の安全のためのブロック。</div>
+        <div class="blp-note highlight">予約完了報告と詳細情報の提示。当日安心して伺えるよう必要な情報を網羅。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>理由</strong> — 不適切な言動、勧誘、ドタキャンなどから選択。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>ブロック</strong> — 同時にブロック設定が可能。相互に非表示となる。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>対応</strong> — 通報内容は運営が確認し、悪質な場合はBAN対象。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>表示内容</strong> — お店、日時、住所、地図、予約名、集合場所。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>リマインド</strong> — 前日・当日に自動でメール送信。</div></div>
       </div>
     </div>
 
@@ -553,13 +755,12 @@
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
         <div class="blp-section-title">Mục đích</div>
-        <div class="blp-note highlight">Báo cáo hành vi phiền toái hoặc vi phạm điều khoản.</div>
+        <div class="blp-note highlight">Hiển thị thông tin đặt bàn hoàn tất.</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Lý do</strong> — Chọn: ngôn từ phù hợp, lôi kéo, huỷ hẹn...</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Chặn</strong> — Tuỳ chọn chặn để không nhìn thấy nhau nữa.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Xử lý</strong> — Admin check và có thể khóa tài khoản vi phạm.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Thông tin</strong> — Nhà hàng, ngày giờ, địa chỉ, tên người đặt.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Reminder</strong> — Tự động gửi mail trước 1 ngày và ngày ăn.</div></div>
       </div>
     </div>
   </div>
@@ -578,8 +779,7 @@
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
-      <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
-      <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+      <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 <style>
 /* === PREV/NEXT NAV REMOVED === */

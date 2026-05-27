@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-083A Restaurant Recommend</title>
+  <title>SCR-087C Booking Cancel</title>
   <style>
     :root {
       --c0: #ffffff;
@@ -200,6 +200,106 @@
       cursor: pointer;
       margin-top: 8px;
     }
+    .primary-btn.danger {
+      background: #b71c1c;
+    }
+    .secondary-btn {
+      width: 100%;
+      height: 44px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      background: var(--c0);
+      color: var(--c5);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .step-card {
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .step-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .step-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e65100;
+      color: var(--c0);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-badge.muted {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      color: var(--c6);
+    }
+    .step-title {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.6;
+    }
+    .policy-section-title {
+      font-size: 13px;
+      font-weight: 800;
+      margin: 4px 2px 10px;
+    }
+    .policy-card {
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .policy-block + .policy-block {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--c2);
+    }
+    .policy-block-title {
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .policy-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 11px;
+      line-height: 1.5;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .policy-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .policy-row-label {
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+    .policy-row-value {
+      color: var(--c6);
+      font-weight: 700;
+      text-align: right;
+    }
     .secondary-link {
       display: block;
       text-align: center;
@@ -374,108 +474,95 @@
     <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
     <div class="wf-sidebar-group"><div class="wf-group-label">A · Onboarding</div><a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a><a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a><a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a><a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a><a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a><a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a><a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a><a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a><a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a></div>
     <div class="wf-sidebar-group"><div class="wf-group-label">B · Home</div><a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a><a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a><a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a><a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a><a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a></div>
-    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a><a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a><a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a><a class="wf-nav-link wf-active" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a><a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a><a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a><a class="wf-nav-link" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a><a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a><a class="wf-nav-link wf-active" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a><a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a><a class="wf-nav-link" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a></div>
     <div class="wf-sidebar-group"><div class="wf-group-label">E · Chat & Review</div><a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a><a class="wf-nav-link" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a><a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a><a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a></div>
   </nav>
 
   <div class="device">
     <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
     <div class="header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">‹</div>
-      <div class="title">店舗提案</div>
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR087_booking_detail.html'">‹</div>
+      <div class="title">予約をキャンセルする</div>
       <div style="width:18px;"></div>
     </div>
     <div class="content">
-      <div class="info-card">
-        <div class="info-head">
-          <div class="info-title">予約情報</div>
-          <a class="info-link" href="wireframe_SCR082_date_proposal_change.html">変更する</a>
-        </div>
-        <div class="info-rows">
-          <div class="info-row">
-            <div class="info-icon">📅</div>
-            <div class="info-datetime" id="proposalDateTime">5/24（土）　19:00〜</div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon">👤</div>
-            <div class="info-row-body">
-              <div class="info-label">予約予定人数</div>
-              <div class="info-value">2 名</div>
-            </div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon">💴</div>
-            <div class="info-row-body">
-              <div class="info-label">お会計</div>
-              <div class="info-value">当日相談</div>
-            </div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon">👤</div>
-            <div class="info-row-body">
-              <div class="info-label">予約者</div>
-              <div class="info-value" style="white-space:nowrap;">あなたが予約します</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-title" id="candidateTitle">第1候補（おすすめ）</div>
-      <div class="restaurant-card">
-        <div class="photo" id="restaurantPhoto"></div>
-        <div class="restaurant-name" id="restaurantName">レストラン オトナ</div>
-        <div class="restaurant-meta" id="restaurantMeta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
-        <div class="tags" id="restaurantTags"><span class="tag">個室あり</span><span class="tag">落ち着いた雰囲気</span><span class="tag">デート向き</span></div>
-        <div class="description" id="restaurantDescription">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。</div>
-        <div class="footer-row"><span id="restaurantAccess">恵比寿駅 徒歩5分</span><span>地図で見る</span></div>
-      </div>
       <div class="note-card">
-        <div style="font-size:11px; color:var(--c5); line-height:1.6;">この内容で問題なければ相手に店舗提案を送信します。承認後に予約確定へ進みます。</div>
+        <div style="font-size:11px; color:var(--c5); line-height:1.6;">キャンセル前に以下をご確認ください</div>
       </div>
-      <button class="primary-btn" onclick="goToWaiting()">この内容で承認する</button>
-      <a class="secondary-link" href="wireframe_SCR083_restaurant_recommend.html?candidate=2">他の候補も確認する</a>
+
+      <div class="step-card">
+        <div class="step-head">
+          <div class="step-badge muted">1</div>
+          <div>
+            <div class="step-title">お相手に相談しましょう</div>
+            <div class="step-desc">まずは相手に相談しましょう。ご都合が合わない場合は日程調整も可能です。</div>
+          </div>
+        </div>
+        <button class="secondary-btn" type="button" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">チャットに戻る</button>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="step-title">キャンセルポリシーの確認</div>
+            <div class="step-desc">内容をご確認のうえ、キャンセルへ進んでください。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="policy-section-title">キャンセルポリシー</div>
+      <div class="policy-card">
+        <div class="policy-block">
+          <div class="policy-block-title">キャンセル料</div>
+          <div class="policy-row">
+            <div class="policy-row-label">1営業日前まで</div>
+            <div class="policy-row-value">平均単価の50%以内</div>
+          </div>
+          <div class="policy-row">
+            <div class="policy-row-label">当日キャンセル</div>
+            <div class="policy-row-value">平均単価の100%以内</div>
+          </div>
+          <div class="policy-row">
+            <div class="policy-row-label">無断キャンセル</div>
+            <div class="policy-row-value">平均単価の100%以内</div>
+          </div>
+        </div>
+        <div class="policy-block">
+          <div class="policy-block-title">負担ルール</div>
+          <div class="policy-row">
+            <div class="policy-row-label">原則</div>
+            <div class="policy-row-value">原因となった側が負担</div>
+          </div>
+          <div class="policy-row">
+            <div class="policy-row-label">双方責任の場合</div>
+            <div class="policy-row-value">50:50で負担</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="primary-btn danger" type="button" onclick="alert('キャンセルしました')">上記に同意してキャンセルする</button>
     </div>
   </div>
 
   <div class="blp-wrap">
     <div class="blp-head">
-      <div><div class="blp-head-scr">SCR-083A</div><div class="blp-head-title">Restaurant Recommend</div><div class="blp-head-sub">店舗候補提示 / Đề xuất nhà hàng</div></div>
+      <div><div class="blp-head-scr">SCR-087C</div><div class="blp-head-title">Booking Cancel</div><div class="blp-head-sub">キャンセル / Hủy đặt bàn</div></div>
       <div style="display:flex;align-items:center;"><div class="blp-lang-switch"><div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div><div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div></div><button class="blp-fullscreen-btn" onclick="toggleBlpFullscreen(this)"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button></div>
     </div>
     <div class="blp-body">
       <div class="blp-lang lang-ja">
-        <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">提案する店舗の第1候補を確認し、相手へ送る前に承認する画面です。</div></div>
-        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">予約情報と店舗情報を同じ画面で確認できます。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`この内容で承認する` で相手確認待ちへ進みます。</div></div></div>
-        <div class="blp-section"><div class="blp-section-title">補足</div><div class="blp-note ok">日時表示は `localStorage.ot-schedule-proposal` を優先して反映します。</div></div>
+        <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">予約キャンセル前に相談導線とキャンセルポリシーを確認させる画面です。</div></div>
+        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">`チャットに戻る` で予約確定後チャット（087）へ戻ります。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">キャンセル料・負担ルールを確認のうえ、同意ボタンでキャンセル処理へ進みます。</div></div></div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
-        <div class="blp-section"><div class="blp-section-title">Mục đích</div><div class="blp-note highlight">Màn xem nhà hàng được đề xuất trước khi gửi sang phía đối phương để xin chấp nhận.</div></div>
-        <div class="blp-section"><div class="blp-section-title">Hành vi</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Hiển thị cùng lúc thông tin lịch hẹn và nhà hàng gợi ý.</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Nút chính chuyển sang trạng thái chờ đối phương duyệt.</div></div></div>
+        <div class="blp-section"><div class="blp-section-title">Mục đích</div><div class="blp-note highlight">Màn xác nhận chính sách hủy trước khi hủy đặt bàn.</div></div>
+        <div class="blp-section"><div class="blp-section-title">Hành vi</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Nút quay chat dẫn về màn chat sau khi đặt bàn (087).</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Hiển thị phí hủy và quy tắc chia sẻ trách nhiệm trước khi đồng ý hủy.</div></div></div>
       </div>
     </div>
   </div>
 
   <script>
-    var proposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
-    var proposalMatch = proposal.match(/^(.+?)(\d{1,2}:\d{2}〜?)$/);
-    document.getElementById('proposalDateTime').textContent = proposalMatch
-      ? proposalMatch[1].trim() + '　' + proposalMatch[2]
-      : proposal;
-
-    var params = new URLSearchParams(window.location.search);
-    var candidate = params.get('candidate') || '1';
-    if (params.get('candidate') === '2') {
-      document.getElementById('candidateTitle').textContent = '第2候補';
-      document.getElementById('restaurantPhoto').style.background = 'linear-gradient(135deg, #3d3d3d 0%, #6b6b6b 45%, #2d2d2d 100%)';
-      document.getElementById('restaurantName').textContent = 'ビストロ青葉';
-      document.getElementById('restaurantMeta').textContent = 'ビストロ ｜ 代官山 ｜ ¥¥¥';
-      document.getElementById('restaurantTags').innerHTML = '<span class="tag">カウンター席</span><span class="tag">静かな空間</span><span class="tag">会話しやすい</span>';
-      document.getElementById('restaurantDescription').textContent = '旬の食材を使ったコースが人気。程よく落ち着いた雰囲気で、初回デートでもゆっくり会話を楽しめます。';
-      document.getElementById('restaurantAccess').textContent = '代官山駅 徒歩4分';
-    }
-
-    function goToWaiting() {
-      window.location.href = 'wireframe_SCR083_restaurant_waiting.html?candidate=' + candidate;
-    }
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
       document.querySelector('.lang-' + lang).style.display = 'block';

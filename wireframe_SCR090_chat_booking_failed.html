@@ -1,18 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-090 Chat Schedule Pending</title>
+  <title>SCR-090E Chat Booking Failed</title>
   <style>
     :root {
       --c0: #ffffff;
-      --c1: #f6f6f6;
-      --c2: #e3e3e3;
-      --c3: #c7c7c7;
-      --c4: #8a8a8a;
-      --c5: #4f4f4f;
+      --c1: #f5f5f5;
+      --c2: #e0e0e0;
+      --c3: #bdbdbd;
+      --c4: #757575;
+      --c5: #424242;
       --c6: #212121;
+      --wf-global-zoom: 1.1;
     }
     * {
       box-sizing: border-box;
@@ -28,6 +29,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--c6);
       padding: 20px 300px 20px 220px;
+      zoom: var(--wf-global-zoom);
     }
     .device {
       width: 360px;
@@ -43,8 +45,8 @@
       background: var(--c6);
       color: var(--c0);
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: 0 8px;
       font-size: 9px;
       flex-shrink: 0;
@@ -53,27 +55,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
       padding: 12px 14px;
       border-bottom: 1px solid var(--c2);
-      gap: 10px;
+      background: var(--c0);
+      flex-shrink: 0;
     }
     .header-left {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
+      flex: 1;
     }
-    .back-btn {
+    .back-btn, .menu-btn {
       font-size: 18px;
-      cursor: pointer;
       color: var(--c6);
+      cursor: pointer;
+      flex-shrink: 0;
     }
     .avatar {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: linear-gradient(180deg, #d8d8d8 0%, #b9b9b9 100%);
       border: 1px solid var(--c3);
+      background: linear-gradient(180deg, #dadada 0%, #bfbfbf 100%);
       position: relative;
       flex-shrink: 0;
     }
@@ -83,7 +89,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #9a9a9a;
+      background: #8e8e8e;
       left: 50%;
       top: 7px;
       transform: translateX(-50%);
@@ -92,27 +98,34 @@
       content: "";
       position: absolute;
       width: 18px;
-      height: 11px;
-      border-radius: 12px 12px 7px 7px;
-      background: #9a9a9a;
+      height: 10px;
+      border-radius: 12px 12px 8px 8px;
+      background: #8e8e8e;
       left: 50%;
-      bottom: 5px;
+      bottom: 6px;
       transform: translateX(-50%);
     }
     .header-meta {
       min-width: 0;
     }
-    .name-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .header-name {
       font-size: 14px;
       font-weight: 700;
+      margin-bottom: 2px;
     }
-    .online {
+    .header-status {
       font-size: 10px;
       color: var(--c4);
-      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .header-status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--c4);
     }
     .ot-badge {
       width: 26px;
@@ -130,15 +143,17 @@
     .progress {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      padding: 14px 18px 10px;
+      gap: 10px;
+      padding: 12px 16px 10px;
       border-bottom: 1px solid var(--c2);
-      background: #fbfbfb;
+      background: #fafafa;
+      flex-shrink: 0;
     }
     .step {
       text-align: center;
-      color: var(--c3);
       font-size: 10px;
-      font-weight: 600;
+      color: var(--c3);
+      font-weight: 700;
     }
     .step::before {
       content: "";
@@ -149,36 +164,45 @@
       border-radius: 50%;
       border: 1px solid currentColor;
       background: var(--c0);
+      line-height: 22px;
+      font-size: 11px;
+    }
+    .step.done {
+      color: var(--c4);
+    }
+    .step.done::before {
+      content: "✓";
+      border-color: var(--c3);
+      color: var(--c4);
+      font-weight: 700;
     }
     .step.active {
       color: var(--c6);
     }
     .step.active::before {
+      content: "店";
+      border-color: var(--c6);
       background: var(--c6);
+      color: var(--c0);
+      font-size: 10px;
+      font-weight: 700;
     }
     .chat-body {
       flex: 1;
       overflow-y: auto;
       background: var(--c1);
-      padding: 14px 12px 18px;
+      padding: 14px 12px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
     .message-row {
       display: flex;
-      align-items: flex-end;
       gap: 8px;
+      align-items: flex-end;
     }
     .message-row.sent {
       justify-content: flex-end;
-    }
-    .mini-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #cfcfcf;
-      flex-shrink: 0;
     }
     .message-stack {
       max-width: 258px;
@@ -189,65 +213,114 @@
       border-radius: 18px;
       padding: 11px 13px;
       font-size: 12px;
-      line-height: 1.55;
-      color: var(--c6);
+      line-height: 1.6;
     }
-    .bubble.system {
-      border-radius: 18px;
-      background: #fcfcfc;
+    .bubble.sent {
+      background: #ececec;
+      border-color: var(--c2);
+    }
+    .read-mark {
+      font-size: 10px;
+      color: var(--c4);
+      margin-right: 4px;
     }
     .time {
       margin-top: 4px;
+      padding: 0 4px;
       font-size: 10px;
       color: var(--c4);
-      padding: 0 4px;
     }
-    .pending-card {
+    .system-card-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 100%;
+    }
+    .system-card {
       background: var(--c0);
       border: 1px solid var(--c2);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 14px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: flex-start;
     }
-    .pending-icon {
+    .system-card.fail {
+      border-color: #ffe082;
+      background: #fffdf5;
+    }
+    .system-icon {
       width: 34px;
       height: 34px;
       border-radius: 10px;
       border: 1px solid var(--c3);
+      background: #f2f2f2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      color: var(--c5);
+      font-size: 16px;
       flex-shrink: 0;
     }
-    .pending-title {
+    .system-card.fail .system-icon {
+      border-color: #ffe082;
+      background: #fff8e1;
+    }
+    .system-title {
       font-size: 13px;
       font-weight: 700;
       margin-bottom: 4px;
     }
-    .pending-text {
+    .system-card.fail .system-title {
+      color: #e65100;
+    }
+    .system-text {
       font-size: 12px;
       color: var(--c5);
-      line-height: 1.55;
+      line-height: 1.6;
     }
-
-    .pending-time {
-      font-size: 14px;
+    .date-lock {
+      margin-top: 10px;
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      background: #f7f7f7;
+      padding: 10px 12px;
+    }
+    .date-lock-label {
+      font-size: 10px;
+      color: var(--c4);
+      margin-bottom: 4px;
+    }
+    .date-lock-value {
+      font-size: 13px;
       font-weight: 800;
       color: var(--c6);
-      margin: 4px 0 8px;
-      line-height: 1.2;
-      word-break: break-word;
     }
-    .hint-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 12px;
+    .date-lock-note {
+      font-size: 10px;
       color: var(--c4);
-      text-decoration: none;
+      margin-top: 4px;
+    }
+    .failed-store {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.5;
+    }
+    .failed-store strong {
+      color: var(--c5);
+      font-weight: 700;
+    }
+    .primary-btn {
+      width: 100%;
+      height: 44px;
+      border: 1px solid var(--c6);
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
     }
     .input-bar {
       border-top: 1px solid var(--c2);
@@ -256,6 +329,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
     }
     .circle-btn {
       width: 30px;
@@ -264,35 +338,31 @@
       border: 1px solid var(--c2);
       background: var(--c0);
       color: var(--c5);
-      font-size: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      font-size: 20px;
     }
     .input-placeholder {
       flex: 1;
       height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--c2);
-      background: #fafafa;
-      padding: 0 14px;
+      border-radius: 18px;
+      background: #f2f2f2;
+      color: #a0a0a0;
+      font-size: 12px;
       display: flex;
       align-items: center;
-      color: var(--c4);
-      font-size: 12px;
+      padding: 0 14px;
     }
     .send-btn {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: 0;
       background: var(--c5);
       color: var(--c0);
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
-      flex-shrink: 0;
     }
     .wf-sidebar {
       width: 200px;
@@ -384,25 +454,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       font-size: 11px;
       color: #212121;
-      transition: width 0.2s ease;
-    }
-    .blp-wrap.fullscreen {
-      width: calc(100vw - 200px);
-    }
-    .blp-wrap.fullscreen .blp-body {
-      max-width: 760px;
-      margin: 0 auto;
-      columns: 2;
-      column-gap: 24px;
-    }
-    .blp-wrap.fullscreen .blp-section {
-      break-inside: avoid;
-    }
-    .blp-wrap::-webkit-scrollbar {
-      width: 4px;
-    }
-    .blp-wrap::-webkit-scrollbar-thumb {
-      background: #e0e0e0;
     }
     .blp-head {
       position: sticky;
@@ -429,31 +480,6 @@
       font-size: 10px;
       color: #9e9e9e;
       margin-top: 2px;
-    }
-    .blp-fullscreen-btn {
-      width: 24px;
-      height: 24px;
-      border: 1px solid #424242;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      color: #9e9e9e;
-      transition: background .15s;
-    }
-    .blp-fullscreen-btn:hover {
-      background: #424242;
-      color: #fff;
-    }
-    .blp-fullscreen-btn svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
     }
     .blp-body {
       padding: 10px 12px 20px;
@@ -496,61 +522,6 @@
       color: #212121;
       line-height: 1.55;
     }
-    .blp-rule-text strong {
-      font-weight: 700;
-      color: #212121;
-    }
-    .blp-flow {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 4px;
-    }
-    .blp-flow-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      padding-bottom: 8px;
-    }
-    .blp-flow-step:last-child {
-      padding-bottom: 0;
-    }
-    .blp-step-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .blp-step-num {
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid #424242;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: 700;
-      color: #424242;
-      background: #fff;
-      flex-shrink: 0;
-      z-index: 1;
-    }
-    .blp-step-connector {
-      width: 1px;
-      flex: 1;
-      background: #e0e0e0;
-      min-height: 10px;
-      margin-top: 2px;
-    }
-    .blp-step-text {
-      font-size: 11px;
-      color: #424242;
-      line-height: 1.5;
-      padding-top: 1px;
-    }
-    .blp-step-text strong {
-      color: #212121;
-    }
     .blp-note {
       background: #fafafa;
       border: 1px solid #e0e0e0;
@@ -569,39 +540,6 @@
       border-left-color: #e65100;
       background: #fff8f0;
       color: #5d2e00;
-    }
-    .blp-note.ok {
-      border-left-color: #2e7d32;
-      background: #f1f8f1;
-      color: #1b5e20;
-    }
-    .blp-lang-switch {
-      display: flex;
-      border: 1px solid #444;
-      border-radius: 4px;
-      overflow: hidden;
-      font-size: 9px;
-      color: #fff;
-      cursor: pointer;
-      margin-right: 8px;
-    }
-    .blp-lang-btn {
-      padding: 2px 6px;
-      background: transparent;
-      color: #9e9e9e;
-    }
-    .blp-lang-btn.active {
-      background: #444;
-      color: #fff;
-    }
-  </style>
-
-  <style>
-    :root {
-      --wf-global-zoom: 1.1;
-    }
-    body {
-      zoom: var(--wf-global-zoom);
     }
   </style>
 </head>
@@ -629,34 +567,36 @@
       <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
     </div>
     <div class="wf-sidebar-group">
-      <div class="wf-group-label">C · 募集</div>
-      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
-      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
-      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
-      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
-      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
-    </div>
-    <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
+      <a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a>
-      
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a>
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
-      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a>
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
   </nav>
+
   <div class="device">
     <div class="status-bar">
       <div>9:41</div>
@@ -667,31 +607,43 @@
         <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
         <div class="avatar"></div>
         <div class="header-meta">
-          <div class="name-row">さやか</div>
-          <div class="online">オンライン</div>
+          <div class="header-name">Airi · 33歳</div>
+          <div class="header-status">オンライン</div>
         </div>
       </div>
       <div class="ot-badge">OT</div>
+      <div class="menu-btn">⋯</div>
     </div>
     <div class="progress">
-      <div class="step active">日程調整</div>
-      <div class="step">店舗提案</div>
+      <div class="step done">日程調整</div>
+      <div class="step active">店舗提案</div>
       <div class="step">予約完了</div>
     </div>
     <div class="chat-body">
       <div class="message-row">
-        <div class="mini-avatar"></div>
         <div class="message-stack">
-          <div class="bubble">わー楽しみです！<br>よろしくお願いします。</div>
-          <div class="time">18:24</div>
+          <div class="bubble">お店の予約、お願いします！</div>
+          <div class="time">昨日 18:10</div>
         </div>
       </div>
-      <div class="pending-card">
-        <div class="pending-icon">⌛</div>
-        <div>
-          <div class="pending-title">お相手の確認待ち</div>
-          <div class="pending-time" id="pendingProposalTime">5/24（土）19:00〜</div>
-          <div class="pending-text">お相手が候補日を確認すると、次のステップに進みます。</div>
+      <div class="message-row sent">
+        <div class="message-stack">
+          <div class="bubble sent">了解です。事務局に任せますね。</div>
+          <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>昨日 18:12</div>
+        </div>
+      </div>
+      <div class="system-card-wrap">
+        <div class="system-card fail">
+          <div class="system-icon">⚠️</div>
+          <div style="width:100%;">
+            <div class="system-title">予約が取れませんでした</div>
+            <div class="system-text">事務局で予約手配を行いましたが、ご希望のお店では空きがありませんでした。同じ日時で別のお店をご提案します。</div>
+            <div class="date-lock">
+              <div class="date-lock-label">確定済みの日程</div>
+              <div class="date-lock-value">5/28（土）19:00〜</div>
+            </div>
+            <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR087_booking_proposal.html'">別のお店を提案する</button>
+          </div>
         </div>
       </div>
     </div>
@@ -701,86 +653,29 @@
       <button class="send-btn">➤</button>
     </div>
   </div>
-  <script>
-    var proposal = localStorage.getItem("ot-schedule-proposal") || "5/24（土）19:00〜";
-    document.getElementById("pendingProposalTime").textContent = proposal;
-    function setBlpLang(lang) {
-      document.querySelectorAll(".blp-lang").forEach(function (el) {
-        el.style.display = "none";
-      });
-      document.querySelector(".lang-" + lang).style.display = "block";
-      document.querySelectorAll(".blp-lang-btn").forEach(function (btn) {
-        btn.classList.remove("active");
-      });
-      document.getElementById("lang" + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add("active");
-    }
-  </script>
+
   <div class="blp-wrap">
     <div class="blp-head">
-      <div class="blp-head-info">
-        <div class="blp-head-scr">SCR-090B</div>
-        <div class="blp-head-title">Chat Waiting</div>
-        <div class="blp-head-sub">相手確認待ち / Chờ đối phương xác nhận</div>
-      </div>
-      <div style="display:flex;align-items:center;">
-        <div class="blp-lang-switch">
-          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
-          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
-        </div>
-        <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="(function(btn){var w=btn.closest('.blp-wrap');var isFs=w.classList.toggle('fullscreen');document.body.style.paddingRight=isFs?(window.innerWidth-200)+'px':'300px';})(this)">
-          <svg viewBox="0 0 24 24">
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <polyline points="9 21 3 21 3 15"></polyline>
-            <line x1="21" y1="3" x2="14" y2="10"></line>
-            <line x1="3" y1="21" x2="10" y2="14"></line>
-          </svg>
-        </button>
+      <div>
+        <div class="blp-head-scr">SCR-090E</div>
+        <div class="blp-head-title">Chat Booking Failed</div>
+        <div class="blp-head-sub">予約失敗 / Đặt chỗ thất bại</div>
       </div>
     </div>
     <div class="blp-body">
-      <div class="blp-lang lang-ja">
-        <div class="blp-section">
-          <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">候補日時を相手へ送信した直後の状態を見せ、今は相手確認待ちであることをチャット上で明確にする画面です。</div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案した日時</strong>をチャットバブルに再表示し、何を送ったかを残します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>お相手の確認待ち</strong>カードで、現在は待機状態だと案内します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>待機状態のみ</strong>をシンプルに表示し、今は相手の回答待ちであることに集中させます。</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">遷移</div>
-          <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal</strong> から提案送信</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で相手確認待ち</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant</strong> へ進み店舗提案・予約へ接続</div></div>
-          </div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">補足</div>
-          <div class="blp-note ok">`localStorage` の提案日時を読み出して表示するので、082A/082B のどちらから来ても同じ待機画面を再利用できます。</div>
-        </div>
+      <div class="blp-section">
+        <div class="blp-section-title">目的</div>
+        <div class="blp-note highlight">予約失敗後、日程は固定したまま別店舗を再提案するチャット画面です。</div>
       </div>
-      <div class="blp-lang lang-vi" style="display:none;">
-        <div class="blp-section">
-          <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Hiển thị trạng thái sau khi đã gửi đề xuất ngày giờ sang chat và đang chờ đối phương xác nhận.</div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Ngày giờ đã gửi</strong> được render lại trong bubble chat.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Thẻ chờ xác nhận</strong> cho biết hiện chưa cần thao tác thêm.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Màn chỉ giữ trạng thái chờ</strong>, giúp user hiểu hiện tại chỉ cần đợi phản hồi từ đối phương.</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">Luồng</div>
-          <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal</strong> gửi ngày giờ đề xuất</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> chờ phản hồi của đối phương</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant</strong> nối sang bước đề xuất quán và đặt chỗ</div></div>
-          </div>
-        </div>
+      <div class="blp-section">
+        <div class="blp-section-title">挙動</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">進捗バーは「日程調整」完了、「店舗提案」が現在地です。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">失敗カードで確定日程を表示し、日程変更は不可と明示します。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">`別のお店を提案する` で 087B 店舗提案画面へ進みます。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">補足</div>
+        <div class="blp-note warn">日程変更導線は出しません。再調整は店舗のみです。</div>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -822,14 +822,14 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR081_schedule.html"><span class="wf-nav-id">081</span>Schedule</a>
+      
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR082_restaurant_confirm.html"><span class="wf-nav-id">082C</span>Restaurant Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a>
-      <a class="wf-nav-link" href="wireframe_SCR083_restaurant.html"><span class="wf-nav-id">083</span>Restaurant</a>
+      
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
       <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
     </div>
@@ -840,6 +840,7 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
@@ -1044,40 +1045,22 @@
           </div>
         </div>
 
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_booking_failed.html'">
+          <div class="photo-box">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
               <div class="match-name-main">
-                <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Airi · 33歳</div>
+                <div class="match-name">Airi · 33歳</div>
                 <div class="status-pill active inline">再調整中</div>
               </div>
               <div class="match-time">8時間前</div>
             </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
-              <div class="match-preview">日程と店舗を再調整しています</div>
+            <div class="action-wrap">
+              <div class="match-preview">同じ日程で別のお店を提案します</div>
             </div>
           </div>
         </div>
 
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">
-                Aoi · 36歳 <span class="record-label label-warn">再調整</span>
-              </div>
-              <div class="match-time">2日前</div>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="openRebookModal()">
-              <div class="status-pill active" style="background:#fff8e1; border-color:#ffe082; color:#f57f17;">
-                <span class="status-icon">⚠️</span>予約が取れませんでした
-              </div>
-              <div class="match-preview" style="color:#f57f17; font-weight:600;">事務局から再調整のリクエストが届いています</div>
-              <div class="match-preview" style="color:#888; font-size:10px; margin-top:2px;">日程・お店を再度選んでください</div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- 再調整モーダル -->
@@ -1095,14 +1078,14 @@
           別の日程とお店を選び直してください。
         </div>
         <div style="font-size:11px; color:#999; margin-bottom:20px;">
-          ※ 再調整はAoiさんとの合意が必要です
+          ※ 再調整はお相手との合意が必要です
         </div>
-        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR081_schedule.html'" style="
+        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR087_booking_schedule_change.html'" style="
           width:100%; padding:11px; background:var(--c6); color:#fff; border:none;
           border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:8px;">
           📅 日程を選び直す
         </button>
-        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR083_restaurant.html'" style="
+        <button onclick="closeRebookModal(); window.location.href='wireframe_SCR083_restaurant_recommend.html'" style="
           width:100%; padding:11px; background:#f5f5f5; color:#333; border:none;
           border-radius:8px; font-size:12px; cursor:pointer; margin-bottom:8px;">
           🍴 お店を選び直す
@@ -1116,47 +1099,18 @@
 
       <!-- TAB: CONFIRMED -->
       <div id="section-confirmed" class="tab-content">
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='wireframe_SCR065_match.html'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miyu" style="width:100%; height:100%; border-radius:0;"></div>
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">
+          <div class="photo-box">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Miyu · 41歳</div>
-              <div class="match-time">3日前</div>
+              <div class="match-name-main">
+                <div class="match-name">Mio · 35歳</div>
+                <div class="status-pill confirmed inline">予約確定</div>
+              </div>
+              <div class="match-time">1時間前</div>
             </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
-              <div class="status-pill active" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;"><span class="status-icon">✅</span>店舗確定・予約依頼中</div>
-              <div class="match-preview" style="font-weight:600; color:#2e7d32;">3/25 19:30 〜 鮨 みなと</div>
-              <div class="match-preview" style="margin-top:0;">店舗が確定しました。事務局が予約を行っています。</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR065_match.html'">Akari · 33歳</div>
-              <div class="match-time">4日前</div>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">
-              <div class="status-pill confirmed"><span class="status-icon">📅</span>3/22 18:00 (明日)</div>
-              <div class="match-preview" style="font-weight:600;">イタリアン・ラ・ボラ</div>
-              <div class="match-preview" style="margin-top:0;">予約が確定しています</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="match-item">
-          <div class="photo-box" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">✕✕</div>
-          <div class="match-info">
-            <div class="match-name-row">
-              <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">Mio · 35歳</div>
-              <div class="match-time">6日前</div>
-            </div>
-            <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR089_reminder.html'">
-              <div class="status-pill active" style="background:#e3f2fd; border-color:#90caf9; color:#1565c0;"><span class="status-icon">🚀</span>本日 19:30</div>
-              <div class="match-preview" style="font-weight:600; color:#1565c0;">和食バル・一期一会</div>
-              <div class="match-preview" style="margin-top:0;">当日リマインド。時間に注意して向かいましょう</div>
+            <div class="action-wrap">
+              <div class="match-preview">明日はいよいよデート当日です！</div>
             </div>
           </div>
         </div>

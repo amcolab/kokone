@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-090 Chat Schedule Pending</title>
+  <title>SCR-087E Booking Schedule Change</title>
   <style>
     :root {
       --c0: #ffffff;
@@ -43,256 +43,189 @@
       background: var(--c6);
       color: var(--c0);
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: 0 8px;
       font-size: 9px;
       flex-shrink: 0;
     }
-    .chat-header {
+    .header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
+      gap: 12px;
+      padding: 14px;
       border-bottom: 1px solid var(--c2);
-      gap: 10px;
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
     }
     .back-btn {
       font-size: 18px;
       cursor: pointer;
-      color: var(--c6);
     }
-    .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #d8d8d8 0%, #b9b9b9 100%);
-      border: 1px solid var(--c3);
-      position: relative;
-      flex-shrink: 0;
-    }
-    .avatar::before {
-      content: "";
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #9a9a9a;
-      left: 50%;
-      top: 7px;
-      transform: translateX(-50%);
-    }
-    .avatar::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 11px;
-      border-radius: 12px 12px 7px 7px;
-      background: #9a9a9a;
-      left: 50%;
-      bottom: 5px;
-      transform: translateX(-50%);
-    }
-    .header-meta {
-      min-width: 0;
-    }
-    .name-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
+    .title {
+      font-size: 17px;
       font-weight: 700;
+      flex: 1;
     }
-    .online {
-      font-size: 10px;
-      color: var(--c4);
-      margin-top: 2px;
-    }
-    .ot-badge {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--c5);
-      color: var(--c0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .progress {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 14px 18px 10px;
-      border-bottom: 1px solid var(--c2);
-      background: #fbfbfb;
-    }
-    .step {
-      text-align: center;
-      color: var(--c3);
-      font-size: 10px;
-      font-weight: 600;
-    }
-    .step::before {
-      content: "";
-      display: block;
-      width: 24px;
-      height: 24px;
-      margin: 0 auto 6px;
-      border-radius: 50%;
-      border: 1px solid currentColor;
-      background: var(--c0);
-    }
-    .step.active {
-      color: var(--c6);
-    }
-    .step.active::before {
-      background: var(--c6);
-    }
-    .chat-body {
+    .content {
       flex: 1;
       overflow-y: auto;
       background: var(--c1);
-      padding: 14px 12px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      padding: 16px 14px 24px;
     }
-    .message-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-    }
-    .message-row.sent {
-      justify-content: flex-end;
-    }
-    .mini-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #cfcfcf;
-      flex-shrink: 0;
-    }
-    .message-stack {
-      max-width: 258px;
-    }
-    .bubble {
-      background: var(--c0);
-      border: 1px solid var(--c2);
-      border-radius: 18px;
-      padding: 11px 13px;
-      font-size: 12px;
-      line-height: 1.55;
-      color: var(--c6);
-    }
-    .bubble.system {
-      border-radius: 18px;
-      background: #fcfcfc;
-    }
-    .time {
-      margin-top: 4px;
-      font-size: 10px;
-      color: var(--c4);
-      padding: 0 4px;
-    }
-    .pending-card {
-      background: var(--c0);
-      border: 1px solid var(--c2);
-      border-radius: 20px;
-      padding: 14px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .pending-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      border: 1px solid var(--c3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: var(--c5);
-      flex-shrink: 0;
-    }
-    .pending-title {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .pending-text {
+    .lead {
       font-size: 12px;
       color: var(--c5);
-      line-height: 1.55;
+      line-height: 1.6;
+      margin-bottom: 14px;
     }
-
-    .pending-time {
-      font-size: 14px;
+    .section-title {
+      font-size: 12px;
       font-weight: 800;
       color: var(--c6);
-      margin: 4px 0 8px;
-      line-height: 1.2;
-      word-break: break-word;
+      margin-bottom: 8px;
     }
-    .hint-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 12px;
-      color: var(--c4);
-      text-decoration: none;
-    }
-    .input-bar {
-      border-top: 1px solid var(--c2);
+    .picker-card {
+      border: 1px solid var(--c2);
+      border-radius: 12px;
       background: var(--c0);
-      padding: 10px 12px 14px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    .datetime-row {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .circle-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 1px solid var(--c2);
-      background: var(--c0);
+    .datetime-label {
+      font-size: 11px;
       color: var(--c5);
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-weight: 600;
       flex-shrink: 0;
+      width: 28px;
     }
-    .input-placeholder {
-      flex: 1;
-      height: 34px;
-      border-radius: 999px;
+    .datetime-field {
+      position: relative;
+      height: 40px;
       border: 1px solid var(--c2);
-      background: #fafafa;
-      padding: 0 14px;
+      border-radius: 10px;
+      background: var(--c0);
       display: flex;
       align-items: center;
-      color: var(--c4);
-      font-size: 12px;
+      cursor: pointer;
+      overflow: hidden;
     }
-    .send-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
+    .datetime-field.date-field {
+      flex: 1;
+      min-width: 0;
+      padding: 0 34px 0 10px;
+    }
+    .datetime-field.time-field {
+      width: 72px;
+      flex-shrink: 0;
+      justify-content: center;
+      padding: 0 8px;
+    }
+    .datetime-display {
+      font-size: 12px;
+      color: var(--c6);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+    }
+    .datetime-field.time-field .datetime-display {
+      width: 100%;
+      text-align: center;
+    }
+    .datetime-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--c5);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .datetime-native {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
       border: 0;
-      background: var(--c5);
+      margin: 0;
+      padding: 0;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option {
+      width: 100%;
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      background: var(--c0);
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .option.selected {
+      border-color: var(--c5);
+      background: #f0f0f0;
+      box-shadow: inset 0 0 0 1px var(--c5);
+    }
+    .option-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .option-date {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .option-arrow {
+      font-size: 18px;
+      color: var(--c4);
+    }
+    .option-note {
+      font-size: 11px;
+      color: var(--c4);
+      line-height: 1.5;
+    }
+    .footer {
+      padding: 12px 14px 16px;
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .primary-btn {
+      width: 100%;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--c3);
       color: var(--c0);
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
-      flex-shrink: 0;
+    }
+    .primary-btn.enabled {
+      background: var(--c5);
+    }
+    .text-link {
+      text-align: center;
+      color: var(--c4);
+      font-size: 12px;
+      text-decoration: none;
     }
     .wf-sidebar {
       width: 200px;
@@ -646,13 +579,18 @@
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a>
       
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a>
       <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
@@ -662,48 +600,133 @@
       <div>9:41</div>
       <div>●●● WiFi ▮▮▮</div>
     </div>
-    <div class="chat-header">
-      <div class="header-left">
-        <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
-        <div class="avatar"></div>
-        <div class="header-meta">
-          <div class="name-row">さやか</div>
-          <div class="online">オンライン</div>
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR087_booking_proposal.html'">‹</div>
+      <div class="title">日程を変更する</div>
+    </div>
+    <div class="content">
+      <div class="section-title">希望日時を選択</div>
+      <div class="picker-card">
+        <div class="datetime-row">
+          <div class="datetime-label">日付</div>
+          <label class="datetime-field date-field">
+            <span class="datetime-display" id="dateDisplay">2025年8月29日(金)</span>
+            <span class="datetime-icon">📅</span>
+            <input id="pickerDate" class="datetime-native" type="date" value="2025-08-29" onchange="onPickerChange()">
+          </label>
+          <label class="datetime-field time-field">
+            <span class="datetime-display" id="timeDisplay">11:00</span>
+            <input id="pickerTime" class="datetime-native" type="time" value="11:00" onchange="onPickerChange()">
+          </label>
         </div>
       </div>
-      <div class="ot-badge">OT</div>
-    </div>
-    <div class="progress">
-      <div class="step active">日程調整</div>
-      <div class="step">店舗提案</div>
-      <div class="step">予約完了</div>
-    </div>
-    <div class="chat-body">
-      <div class="message-row">
-        <div class="mini-avatar"></div>
-        <div class="message-stack">
-          <div class="bubble">わー楽しみです！<br>よろしくお願いします。</div>
-          <div class="time">18:24</div>
-        </div>
+      <div class="section-title">おすすめの候補日</div>
+      <div class="lead">候補日から1つ選ぶこともできます。最大5件まで表示しています。</div>
+      <div class="list">
+        <button class="option" type="button" data-value="5/25（日）19:00〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/25（日）19:00〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">日曜の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="5/26（月）20:00〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/26（月）20:00〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">平日の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="5/31（土）18:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">5/31（土）18:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">週末でゆっくりできる時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="6/1（日）19:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">6/1（日）19:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">日曜の夜で調整しやすい時間帯です</div>
+        </button>
+        <button class="option" type="button" data-value="6/2（月）19:30〜" onclick="selectOption(this)">
+          <div class="option-main">
+            <div class="option-date">6/2（月）19:30〜</div>
+            <div class="option-arrow">›</div>
+          </div>
+          <div class="option-note">平日の夜で調整しやすい時間帯です</div>
+        </button>
       </div>
-      <div class="pending-card">
-        <div class="pending-icon">⌛</div>
-        <div>
-          <div class="pending-title">お相手の確認待ち</div>
-          <div class="pending-time" id="pendingProposalTime">5/24（土）19:00〜</div>
-          <div class="pending-text">お相手が候補日を確認すると、次のステップに進みます。</div>
-        </div>
-      </div>
     </div>
-    <div class="input-bar">
-      <div class="circle-btn">+</div>
-      <div class="input-placeholder">メッセージを入力...</div>
-      <button class="send-btn">➤</button>
+    <div class="footer">
+      <button id="submitBtn" class="primary-btn" type="button" onclick="submitProposal()">この内容で承認する</button>
     </div>
   </div>
   <script>
-    var proposal = localStorage.getItem("ot-schedule-proposal") || "5/24（土）19:00〜";
-    document.getElementById("pendingProposalTime").textContent = proposal;
+    var selectedValue = "";
+    var weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+    function formatDateDisplay(isoDate) {
+      if (!isoDate) {
+        return "";
+      }
+      var parts = isoDate.split("-");
+      var date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日(" + weekdays[date.getDay()] + ")";
+    }
+    function formatDateValue(isoDate) {
+      if (!isoDate) {
+        return "";
+      }
+      var parts = isoDate.split("-");
+      var date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      return (date.getMonth() + 1) + "/" + date.getDate() + "（" + weekdays[date.getDay()] + "）";
+    }
+    function syncPickerDisplay() {
+      var dateInput = document.getElementById("pickerDate").value;
+      var timeInput = document.getElementById("pickerTime").value;
+      document.getElementById("dateDisplay").textContent = formatDateDisplay(dateInput);
+      document.getElementById("timeDisplay").textContent = timeInput || "11:00";
+    }
+    function getPickerValue() {
+      var dateInput = document.getElementById("pickerDate").value;
+      var timeInput = document.getElementById("pickerTime").value;
+      if (!dateInput || !timeInput) {
+        return "";
+      }
+      return formatDateValue(dateInput) + timeInput + "〜";
+    }
+    function onPickerChange() {
+      syncPickerDisplay();
+      document.querySelectorAll(".option").forEach(function (option) {
+        option.classList.remove("selected");
+      });
+      selectedValue = "";
+      updateSubmitState();
+    }
+    function selectOption(button) {
+      document.querySelectorAll(".option").forEach(function (option) {
+        option.classList.remove("selected");
+      });
+      button.classList.add("selected");
+      selectedValue = button.getAttribute("data-value");
+      updateSubmitState();
+    }
+    function updateSubmitState() {
+      var enabled = !!selectedValue || !!getPickerValue();
+      document.getElementById("submitBtn").classList.toggle("enabled", enabled);
+    }
+    function submitProposal() {
+      var value = selectedValue || getPickerValue();
+      if (!value) {
+        return;
+      }
+      localStorage.setItem("ot-schedule-proposal", value);
+      window.location.href = "wireframe_SCR083_restaurant_waiting.html";
+    }
+    syncPickerDisplay();
+    updateSubmitState();
     function setBlpLang(lang) {
       document.querySelectorAll(".blp-lang").forEach(function (el) {
         el.style.display = "none";
@@ -718,9 +741,9 @@
   <div class="blp-wrap">
     <div class="blp-head">
       <div class="blp-head-info">
-        <div class="blp-head-scr">SCR-090B</div>
-        <div class="blp-head-title">Chat Waiting</div>
-        <div class="blp-head-sub">相手確認待ち / Chờ đối phương xác nhận</div>
+        <div class="blp-head-scr">SCR-087E</div>
+        <div class="blp-head-title">Booking Schedule Change</div>
+        <div class="blp-head-sub">日程変更 / Đổi ngày giờ</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -741,44 +764,40 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">候補日時を相手へ送信した直後の状態を見せ、今は相手確認待ちであることをチャット上で明確にする画面です。</div>
+          <div class="blp-note highlight">日付・時間のピッカーから希望日時を選ぶか、おすすめ候補日から1件選んで承認します。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案した日時</strong>をチャットバブルに再表示し、何を送ったかを残します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>お相手の確認待ち</strong>カードで、現在は待機状態だと案内します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>待機状態のみ</strong>をシンプルに表示し、今は相手の回答待ちであることに集中させます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>候補リスト</strong>から1つだけ選択できる単一選択UIです。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>選択後にCTAが有効化</strong>され、誤送信を防ぎます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>第1候補に戻る</strong>で元の推奨案へ戻れます。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal</strong> から提案送信</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で相手確認待ち</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant</strong> へ進み店舗提案・予約へ接続</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal Primary</strong> から変更導線へ入る</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で別候補を選択</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant Waiting (083B)</strong> へ進み相手確認待ち</div></div>
           </div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">補足</div>
-          <div class="blp-note ok">`localStorage` の提案日時を読み出して表示するので、082A/082B のどちらから来ても同じ待機画面を再利用できます。</div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Hiển thị trạng thái sau khi đã gửi đề xuất ngày giờ sang chat và đang chờ đối phương xác nhận.</div>
+          <div class="blp-note highlight">Cho phép đổi sang một ngày giờ khác nếu đề xuất ưu tiên số 1 không phù hợp.</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Ngày giờ đã gửi</strong> được render lại trong bubble chat.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Thẻ chờ xác nhận</strong> cho biết hiện chưa cần thao tác thêm.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Màn chỉ giữ trạng thái chờ</strong>, giúp user hiểu hiện tại chỉ cần đợi phản hồi từ đối phương.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Chọn 1 phương án</strong> trong danh sách các ngày giờ thay thế.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Nút gửi chỉ bật</strong> sau khi đã có lựa chọn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>第1候補に戻る</strong> để quay lại phương án hệ thống gợi ý ban đầu.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal</strong> gửi ngày giờ đề xuất</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> chờ phản hồi của đối phương</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant</strong> nối sang bước đề xuất quán và đặt chỗ</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Date Proposal Primary</strong> mở đường dẫn đổi phương án</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> chọn ngày khác</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Restaurant Waiting (083B)</strong> gửi đề xuất mới và chờ đối phương</div></div>
           </div>
         </div>
       </div>
