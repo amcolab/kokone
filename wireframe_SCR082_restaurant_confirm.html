@@ -212,6 +212,145 @@
             line-height: 1.2;
             margin-bottom: 8px;
         }
+        .store-name-link {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+        .store-confirmed-result {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            background: var(--c0);
+            border: 1px solid var(--c2);
+            border-radius: 16px;
+            padding: 12px 14px;
+        }
+        .store-confirmed-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--c6);
+            color: var(--c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .store-confirmed-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--c6);
+            margin-bottom: 4px;
+        }
+        .store-confirmed-text {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.55;
+        }
+        .shop-detail-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 260;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+        }
+        .shop-detail-overlay.open {
+            display: flex;
+        }
+        .shop-detail-sheet {
+            width: 100%;
+            max-width: 328px;
+            height: 580px;
+            max-height: calc(100% - 40px);
+            background: var(--c0);
+            border-radius: 14px;
+            border: 1px solid var(--c2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+            position: relative;
+        }
+        .shop-detail-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+        }
+        .shop-detail-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 3;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--c2);
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--c6);
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .shop-detail-hero {
+            height: 140px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%);
+            filter: grayscale(100%);
+        }
+        .shop-detail-body {
+            padding: 14px;
+        }
+        .shop-detail-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .shop-detail-meta {
+            font-size: 12px;
+            color: var(--c5);
+            margin-bottom: 12px;
+        }
+        .shop-detail-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .shop-detail-section-text {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.65;
+            margin-bottom: 12px;
+        }
+        .shop-detail-address {
+            font-size: 11px;
+            color: var(--c4);
+            line-height: 1.5;
+            padding: 10px 12px;
+            background: var(--c1);
+            border: 1px solid var(--c2);
+            border-radius: 8px;
+        }
+        .shop-detail-footer {
+            flex-shrink: 0;
+            padding: 10px 14px 14px;
+            border-top: 1px solid var(--c2);
+        }
+        .shop-detail-close-btn {
+            width: 100%;
+            height: 44px;
+            border: 1px solid var(--c6);
+            border-radius: 999px;
+            background: var(--c6);
+            color: var(--c0);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
         .proposal-schedule {
             font-size: 11px;
             color: var(--c4);
@@ -553,13 +692,20 @@
                 <div style="flex:1;">
                     <div class="proposal-title">店舗提案が届きました</div>
                     <div class="proposal-schedule" id="receivedProposalDate">5/24（土）19:00〜</div>
-                    <div class="proposal-date" id="receivedStoreName">レストラン オトナ</div>
+                    <div class="proposal-date store-name-link" id="receivedStoreName" onclick="openStoreDetail()">レストラン オトナ</div>
                     <div class="proposal-meta" id="receivedStoreMeta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
                     <div class="proposal-text">Sakiさんから選んだお店です。問題なければ確定、別の候補を見ることもできます。</div>
-                    <div class="proposal-actions">
-                        <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR083_restaurant_approved.html'">この店舗で確定する</button>
-                        <button type="button" class="secondary-btn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html?candidate=2'">他の候補を見る</button>
+                    <div class="proposal-actions" id="proposalActions">
+                        <button type="button" class="primary-btn" id="confirmStoreBtn" onclick="confirmStore()">この店舗で確定する</button>
+                        <button type="button" class="secondary-btn" id="otherStoreBtn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html?candidate=2'">他の候補を見る</button>
                     </div>
+                </div>
+            </div>
+            <div class="store-confirmed-result" id="storeConfirmedResult" style="display:none;">
+                <div class="store-confirmed-icon">✓</div>
+                <div>
+                    <div class="store-confirmed-title">お店が確定しました！</div>
+                    <div class="store-confirmed-text">双方が承認しました。このお店を予約します。</div>
                 </div>
             </div>
         </div>
@@ -567,6 +713,27 @@
             <div class="circle-btn">+</div>
             <div class="input-placeholder">メッセージを入力...</div>
             <button type="button" class="send-btn">➤</button>
+        </div>
+        <div id="storeDetailPopup" class="shop-detail-overlay" onclick="closeStoreDetail(event)">
+            <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+                <div style="position:relative; flex-shrink:0;">
+                    <button type="button" class="shop-detail-close" onclick="closeStoreDetail()">×</button>
+                    <div class="shop-detail-hero"></div>
+                </div>
+                <div class="shop-detail-scroll">
+                    <div class="shop-detail-body">
+                        <div class="shop-detail-name" id="storeDetailName">レストラン オトナ</div>
+                        <div class="shop-detail-meta" id="storeDetailMeta">イタリアン ｜ 恵比寿 ｜ ¥¥¥</div>
+                        <div class="shop-detail-section-title">概要</div>
+                        <div class="shop-detail-section-text" id="storeDetailOverview">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。デートや初回の食事にも向いています。</div>
+                        <div class="shop-detail-section-title">アクセス</div>
+                        <div class="shop-detail-address" id="storeDetailAddress">東京都渋谷区恵比寿1-2-3 恵比寿ビル3F<br>恵比寿駅 徒歩5分</div>
+                    </div>
+                </div>
+                <div class="shop-detail-footer">
+                    <button type="button" class="shop-detail-close-btn" onclick="closeStoreDetail()">閉じる</button>
+                </div>
+            </div>
         </div>
         <div class="app-bottom-nav">
             <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
@@ -628,6 +795,24 @@
     document.getElementById('receivedProposalDate').textContent = receivedProposal;
     document.getElementById('receivedStoreName').textContent = receivedStoreName;
     document.getElementById('receivedStoreMeta').textContent = receivedStoreMeta;
+    document.getElementById('storeDetailName').textContent = receivedStoreName;
+    document.getElementById('storeDetailMeta').textContent = receivedStoreMeta;
+
+    function openStoreDetail() {
+      document.getElementById('storeDetailPopup').classList.add('open');
+    }
+
+    function closeStoreDetail(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('storeDetailPopup').classList.remove('open');
+    }
+
+    function confirmStore() {
+      document.getElementById('proposalActions').style.display = 'none';
+      document.getElementById('storeConfirmedResult').style.display = 'flex';
+      var card = document.querySelector('.proposal-card');
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');

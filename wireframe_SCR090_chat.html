@@ -1202,6 +1202,9 @@
         input.value = '';
         input.focus();
         document.getElementById('chatArea').scrollTop = document.getElementById('chatArea').scrollHeight;
+
+        var quickReplyCard = document.getElementById('quickReplyCard');
+        if (quickReplyCard) quickReplyCard.style.display = 'none';
     }
 
     function toggleSelection(el, type) {
