@@ -31,6 +31,12 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--c1);
         }
+
+        /* Hide SCR-062 Partner Profile from left list */
+        nav.wf-sidebar a.wf-nav-link[href*="SCR062"],
+        nav.wf-sidebar a.wf-nav-link[href*="wireframe_SCR062_partner_profile"] {
+            display: none !important;
+        }
         .device {
             width: 360px;
             height: 812px;

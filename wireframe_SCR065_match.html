@@ -29,6 +29,12 @@
       background: var(--c0);
     }
 
+    /* Hide SCR-062 Partner Profile from left list */
+    nav.wf-sidebar a.wf-nav-link[href*="SCR062"],
+    nav.wf-sidebar a.wf-nav-link[href*="wireframe_SCR062_partner_profile"] {
+      display: none !important;
+    }
+
     .device {
       width: 360px;
       border: 1.5px solid var(--c6);

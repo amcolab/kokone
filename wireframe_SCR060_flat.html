@@ -36,6 +36,12 @@
       font-size: 13px;
     }
 
+    /* Hide SCR-062 Partner Profile from left list */
+    nav.wf-sidebar a.wf-nav-link[href*="SCR062"],
+    nav.wf-sidebar a.wf-nav-link[href*="wireframe_SCR062_partner_profile"] {
+      display: none !important;
+    }
+
     /* SIDEBAR */
     .sidebar {
       width: 200px;
@@ -1437,7 +1443,7 @@
       margin-left: 8px;
       width: 18px;
       height: 18px;
-      background: #757575;
+      background: #2e7d32;
       color: #ffffff;
       border-radius: 50%;
       display: inline-flex;
@@ -1911,6 +1917,33 @@
       margin-top: 2px;
       font-weight: 600;
       opacity: 0.9;
+    }
+
+    .shop-glass-meter{
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 2px;
+    }
+    .shop-glass-svg{
+      width: 10px;
+      height: 10px;
+      stroke: rgba(255,255,255,0.62);
+      fill: none;
+      stroke-width: 1.9;
+    }
+    .shop-glass-svg.on{
+      stroke: rgba(255,255,255,1);
+    }
+    .shop-glass-svg.popup{
+      stroke: rgba(33,33,33,1);
+    }
+    .shop-detail-price-text{
+      font-size: 12px;
+      font-weight: 800;
+      color: #212121;
+      white-space: nowrap;
+      margin-left: 6px;
     }
     
     /* Action Buttons Redesign - Grayscale */
@@ -2612,12 +2645,28 @@
           var shops = (c.shops && c.shops.length) ? c.shops.slice(0, 3) : DEFAULT_SHOPS.slice();
           while (shops.length < 3) shops.push(DEFAULT_SHOPS[shops.length]);
           c.shops = shops;
+          function priceLevelFromPriceString(price) {
+            var s = String(price || '');
+            var count = (s.match(/￥/g) || []).length;
+            if (count <= 0) return 1;
+            return Math.max(1, Math.min(count, 5));
+          }
+          function shopGlassIcons(level) {
+            var max = 5;
+            var l = Math.max(0, Math.min(parseInt(level || '0', 10), max));
+            var svg = '<svg class="shop-glass-svg on" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+            var html = '';
+            for (var i = 1; i <= l; i++) html += svg;
+            return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
+          }
+
           shops.forEach(function (shop, shopIdx) {
+            var level = priceLevelFromPriceString(shop.price);
             shopsHtml += '<div class="shop-card" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
                          '<div class="shop-overlay"></div>' +
                          '<div class="shop-text-overlay">' +
                          '<div class="shop-name">' + shop.name.replace('\n', '<br>') + '</div>' +
-                         '<div class="shop-price">' + shop.price + '</div>' +
+                         '<div class="shop-price">' + shopGlassIcons(level) + '</div>' +
                          '</div>' +
                          '</div>';
           });
@@ -2872,9 +2921,33 @@
           var shop = CANDIDATES[candidateIdx].shops[shopIdx];
           if (!shop) return;
           var detail = getShopDetail(shop);
+          function priceLevelFromPriceString(price) {
+            var s = String(price || '');
+            var count = (s.match(/￥/g) || []).length;
+            if (count <= 0) return 1;
+            return Math.max(1, Math.min(count, 5));
+          }
+          function glassOnOnly(level) {
+            var max = 5;
+            var l = Math.max(0, Math.min(parseInt(level || '0', 10), max));
+            var svg = '<svg class="shop-glass-svg popup on" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+            var html = '';
+            for (var i = 1; i <= l; i++) html += svg;
+            return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
+          }
+          function priceRangeText(level) {
+            var l = parseInt(level || '0', 10);
+            if (Number.isNaN(l) || l <= 1) return '〜5,000円 / 人';
+            if (l === 2) return '5,001〜10,000円 / 人';
+            if (l === 3) return '10,001〜15,000円 / 人';
+            if (l === 4) return '15,001〜20,000円 / 人';
+            return '20,001円〜 / 人';
+          }
           document.getElementById('shopDetailHero').style.backgroundImage = "url('" + detail.image + "')";
           document.getElementById('shopDetailName').textContent = detail.displayName;
-          document.getElementById('shopDetailPrice').textContent = detail.price;
+          var level = priceLevelFromPriceString(detail.price);
+          document.getElementById('shopDetailPrice').innerHTML =
+            glassOnOnly(level) + '<span class="shop-detail-price-text">｜' + priceRangeText(level) + '</span>';
           document.getElementById('shopDetailTags').innerHTML =
             '<span class="shop-detail-tag">' + detail.category + '</span>' +
             '<span class="shop-detail-tag">' + detail.area + '</span>';
