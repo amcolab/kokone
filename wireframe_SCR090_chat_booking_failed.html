@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -39,6 +39,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
     .status-bar {
       height: 20px;
@@ -68,12 +69,8 @@
       min-width: 0;
       flex: 1;
     }
-    .back-btn, .menu-btn {
-      font-size: 18px;
-      color: var(--c6);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+    .back-btn { font-size: 18px; color: var(--c6); cursor: pointer; flex-shrink: 0; }
+    .menu-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; color: var(--c5); flex-shrink: 0; }
     .avatar {
       width: 34px;
       height: 34px;
@@ -127,19 +124,21 @@
       border-radius: 50%;
       background: var(--c4);
     }
-    .ot-badge {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--c5);
-      color: var(--c0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+    .header-menu-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.12); display: none; z-index: 40; }
+    .header-menu-overlay.open { display: block; }
+    .header-menu-sheet { position: absolute; top: 60px; right: 14px; width: 176px; background: var(--c0); border: 1px solid var(--c2); border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+    .header-menu-item { width: 100%; border: 0; border-bottom: 1px solid var(--c2); background: var(--c0); color: var(--c6); text-align: left; padding: 12px 14px; font-size: 12px; cursor: pointer; }
+    .header-menu-item:last-child { border-bottom: 0; }
+    .confirm-overlay { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.2); z-index: 50; }
+    .confirm-overlay.open { display: flex; }
+    .confirm-dialog { width: 300px; background: var(--c0); border: 1px solid var(--c2); border-radius: 16px; padding: 16px; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12); }
+    .confirm-title { font-size: 13px; font-weight: 800; color: var(--c6); margin-bottom: 8px; }
+    .confirm-text { font-size: 12px; color: var(--c5); line-height: 1.45; }
+    .confirm-actions { display: flex; gap: 10px; margin-top: 14px; }
+    .confirm-btn { flex: 1; border-radius: 12px; padding: 10px 12px; font-size: 12px; cursor: pointer; border: 1px solid var(--c2); background: #fafafa; color: var(--c6); font-weight: 800; }
+    .confirm-btn.primary { background: var(--c6); color: var(--c0); border-color: var(--c6); }
+    .toast { position: absolute; bottom: 92px; left: 50%; transform: translateX(-50%); background: rgba(33, 33, 33, 0.92); color: #fff; padding: 10px 14px; border-radius: 999px; font-size: 12px; display: none; z-index: 60; }
+    .toast.show { display: block; }
     .progress {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -592,7 +591,7 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
-      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
   </nav>
@@ -611,8 +610,7 @@
           <div class="header-status">オンライン</div>
         </div>
       </div>
-      <div class="ot-badge">OT</div>
-      <div class="menu-btn">⋯</div>
+      <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
     </div>
     <div class="progress">
       <div class="step done">日程調整</div>
@@ -652,6 +650,34 @@
       <div class="input-placeholder">メッセージを入力...</div>
       <button class="send-btn">➤</button>
     </div>
+    <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
+    <div class="header-menu-sheet" onclick="event.stopPropagation()">
+      <button class="header-menu-item" type="button" onclick="openPhotoRequestConfirm()">写真公開リクエスト</button>
+      <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
+      <button class="header-menu-item" type="button" onclick="openBlockConfirm()">ブロックする</button>
+    </div>
+    </div>
+    <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
+    <div class="confirm-dialog" onclick="event.stopPropagation()">
+      <div class="confirm-title">写真公開リクエストを送りますか？</div>
+      <div class="confirm-text">お相手にプロフィール写真の公開リクエストを送信します。</div>
+      <div class="confirm-actions">
+        <button class="confirm-btn" type="button" onclick="closePhotoRequestConfirm()">キャンセル</button>
+        <button class="confirm-btn primary" type="button" onclick="submitPhotoRequest()">送信する</button>
+      </div>
+    </div>
+    </div>
+    <div id="blockConfirm" class="confirm-overlay" onclick="closeBlockConfirm()">
+    <div class="confirm-dialog" onclick="event.stopPropagation()">
+      <div class="confirm-title">ブロックする</div>
+      <div class="confirm-text">お相手をブロックすると、メッセージの送受信ができなくなり、お互いの画面からチャット履歴が完全に削除されます。<br>※ブロックしたことがお相手に通知されることはありません。</div>
+      <div class="confirm-actions">
+        <button class="confirm-btn" type="button" onclick="closeBlockConfirm()">キャンセル</button>
+        <button class="confirm-btn primary" type="button" onclick="confirmBlockAndExit()" style="background:#2b2b2b;">ブロックする</button>
+      </div>
+    </div>
+    </div>
+    <div id="actionToast" class="toast"></div>
   </div>
 
   <div class="blp-wrap">
@@ -679,5 +705,61 @@
       </div>
     </div>
   </div>
+<script>
+  let actionToastTimer;
+
+  function toggleHeaderMenu() {
+    document.getElementById('headerMenuOverlay').classList.toggle('open');
+  }
+
+  function closeHeaderMenu() {
+    document.getElementById('headerMenuOverlay').classList.remove('open');
+  }
+
+  function openPhotoRequestConfirm() {
+    closeHeaderMenu();
+    document.getElementById('photoRequestConfirm').classList.add('open');
+  }
+
+  function closePhotoRequestConfirm() {
+    document.getElementById('photoRequestConfirm').classList.remove('open');
+  }
+
+  function submitPhotoRequest() {
+    closePhotoRequestConfirm();
+    alert('写真公開リクエストを送信しました');
+  }
+
+  function goToReport() {
+    closeHeaderMenu();
+    localStorage.setItem('ot-report-return', window.location.href);
+    window.location.href = 'wireframe_SCR103_report.html';
+  }
+
+  function openBlockConfirm() {
+    closeHeaderMenu();
+    document.getElementById('blockConfirm').classList.add('open');
+  }
+
+  function closeBlockConfirm() {
+    document.getElementById('blockConfirm').classList.remove('open');
+  }
+
+  function confirmBlockAndExit() {
+    closeBlockConfirm();
+    localStorage.setItem('ot-global-toast', 'ブロックしました');
+    window.location.href = 'wireframe_SCR065_match.html';
+  }
+
+  function showActionToast(message) {
+    var toast = document.getElementById('actionToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(actionToastTimer);
+    actionToastTimer = setTimeout(function () {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+</script>
 </body>
 </html>

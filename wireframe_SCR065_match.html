@@ -110,6 +110,22 @@
       flex-direction: column;
     }
 
+    .action-toast {
+      position: absolute;
+      left: 50%;
+      bottom: 84px;
+      transform: translateX(-50%);
+      background: rgba(33, 33, 33, 0.92);
+      color: #fff;
+      font-size: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      display: none;
+      z-index: 60;
+      white-space: nowrap;
+    }
+    .action-toast.show { display: block; }
+
     .notification-toast {
       background: var(--c1);
       border: var(--border);
@@ -237,6 +253,12 @@
       background: #e8f5e9;
       color: #2e7d32;
       border-color: #a5d6a7;
+    }
+
+    .status-pill.cancelled {
+      background: #f5f5f5;
+      color: var(--c4);
+      border-color: #d0d0d0;
     }
 
     .countdown-badge {
@@ -841,7 +863,7 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
-      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
     <div class="wf-sidebar-group">
@@ -1035,7 +1057,7 @@
             <div class="match-name-row">
               <div class="match-name-main">
                 <div class="match-name" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">Mai · 41歳</div>
-                <div class="status-pill confirmed inline">予約確定</div>
+                <div class="status-pill confirmed inline">予約完了</div>
               </div>
               <div class="match-time">5時間前</div>
             </div>
@@ -1105,7 +1127,7 @@
             <div class="match-name-row">
               <div class="match-name-main">
                 <div class="match-name">Mio · 35歳</div>
-                <div class="status-pill confirmed inline">予約確定</div>
+                <div class="status-pill confirmed inline">予約完了</div>
               </div>
               <div class="match-time">1時間前</div>
             </div>
@@ -1117,18 +1139,18 @@
       </div>
 
       <div id="section-history" class="tab-content">
-        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR080_match_detail_reviewed.html'">
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR100_review_prompt_chat.html'">
           <div class="photo-box">✕✕</div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name">Kaori · 45歳</div>
+              <div class="match-name-main">
+                <div class="match-name">Kaori · 45歳</div>
+                <div class="status-pill confirmed inline">予約完了</div>
+              </div>
               <div class="match-time">2週間前</div>
             </div>
             <div class="action-wrap">
-              <div class="status-pill" style="background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32;">
-                <span class="status-icon">✅</span>食事完了・評価済
-              </div>
-              <div class="match-preview">3/5 和食 花 での食事が完了しました</div>
+              <div class="match-preview">お食事お疲れ様でした！</div>
             </div>
           </div>
         </div>
@@ -1137,25 +1159,29 @@
           <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Momo" style="width:100%; height:100%; border-radius:0;"></div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name">Momo · 36歳</div>
+              <div class="match-name-main">
+                <div class="match-name">Momo · 36歳</div>
+                <div class="status-pill cancelled inline">キャンセル済</div>
+              </div>
               <div class="match-time">3週間前</div>
             </div>
             <div class="action-wrap">
-              <div class="status-pill" style="color:var(--c4);">キャンセル済（あなた）</div>
               <div class="match-preview">マッチングをキャンセルしました (2026-03-11)</div>
             </div>
           </div>
         </div>
 
         <div class="match-item completed-item">
-          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Noa" style="width:100%; height:100%; border-radius:0;"></div>
+          <div class="photo-box" style="cursor:pointer; background:none;" onclick="window.location.href='#'"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Haruka" style="width:100%; height:100%; border-radius:0;"></div>
           <div class="match-info">
             <div class="match-name-row">
-              <div class="match-name">Noa · 32歳</div>
+              <div class="match-name-main">
+                <div class="match-name">Haruka · 38歳</div>
+                <div class="status-pill cancelled inline">キャンセル済</div>
+              </div>
               <div class="match-time">22日前</div>
             </div>
             <div class="action-wrap">
-              <div class="status-pill" style="color:var(--c4);">キャンセル済（相手）</div>
               <div class="match-preview">お相手によりキャンセルされました (2026-03-10)</div>
             </div>
           </div>
@@ -1170,6 +1196,8 @@
       <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span><div class="bn-dot"></div></a>
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
+
+    <div id="globalToast" class="action-toast"></div>
 
     <!-- 写真リクエスト取消モーダル (webapp dialog style) -->
     <div id="photoReqCancelOverlay" onclick="closePhotoRequestCancelModal()" style="
@@ -1205,6 +1233,16 @@
         document.getElementById('rebookOverlay').style.display = 'block';
         document.getElementById('rebookDialog').style.display = 'block';
       }
+      (function () {
+        var msg = localStorage.getItem('ot-global-toast');
+        if (!msg) return;
+        localStorage.removeItem('ot-global-toast');
+        var t = document.getElementById('globalToast');
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(function () { t.classList.remove('show'); }, 2200);
+      })();
       function closeRebookModal() {
         document.getElementById('rebookOverlay').style.display = 'none';
         document.getElementById('rebookDialog').style.display = 'none';

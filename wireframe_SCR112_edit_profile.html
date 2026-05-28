@@ -190,15 +190,32 @@
       width: 100%;
     }
     .profile-photo-preview {
+      position: relative;
       width: 100%;
       aspect-ratio: 188 / 212;
       border: 1px solid var(--c2);
+      overflow: hidden;
       background:
         radial-gradient(circle at 50% 30%, #9b9b9b 0 14%, transparent 15%),
         radial-gradient(ellipse at 50% 64%, #b3b3b3 0 18%, transparent 19%),
         radial-gradient(ellipse at 50% 92%, #3f3f3f 0 40%, transparent 41%),
         linear-gradient(135deg, #d7d7d7 0%, #efefef 55%, #cccccc 100%);
       flex-shrink: 0;
+    }
+    .profile-photo-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .profile-photo-blur {
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.38);
+      z-index: 2;
     }
     .photo-edit-btn {
       position: absolute;
@@ -578,7 +595,7 @@
   <div class="wf-sidebar-group">
     <div class="wf-group-label">E · Chat & Review</div>
     <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
     <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
   </div>
   <div class="wf-sidebar-group">
@@ -614,7 +631,7 @@
         <div class="back-btn onboarding-hide" onclick="window.location.href='wireframe_SCR110_mypage.html'">キャンセル</div>
         <div class="back-btn onboarding-show" style="display:none;" onclick="history.back()">←</div>
         <div class="header-title" style="flex:1;">プロフィール編集</div>
-        <div class="save-btn onboarding-hide" onclick="window.location.href='wireframe_SCR110_mypage.html'">保存</div>
+        <div class="save-btn onboarding-hide" onclick="saveAndReturn()">保存</div>
         <div class="skip-btn onboarding-show" onclick="window.location.href='wireframe_SCR024_ekyc.html'" style="display:none; font-size:12px; color:var(--c4); text-decoration:underline; cursor:pointer;">スキップ</div>
       </div>
       <div class="onboarding-show" style="display:none; font-size:11px; color:var(--c4); margin-top:4px;">5 / 6</div>
@@ -627,10 +644,13 @@
 
     <div class="content">
       <div class="scrollable">
-        <div class="profile-top-card">
+        <div class="profile-top-card" id="bio">
           <div class="profile-photo-row">
             <div class="profile-photo-frame">
-              <div class="profile-photo-preview"></div>
+              <div class="profile-photo-preview">
+                <img class="profile-photo-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProfileEdit" alt="photo">
+                <div class="profile-photo-blur"></div>
+              </div>
               <button class="photo-edit-btn" type="button" onclick="window.location.href='wireframe_SCR031_photo.html'">写真を編集</button>
             </div>
             </div>
@@ -640,7 +660,7 @@
           </div>
         </div>
 
-        <div class="section-title"><span class="section-icon">◉</span>基本情報</div>
+        <div class="section-title" id="basic"><span class="section-icon">◉</span>基本情報</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="nickname"><span class="label">ニックネーム</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="gender"><span class="label">性別</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -658,7 +678,7 @@
           </div>
         </div>
 
-        <div class="section-title"><span class="section-icon">◎</span>個人傾向・内面</div>
+        <div class="section-title" id="inner"><span class="section-icon">◎</span>個人傾向・内面</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="bloodType"><span class="label">血液型</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="personalityTags"><span class="label">性格タグ</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -666,14 +686,14 @@
           <button class="form-item" type="button" data-field="loveType"><span class="label">ラブタイプ診断</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">⌂</span>居住・行動圏</div>
+        <div class="section-title" id="residence"><span class="section-icon">⌂</span>居住・行動圏</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="residenceArea"><span class="label">居住エリア詳細</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="workplace"><span class="label">勤務地</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="hometown"><span class="label">出身地</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">▣</span>職業・経済</div>
+        <div class="section-title" id="jobeco"><span class="section-icon">▣</span>職業・経済</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="jobCategory"><span class="label">職種カテゴリ</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="workplaceName"><span class="label">職場名</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -683,7 +703,7 @@
           <button class="form-item" type="button" data-field="assets"><span class="label">資産</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">◌</span>ライフスタイル・日常</div>
+        <div class="section-title" id="lifestyle"><span class="section-icon">◌</span>ライフスタイル・日常</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="holidays"><span class="label">休日</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="timeOffStyle"><span class="label">休みの取り方</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -693,7 +713,7 @@
           <button class="form-item" type="button" data-field="housing"><span class="label">住居形態</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">◍</span>家族・背景</div>
+        <div class="section-title" id="family"><span class="section-icon">◍</span>家族・背景</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="siblings"><span class="label">兄弟姉妹</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="familyRelation"><span class="label">家族との仲</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -702,14 +722,14 @@
           <button class="form-item" type="button" data-field="familyIntent"><span class="label">家族関係の継続意向</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">♪</span>趣味・行動嗜好</div>
+        <div class="section-title" id="hobby"><span class="section-icon">♪</span>趣味・行動嗜好</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="hobbies"><span class="label">趣味</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="favoritePlaces"><span class="label">よく行く場所</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="indoorOutdoor"><span class="label">インドア／アウトドア傾向</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">♡</span>恋愛・関係性スタンス</div>
+        <div class="section-title" id="love"><span class="section-icon">♡</span>恋愛・関係性スタンス</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="beforeMeet"><span class="label">会うまでの希望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="datingMeetCount"><span class="label">付き合うまでに会う回数</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -718,14 +738,14 @@
           <button class="form-item" type="button" data-field="soloBalance"><span class="label">ひとり時間とのバランス</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">¤</span>デート・お金の価値観</div>
+        <div class="section-title" id="money"><span class="section-icon">¤</span>デート・お金の価値観</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="firstDateBudget"><span class="label">初回デート代の考え方</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="dateAtmosphere"><span class="label">デートの雰囲気</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="moneyStyle"><span class="label">お金の管理スタイル</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">⌕</span>お相手への希望条件</div>
+        <div class="section-title" id="partner"><span class="section-icon">⌕</span>お相手への希望条件</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="preferredAge"><span class="label">希望年代</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="appearanceType"><span class="label">見た目</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -733,7 +753,7 @@
           <button class="form-item" type="button" data-field="bodyTypePreference"><span class="label">体型</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
         </div>
 
-        <div class="section-title"><span class="section-icon">◇</span>将来・結婚観</div>
+        <div class="section-title" id="future"><span class="section-icon">◇</span>将来・結婚観</div>
         <div class="section-group">
           <button class="form-item" type="button" data-field="maritalHistory"><span class="label">結婚歴</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
           <button class="form-item" type="button" data-field="marriageIntention"><span class="label">結婚願望</span><span class="value"><span class="value-text"></span><span class="arrow">></span></span></button>
@@ -995,11 +1015,39 @@
       renderAllFields();
 
       const urlParams = new URLSearchParams(window.location.search);
+      (function () {
+        const returnTo = urlParams.get("return");
+        if (!returnTo) return;
+        try {
+          localStorage.setItem("ot-return-to", returnTo);
+        } catch (e) {}
+      })();
       if (urlParams.get("mode") === "onboarding") {
         document.querySelectorAll(".onboarding-show").forEach(el => el.style.display = "block");
         document.querySelectorAll(".onboarding-hide").forEach(el => el.style.display = "none");
         document.querySelector(".header-title").textContent = "詳細プロフィール登録";
       }
+
+      function saveAndReturn() {
+        const returnTo = urlParams.get("return") || (function () {
+          try { return localStorage.getItem("ot-return-to"); } catch (e) { return null; }
+        })();
+        if (returnTo) {
+          window.location.href = returnTo;
+          return;
+        }
+        window.location.href = "wireframe_SCR110_mypage.html";
+      }
+
+      (function () {
+        if (!location.hash) return;
+        const id = location.hash.replace("#", "");
+        const el = document.getElementById(id);
+        if (!el) return;
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      })();
     </script>
 
 <div class="blp-wrap">

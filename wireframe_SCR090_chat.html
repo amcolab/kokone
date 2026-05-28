@@ -826,7 +826,7 @@
     <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
     <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
     <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
-    <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+    <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
     <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
   </div>
   <div class="wf-sidebar-group">
@@ -1035,7 +1035,7 @@
             <div class="header-menu-sheet" onclick="event.stopPropagation()">
                 <button class="header-menu-item" type="button" onclick="openPhotoRequestConfirm()">写真公開リクエスト</button>
                 <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
-                <button class="header-menu-item" type="button" onclick="blockUser()">ブロックする</button>
+                <button class="header-menu-item" type="button" onclick="openBlockConfirm()">ブロックする</button>
             </div>
         </div>
         <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
@@ -1045,6 +1045,16 @@
                 <div class="confirm-actions">
                     <button class="confirm-btn secondary" type="button" onclick="closePhotoRequestConfirm()">キャンセル</button>
                     <button class="confirm-btn primary" type="button" onclick="submitPhotoRequest()">送信する</button>
+                </div>
+            </div>
+        </div>
+        <div id="blockConfirm" class="confirm-overlay" onclick="closeBlockConfirm()">
+            <div class="confirm-dialog" onclick="event.stopPropagation()">
+                <div class="confirm-title">ブロックする</div>
+                <div class="confirm-text">お相手をブロックすると、メッセージの送受信ができなくなり、お互いの画面からチャット履歴が完全に削除されます。<br>※ブロックしたことがお相手に通知されることはありません。</div>
+                <div class="confirm-actions">
+                    <button class="confirm-btn secondary" type="button" onclick="closeBlockConfirm()">キャンセル</button>
+                    <button class="confirm-btn primary" type="button" onclick="confirmBlockAndExit()" style="background:#2b2b2b;">ブロックする</button>
                 </div>
             </div>
         </div>
@@ -1132,12 +1142,23 @@
 
     function goToReport() {
         closeHeaderMenu();
+        localStorage.setItem('ot-report-return', window.location.href);
         window.location.href = 'wireframe_SCR103_report.html';
     }
 
-    function blockUser() {
+    function openBlockConfirm() {
         closeHeaderMenu();
-        showActionToast('ブロックしました');
+        document.getElementById('blockConfirm').classList.add('open');
+    }
+
+    function closeBlockConfirm() {
+        document.getElementById('blockConfirm').classList.remove('open');
+    }
+
+    function confirmBlockAndExit() {
+        closeBlockConfirm();
+        localStorage.setItem('ot-global-toast', 'ブロックしました');
+        window.location.href = 'wireframe_SCR065_match.html';
     }
 
     function showActionToast(message) {

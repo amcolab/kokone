@@ -1300,7 +1300,7 @@
     
     .card-photo-container {
       width: 100%;
-      height: 250px;
+      height: 320px;
       background-color: #d2d2d2 !important;
       border-radius: 20px;
       position: relative;
@@ -1308,14 +1308,101 @@
       align-items: center !important;
       justify-content: center !important;
     }
-    
-    .card-photo-container::after {
-      content: 'XX';
-      font-size: 72px;
-      font-weight: 900;
-      color: #a0a0a0;
-      letter-spacing: 2px;
+    .card-photo-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
     }
+    .card-photo-blur {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.38);
+      z-index: 4;
+    }
+    .locked-card {
+      position: relative;
+      border-radius: 14px;
+      background: #f1f1f1;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      padding: 16px 14px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .locked-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.55);
+    }
+    .locked-btn {
+      position: relative;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 0;
+      background: #2b2b2b;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      white-space: nowrap;
+    }
+    .locked-btn .chev { font-size: 14px; line-height: 1; opacity: 0.9; }
+    .locked-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 14px 16px;
+      gap: 6px;
+      color: #757575;
+      font-size: 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #eeeeee;
+    }
+    .locked-row .arrow {
+      color: #bdbdbd;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .photo-edge-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(0,0,0,0.08);
+      color: rgba(33,33,33,0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+      z-index: 10;
+      opacity: 0.28;
+      cursor: pointer;
+      user-select: none;
+    }
+    .photo-edge-arrow.left { left: 8px; }
+    .photo-edge-arrow.right { right: 8px; }
+    .card-photo-container:hover .photo-edge-arrow { opacity: 0.6; }
+    .photo-edge-arrow:active { opacity: 0.85; transform: translateY(-50%) scale(0.96); }
     
     .card-body {
       background: #ffffff !important;
@@ -1386,6 +1473,8 @@
       gap: 6px;
       margin-bottom: 0px !important;
     }
+
+    .tag-row { display: none !important; }
     
     .c-tag {
       padding: 4px 12px !important;
@@ -1422,8 +1511,8 @@
     
     .profile-detail-title {
       font-size: 12px;
-      font-weight: 700;
-      color: #757575;
+      font-weight: 800;
+      color: #616161;
       padding: 14px 14px 8px;
       background: #fafafa;
       border-bottom: 1px solid #eeeeee;
@@ -1455,16 +1544,72 @@
     
     .profile-detail-label {
       font-size: 13px;
-      color: #212121;
-      font-weight: 500;
+      color: #9e9e9e;
+      font-weight: 600;
       flex-shrink: 0;
     }
     
     .profile-detail-value {
       font-size: 12px;
-      color: #757575;
+      color: #616161;
+      font-weight: 700;
       text-align: right;
       line-height: 1.5;
+    }
+    .profile-detail-value.pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: left;
+    }
+    .profile-detail-value.pills.left {
+      justify-content: flex-start;
+    }
+    .profile-detail-row.no-label {
+      justify-content: flex-start;
+    }
+    .profile-detail-row.no-label .profile-detail-label {
+      display: none;
+    }
+    .profile-detail-row.no-label .profile-detail-value {
+      text-align: left;
+      width: 100%;
+    }
+    .value-pill {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #e0e0e0;
+      background: #f7f7f7;
+      color: #424242;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .locked-value {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .locked-arrow {
+      color: #bdbdbd;
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .profile-detail-text {
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #757575;
+      line-height: 1.6;
+      text-align: left;
+      border-bottom: 1px solid #eeeeee;
     }
     
     /* Recommended Shops - Grayscale */
@@ -1509,6 +1654,11 @@
       filter: grayscale(100%) !important;
       border: 1px solid #e0e0e0;
       cursor: pointer;
+    }
+    .shop-card {
+      filter: none !important;
+      background: #e6e6e6 !important;
+      border-color: #d6d6d6 !important;
     }
 
     .shop-detail-overlay {
@@ -1913,7 +2063,7 @@
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
       <a class="wf-nav-link wf-active" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
-      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+    <a class="wf-nav-link" href="wireframe_SCR062_partner_profile_public.html"><span class="wf-nav-id">062</span>Partner Profile</a>
       <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
       <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
       <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
@@ -1937,7 +2087,7 @@
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
-      <a class="wf-nav-link" href="wireframe_SCR100_review.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
     <div class="wf-sidebar-group">
@@ -2016,6 +2166,7 @@
             tags: [],
             desc: '美味しいごはんとワインでリフレッシュするのが何よりの楽しみです。',
             photo: 'yukari_profile.png',
+            photos: ['yukari_profile.png', 'yukari_profile.png'],
             shops: [
               { name: 'XEX 日本橋\nThe BAR', price: '￥￥￥', image: 'restaurant_xex.png' },
               { name: '銀座でワイン。', price: '￥￥', image: 'restaurant_ginza.png' },
@@ -2023,87 +2174,119 @@
             ]
           },
           {
-            name: 'みずきさん',
+            name: 'みずき',
             age: '37歳',
             area: '渋谷区',
             job: '会社員',
-            tags: ['アート', '和食', '散歩'],
+            tags: [],
             desc: '仕事と家庭の両立に奮闘中。話を聞いてくれる方、一緒にランチできる方を探しています。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki-2',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki-3'
+            ],
             shops: [
               { name: '銀座でワイン。', price: '￥￥', image: 'restaurant_ginza.png' },
               { name: 'ブラッセルズ\n神楽坂', price: '￥￥', image: 'restaurant_brussels.png' }
             ]
           },
           {
-            name: 'さくらさん',
+            name: 'さくら',
             age: '34歳',
             area: '新宿区',
             job: 'デザイナー',
-            tags: ['アート', '読書', 'インドア'],
+            tags: [],
             desc: 'クリエイティブな仕事をしています。感性が合う方とゆっくり食事できたら嬉しいです。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sakura',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Sakura',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Sakura-2'
+            ],
             shops: [
               { name: 'XEX 日本橋\nThe BAR', price: '￥￥￥', image: 'restaurant_xex.png' },
               { name: '銀座でワイン。', price: '￥￥', image: 'restaurant_ginza.png' }
             ]
           },
           {
-            name: 'ゆきさん',
+            name: 'ゆき',
             age: '41歳',
             area: '港区',
             job: 'マーケター',
-            tags: ['ワイン', '和食', '旅行', 'アクティブ'],
+            tags: [],
             desc: '仕事が好きな分、プライベートも充実させたい。おいしいものを一緒に楽しめる方募集中。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki-2',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki-3'
+            ],
             shops: [
               { name: 'XEX 日本橋\nThe BAR', price: '￥￥￥', image: 'restaurant_xex.png' }
             ]
           },
           {
-            name: 'なつみさん',
+            name: 'なつみ',
             age: '36歳',
             area: '目黒区',
             job: '看護師',
-            tags: ['料理', '自然', '散歩', '穏やか'],
+            tags: [],
             desc: '忙しい毎日の中でほっとできる時間を大切にしています。気軽に話せる方と食事したいです。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Natsumi',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Natsumi',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Natsumi-2',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Natsumi-3'
+            ],
             shops: [
               { name: 'ブラッセルズ\n神楽坂', price: '￥￥', image: 'restaurant_brussels.png' }
             ]
           },
           {
-            name: 'あやかさん',
+            name: 'あやか',
             age: '39歳',
             area: '世田谷区',
             job: '会社役員',
-            tags: ['フレンチ', 'ジム', 'ビジネス', '知的'],
+            tags: [],
             desc: 'キャリアも家庭も大切に。刺激をくれる方、一緒に美食を楽しめる方と出会いたいです。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ayaka',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Ayaka',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Ayaka-2'
+            ],
             shops: [
               { name: 'XEX 日本橋\nThe BAR', price: '￥￥￥', image: 'restaurant_xex.png' }
             ]
           },
           {
-            name: 'ほのかさん',
+            name: 'ほのか',
             age: '33歳',
             area: '品川区',
             job: '教師',
-            tags: ['ランニング', '音楽', '穏やか'],
+            tags: [],
             desc: '毎日子どもたちと関わる仕事をしています。仕事を離れてゆっくり話せる方と食事したいです。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Honoka',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Honoka',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Honoka-2',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Honoka-3'
+            ],
             shops: [
               { name: '銀座でワイン。', price: '￥￥', image: 'restaurant_ginza.png' }
             ]
           },
           {
-            name: 'まいさん',
+            name: 'まい',
             age: '38歳',
             area: '中野区',
             job: 'フリーランス',
-            tags: ['和食', '猫', '感受性豊か'],
+            tags: [],
             desc: '自分のペースで働いています。美味しいものと素敵な会話が好きです。気軽に声かけてください。',
             photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mai',
+            photos: [
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Mai',
+              'https://api.dicebear.com/7.x/avataaars/svg?seed=Mai-2'
+            ],
             shops: [
               { name: 'ブラッセルズ\n神楽坂', price: '￥￥', image: 'restaurant_brussels.png' }
             ]
@@ -2128,7 +2311,53 @@
             bodyType: '普通体型',
             marriage: '良いご縁があれば考えたい',
             children: '相手と相談したい',
-            transfer: 'できればしたくない'
+            transfer: 'できればしたくない',
+            height: '162cm',
+            bodyType: '普通',
+            alcoholFrequency: '時々飲む',
+            bloodType: 'A',
+            personalityTags: '落ち着いている / 誠実 / 前向き',
+            mbti: 'ISFJ',
+            loveType: 'バランス型',
+            residenceArea: '東京都 / 銀座・有楽町',
+            jobCategory: '会社員（総合職・一般職）',
+            workplaceName: '都内メーカー勤務',
+            education: '大学卒',
+            schoolName: '上智大学',
+            incomeRange: '600〜799万円',
+            assets: '500〜999万円',
+            holidays: '土日',
+            timeOffStyle: '事前に計画して取る',
+            favoriteAlcohol: 'ワイン / シャンパン',
+            smoking: '吸わない',
+            car: '持っていない',
+            siblings: '次男・次女',
+            familyRelation: '良い',
+            cohabitants: 'いない',
+            hasChildren: 'いない',
+            familyIntent: '相手と相談したい',
+            favoritePlaces: '銀座 / 日本橋 / ホテルラウンジ',
+            beforeMeet: 'まずはメッセージを重ねたい',
+            datingMeetCount: '3〜5回',
+            contactFrequency: '毎日1〜2往復',
+            meetFrequency: '月2回くらい',
+            soloBalance: 'バランスよく',
+            firstDateBudget: '相手に合わせる',
+            dateAtmosphere: '落ち着いたお店でゆっくり',
+            moneyStyle: '相談して決めたい',
+            preferredAge: '同年代',
+            appearanceType: '清潔感がある人',
+            personalityTypePreference: '穏やかで誠実',
+            bodyTypePreference: '普通体型',
+            maritalHistory: '未婚',
+            marriageIntention: '良いご縁があれば考えたい',
+            childPreference: '相手と相談したい',
+            postMarriageWork: '続けたい',
+            transferPlan: 'できれば避けたい',
+            houseworkView: '一緒に分担したい',
+            commonLaw: '状況によってはあり',
+            postMarriageLiving: '二人で暮らしたい',
+            postMarriageSurname: 'どちらでもよい'
           },
           {
             hometown: '埼玉県',
@@ -2272,6 +2501,24 @@
           }
         ];
         var idx = 0;
+        var currentPhotoIndex = 0;
+        (function () {
+          try {
+            var params = new URLSearchParams(window.location.search);
+            var idxParam = params.get('idx');
+            if (idxParam !== null && idxParam !== undefined && idxParam !== '') {
+              var parsed = parseInt(idxParam, 10);
+              if (!Number.isNaN(parsed)) {
+                idx = Math.max(0, Math.min(parsed, CANDIDATES.length - 1));
+              }
+            }
+          } catch (e) {}
+        })();
+        var DEFAULT_SHOPS = [
+          { name: 'ショップA', price: '￥￥', image: '' },
+          { name: 'ショップB', price: '￥￥', image: '' },
+          { name: 'ショップC', price: '￥￥', image: '' }
+        ];
         function renderDetailSection(icon, title, rows) {
           return '<div class="profile-detail-section">' +
             '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
@@ -2283,65 +2530,221 @@
             }).join('') +
           '</div>';
         }
+        function renderTextSection(icon, title, text) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
+            '<div class="profile-detail-text">' + text + '</div>' +
+          '</div>';
+        }
+        function renderLockedCardSection(icon, title, onClickUrl) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
+            '<div class="locked-card" onclick="window.location.href=\'' + onClickUrl + '\'">' +
+              '<button class="locked-btn" type="button" onclick="event.stopPropagation(); window.location.href=\'' + onClickUrl + '\'">自分も記入して閲覧 <span class="chev">›</span></button>' +
+            '</div>' +
+          '</div>';
+        }
+        function renderLockedRowSection(icon, title, onClickUrl) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
+            '<div class="locked-row" onclick="window.location.href=\'' + onClickUrl + '\'">' +
+              '<span>自分も記入して閲覧</span><span class="arrow">›</span>' +
+            '</div>' +
+          '</div>';
+        }
+        function renderLockedFieldsSection(icon, title, labels, onClickUrl) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">' + icon + '</span><span>' + title + '</span></div>' +
+            labels.map(function (label) {
+              return '<div class="profile-detail-row" onclick="window.location.href=\'' + onClickUrl + '\'">' +
+                '<div class="profile-detail-label">' + label + '</div>' +
+                '<div class="profile-detail-value locked-value"><span>自分も記入して閲覧</span><span class="locked-arrow">›</span></div>' +
+              '</div>';
+            }).join('') +
+          '</div>';
+        }
+        function hobbyPillsFromText(text, alignLeft) {
+          if (!text) return '';
+          var items = String(text)
+            .split('/')
+            .map(function (s) { return s.replace(/\s+/g, ' ').trim(); })
+            .filter(Boolean);
+          if (!items.length) return '';
+          return '<div class="profile-detail-value pills' + (alignLeft ? ' left' : '') + '">' +
+            items.map(function (t) { return '<span class="value-pill">' + t + '</span>'; }).join('') +
+          '</div>';
+        }
+        function renderHobbySectionForYukari(hobbyText, placesText, ioText) {
+          return '<div class="profile-detail-section">' +
+            '<div class="profile-detail-title"><span class="profile-detail-icon">◈</span><span>趣味・行動嗜好</span></div>' +
+            '<div class="profile-detail-row no-label">' +
+              '<div class="profile-detail-label"></div>' +
+              hobbyPillsFromText(hobbyText, true) +
+            '</div>' +
+            '<div class="profile-detail-row">' +
+              '<div class="profile-detail-label">よく行く場所</div>' +
+              '<div class="profile-detail-value">' + placesText + '</div>' +
+            '</div>' +
+            '<div class="profile-detail-row">' +
+              '<div class="profile-detail-label">インドア / アウトドア</div>' +
+              '<div class="profile-detail-value">' + ioText + '</div>' +
+            '</div>' +
+          '</div>';
+        }
         function renderCard() {
           var c = CANDIDATES[idx];
           var d = DETAIL_PRESETS[idx % DETAIL_PRESETS.length];
-          var tags = c.tags.map(function (t) { return '<span class="c-tag">' + t + '</span>'; }).join('');
+          var tags = '';
           var hobbyText = c.tags && c.tags.length ? c.tags.join(' / ') : d.hobbies;
+          var photos = (c.photos && c.photos.length) ? c.photos : [c.photo || ''];
+          currentPhotoIndex = 0;
+          var arrowsHtml = (photos.length > 1)
+            ? '<div class="photo-edge-arrow left" onclick="prevPhoto(event)">‹</div><div class="photo-edge-arrow right" onclick="nextPhoto(event)">›</div>'
+            : '';
+          function v(key, fallback) { return (d && d[key]) ? d[key] : fallback; }
+          var mizukiReturnTo = encodeURIComponent('wireframe_SCR060_flat.html?idx=1');
+          var editProfileBase = 'wireframe_SCR112_edit_profile.html?return=' + mizukiReturnTo;
           
           var shopsHtml = '';
-          if (c.shops && c.shops.length > 0) {
-            shopsHtml += '<div class="shop-section-header"><span>★ おすすめのお店</span></div>';
-            shopsHtml += '<div class="shop-note">※ Likeする前にお店を1つ選択してください</div>';
-            shopsHtml += '<div class="shop-grid">';
-            c.shops.forEach(function (shop, shopIdx) {
-              shopsHtml += '<div class="shop-card" style="background-image: url(\'' + shop.image + '\');" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
-                           '<div class="shop-overlay"></div>' +
-                           '<div class="shop-text-overlay">' +
-                           '<div class="shop-name">' + shop.name.replace('\n', '<br>') + '</div>' +
-                           '<div class="shop-price">' + shop.price + '</div>' +
-                           '</div>' +
-                           '</div>';
-            });
-            shopsHtml += '</div>';
-          }
+          shopsHtml += '<div class="shop-section-header"><span>★ おすすめのお店</span></div>';
+          shopsHtml += '<div class="shop-note">※ いいねする前にお店を1つ選択してください</div>';
+          shopsHtml += '<div class="shop-grid">';
+          var shops = (c.shops && c.shops.length) ? c.shops.slice(0, 3) : DEFAULT_SHOPS.slice();
+          while (shops.length < 3) shops.push(DEFAULT_SHOPS[shops.length]);
+          c.shops = shops;
+          shops.forEach(function (shop, shopIdx) {
+            shopsHtml += '<div class="shop-card" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
+                         '<div class="shop-overlay"></div>' +
+                         '<div class="shop-text-overlay">' +
+                         '<div class="shop-name">' + shop.name.replace('\n', '<br>') + '</div>' +
+                         '<div class="shop-price">' + shop.price + '</div>' +
+                         '</div>' +
+                         '</div>';
+          });
+          shopsHtml += '</div>';
           var detailHtml =
             '<div class="profile-detail-wrap">' +
+              (idx === 1
+                ? renderLockedCardSection('✦', '自己紹介文', editProfileBase + '#bio')
+                : renderTextSection('✦', '自己紹介文', 'はじめまして。都内でIT関連の仕事をしています。休日はカフェ巡りや映画鑑賞をして過ごすことが多いです。自然体で会話できる方と出会えたら嬉しいです。')
+              ) +
               renderDetailSection('◉', '基本情報', [
-                ['職業', c.job],
-                ['勤務地', d.workplace],
-                ['出身地', d.hometown]
+                ['身長', v('height', '175cm')],
+                ['体型', v('bodyType', '普通')],
+                ['お酒（頻度）', v('alcoholFrequency', 'たまに飲む')]
               ]) +
-              renderDetailSection('◌', 'ライフスタイル', [
-                ['休日', d.holidays],
-                ['好きなお酒の種類', d.alcohol],
-                ['タバコ', d.smoke],
-                ['住居形態', d.housing]
-              ]) +
-              renderDetailSection('◈', '趣味・行動嗜好', [
-                ['趣味', hobbyText],
-                ['よく行く場所', d.spots],
-                ['インドア / アウトドア', d.indoorOutdoor]
-              ]) +
-              renderDetailSection('♡', '恋愛・関係性スタンス', [
-                ['会うまでの希望', d.untilMeet],
-                ['連絡頻度の希望', d.contact],
-                ['会う頻度の希望', d.dateFrequency]
-              ]) +
-              renderDetailSection('◇', 'お相手への希望条件', [
-                ['見た目', d.looks],
-                ['性格', d.personality],
-                ['体型', d.bodyType]
-              ]) +
-              renderDetailSection('◎', '将来・結婚観', [
-                ['結婚願望', d.marriage],
-                ['子ども希望', d.children],
-                ['将来の転勤', d.transfer]
-              ]) +
+              (idx === 1
+                ? renderLockedFieldsSection('◎', '個人傾向・内面', ['血液型', '性格タグ', 'MBTI16タイプ診断', 'ラブタイプ診断'], editProfileBase + '#inner')
+                : renderDetailSection('◎', '個人傾向・内面', [
+                    ['血液型', v('bloodType', 'A')],
+                    ['性格タグ', v('personalityTags', '未選択')],
+                    ['MBTI16タイプ診断', v('mbti', 'ENFP')],
+                    ['ラブタイプ診断', v('loveType', '未選択')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('⌂', '居住・行動圏', ['居住エリア詳細', '勤務地', '出身地'], editProfileBase + '#residence')
+                : renderDetailSection('⌂', '居住・行動圏', [
+                    ['居住エリア詳細', v('residenceArea', '東京都 / 渋谷・恵比寿')],
+                    ['勤務地', v('workplace', d.workplace)],
+                    ['出身地', v('hometown', d.hometown)]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('▣', '職業・経済', ['職種カテゴリ', '職場名', '最終学歴', '学校名', '年収', '資産'], editProfileBase + '#jobeco')
+                : renderDetailSection('▣', '職業・経済', [
+                    ['職種カテゴリ', v('jobCategory', c.job)],
+                    ['職場名', v('workplaceName', '未入力')],
+                    ['最終学歴', v('education', '大学卒')],
+                    ['学校名', v('schoolName', '未入力')],
+                    ['年収', v('incomeRange', '未選択')],
+                    ['資産', v('assets', '未選択')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('◌', 'ライフスタイル', ['休日', '好きなお酒の種類', 'タバコ', '住居形態'], editProfileBase + '#lifestyle')
+                : renderDetailSection('◌', 'ライフスタイル', [
+                    ['休日', v('holidays', '土日')],
+                    ['休みの取り方', v('timeOffStyle', '事前に計画して取る')],
+                    ['好きなお酒の種類', v('favoriteAlcohol', v('alcohol', 'ワイン / シャンパン'))],
+                    ['タバコ', v('smoking', v('smoke', '吸わない'))],
+                    ['自動車', v('car', '持っていない')],
+                    ['住居形態', v('housing', 'ひとり暮らし')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('◍', '家族・背景', ['兄弟姉妹', '家族との仲', '同居人', '子ども（有無）', '家族関係の継続意向'], editProfileBase + '#family')
+                : renderDetailSection('◍', '家族・背景', [
+                    ['兄弟姉妹', v('siblings', '一人っ子')],
+                    ['家族との仲', v('familyRelation', '良い')],
+                    ['同居人', v('cohabitants', 'いない')],
+                    ['子ども（有無）', v('hasChildren', 'いない')],
+                    ['家族関係の継続意向', v('familyIntent', '相手と相談したい')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('◈', '趣味・行動嗜好', ['趣味', 'よく行く場所', 'インドア / アウトドア'], editProfileBase + '#hobby')
+                : (idx === 0
+                  ? renderHobbySectionForYukari(
+                      hobbyText,
+                      v('favoritePlaces', v('spots', '銀座 / 日本橋 / ホテルラウンジ')),
+                      v('indoorOutdoor', 'インドア')
+                    )
+                  : renderDetailSection('◈', '趣味・行動嗜好', [
+                      ['趣味', hobbyText],
+                      ['よく行く場所', v('favoritePlaces', v('spots', '銀座 / 日本橋 / ホテルラウンジ'))],
+                      ['インドア / アウトドア', v('indoorOutdoor', 'インドア')]
+                    ])
+                )
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('♡', '恋愛・関係性スタンス', ['会うまでの希望', '付き合うまでに会う回数', '連絡頻度の希望', '会う頻度の希望', 'ひとり時間とのバランス'], editProfileBase + '#love')
+                : renderDetailSection('♡', '恋愛・関係性スタンス', [
+                    ['会うまでの希望', v('beforeMeet', v('untilMeet', 'まずはメッセージで安心したい'))],
+                    ['付き合うまでに会う回数', v('datingMeetCount', '3〜5回')],
+                    ['連絡頻度の希望', v('contactFrequency', v('contact', '毎日1〜2往復'))],
+                    ['会う頻度の希望', v('meetFrequency', v('dateFrequency', '月2回くらい'))],
+                    ['ひとり時間とのバランス', v('soloBalance', 'バランスよく')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('¤', 'デート・お金の価値観', ['初回デート代の考え方', 'デートの雰囲気', 'お金の管理スタイル'], editProfileBase + '#money')
+                : renderDetailSection('¤', 'デート・お金の価値観', [
+                    ['初回デート代の考え方', v('firstDateBudget', '相手に合わせる')],
+                    ['デートの雰囲気', v('dateAtmosphere', '落ち着いたお店でゆっくり')],
+                    ['お金の管理スタイル', v('moneyStyle', '相談して決めたい')]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('◇', 'お相手への希望条件', ['希望年代', '見た目', '性格', '体型'], editProfileBase + '#partner')
+                : renderDetailSection('◇', 'お相手への希望条件', [
+                    ['希望年代', v('preferredAge', '同年代')],
+                    ['見た目', v('appearanceType', v('looks', '清潔感がある人'))],
+                    ['性格', v('personalityTypePreference', v('personality', '穏やかで誠実'))],
+                    ['体型', v('bodyTypePreference', v('bodyType', '普通体型'))]
+                  ])
+              ) +
+              (idx === 1
+                ? renderLockedFieldsSection('◎', '将来・結婚観', ['結婚歴', '結婚願望', '子ども希望', '結婚後の仕事', '将来の転勤', '家事育児の考え方', '事実婚', '結婚後の同居', '結婚後の姓'], editProfileBase + '#future')
+                : renderDetailSection('◎', '将来・結婚観', [
+                    ['結婚歴', v('maritalHistory', '未婚')],
+                    ['結婚願望', v('marriageIntention', v('marriage', '良いご縁があれば考えたい'))],
+                    ['子ども希望', v('childPreference', v('children', '相手と相談したい'))],
+                    ['結婚後の仕事', v('postMarriageWork', '続けたい')],
+                    ['将来の転勤', v('transferPlan', v('transfer', 'できればしたくない'))],
+                    ['家事育児の考え方', v('houseworkView', '一緒に分担したい')],
+                    ['事実婚', v('commonLaw', '状況によってはあり')],
+                    ['結婚後の同居', v('postMarriageLiving', '二人で暮らしたい')],
+                    ['結婚後の姓', v('postMarriageSurname', 'どちらでもよい')]
+                  ])
+              ) +
             '</div>';
 
           document.getElementById('userCard').innerHTML =
-            '<div class="card-photo-container" style="cursor:pointer;" onclick="window.location.href=\'wireframe_SCR062_partner_profile.html\'">' +
+            '<div class="card-photo-container" style="cursor:pointer;" onclick="window.location.href=\'wireframe_SCR062_partner_profile_public.html\'">' +
+              arrowsHtml +
+              '<img class="card-photo-img" id="cardPhotoImg" src="' + (photos[0] || '') + '" alt="photo">' +
+              '<div class="card-photo-blur"></div>' +
             '</div>' +
             '<div class="card-body">' +
             '<div class="card-name-row">' +
@@ -2359,6 +2762,28 @@
             '';
           document.getElementById('profileDetails').innerHTML = detailHtml;
 
+        }
+        function updatePhotoUI() {
+          var c = CANDIDATES[idx];
+          var photos = (c.photos && c.photos.length) ? c.photos : [c.photo || ''];
+          var img = document.getElementById('cardPhotoImg');
+          if (img) img.src = photos[currentPhotoIndex] || '';
+        }
+        function prevPhoto(e) {
+          if (e) e.stopPropagation();
+          var c = CANDIDATES[idx];
+          var photos = (c.photos && c.photos.length) ? c.photos : [c.photo || ''];
+          if (photos.length <= 1) return;
+          currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+          updatePhotoUI();
+        }
+        function nextPhoto(e) {
+          if (e) e.stopPropagation();
+          var c = CANDIDATES[idx];
+          var photos = (c.photos && c.photos.length) ? c.photos : [c.photo || ''];
+          if (photos.length <= 1) return;
+          currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+          updatePhotoUI();
         }
         function skipCard() {
           var card = document.getElementById('userCard');

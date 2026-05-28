@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-100B Review Input</title>
+  <style>
+    :root {
+      --c0: #ffffff;
+      --c1: #f6f6f6;
+      --c2: #e3e3e3;
+      --c3: #c7c7c7;
+      --c4: #8a8a8a;
+      --c5: #4f4f4f;
+      --c6: #212121;
+      --wf-global-zoom: 1.1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--c6);
+      padding: 20px 300px 20px 220px;
+      zoom: var(--wf-global-zoom);
+    }
+    .device {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      flex-shrink: 0;
+    }
+    .back-btn { font-size: 18px; cursor: pointer; }
+    .title { font-size: 16px; font-weight: 800; flex: 1; text-align: center; }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c0);
+      padding: 12px 14px 18px;
+    }
+    .section-title {
+      font-size: 11px;
+      color: var(--c4);
+      font-weight: 800;
+      margin: 10px 0 8px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: linear-gradient(180deg, #dadada 0%, #bfbfbf 100%);
+      flex-shrink: 0;
+    }
+    .name { font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+    .sub { font-size: 11px; color: var(--c4); }
+    .card {
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      background: var(--c0);
+      padding: 12px;
+    }
+    .store-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      border: 1px solid var(--c2);
+      background: #ececec;
+      flex-shrink: 0;
+    }
+    .store-name { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+    .store-meta { font-size: 11px; color: var(--c4); line-height: 1.5; }
+    .kv {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--c5);
+      margin-top: 8px;
+    }
+    .kv .k { color: var(--c4); }
+    .divider { height: 1px; background: var(--c2); margin: 12px 0; }
+    .stars { letter-spacing: 2px; font-size: 14px; color: var(--c6); }
+    .stars.overall { font-size: 24px; letter-spacing: 5px; }
+    .stars.muted { color: var(--c3); }
+    .rating-head { position: relative; display: flex; align-items: center; justify-content: center; min-height: 34px; }
+    .rating-score { font-size: 12px; color: var(--c5); font-weight: 800; }
+    .rating-head .rating-score { position: absolute; right: 0; }
+    .rating-row { display: grid; grid-template-columns: 1fr 86px 36px; align-items: center; gap: 10px; margin-top: 10px; }
+    .rating-label { font-size: 11px; color: var(--c5); }
+    .rating-stars { font-size: 12px; letter-spacing: 2px; color: var(--c6); }
+    .comment-label { font-size: 11px; color: var(--c5); font-weight: 800; margin-bottom: 6px; }
+    .textarea {
+      width: 100%;
+      min-height: 84px;
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 12px;
+      background: #fafafa;
+      resize: none;
+      outline: none;
+    }
+    .count { font-size: 10px; color: var(--c4); text-align: right; margin-top: 6px; }
+    .footer {
+      padding: 12px 14px 16px;
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .btn {
+      height: 44px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn.ghost { background: var(--c0); border: 1px solid var(--c2); color: var(--c5); }
+    .btn.primary { background: var(--c6); border: 0; color: var(--c0); }
+    .wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;}
+    .wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;text-decoration:none;}
+    .wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0;}
+    .wf-logo-text{font-size:12px;font-weight:700;color:#212121;}
+    .wf-sidebar-group{border-bottom:1px solid #e0e0e0;}
+    .wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px;}
+    .wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3;}
+    .wf-nav-link:hover{background:#f5f5f5;color:#424242;}
+    .wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242;}
+    .wf-nav-id{font-size:9px;color:#bdbdbd;width:32px;flex-shrink:0;}
+  </style>
+</head>
+<body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group"><div class="wf-group-label">A · Onboarding</div><a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a><a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a><a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a><a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a><a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a><a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a><a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a><a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a><a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">B · Home</div><a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a><a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a><a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a><a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a><a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a><a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a><a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a><a class="wf-nav-link" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a><a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a><a class="wf-nav-link" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a><a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a><a class="wf-nav-link" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">E · Chat & Review</div><a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a><a class="wf-nav-link" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a><a class="wf-nav-link" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a><a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100A</span>Review Prompt</a><a class="wf-nav-link wf-active" href="wireframe_SCR100_review_input.html"><span class="wf-nav-id">100B</span>Review Input</a><a class="wf-nav-link" href="wireframe_SCR100_review_sent.html"><span class="wf-nav-id">100C</span>Review Sent</a><a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a></div>
+  </nav>
+
+  <div class="device">
+    <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR100_review_prompt_chat.html'">‹</div>
+      <div class="title">レビューを入力</div>
+      <div style="width:18px;"></div>
+    </div>
+    <div class="content">
+      <div class="section-title">お食事したお相手</div>
+      <div class="row">
+        <div class="avatar"></div>
+        <div>
+          <div class="name">みずき</div>
+          <div class="sub">27歳・東京</div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:14px;">来店情報</div>
+      <div class="card">
+        <div class="row" style="align-items:flex-start;">
+          <div class="store-photo"></div>
+          <div style="flex:1; min-width:0;">
+            <div class="store-name">個室ダイニング 和楽</div>
+            <div class="store-meta">（新宿・和食）</div>
+            <div class="kv"><span class="k">📅</span><span>2024年3月20日（水）19:00〜</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:14px;">総合評価</div>
+      <div class="rating-head">
+        <div>
+          <span class="stars overall">★★★★★</span>
+        </div>
+        <div class="rating-score">4/5</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rating-row"><div class="rating-label">雰囲気（デート適性・居心地）</div><div class="rating-stars">★★★★★</div><div class="rating-score">4/5</div></div>
+      <div class="rating-row"><div class="rating-label">料理（味・品質）</div><div class="rating-stars">★★★★★</div><div class="rating-score">5/5</div></div>
+      <div class="rating-row"><div class="rating-label">会話環境（話しやすさ・騒がしさ）</div><div class="rating-stars">★★★★★</div><div class="rating-score">4/5</div></div>
+      <div class="rating-row"><div class="rating-label">サービス（接客）</div><div class="rating-stars">★★★★★</div><div class="rating-score">4/5</div></div>
+
+      <div class="divider"></div>
+
+      <div class="comment-label">コメント（任意）</div>
+      <textarea class="textarea" placeholder="お店の感想を自由に記入ください"></textarea>
+      <div class="count">0/500</div>
+    </div>
+    <div class="footer">
+      <button class="btn ghost" type="button" onclick="window.location.href='wireframe_SCR100_review_prompt_chat.html'">スキップ</button>
+      <button class="btn primary" type="button" onclick="window.location.href='wireframe_SCR100_review_sent.html'">レビューを送信</button>
+    </div>
+  </div>
+
+  <div class="blp-wrap" style="position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;">
+    <div class="blp-head" style="position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2;">
+      <div style="font-size:9px;color:#bdbdbd;letter-spacing:.5px;margin-bottom:2px;">SCR-100B</div>
+      <div style="font-size:12px;font-weight:700;">Review Input</div>
+      <div style="font-size:10px;color:#9e9e9e;margin-top:2px;">レビュー入力 / Nhập đánh giá</div>
+    </div>
+    <div style="padding:10px 12px 20px;">
+      <div style="margin-bottom:14px;">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;">目的</div>
+        <div style="background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #212121;padding:7px 9px;font-size:10px;color:#424242;line-height:1.55;margin-top:6px;">評価（総合＋項目）とコメントを入力して送信する画面です。</div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px;">遷移</div>
+        <div style="background:#fafafa;border:1px solid #e0e0e0;border-left:3px solid #bdbdbd;padding:7px 9px;font-size:10px;color:#757575;line-height:1.55;margin-top:6px;">`レビューを送信` → `SCR-100C`（送信完了）</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
