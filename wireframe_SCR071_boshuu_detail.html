@@ -120,6 +120,45 @@
       font-size: 24px;
       color: var(--c4);
     }
+    .photo-box.blurred {
+      position: relative;
+      overflow: hidden;
+      background: #d2d2d2;
+    }
+    .photo-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) blur(8px);
+      transform: scale(1.08);
+    }
+    .photo-blur {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .verify-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+      margin-left: 6px;
+      flex-shrink: 0;
+    }
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
 
     .recruiter-info {
       flex: 1;
@@ -216,6 +255,23 @@
       background: var(--c1);
       border: 1px solid var(--c3);
       padding: 12px;
+      font-size: 12px;
+      color: var(--c6);
+      line-height: 1.5;
+    }
+    .hitokoto-box {
+      margin-top: 8px;
+      background: var(--c1);
+      border: 1px solid var(--c3);
+      padding: 10px 12px;
+    }
+    .hitokoto-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c4);
+      margin-bottom: 6px;
+    }
+    .hitokoto-text {
       font-size: 12px;
       color: var(--c6);
       line-height: 1.5;
@@ -330,9 +386,215 @@
       font-size: 13px;
       font-weight: 600;
     }
+    .res-name-link {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
     .res-meta-text {
       font-size: 11px;
       color: var(--c4);
+    }
+    .res-meta-text .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .glass-meter {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .glass-svg {
+      width: 12px;
+      height: 12px;
+      stroke: #212121;
+      fill: none;
+      stroke-width: 1.8;
+    }
+    .res-area-price {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c6);
+      white-space: nowrap;
+    }
+    .area-glass {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    /* Shop detail popup (match SCR120) */
+    .shop-detail-overlay{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,0.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 100000;
+      padding: 18px 12px;
+    }
+    .shop-detail-sheet{
+      width:100%;
+      background:#fff;
+      max-width: 340px;
+      border-radius: 16px;
+      border: 1px solid var(--c3);
+      overflow:hidden;
+    }
+    .shop-detail-hero-wrap{
+      position: relative;
+      height: 170px;
+      background: #e0e0e0;
+    }
+    .shop-detail-close{
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.92);
+      cursor:pointer;
+      color: #424242;
+      font-size: 16px;
+      font-weight: 900;
+      z-index: 3;
+    }
+    .shop-detail-hero{
+      position:absolute;
+      inset:0;
+      background-size: cover;
+      background-position: center;
+    }
+    .shop-detail-scroll{
+      max-height: 560px;
+      overflow-y:auto;
+      background:#fff;
+    }
+    .shop-detail-body{
+      padding: 14px 14px 18px;
+    }
+    .shop-detail-title-row{
+      display:flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .shop-detail-badge{
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: #212121;
+      color: #fff;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .shop-detail-name{
+      font-size: 15px;
+      font-weight: 900;
+      color: #212121;
+      line-height: 1.3;
+    }
+    .shop-detail-price-row{
+      margin-top: 10px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .shop-detail-help{
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid #e0e0e0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: #9e9e9e;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .shop-detail-tags{
+      margin-top: 10px;
+      display:flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .shop-detail-tag{
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #e0e0e0;
+      background: #fafafa;
+      color: #424242;
+      font-weight: 700;
+    }
+    .shop-detail-section{
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #eeeeee;
+    }
+    .shop-detail-section-title{
+      font-size: 11px;
+      font-weight: 900;
+      color: #616161;
+      margin-bottom: 6px;
+    }
+    .shop-detail-section-text{
+      font-size: 12px;
+      color: #424242;
+      line-height: 1.6;
+    }
+    .shop-detail-map{
+      margin-top: 14px;
+      border-top: 1px solid #eeeeee;
+      padding-top: 12px;
+    }
+    .shop-detail-map-visual{
+      height: 92px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: #757575;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .shop-detail-map-pin{
+      position:absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #212121;
+      max-width: calc(100% - 20px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .shop-detail-address{
+      margin-top: 8px;
+      font-size: 11px;
+      color: #757575;
+      line-height: 1.5;
     }
     .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     /* === BUSINESS LOGIC PANEL === */
@@ -461,18 +723,26 @@
     <div class="content">
       <!-- Recruiter Card -->
       <div class="recruiter-card">
-        <div class="photo-box">✕✕</div>
-        <div class="recruiter-info">
-          <div class="recruiter-name">みおさん · 38歳</div>
-          <div class="recruiter-detail">渋谷区 · 会社員 · 既婚</div>
-          <div class="verified-badge"><span class="badge-icon"></span>本人確認済</div>
-          <div class="tag-row">
-            <div class="tag">グルメ</div>
-            <div class="tag">カフェ</div>
-            <div class="tag">落ち着いている</div>
-          </div>
-          <button class="profile-link">プロフィールを見る ></button>
+        <div class="photo-box blurred">
+          <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%23cfcfcf'/><circle cx='40' cy='30' r='14' fill='%239b9b9b'/><rect x='18' y='46' width='44' height='26' rx='13' fill='%23b3b3b3'/><circle cx='34' cy='28' r='2.2' fill='%23424242'/><circle cx='46' cy='28' r='2.2' fill='%23424242'/><path d='M34 35c4 3 8 3 12 0' fill='none' stroke='%23424242' stroke-width='2' stroke-linecap='round'/></svg>">
+          <div class="photo-blur"></div>
         </div>
+        <div class="recruiter-info">
+          <div class="name-row">
+            <div class="recruiter-name">みお · 38歳</div>
+            <span class="verify-dot">✓</span>
+          </div>
+          <div class="tag-row">
+            <div class="tag">和食</div>
+            <div class="tag">イタリアン</div>
+            <div class="tag">焼肉・ステーキ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">ひとこと</div>
+        <div class="comment-box">仕事帰りに気軽に話せる方を探しています。難しいことは抜きで、ゆっくりご飯が食べられれば嬉しいです。</div>
       </div>
 
       <!-- Food Preferences Section -->
@@ -486,53 +756,92 @@
           <div class="icon">📍</div>
           <div>新宿〜渋谷エリア</div>
         </div>
-        <div class="section-row">
-          <div class="icon">👥</div>
-          <div>1対1</div>
-        </div>
+        <!-- removed 1対1 -->
       </div>
 
       <!-- Proposed Restaurants Section -->
       <div class="section" id="restaurant-proposal-section">
         <div class="section-title">提案されたお店</div>
-        <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、あなたが行きたいお店を全て選んでください</div>
+        <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、行きたいお店を全て選んでください</div>
         
         <div class="res-prop-list">
           <!-- Item 1 -->
           <div class="res-prop-item selected" onclick="this.classList.toggle('selected')">
             <div class="res-check-box">✓</div>
             <div>
-              <div class="res-name-text">ビストロ・オー 新宿店</div>
-              <div class="res-meta-text">新宿駅徒歩5分 / イタリアン</div>
+              <div class="res-name-text"><span class="res-name-link" onclick="openShopModal(event, 'ビストロ・オー 新宿店', '新宿', 'イタリアン', 2)">ビストロ・オー 新宿店</span></div>
+              <div class="res-meta-text">
+                <div class="meta-row">
+                  <span class="area-glass">
+                    <span class="res-area-price">新宿｜</span>
+                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
           <!-- Item 2 -->
           <div class="res-prop-item" onclick="this.classList.toggle('selected')">
             <div class="res-check-box">✓</div>
             <div>
-              <div class="res-name-text">和食処 みやび Shibuya</div>
-              <div class="res-meta-text">渋谷エリア / 和食</div>
+              <div class="res-name-text"><span class="res-name-link" onclick="openShopModal(event, '和食処 みやび Shibuya', '渋谷', '焼肉・ステーキ', 3)">和食処 みやび Shibuya</span></div>
+              <div class="res-meta-text">
+                <div class="meta-row">
+                  <span class="area-glass">
+                    <span class="res-area-price">渋谷｜</span>
+                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Message Section -->
-      <div class="section">
-        <div class="section-title">ひとこと</div>
-        <div class="comment-box">仕事帰りに気軽に話せる方を探しています。難しいことは抜きで、ゆっくりご飯が食べられれば嬉しいです。</div>
+      <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+        <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+          <div class="shop-detail-hero-wrap">
+            <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+            <div class="shop-detail-hero" id="shopDetailHero"></div>
+          </div>
+          <div class="shop-detail-scroll">
+            <div class="shop-detail-body">
+              <div class="shop-detail-title-row">
+                <span class="shop-detail-badge">★</span>
+                <div class="shop-detail-name" id="shopDetailName">店舗名</div>
+              </div>
+              <div class="shop-detail-price-row">
+                <div id="shopDetailPrice"></div>
+                <div class="shop-detail-help">?</div>
+              </div>
+              <div class="shop-detail-tags" id="shopDetailTags"></div>
+              <div class="shop-detail-section">
+                <div class="shop-detail-section-title">概要</div>
+                <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+              </div>
+              <div class="shop-detail-section muted">
+                <div class="shop-detail-section-title">備考</div>
+                <div class="shop-detail-section-text" id="shopDetailNote"></div>
+              </div>
+              <div class="shop-detail-map">
+                <div class="shop-detail-map-visual">
+                  地図
+                  <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
+                </div>
+                <div class="shop-detail-address" id="shopDetailAddress"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Applicant Status -->
-      <div class="applicant-status">
-        <div>応募者 <span class="status-text">3人</span> / 受付中</div>
-      </div>
     </div>
 
-    <div class="note">※ 応募時に自動で連絡先交換の準備が進みます</div>
-
     <div class="bottom-sticky">
-      <button class="button">スキップ</button>
+      <button class="button" onclick="window.location.href='wireframe_SCR070_boshuu_list.html'">スキップ</button>
       <button class="button primary" onclick="handleApply()">この募集に応募する</button>
     </div>
 
@@ -609,6 +918,60 @@
         }
         alert(selected.length + '件のお店を選択して応募しました！');
         window.location.href = 'wireframe_SCR070_boshuu_list.html';
+      }
+
+      function glassOnOnly(level) {
+        var max = 5;
+        var l = Math.max(0, Math.min(parseInt(level || '0', 10), max));
+        var svg = '<svg class="glass-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+        var html = '';
+        for (var i = 1; i <= l; i++) html += svg;
+        return '<span class="glass-meter" aria-label="price">' + html + '</span>';
+      }
+
+      function priceRangeText(level) {
+        var l = parseInt(level || '0', 10);
+        if (Number.isNaN(l) || l <= 1) return '〜5,000円 / 人';
+        if (l === 2) return '5,001〜10,000円 / 人';
+        if (l === 3) return '10,001〜15,000円 / 人';
+        if (l === 4) return '15,001〜20,000円 / 人';
+        return '20,001円〜 / 人';
+      }
+
+      function heroGradient(level) {
+        var l = Math.max(1, Math.min(parseInt(level || '1', 10), 5));
+        if (l <= 2) return 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+        if (l === 3) return 'linear-gradient(135deg, #f7f7f7 0%, #e0e0e0 100%)';
+        if (l === 4) return 'linear-gradient(135deg, #f3f5f7 0%, #b7c4d1 100%)';
+        return 'linear-gradient(135deg, #f7f3f0 0%, #d2c5bb 100%)';
+      }
+
+      function openShopModal(e, name, area, style, level) {
+        if (e) e.stopPropagation();
+        var hero = document.getElementById('shopDetailHero');
+        if (hero) hero.style.backgroundImage = heroGradient(level);
+
+        document.getElementById('shopDetailName').textContent = name;
+        document.getElementById('shopDetailPrice').innerHTML =
+          glassOnOnly(level) + '<span class="shop-detail-price-text">｜' + priceRangeText(level) + '</span>';
+        document.getElementById('shopDetailTags').innerHTML =
+          '<span class="shop-detail-tag">' + style + '</span>' +
+          (area ? '<span class="shop-detail-tag">' + area + '</span>' : '');
+        document.getElementById('shopDetailOverview').textContent = '落ち着いた雰囲気で、初対面でも会話がしやすいお店です。';
+        document.getElementById('shopDetailNote').textContent = '混雑状況により、席の時間制限がある場合があります。';
+        document.getElementById('shopDetailMapLabel').textContent = name;
+        document.getElementById('shopDetailAddress').textContent = '東京都（' + (area || '-') + '）';
+
+        var scrollEl = document.querySelector('.shop-detail-scroll');
+        if (scrollEl) scrollEl.scrollTop = 0;
+        var overlay = document.getElementById('shopDetailPopup');
+        if (overlay) overlay.style.display = 'flex';
+      }
+
+      function closeShopDetail(event) {
+        if (event && event.target !== event.currentTarget) return;
+        var overlay = document.getElementById('shopDetailPopup');
+        if (overlay) overlay.style.display = 'none';
       }
     </script>
   </div> <!-- /device -->

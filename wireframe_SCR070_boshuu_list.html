@@ -274,6 +274,39 @@
       font-size: 16px;
       color: var(--c4);
     }
+    .photo-box.blurred {
+      position: relative;
+      overflow: hidden;
+      background: #d2d2d2;
+    }
+    .photo-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) blur(6px);
+      transform: scale(1.08);
+    }
+    .photo-blur {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .verify-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+      margin-left: 6px;
+      flex-shrink: 0;
+    }
 
     .card-header {
       flex: 1;
@@ -1331,17 +1364,17 @@
             <div class="m-status-tag OPEN">募集中</div>
           </div>
           <div class="m-card-row">
-            <div class="photo-box" style="width:24px;height:24px;font-size:10px;">✕✕</div>
-            <span style="font-weight:600;">みおさん · 38歳</span>
+            <div class="photo-box blurred" style="width:24px;height:24px;">
+              <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/><circle cx='10.2' cy='8.6' r='0.8' fill='%23424242'/><circle cx='13.8' cy='8.6' r='0.8' fill='%23424242'/></svg>">
+              <div class="photo-blur"></div>
+            </div>
+            <span style="font-weight:600;">みお · 38歳 <span class="verify-dot">✓</span></span>
           </div>
           <div class="m-card-row">
             <span>📍 渋谷区</span>
-            <span>📅 3/28(金) 夜</span>
+            <span>📅 3月28日（金）夜</span>
           </div>
-          <div class="tag-row">
-            <div class="tag">和食</div>
-            <div class="tag">落ち着いた雰囲気</div>
-          </div>
+          <div class="card-comment">お互いに無理のないペースで、まずは落ち着いてお話しできたら嬉しいです。</div>
           <div class="m-card-footer">
             <button class="m-btn primary">詳細を見て応募する</button>
           </div>
@@ -1354,17 +1387,17 @@
             <div class="m-status-tag OPEN">募集中</div>
           </div>
           <div class="m-card-row">
-            <div class="photo-box" style="width:24px;height:24px;font-size:10px;">✕✕</div>
-            <span style="font-weight:600;">ゆみさん · 34歳</span>
+            <div class="photo-box blurred" style="width:24px;height:24px;">
+              <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/><circle cx='10.2' cy='8.6' r='0.8' fill='%23424242'/><circle cx='13.8' cy='8.6' r='0.8' fill='%23424242'/></svg>">
+              <div class="photo-blur"></div>
+            </div>
+            <span style="font-weight:600;">ゆみ · 34歳 <span class="verify-dot">✓</span></span>
           </div>
           <div class="m-card-row">
             <span>📍 中央区</span>
-            <span>📅 3/29(土) 昼</span>
+            <span>📅 3月29日（土）昼</span>
           </div>
-          <div class="tag-row">
-            <div class="tag">イタリアン</div>
-            <div class="tag">ワイン好き</div>
-          </div>
+          <div class="card-comment">ランチで軽めに。雰囲気の良いお店でゆっくり話せる方だと嬉しいです。</div>
           <div class="m-card-footer">
             <button class="m-btn primary">詳細を見て応募する</button>
           </div>
@@ -1377,17 +1410,17 @@
             <div class="m-status-tag OPEN">募集中</div>
           </div>
           <div class="m-card-row">
-            <div class="photo-box" style="width:24px;height:24px;font-size:10px;">✕✕</div>
-            <span style="font-weight:600;">かなさん · 31歳</span>
+            <div class="photo-box blurred" style="width:24px;height:24px;">
+              <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/><circle cx='10.2' cy='8.6' r='0.8' fill='%23424242'/><circle cx='13.8' cy='8.6' r='0.8' fill='%23424242'/></svg>">
+              <div class="photo-blur"></div>
+            </div>
+            <span style="font-weight:600;">かな · 31歳 <span class="verify-dot">✓</span></span>
           </div>
           <div class="m-card-row">
             <span>📍 新宿区</span>
-            <span>📅 4/2(水) 夜</span>
+            <span>📅 4月2日（水）夜</span>
           </div>
-          <div class="tag-row">
-            <div class="tag">居酒屋</div>
-            <div class="tag">ビール</div>
-          </div>
+          <div class="card-comment">仕事終わりに1〜2杯だけ。気軽に話せる方だと助かります。</div>
           <div class="m-card-footer">
             <button class="m-btn primary">詳細を見て応募する</button>
           </div>
