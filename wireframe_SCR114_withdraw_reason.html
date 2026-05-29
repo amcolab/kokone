@@ -6,9 +6,9 @@
   <title>SCR-114 退会理由</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:#f5f5f5; display:flex; justify-content:center; padding:20px; }
-    .device-frame { width:360px; height:812px; border:1.5px solid #212121; background:#ffffff; display:flex; flex-direction:column; overflow:hidden; position:relative; }
-    .status-bar { height:20px; background:#212121; }
+    body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:#f5f5f5; margin-left:200px; margin-right:280px; }
+    .device-frame { width:360px; height:812px; border:1.5px solid #212121; background:#ffffff; display:flex; flex-direction:column; overflow:hidden; position:relative; margin:20px auto; }
+    .status-bar { height:20px; background:#212121; color:#fff; font-size:9px; display:flex; align-items:center; justify-content:space-between; padding:0 8px; }
     .header { display:flex; align-items:center; padding:16px 12px; border-bottom:1px solid #e0e0e0; background:#ffffff; gap:12px; }
     .back-btn { font-size:18px; color:#212121; cursor:pointer; }
     .header-title { font-size:16px; font-weight:bold; }
@@ -31,6 +31,30 @@
     .btn:disabled { opacity:0.45; cursor:not-allowed; }
     .toast { position:absolute; left:50%; transform:translateX(-50%); bottom:18px; background:#212121; color:#fff; padding:10px 14px; border-radius:999px; font-size:12px; display:none; }
     .toast.show { display:block; }
+    .wf-sidebar { width:200px; min-width:200px; background:#fff; border-right:1px solid #e0e0e0; position:fixed; top:0; left:0; height:100vh; overflow-y:auto; z-index:9999; font-size:11px; color:#212121; }
+    .wf-sidebar-logo { height:44px; display:flex; align-items:center; padding:0 14px; border-bottom:1px solid #e0e0e0; gap:8px; text-decoration:none; }
+    .wf-logo-mark { width:22px; height:22px; border:2px solid #424242; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#424242; flex-shrink:0; }
+    .wf-logo-text { font-size:12px; font-weight:700; color:#212121; }
+    .wf-sidebar-group { border-bottom:1px solid #e0e0e0; }
+    .wf-group-label { padding:7px 14px 3px; font-size:9px; font-weight:700; color:#bdbdbd; text-transform:uppercase; letter-spacing:1px; }
+    .wf-nav-link { display:flex; align-items:center; gap:5px; padding:5px 14px; font-size:11px; color:#757575; text-decoration:none; border-left:2px solid transparent; line-height:1.3; }
+    .wf-nav-link:hover { background:#f5f5f5; color:#424242; }
+    .wf-nav-link.wf-active { background:#f5f5f5; color:#212121; font-weight:600; border-left-color:#424242; }
+    .wf-nav-id { font-size:9px; color:#bdbdbd; width:24px; flex-shrink:0; }
+    .blp-wrap { position:fixed; top:0; right:0; width:280px; height:100vh; overflow-y:auto; background:#fff; border-left:2px solid #212121; z-index:9998; font-size:11px; color:#212121; }
+    .blp-head { position:sticky; top:0; background:#212121; color:#fff; padding:10px 14px; z-index:2; }
+    .blp-head-scr { font-size:9px; color:#bdbdbd; }
+    .blp-head-title { font-size:12px; font-weight:700; }
+    .blp-head-sub { font-size:10px; color:#9e9e9e; margin-top:2px; }
+    .blp-body { padding:12px; }
+    .blp-section { margin-bottom:14px; }
+    .blp-section-title { font-size:9px; font-weight:700; text-transform:uppercase; color:#9e9e9e; border-bottom:1px solid #f0f0f0; padding-bottom:4px; margin-bottom:7px; }
+    .blp-rule { display:flex; gap:7px; margin-bottom:7px; line-height:1.5; }
+    .blp-rule-dot { width:14px; height:14px; background:#f5f5f5; border:1px solid #e0e0e0; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; color:#757575; margin-top:1px; }
+    .blp-rule-text { font-size:11px; color:#212121; line-height:1.55; }
+    .blp-note { background:#fafafa; border:1px solid #e0e0e0; border-left:3px solid #bdbdbd; padding:7px 9px; font-size:10px; color:#757575; line-height:1.55; }
+    .blp-note.highlight { border-left-color:#212121; color:#424242; }
+    .blp-note.warn { border-left-color:#e65100; background:#fff8f0; color:#5d2e00; }
   </style>
   <style>
     :root { --wf-global-zoom: 1.1; }
@@ -38,10 +62,79 @@
   </style>
 </head>
 <body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR070_2_my_boshuu.html"><span class="wf-nav-id">070-2</span>自分の募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR070_3_applied_boshuu.html"><span class="wf-nav-id">070-3</span>応募中の募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+      <a class="wf-nav-link" href="wireframe_SCR111_subscription.html"><span class="wf-nav-id">111</span>Subscription</a>
+      <a class="wf-nav-link" href="wireframe_SCR112_edit_profile.html"><span class="wf-nav-id">112</span>Edit Profile</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR114_account_mgmt.html"><span class="wf-nav-id">114</span>Account Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR120_restaurant_list.html"><span class="wf-nav-id">120</span>お気に入り店舗</a>
+      <a class="wf-nav-link" href="wireframe_SCR116_secret_mode.html"><span class="wf-nav-id">116</span>Secret Mode</a>
+      <a class="wf-nav-link" href="wireframe_SCR118_notification_list.html"><span class="wf-nav-id">118</span>通知一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR119_notifications.html"><span class="wf-nav-id">119</span>Notifications</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">G · Admin</div>
+      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Admin Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR201_activity_mgmt.html"><span class="wf-nav-id">201</span>Activity Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR203_partner_mgmt.html"><span class="wf-nav-id">203</span>Partner Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR204_user_mgmt.html"><span class="wf-nav-id">204</span>User Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR205_match_mgmt.html"><span class="wf-nav-id">205</span>Match Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR206_boshuu_mgmt.html"><span class="wf-nav-id">206</span>募集 Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
+      <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
+      <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
+    </div>
+  </nav>
+
   <div class="device-frame">
-    <div class="status-bar"></div>
+    <div class="status-bar"><span>9:41</span><span>●●●●● 100%</span></div>
     <div class="header">
-      <div class="back-btn" onclick="history.back()">←</div>
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR114_account_mgmt.html'">←</div>
       <div class="header-title">退会理由</div>
     </div>
     <div class="content">
@@ -53,19 +146,41 @@
         <div class="option" onclick="selectReason('料金が高い', this)"><div class="radio"></div><div class="opt-text">料金が高い</div></div>
         <div class="option" onclick="selectReason('しばらく利用しない', this)"><div class="radio"></div><div class="opt-text">しばらく利用しない</div></div>
       </div>
-
       <div class="detail">
         <div class="label">詳細（任意）</div>
         <textarea id="detail" class="textarea" maxlength="300" placeholder="改善のため、差し支えなければ理由を教えてください。"></textarea>
         <div id="counter" class="counter">0/300</div>
       </div>
-
       <div class="actions">
         <button id="withdrawBtn" class="btn primary" type="button" disabled>退会する</button>
-        <button class="btn" type="button" onclick="history.back()">キャンセル</button>
+        <button class="btn" type="button" onclick="window.location.href='wireframe_SCR114_account_mgmt.html'">キャンセル</button>
       </div>
     </div>
     <div id="toast" class="toast">退会手続きを送信しました</div>
+  </div>
+
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-scr">SCR-114</div>
+      <div class="blp-head-title">退会理由</div>
+      <div class="blp-head-sub">Withdrawal Reason</div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-section">
+        <div class="blp-section-title">画面の目的</div>
+        <div class="blp-note highlight">退会理由を収集し、退会手続きを完了する。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">UXロジック</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>理由選択</strong> — ラジオで1つ選択するまで「退会する」は非活性。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>詳細入力</strong> — 任意、最大300文字。カウンター表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>完了後</strong> — トースト表示ののち、ログイン画面へ遷移。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">注意</div>
+        <div class="blp-note warn">退会は取り消しできない操作として扱う。</div>
+      </div>
+    </div>
   </div>
 
   <script>

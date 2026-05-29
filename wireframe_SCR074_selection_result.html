@@ -77,8 +77,13 @@
       border-radius: 2px;
     }
     .user-info { flex: 1; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 1; }
+    .name-row { display: flex; align-items: center; gap: 6px; }
     .user-name { font-size: 14px; font-weight: 700; color: #212121; }
-    .user-meta { font-size: 11px; color: #757575; }
+    .verify-dot {
+      width: 14px; height: 14px; border-radius: 50%; background: #2e7d32; color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 900; flex-shrink: 0;
+    }
     .tag-row { display: flex; flex-wrap: wrap; gap: 4px; }
     .tag { font-size: 9px; padding: 2px 6px; background: #f5f5f5; border: 1px solid #ddd; color: #666; }
     .chosen-res { margin-top: 6px; }
@@ -269,12 +274,6 @@
 
       <div class="content">
 
-        <!-- Boshuu summary -->
-        <div class="boshuu-summary">
-          <div class="summary-title">対象の募集:</div>
-          <div class="summary-text">金曜夜に軽くご飯行ける方</div>
-        </div>
-
         <!-- Selected banner -->
         <div class="selected-banner">
           <div class="selected-banner-icon">✅</div>
@@ -294,16 +293,17 @@
           </div>
           <div class="user-info">
             <span class="status-chip selected">✓ 選定済み</span>
-            <div class="user-name">さくらさん · 34歳</div>
-            <div class="user-meta">新宿区 · デザイナー · 本人確認済</div>
+            <div class="name-row">
+              <div class="user-name">さくら · 34歳</div>
+              <span class="verify-dot">✓</span>
+            </div>
             <div class="tag-row">
-              <span class="tag">カフェ</span><span class="tag">和食</span><span class="tag">聞き上手</span>
+              <span class="tag">和食</span><span class="tag">イタリアン</span><span class="tag">焼肉・ステーキ</span>
             </div>
             <div class="chosen-res">
               <div class="res-label">行きたいお店の希望:</div>
               <div class="res-tags">
                 <span class="res-tag-mini">ビストロ・オー</span>
-                <span class="res-tag-mini">和食処 みやび</span>
               </div>
             </div>
             <div class="card-actions">
@@ -317,11 +317,11 @@
         <div class="applicant-card" id="card-natsumi">
           <div class="photo-box">✕✕</div>
           <div class="user-info">
-            <span class="status-chip pending">未選定</span>
-            <div class="user-name">なつみさん · 29歳</div>
-            <div class="user-meta">渋谷区 · OL · 本人確認済</div>
+            <div class="name-row">
+              <div class="user-name">なつみ · 29歳</div>
+            </div>
             <div class="tag-row">
-              <span class="tag">映画</span><span class="tag">グルメ</span><span class="tag">落ち着いた雰囲気</span>
+              <span class="tag">和食</span><span class="tag">イタリアン</span>
             </div>
             <div class="chosen-res">
               <div class="res-label">行きたいお店の希望:</div>
@@ -340,11 +340,12 @@
         <div class="applicant-card" id="card-ai">
           <div class="photo-box">✕✕</div>
           <div class="user-info">
-            <span class="status-chip pending">未選定</span>
-            <div class="user-name">あいさん · 31歳</div>
-            <div class="user-meta">品川区 · 会社員</div>
+            <div class="name-row">
+              <div class="user-name">あい · 31歳</div>
+              <span class="verify-dot">✓</span>
+            </div>
             <div class="tag-row">
-              <span class="tag">料理</span><span class="tag">お酒</span>
+              <span class="tag">和食</span><span class="tag">焼肉・ステーキ</span>
             </div>
             <div class="chosen-res">
               <div class="res-label">行きたいお店の希望:</div>
@@ -413,7 +414,7 @@
         <div class="blp-section">
           <div class="blp-section-title">表示ルール</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>選定済みカード</strong> — 緑ボーダー・背景ハイライト・「選定済み」バッジ表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>未選定カード</strong> —「この人に変更する」ボタンで変更フロー起動。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>未選定カード</strong> —「この人に変更する」ボタンで変更フロー起動（未選定ラベルは表示しない）。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>変更確認モーダル</strong> — 変更時は現在の選定相手への通知・取消を警告してから実行。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>取消</strong> —「選定を取り消す」で選定なし状態に戻す（SCR-073と同じ選定フローに戻る）。</div></div>
         </div>

@@ -1965,6 +1965,14 @@
     .action-row button {
       pointer-events: auto;
     }
+
+    .device.view-profile .action-row {
+      display: none !important;
+    }
+    .device.view-profile .card-behind-1,
+    .device.view-profile .card-behind-2 {
+      display: none !important;
+    }
     
     .act-btn-skip {
       width: 54px;
@@ -2535,6 +2543,8 @@
         ];
         var idx = 0;
         var currentPhotoIndex = 0;
+        var viewOnly = false;
+        var returnTo = 'wireframe_SCR073_boshuu_applicants.html';
         (function () {
           try {
             var params = new URLSearchParams(window.location.search);
@@ -2545,6 +2555,8 @@
                 idx = Math.max(0, Math.min(parsed, CANDIDATES.length - 1));
               }
             }
+            viewOnly = params.get('view') === 'profile';
+            if (params.get('return')) returnTo = decodeURIComponent(params.get('return'));
           } catch (e) {}
         })();
         var DEFAULT_SHOPS = [
@@ -2977,7 +2989,26 @@
           }
         });
 
+        function applyViewOnlyMode() {
+          if (!viewOnly) return;
+          var device = document.querySelector('.device');
+          if (device) device.classList.add('view-profile');
+          var actionRow = document.querySelector('.action-row');
+          if (actionRow) actionRow.style.display = 'none';
+          document.querySelectorAll('.card-behind-1, .card-behind-2').forEach(function (el) {
+            el.style.display = 'none';
+          });
+          var header = document.querySelector('.app-header');
+          if (header) {
+            header.innerHTML =
+              '<div style="width:32px;font-size:18px;cursor:pointer;" onclick="window.location.href=\'' + returnTo + '\'">←</div>' +
+              '<div class="app-header-logo" style="flex:1;text-align:center;cursor:default;">プロフィール</div>' +
+              '<div style="width:32px;"></div>';
+          }
+        }
+
         renderCard();
+        applyViewOnlyMode();
       </script>
 
       <!-- WELCOME ONBOARDING POPUP -->

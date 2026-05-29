@@ -382,6 +382,32 @@
       border-color: var(--c6);
       color: var(--c0);
     }
+    .boshuu-title-card {
+      background: var(--c0);
+      border-bottom: var(--border);
+      padding: 14px 16px;
+    }
+    .boshuu-title-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--c6);
+      line-height: 1.4;
+    }
+    .res-prop-list.readonly .res-check-box { display: none; }
+    .res-prop-list.readonly .res-prop-item {
+      cursor: default;
+      background: var(--c1);
+      border-color: var(--c3);
+      pointer-events: none;
+    }
+    .res-prop-list.readonly .res-prop-item.selected {
+      background: var(--c1);
+      border-color: var(--c3);
+    }
+    .res-prop-list.readonly .res-name-link {
+      pointer-events: auto;
+      cursor: pointer;
+    }
     .res-name-text {
       font-size: 13px;
       font-weight: 600;
@@ -721,8 +747,11 @@
     </div>
 
     <div class="content">
+      <div class="boshuu-title-card" id="boshuuTitleCard" style="display:none;">
+        <div class="boshuu-title-text" id="boshuuTitleText">募集タイトル</div>
+      </div>
       <!-- Recruiter Card -->
-      <div class="recruiter-card">
+      <div class="recruiter-card" id="recruiterCard">
         <div class="photo-box blurred">
           <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%23cfcfcf'/><circle cx='40' cy='30' r='14' fill='%239b9b9b'/><rect x='18' y='46' width='44' height='26' rx='13' fill='%23b3b3b3'/><circle cx='34' cy='28' r='2.2' fill='%23424242'/><circle cx='46' cy='28' r='2.2' fill='%23424242'/><path d='M34 35c4 3 8 3 12 0' fill='none' stroke='%23424242' stroke-width='2' stroke-linecap='round'/></svg>">
           <div class="photo-blur"></div>
@@ -762,9 +791,9 @@
       <!-- Proposed Restaurants Section -->
       <div class="section" id="restaurant-proposal-section">
         <div class="section-title">提案されたお店</div>
-        <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、行きたいお店を全て選んでください</div>
+        <div id="resProposalHint" style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、行きたいお店を選んでください</div>
         
-        <div class="res-prop-list">
+        <div class="res-prop-list" id="resPropList">
           <!-- Item 1 -->
           <div class="res-prop-item selected" onclick="this.classList.toggle('selected')">
             <div class="res-check-box">✓</div>
@@ -859,23 +888,43 @@
         var mode = urlParams.get('mode');
         
         if (mode === 'my') {
-          // MODE: Recruiter's own view
           var btnContainer = document.querySelector('.bottom-sticky');
           if (btnContainer) {
-            btnContainer.innerHTML = 
-              '<button class="button" onclick="window.location.href=\'wireframe_SCR070_boshuu_list.html\'">一覧に戻る</button>' +
+            btnContainer.innerHTML =
+              '<button class="button" onclick="window.location.href=\'wireframe_SCR070_2_my_boshuu.html\'">一覧に戻る</button>' +
               '<button class="button primary" onclick="window.location.href=\'wireframe_SCR073_boshuu_applicants.html\'">応募者の一覧を見る</button>';
           }
           var note = document.querySelector('.note');
           if (note) note.style.display = 'none';
           document.querySelector('.header-title').textContent = '自分の募集詳細';
 
-          // For recruiter, don't allow selection in the list
-          var items = document.querySelectorAll('.res-prop-item');
-          items.forEach(it => {
+          var backArrow = document.querySelector('.back-arrow');
+          if (backArrow) {
+            backArrow.onclick = function () {
+              window.location.href = 'wireframe_SCR070_2_my_boshuu.html';
+            };
+          }
+
+          var recruiterCard = document.getElementById('recruiterCard');
+          if (recruiterCard) recruiterCard.style.display = 'none';
+
+          var titleCard = document.getElementById('boshuuTitleCard');
+          var titleText = document.getElementById('boshuuTitleText');
+          var titleParam = urlParams.get('title');
+          if (titleText) {
+            titleText.textContent = titleParam ? decodeURIComponent(titleParam) : '金曜夜に軽くご飯行ける方';
+          }
+          if (titleCard) titleCard.style.display = 'block';
+
+          var hint = document.getElementById('resProposalHint');
+          if (hint) hint.style.display = 'none';
+
+          var list = document.getElementById('resPropList');
+          if (list) list.classList.add('readonly');
+
+          document.querySelectorAll('.res-prop-item').forEach(function (it) {
             it.removeAttribute('onclick');
-            it.style.cursor = 'default';
-            it.classList.add('selected'); // show all as proposed
+            it.classList.remove('selected');
           });
         } else if (mode === 'apply') {
           // MODE: Applicant's view of their own application

@@ -744,7 +744,7 @@
              data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
              data-price="2">
             <div class="card-photo placeholder" data-placeholder="Washoku Shizuku Image">
-                <div class="like-btn" onclick="toggleLike(this)">
+                <div class="like-btn" onclick="toggleLike(event, this)">
                     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </div>
             </div>
@@ -771,7 +771,7 @@
              data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
              data-price="3">
             <div class="card-photo placeholder" data-placeholder="Bistro L'Etoile Image">
-                <div class="like-btn" onclick="toggleLike(this)">
+                <div class="like-btn" onclick="toggleLike(event, this)">
                     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </div>
             </div>
@@ -798,7 +798,7 @@
              data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
              data-price="4">
             <div class="card-photo placeholder" data-placeholder="Ginza Sushi Ken Image">
-                <div class="like-btn" onclick="toggleLike(this)">
+                <div class="like-btn" onclick="toggleLike(event, this)">
                     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </div>
             </div>
@@ -1048,9 +1048,12 @@
         if (countEl) countEl.textContent = String(count);
     }
 
-    function toggleLike(btn) {
+    function toggleLike(e, btn) {
+        if (e) e.stopPropagation();
         const card = btn.closest('.restaurant-card');
+        if (!card) return;
         const id = card.getAttribute('data-id');
+        if (!id) return;
         const favSet = loadFavSet();
         const willFav = !favSet.has(id);
         if (willFav) favSet.add(id); else favSet.delete(id);
@@ -1085,29 +1088,37 @@
         const feedback = document.getElementById('search-feedback');
         const feedbackText = document.getElementById('feedback-text');
         const emptyState = document.getElementById('emptyState');
-        
-        // Show scanning indicator
-        feedback.classList.add('scanning');
-        feedbackText.textContent = 'スキャン中...';
+        const input = document.getElementById('search-input');
+
+        if (feedback) feedback.classList.add('scanning');
+        if (feedbackText) feedbackText.textContent = 'スキャン中...';
 
         clearTimeout(scanTimer);
         scanTimer = setTimeout(() => {
-            const query = document.getElementById('search-input').value.toLowerCase();
+            const query = (input ? input.value : '').toLowerCase().trim();
             const cards = document.querySelectorAll('.restaurant-card');
             let count = 0;
-            
+
             cards.forEach(card => {
-                if (card.id === 'emptyState') return;
-                const name = card.querySelector('.res-name').textContent.toLowerCase();
-                const info = card.querySelector('.res-info').textContent.toLowerCase();
-                const tags = card.querySelector('.res-tags').textContent.toLowerCase();
+                const nameEl = card.querySelector('.res-name');
+                const name = nameEl ? nameEl.textContent.toLowerCase() : '';
+                const addressEl = card.querySelector('.res-address');
+                const descEl = card.querySelector('.res-desc');
+                const mealEl = card.querySelector('.meal-tag');
+                const searchBlob = [
+                    name,
+                    addressEl ? addressEl.textContent : '',
+                    descEl ? descEl.textContent : '',
+                    mealEl ? mealEl.textContent : ''
+                ].join(' ').toLowerCase();
+
                 const isFav = card.getAttribute('data-fav') === 'true';
                 const area = card.getAttribute('data-area') || 'all';
-                
-                const matchTab = (currentTab === 'all' || (currentTab === 'fav' && isFav));
-                const matchSearch = (name.includes(query) || info.includes(query) || tags.includes(query));
-                const matchArea = (currentArea === 'all' || area === currentArea);
-                
+
+                const matchTab = currentTab === 'all' || (currentTab === 'fav' && isFav);
+                const matchSearch = !query || searchBlob.includes(query);
+                const matchArea = currentTab === 'fav' || currentArea === 'all' || area === currentArea;
+
                 if (matchTab && matchSearch && matchArea) {
                     card.style.display = 'block';
                     count++;
@@ -1116,12 +1127,19 @@
                 }
             });
 
-            // Update feedback with count
+            if (emptyState) {
+                emptyState.classList.toggle('show', count === 0);
+                if (count === 0) {
+                    emptyState.textContent = currentTab === 'fav'
+                        ? 'お気に入りの店舗がありません。見つけるタブでハートをタップして登録してください。'
+                        : '条件に一致する店舗が見つかりませんでした。';
+                }
+            }
+
             const shouldShow = query !== '';
-            feedbackText.textContent = shouldShow ? `${count}件見つかりました` : '';
-            feedback.classList.toggle('scanning', shouldShow);
-            if (emptyState) emptyState.classList.toggle('show', count === 0);
-        }, 300); // 300ms debounce
+            if (feedbackText) feedbackText.textContent = shouldShow ? count + '件見つかりました' : '';
+            if (feedback) feedback.classList.toggle('scanning', shouldShow);
+        }, 300);
     }
 
     // Onboarding Mode Logic
