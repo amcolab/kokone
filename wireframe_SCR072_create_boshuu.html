@@ -112,8 +112,9 @@
     }
 
     .required {
-      color: var(--c5);
+      color: #c62828;
       font-weight: 700;
+      margin-left: 2px;
     }
 
     .chip-group {
@@ -605,7 +606,7 @@
     <div class="content">
       <!-- Date/Time Section -->
       <div class="form-section">
-        <div class="section-label">日時帯<span class="required">（必須）</span></div>
+        <div class="section-label">日時帯<span class="required">*</span></div>
 
         <div style="margin-bottom: 12px;">
           <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">日付</div>
@@ -640,7 +641,7 @@
 
       <!-- Area Section -->
       <div class="form-section">
-        <div class="section-label">希望エリア<span class="required">（必須）</span></div>
+        <div class="section-label">希望エリア<span class="required">*</span></div>
         <select class="select-box">
           <option>エリアを選択 ▼</option>
           <option>新宿</option>
@@ -653,28 +654,14 @@
 
       <!-- Message Section -->
       <div class="form-section">
-        <div class="section-label">ひとこと<span class="required">（必須）</span></div>
+        <div class="section-label">ひとこと<span class="required">*</span></div>
         <textarea class="textarea" placeholder="食事の雰囲気や、どんな方に会いたいか..."></textarea>
         <div class="character-counter">0 / 100</div>
       </div>
 
-      <!-- Genre Section -->
-      <div class="form-section">
-        <div class="section-label">ジャンル（任意）</div>
-        <div class="genre-chips">
-          <div class="genre-chip">和食</div>
-          <div class="genre-chip">洋食</div>
-          <div class="genre-chip">イタリアン</div>
-          <div class="genre-chip">フレンチ</div>
-          <div class="genre-chip">カフェ</div>
-          <div class="genre-chip">居酒屋</div>
-          <div class="genre-chip">指定しない</div>
-        </div>
-      </div>
-
       <!-- Restaurant Selection Section -->
       <div class="form-section">
-        <div class="section-label">提案するお店を選択<span class="required">（必須）</span></div>
+        <div class="section-label">提案するお店を選択<span class="required">*</span></div>
         <div style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">あなたのお気に入りのお店から最大3件まで提案できます。</div>
         
         <div class="restaurant-choice-list">
@@ -711,7 +698,7 @@
 
       <!-- Max Applicants Section -->
       <div class="form-section">
-        <div class="section-label">応募人数の上限<span class="required">（必須）</span></div>
+        <div class="section-label">応募人数の上限<span class="required">*</span></div>
         <div style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">この募集に応募できる最大人数を選択してください。</div>
         <div class="chip-group" id="max-applicants-chips">
           <div class="chip" onclick="selectMaxApplicants(this)">1人</div>
@@ -726,7 +713,7 @@
 
       <!-- Period Section -->
       <div class="form-section">
-        <div class="section-label">募集期限<span class="required">（必須）</span></div>
+        <div class="section-label">募集期限<span class="required">*</span></div>
         <div id="kigen-hint" style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">食事日の前日がデフォルトの期限となります。</div>
         <div class="period-chips" id="kigen-chips">
           <div class="period-chip active" onclick="selectKigen(this)">前日まで</div>
@@ -767,8 +754,9 @@
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-      <a class="bn-item active" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item active" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
   </div>

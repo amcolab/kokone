@@ -78,11 +78,15 @@
       border: 1px solid #bdbdbd;
       background: #f5f5f5;
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #757575;
-      font-size: 10px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .profile-info {
@@ -584,11 +588,12 @@
     <div class="content">
       <div class="scrollable">
         <div class="profile-card">
-          <div class="profile-photo">写真</div>
+          <div class="profile-photo">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Taro" alt="">
+          </div>
           <div class="profile-info">
-            <div class="profile-name">たろうさん</div>
-            <div class="profile-details">会社員 · 東京都 · 38歳</div>
-            <div class="profile-badge">有料会員 ✓</div>
+            <div class="profile-name">たろう</div>
+            <div class="profile-badge">本人確認 ✓</div>
             <a href="wireframe_SCR112_edit_profile.html" class="profile-edit">プロフィールを編集 ></a>
           </div>
         </div>
@@ -658,11 +663,11 @@
 
         <div class="menu-section">
           <div class="section-title">募集管理</div>
-          <div class="menu-row" onclick="window.location.href='wireframe_SCR070_2_my_boshuu.html'">
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR070_2_my_boshuu.html?from=mypage'">
             <span>📋 自分の募集</span>
             <span class="menu-value">6件 <span class="menu-arrow">></span></span>
           </div>
-          <div class="menu-row" onclick="window.location.href='wireframe_SCR070_3_applied_boshuu.html'">
+          <div class="menu-row" onclick="window.location.href='wireframe_SCR070_3_applied_boshuu.html?from=mypage'">
             <span>📩 応募中の募集</span>
             <span class="menu-value">6件 <span class="menu-arrow">></span></span>
           </div>
@@ -725,8 +730,9 @@
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html#sent"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      
       <a class="bn-item active" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
   </div> <!-- /device-frame -->

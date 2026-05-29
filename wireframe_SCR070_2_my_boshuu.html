@@ -147,7 +147,7 @@
   <div class="device">
     <div class="status-bar"><span>9:41</span><span>●●●●● 100%</span></div>
     <div class="app-header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR110_mypage.html'">←</div>
+      <div class="back-btn" id="backBtn">←</div>
       <span class="app-title">自分の募集</span>
     </div>
 
@@ -253,5 +253,23 @@
       </div>
     </div>
   </div>
+  <script>
+    (function () {
+      var from = new URLSearchParams(window.location.search).get('from');
+      var backUrl = from === 'mypage'
+        ? 'wireframe_SCR110_mypage.html'
+        : 'wireframe_SCR070_boshuu_list.html';
+      var backBtn = document.getElementById('backBtn');
+      if (backBtn) backBtn.onclick = function () { window.location.href = backUrl; };
+      if (from === 'mypage') {
+        document.querySelectorAll('[onclick*="SCR071_boshuu_detail"]').forEach(function (el) {
+          var attr = el.getAttribute('onclick');
+          if (attr && attr.indexOf('from=mypage') === -1) {
+            el.setAttribute('onclick', attr.replace('SCR071_boshuu_detail.html?', 'SCR071_boshuu_detail.html?from=mypage&'));
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

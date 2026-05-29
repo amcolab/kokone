@@ -790,7 +790,7 @@
 
       <!-- Proposed Restaurants Section -->
       <div class="section" id="restaurant-proposal-section">
-        <div class="section-title">提案されたお店</div>
+        <div class="section-title" id="resProposalSectionTitle">提案されたお店</div>
         <div id="resProposalHint" style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、行きたいお店を選んでください</div>
         
         <div class="res-prop-list" id="resPropList">
@@ -811,7 +811,7 @@
             </div>
           </div>
           <!-- Item 2 -->
-          <div class="res-prop-item" onclick="this.classList.toggle('selected')">
+          <div class="res-prop-item" id="resPropItemMiyabi" onclick="this.classList.toggle('selected')">
             <div class="res-check-box">✓</div>
             <div>
               <div class="res-name-text"><span class="res-name-link" onclick="openShopModal(event, '和食処 みやび Shibuya', '渋谷', '焼肉・ステーキ', 3)">和食処 みやび Shibuya</span></div>
@@ -877,8 +877,9 @@
     <div class="app-bottom-nav">
       <a class="bn-item" href="wireframe_SCR060_flat.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="bn-lbl">さがす</span></a>
       <a class="bn-item" href="wireframe_SCR063_likes_sent.html"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bn-lbl">いいね</span><div class="bn-dot"></div></a>
-      <a class="bn-item active" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
       <a class="bn-item" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
+      <a class="bn-item active" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
+      
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
@@ -888,10 +889,12 @@
         var mode = urlParams.get('mode');
         
         if (mode === 'my') {
+          var returnMyList = 'wireframe_SCR070_2_my_boshuu.html' +
+            (urlParams.get('from') === 'mypage' ? '?from=mypage' : '');
           var btnContainer = document.querySelector('.bottom-sticky');
           if (btnContainer) {
             btnContainer.innerHTML =
-              '<button class="button" onclick="window.location.href=\'wireframe_SCR070_2_my_boshuu.html\'">一覧に戻る</button>' +
+              '<button class="button" onclick="window.location.href=\'' + returnMyList + '\'">一覧に戻る</button>' +
               '<button class="button primary" onclick="window.location.href=\'wireframe_SCR073_boshuu_applicants.html\'">応募者の一覧を見る</button>';
           }
           var note = document.querySelector('.note');
@@ -901,7 +904,7 @@
           var backArrow = document.querySelector('.back-arrow');
           if (backArrow) {
             backArrow.onclick = function () {
-              window.location.href = 'wireframe_SCR070_2_my_boshuu.html';
+              window.location.href = returnMyList;
             };
           }
 
@@ -927,34 +930,61 @@
             it.classList.remove('selected');
           });
         } else if (mode === 'apply') {
-          // MODE: Applicant's view of their own application
+          var returnUrl = 'wireframe_SCR070_3_applied_boshuu.html' +
+            (urlParams.get('from') === 'mypage' ? '?from=mypage' : '');
+          var isSimpleApplyView = urlParams.get('applyView') === 'simple';
+
           var btnContainer = document.querySelector('.bottom-sticky');
           if (btnContainer) {
-            btnContainer.innerHTML = 
-              '<button class="button" onclick="window.location.href=\'wireframe_SCR070_boshuu_list.html\'">一覧に戻る</button>' +
-              '<button class="button primary" onclick="if(confirm(\'応募を取り消しますか？\')) { alert(\'取り消しました\'); window.location.href=\'wireframe_SCR070_boshuu_list.html\'; }">応募を取り消す</button>';
+            if (isSimpleApplyView) {
+              btnContainer.style.display = 'none';
+            } else {
+              btnContainer.innerHTML =
+                '<button class="button" onclick="window.location.href=\'' + returnUrl + '\'">一覧に戻る</button>' +
+                '<button class="button primary" onclick="if(confirm(\'応募を取り消しますか？\')) { alert(\'取り消しました\'); window.location.href=\'' + returnUrl + '\'; }">応募を取り消す</button>';
+            }
           }
           var note = document.querySelector('.note');
           if (note) note.style.display = 'none';
           document.querySelector('.header-title').textContent = '応募詳細';
-          
-          // Show application info
-          var content = document.querySelector('.content');
-          var appInfo = document.createElement('div');
-          appInfo.className = 'section';
-          appInfo.style.background = '#e3f2fd';
-          appInfo.innerHTML = '<div class="section-title" style="color:#1565c0;">あなたの応募状況</div>' +
-                              '<div class="status-text" style="font-size:14px; color:#1565c0;">● 応募済み (結果待ち)</div>' +
-                              '<div style="font-size:11px; color:#1565c0; margin-top:4px;">応募日: 2024/03/20 10:00</div>' +
-                              '<div style="font-size:11px; color:#1565c0; margin-top:4px;">選択したお店: 2件</div>';
-          content.insertBefore(appInfo, content.firstChild);
 
-          // Show chosen restaurants
-          var items = document.querySelectorAll('.res-prop-item');
-          items.forEach(it => {
+          var backArrow = document.querySelector('.back-arrow');
+          if (backArrow) {
+            backArrow.onclick = function () {
+              window.location.href = returnUrl;
+            };
+          }
+
+          if (!isSimpleApplyView) {
+            var content = document.querySelector('.content');
+            var appInfo = document.createElement('div');
+            appInfo.className = 'section';
+            appInfo.style.background = '#e3f2fd';
+            appInfo.innerHTML = '<div class="section-title" style="color:#1565c0;">あなたの応募状況</div>' +
+              '<div class="status-text" style="font-size:14px; color:#1565c0;">● 応募済み (結果待ち)</div>' +
+              '<div style="font-size:11px; color:#1565c0; margin-top:4px;">応募日: 2024/03/20 10:00</div>';
+            content.insertBefore(appInfo, content.firstChild);
+          }
+
+          var hint = document.getElementById('resProposalHint');
+          if (hint) hint.style.display = 'none';
+
+          var sectionTitle = document.getElementById('resProposalSectionTitle');
+          if (sectionTitle) sectionTitle.textContent = '選択されたお店';
+
+          var miyabi = document.getElementById('resPropItemMiyabi');
+          if (miyabi) miyabi.style.display = 'none';
+
+          var list = document.getElementById('resPropList');
+          if (list) list.classList.add('readonly');
+
+          document.querySelectorAll('.res-prop-item').forEach(function (it) {
+            if (it.style.display === 'none') return;
             it.removeAttribute('onclick');
-            it.style.cursor = 'default';
+            it.classList.remove('selected');
           });
+          var firstItem = document.querySelector('.res-prop-item');
+          if (firstItem && firstItem.style.display !== 'none') firstItem.classList.add('selected');
         }
       })();
       
