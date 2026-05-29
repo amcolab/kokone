@@ -108,6 +108,11 @@
       gap: 12px;
     }
 
+    .recruiter-card .photo-box,
+    .recruiter-card .name-row {
+      cursor: pointer;
+    }
+
     .photo-box {
       width: 80px;
       height: 80px;
@@ -985,6 +990,18 @@
           });
           var firstItem = document.querySelector('.res-prop-item');
           if (firstItem && firstItem.style.display !== 'none') firstItem.classList.add('selected');
+        }
+
+        var recruiterCard = document.getElementById('recruiterCard');
+        if (recruiterCard && recruiterCard.style.display !== 'none') {
+          var returnTo = 'wireframe_SCR071_boshuu_detail.html' + window.location.search;
+          var profileUrl = 'wireframe_SCR060_flat.html?idx=2&view=profile&return=' +
+            encodeURIComponent(returnTo);
+          var goProfile = function () { window.location.href = profileUrl; };
+          var photo = recruiterCard.querySelector('.photo-box');
+          var nameRow = recruiterCard.querySelector('.name-row');
+          if (photo) photo.onclick = goProfile;
+          if (nameRow) nameRow.onclick = goProfile;
         }
       })();
       
