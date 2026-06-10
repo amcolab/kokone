@@ -191,6 +191,28 @@
       resize: vertical;
     }
 
+    .char-count {
+      font-size: 10px;
+      color: var(--c4);
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .optional-hint {
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--c5);
+      text-align: center;
+      border-bottom: var(--border);
+      background: var(--c1);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .optional-hint:hover {
+      background: var(--c2);
+    }
+
     .chip-group {
       display: flex;
       gap: 8px;
@@ -737,9 +759,8 @@
       <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
       <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
     </div>
     <div class="wf-sidebar-group">
@@ -861,11 +882,10 @@
       <div class="status-bar"></div>
       <div class="screen">
         <div class="header">
-          <div class="back-arrow" onclick="window.location.href='wireframe_SCR023_verify_done.html'"
+          <div class="back-arrow" onclick="window.location.href='wireframe_SCR031_photo.html'"
             style="cursor:pointer;">←</div>
           <div class="header-text">
             <div class="title">プロフィール基本情報</div>
-            <div class="step-label">STEP 4 / 8</div>
           </div>
         </div>
 
@@ -952,12 +972,6 @@
               <option value="沖縄県">沖縄県</option>
             </select>
           </div>
-        </div>
-
-        <!-- ── マッチング設定（必須）────────────────── -->
-        <div class="section">
-          <div class="section-title">マッチング設定（必須）</div>
-
           <div class="form-group">
             <label class="form-label">マッチングしたい人 <span style="color:#c00;">*</span></label>
             <div class="chip-group">
@@ -968,66 +982,18 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">希望の関係性 <span style="color:#c00;">*</span>　<span style="font-size:11px;color:#757575;">（1つ選択）</span></label>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
-              <div class="chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;" class="rel-chip selected">💆 心が癒される</div>
-              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">✨ 今を大切に</div>
-              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">🤝 無理のない距離感</div>
-              <div class="chip rel-chip" onclick="document.querySelectorAll('.rel-chip').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')" style="padding:10px 12px;text-align:left;">🌱 将来も視野</div>
-            </div>
+            <label class="form-label">自己紹介 <span style="color:#c00;">*</span></label>
+            <textarea class="textarea" id="introText" maxlength="100" placeholder="あなたのことを簡単に紹介してください" oninput="updateIntroCount(this)"></textarea>
+            <div class="char-count" id="introCount">0 / 100</div>
           </div>
         </div>
 
-        <!-- ── 詳細情報（任意）────────────────────── -->
-        <div class="section">
-          <div class="section-title">詳細情報（任意）</div>
+        <div class="optional-hint" onclick="window.location.href='wireframe_SCR112_edit_profile.html?from=profile030'">さらに詳細を入力する（任意）</div>
 
-          <div class="form-group">
-            <label class="form-label">身長</label>
-            <select class="form-select">
-              <option value="">未選択</option>
-              <!-- 140 to 200cm -->
-              <script>
-                for(let i=140; i<=200; i++) {
-                  document.write(`<option value="${i}">${i}cm</option>`);
-                }
-              </script>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">体型</label>
-            <select class="form-select">
-              <option value="">未選択</option>
-              <option>細め</option>
-              <option>普通</option>
-              <option>グラマー／筋肉質</option>
-              <option>ややぽっちゃり</option>
-              <option>ぽっちゃり</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">お酒</label>
-            <select class="form-select">
-              <option value="">未選択</option>
-              <option>ほとんど飲まない</option>
-              <option>たまに飲む</option>
-              <option>時々飲む</option>
-              <option>よく飲む</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">一言コメント</label>
-            <input type="text" class="form-input" placeholder="例：よろしくお願いします！">
-          </div>
-        </div>
-
-        <button class="next-btn" onclick="window.location.href='wireframe_SCR031_photo.html'">次へ（写真アップロード） →</button>
+        <button class="next-btn" onclick="window.location.href='wireframe_SCR032_food_style.html'">次へ（食事スタイル） →</button>
 
         <div class="flow-section">
-          <div class="flow-text">SCR-023 → SCR-030 ★ → SCR-031</div>
+          <div class="flow-text">SCR-024 → SCR-031 → SCR-030 ★ → SCR-032</div>
         </div>
       </div>
     </div>
@@ -1070,16 +1036,12 @@
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>生年月日</strong> — 年齢計算に使用。18歳未満は登録不可。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>性別</strong> — 男性 / 女性（現バージョンはバイナリ）。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>居住地</strong> — 都道府県単位で選択。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>職業</strong> — カテゴリ選択（詳細入力任意）。</div></div>
-      </div>
-      <div class="blp-section">
-        <div class="blp-section-title">任意入力項目</div>
-        <div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text">身長・体型・最終学歴・血液型 — 任意だが入力するほどマッチング精度向上。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">○</div><div class="blp-rule-text">年収レンジ（非公開設定可）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>マッチングしたい人</strong> — 男性 / 女性 / 両方から選択。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>自己紹介</strong> — 最大100文字。必須入力。</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">ステップ進行ルール</div>
-        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">必須項目を全て入力後に「次へ」ボタンが活性化 → SCR-031 写真設定へ。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text">必須項目を全て入力後に「次へ」ボタンが活性化 → SCR-032 食事スタイルへ。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text">設定中はボトムナビを非表示（登録フロー専用UI）。</div></div>
       </div>
       <div class="blp-section">
@@ -1123,14 +1085,7 @@
               <div class="blp-step-num">→</div>
               <div class="blp-step-connector"></div>
             </div>
-            <div class="blp-step-text"><strong>Hoàn thành Step 1</strong> → SCR-031 (Upload ảnh)</div>
-          </div>
-          <div class="blp-flow-step">
-            <div class="blp-step-line">
-              <div class="blp-step-num">←</div>
-            </div>
-            <div class="blp-step-text"><strong>Bỏ qua / sau</strong> → vào app nhưng profile chưa đầy đủ, nhắc nhở hoàn
-              thiện</div>
+            <div class="blp-step-text"><strong>Hoàn thành Step 1</strong> → SCR-032 (食事スタイル)</div>
           </div>
         </div>
       </div>
@@ -1141,6 +1096,11 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+
+    function updateIntroCount(el) {
+      var count = document.getElementById('introCount');
+      if (count && el) count.textContent = el.value.length + ' / 100';
     }
 
   </script>

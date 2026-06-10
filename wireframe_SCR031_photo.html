@@ -569,14 +569,10 @@
       margin-top: auto;
     }
 
-    .skip-link {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      font-size: 13px;
-      color: #757575;
-      text-decoration: none;
-      font-weight: 600;
+    .next-btn:disabled {
+      background: #bdbdbd;
+      color: #fff;
+      cursor: not-allowed;
     }
   </style>
 
@@ -1088,9 +1084,8 @@
       <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
       <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
-      <a class="wf-nav-link" href="wireframe_SCR029_profile_prompt.html"><span class="wf-nav-id">029</span>プロフィール促進</a>
-      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
     </div>
     <div class="wf-sidebar-group">
@@ -1212,7 +1207,7 @@
       <div class="status-bar"></div>
       <div class="screen">
         <div class="header">
-          <div class="back-arrow" onclick="window.location.href='wireframe_SCR030_profile1.html'"
+          <div class="back-arrow" onclick="window.location.href='wireframe_SCR024_ekyc.html'"
             style="cursor:pointer;">‹</div>
           <div class="header-text">
             <div class="title">写真を設定する</div>
@@ -1269,9 +1264,7 @@
           </div>
         </div>
 
-        <button class="next-btn"
-          onclick="window.location.href='wireframe_SCR032_food_style.html'">次に進む</button>
-        <a href="wireframe_SCR032_food_style.html" class="skip-link">スキップ</a>
+        <button class="next-btn" id="nextBtn" type="button" onclick="goNext()">次に進む</button>
       </div>
     </div>
   </div>
@@ -1369,6 +1362,63 @@
       document.getElementById('blurValue').textContent = value + '%';
       document.getElementById('previewCard').style.setProperty('--photo-blur', (value / 12 + 2) + 'px');
     }
+
+    function hasUploadedPhoto() {
+      return !!document.querySelector('.photo-card.filled');
+    }
+
+    function updateNextBtn() {
+      var btn = document.getElementById('nextBtn');
+      if (btn) btn.disabled = !hasUploadedPhoto();
+    }
+
+    function goNext() {
+      if (hasUploadedPhoto()) {
+        window.location.href = 'wireframe_SCR030_profile1.html';
+      }
+    }
+
+    document.querySelectorAll('.upload-card').forEach(function (card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function () {
+        if (card.classList.contains('filled')) return;
+        card.classList.remove('upload-card');
+        card.classList.add('filled');
+        card.innerHTML =
+          '<button type="button" class="remove-photo-btn" onclick="removePhoto(this)">×</button>' +
+          '<div class="photo-preview"><div class="mock-photo"><div class="mock-photo-scene"></div></div></div>';
+        updateNextBtn();
+      });
+    });
+
+    function removePhoto(btn) {
+      var card = btn.closest('.photo-card');
+      if (!card) return;
+      card.classList.remove('filled');
+      card.classList.add('upload-card');
+      card.innerHTML =
+        '<div class="upload-icon-shell">' +
+        '<div class="camera-mini"><span class="camera-lens"></span><span class="plus-mini">+</span></div>' +
+        '</div><div class="upload-hint">推奨: 顔がはっきり写った写真</div>';
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function onUploadClick() {
+        card.removeEventListener('click', onUploadClick);
+        if (!card.classList.contains('upload-card')) return;
+        card.classList.remove('upload-card');
+        card.classList.add('filled');
+        card.innerHTML =
+          '<button type="button" class="remove-photo-btn" onclick="removePhoto(this)">×</button>' +
+          '<div class="photo-preview"><div class="mock-photo"><div class="mock-photo-scene"></div></div></div>';
+        updateNextBtn();
+      });
+      updateNextBtn();
+    }
+
+    document.querySelector('#previewCard .remove-photo-btn')?.addEventListener('click', function (e) {
+      removePhoto(e.currentTarget);
+    });
+
+    updateNextBtn();
   </script>
 
     </div>
