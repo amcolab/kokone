@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-030B 行きたい店舗選択</title>
+  <style>
+    :root {
+      --c0: #ffffff;
+      --c1: #f5f5f5;
+      --c2: #e0e0e0;
+      --c3: #bdbdbd;
+      --c4: #757575;
+      --c5: #424242;
+      --c6: #212121;
+      --wf-global-zoom: 1.1;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--c1);
+      color: var(--c6);
+      margin-left: 200px;
+      margin-right: 280px;
+      zoom: var(--wf-global-zoom);
+    }
+    .device {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      display: flex;
+      flex-direction: column;
+      background: var(--c0);
+      margin: 20px auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      flex-shrink: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid var(--c2);
+      gap: 12px;
+      background: var(--c0);
+      flex-shrink: 0;
+    }
+    .back-btn { font-size: 14px; cursor: pointer; color: var(--c6); flex-shrink: 0; }
+    .header-title { font-size: 16px; font-weight: 600; color: var(--c6); flex: 1; }
+    .header-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--c2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--c6);
+      background: var(--c0);
+      flex-shrink: 0;
+    }
+    .pick-hint {
+      padding: 10px 16px;
+      background: #f0f0f0;
+      border-bottom: 1px solid var(--c2);
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    .pick-hint strong { color: var(--c6); }
+    .search-container {
+      padding: 12px 16px;
+      background: var(--c0);
+      border-bottom: 1px solid var(--c2);
+      flex-shrink: 0;
+    }
+    .search-box-wrap.hidden { display: none; }
+    .filter-chip-row {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .filter-chip {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--c2);
+      background: #fff;
+      color: var(--c4);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .filter-chip.active {
+      border-color: var(--c6);
+      color: var(--c6);
+      background: #fafafa;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--c1);
+      border: 1px solid var(--c2);
+      padding: 8px 12px;
+      gap: 8px;
+    }
+    .search-input {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      color: var(--c6);
+      flex: 1;
+      outline: none;
+    }
+    .cards-section {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+    }
+    .empty-state {
+      padding: 28px 16px;
+      text-align: center;
+      color: var(--c4);
+      font-size: 12px;
+      display: none;
+    }
+    .empty-state.show { display: block; }
+    .restaurant-card {
+      background: var(--c0);
+      border: 1px solid var(--c6);
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-photo {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-bottom: 1px solid var(--c6);
+      position: relative;
+    }
+    .card-photo::after {
+      content: attr(data-placeholder);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #757575;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+    .like-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--c6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .like-btn.active {
+      background: var(--c6);
+      color: #ff4757;
+    }
+    .like-btn.active svg { fill: #ff4757; stroke: #ff4757; }
+    .card-content { padding: 12px; }
+    .res-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .res-name-link {
+      color: var(--c6);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .res-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .meal-tag {
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      padding: 0 8px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--c5);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .glass-meter { display: inline-flex; align-items: center; gap: 4px; }
+    .glass-svg { width: 14px; height: 14px; stroke: #bdbdbd; fill: none; stroke-width: 1.8; }
+    .glass-svg.on { stroke: #212121; }
+    .res-address { font-size: 11px; color: var(--c4); margin-top: 8px; }
+    .res-desc {
+      font-size: 11px;
+      color: var(--c5);
+      margin-top: 8px;
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .pick-footer {
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      padding: 12px 16px 16px;
+      flex-shrink: 0;
+    }
+    .pick-progress {
+      text-align: center;
+      font-size: 12px;
+      color: var(--c5);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .pick-progress.ready { color: var(--c6); }
+    .complete-btn {
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .complete-btn:disabled {
+      background: var(--c3);
+      color: var(--c0);
+      cursor: not-allowed;
+    }
+    .shop-detail-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      padding: 18px 12px;
+    }
+    .shop-detail-sheet {
+      width: 100%;
+      max-width: 340px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--c2);
+      overflow: hidden;
+    }
+    .shop-detail-hero-wrap { position: relative; height: 170px; background: #e0e0e0; }
+    .shop-detail-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.92);
+      cursor: pointer;
+      z-index: 3;
+    }
+    .shop-detail-body { padding: 14px; }
+    .shop-detail-name { font-size: 15px; font-weight: 900; }
+    .shop-detail-section-text { font-size: 12px; color: #424242; line-height: 1.6; margin-top: 8px; }
+    .wf-sidebar { width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+    .wf-sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px; text-decoration: none; }
+    .wf-logo-mark { width: 22px; height: 22px; border: 2px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #424242; flex-shrink: 0; }
+    .wf-logo-text { font-size: 12px; font-weight: 700; color: #212121; }
+    .wf-sidebar-group { border-bottom: 1px solid #e0e0e0; }
+    .wf-group-label { padding: 7px 14px 3px; font-size: 9px; font-weight: 700; color: #bdbdbd; text-transform: uppercase; letter-spacing: 1px; }
+    .wf-nav-link { display: flex; align-items: center; gap: 5px; padding: 5px 14px; font-size: 11px; color: #757575; text-decoration: none; border-left: 2px solid transparent; line-height: 1.3; }
+    .wf-nav-link:hover { background: #f5f5f5; color: #424242; }
+    .wf-nav-link.wf-active { background: #f5f5f5; color: #212121; font-weight: 600; border-left-color: #424242; }
+    .wf-nav-id { font-size: 9px; color: #bdbdbd; width: 32px; flex-shrink: 0; }
+    .blp-wrap { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; overflow-y: auto; background: #fff; border-left: 2px solid #212121; z-index: 9998; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; font-size: 11px; color: #212121; transition: width 0.2s ease; }
+    .blp-wrap.fullscreen { width: calc(100vw - 200px); }
+    .blp-wrap.fullscreen .blp-body { max-width: 760px; margin: 0 auto; columns: 2; column-gap: 24px; }
+    .blp-wrap.fullscreen .blp-section { break-inside: avoid; }
+    .blp-head { position: sticky; top: 0; background: #212121; color: #fff; padding: 10px 14px 9px; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; }
+    .blp-head-scr { font-size: 9px; color: #bdbdbd; letter-spacing: .5px; margin-bottom: 2px; }
+    .blp-head-title { font-size: 12px; font-weight: 700; }
+    .blp-head-sub { font-size: 10px; color: #9e9e9e; margin-top: 2px; }
+    .blp-fullscreen-btn { width: 24px; height: 24px; border: 1px solid #424242; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; color: #9e9e9e; }
+    .blp-fullscreen-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .blp-body { padding: 10px 12px 20px; }
+    .blp-section { margin-bottom: 14px; }
+    .blp-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #9e9e9e; border-bottom: 1px solid #f0f0f0; padding-bottom: 4px; margin-bottom: 7px; }
+    .blp-rule { display: flex; gap: 7px; margin-bottom: 7px; line-height: 1.5; }
+    .blp-rule-dot { width: 14px; height: 14px; background: #f5f5f5; border: 1px solid #e0e0e0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #757575; margin-top: 1px; }
+    .blp-rule-text { font-size: 11px; color: #212121; line-height: 1.55; }
+    .blp-flow { display: flex; flex-direction: column; margin-bottom: 4px; }
+    .blp-flow-step { display: flex; align-items: flex-start; gap: 6px; padding-bottom: 8px; }
+    .blp-step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; margin-top: 2px; }
+    .blp-step-num { width: 16px; height: 16px; border: 1.5px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #424242; background: #fff; flex-shrink: 0; z-index: 1; }
+    .blp-step-connector { width: 1px; flex: 1; background: #e0e0e0; min-height: 10px; margin-top: 2px; }
+    .blp-step-text { font-size: 11px; color: #424242; line-height: 1.5; padding-top: 1px; }
+    .blp-note { background: #fafafa; border: 1px solid #e0e0e0; border-left: 3px solid #bdbdbd; padding: 7px 9px; font-size: 10px; color: #757575; line-height: 1.55; margin-top: 6px; }
+    .blp-note.highlight { border-left-color: #212121; color: #424242; }
+    .blp-lang-switch { display: flex; border: 1px solid #444; border-radius: 4px; overflow: hidden; font-size: 9px; color: #fff; cursor: pointer; margin-right: 8px; }
+    .blp-lang-btn { padding: 2px 6px; background: transparent; color: #9e9e9e; }
+    .blp-lang-btn.active { background: #444; color: #fff; }
+  </style>
+</head>
+<body style="margin-left:200px; margin-right:280px;">
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR030_restaurant_pick.html"><span class="wf-nav-id">030B</span>行きたい店舗</a>
+      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+      <a class="wf-nav-link" href="wireframe_SCR120_restaurant_list.html"><span class="wf-nav-id">120</span>お気に入り店舗</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">G · Admin</div>
+      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Admin Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
+    </div>
+  </nav>
+
+  <div class="device">
+    <div class="status-bar"><span>9:41</span><span>LTE</span></div>
+    <div class="header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR030_profile1.html'">←</div>
+      <div class="header-title">行きたい店舗</div>
+      <div class="header-icon" onclick="toggleSearch()">🔍</div>
+    </div>
+
+    <div class="pick-hint"><strong>3件以上</strong>の店舗を選択してください。マッチング後の予約候補に反映されます。</div>
+
+    <div class="search-container">
+      <div class="search-box-wrap hidden" id="searchBoxWrap">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" class="search-input" id="search-input" placeholder="店名で検索" oninput="applyFilters()">
+        </div>
+      </div>
+      <div class="filter-chip-row" id="areaChips">
+        <div class="filter-chip active" data-area="all" onclick="setArea('all')">すべて</div>
+        <div class="filter-chip" data-area="ebisu-nakameguro" onclick="setArea('ebisu-nakameguro')">恵比寿 / 中目黒</div>
+        <div class="filter-chip" data-area="ginza-marunouchi" onclick="setArea('ginza-marunouchi')">銀座 / 丸の内</div>
+        <div class="filter-chip" data-area="shibuya-omotesando" onclick="setArea('shibuya-omotesando')">渋谷 / 表参道</div>
+        <div class="filter-chip" data-area="roppongi-azabu" onclick="setArea('roppongi-azabu')">六本木 / 麻布</div>
+        <div class="filter-chip" data-area="shinjuku-yoyogi" onclick="setArea('shinjuku-yoyogi')">新宿 / 代々木</div>
+      </div>
+    </div>
+
+    <div class="cards-section" id="res-list">
+      <div class="empty-state" id="emptyState">条件に一致する店舗が見つかりませんでした。</div>
+
+      <div class="restaurant-card" data-id="res-001" data-area="shibuya-omotesando" data-selected="false"
+           data-style="和食" data-desc="落ち着いた照明の和空間で、旬の食材を使った創作和食を提供。">
+        <div class="card-photo" data-placeholder="Washoku Shizuku Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">和食 しずく</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">和食</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都渋谷区神宮前5-10-1</div>
+          <div class="res-desc">落ち着いた照明の和空間で、旬の食材を使った創作和食を提供。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-002" data-area="ebisu-nakameguro" data-selected="false"
+           data-style="イタリアン" data-desc="カジュアルに楽しめるフレンチビストロ。グラスワインが豊富。">
+        <div class="card-photo" data-placeholder="Bistro L'Etoile Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">Bistro L'Etoile</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">イタリアン</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都渋谷区恵比寿西1-12-8</div>
+          <div class="res-desc">カジュアルに楽しめるフレンチビストロ。グラスワインが豊富。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-003" data-area="ginza-marunouchi" data-selected="false"
+           data-style="焼肉・ステーキ" data-desc="江戸前の技と季節の一品を少量ずつ。カウンター中心。">
+        <div class="card-photo" data-placeholder="Ginza Sushi Ken Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">銀座 鮨 研</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">焼肉・ステーキ</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都中央区銀座4-2-1</div>
+          <div class="res-desc">江戸前の技と季節の一品を少量ずつ。カウンター中心。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-004" data-area="shinjuku-yoyogi" data-selected="false"
+           data-style="フレンチ" data-desc="落ち着いた個室で、季節のコース料理をゆっくり楽しめます。">
+        <div class="card-photo" data-placeholder="Restaurant Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">ビストロ青葉</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">フレンチ</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都渋谷区代々木2-1-1</div>
+          <div class="res-desc">落ち着いた個室で、季節のコース料理をゆっくり楽しめます。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-005" data-area="roppongi-azabu" data-selected="false"
+           data-style="和食" data-desc="個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適。">
+        <div class="card-photo" data-placeholder="Waraku Dining Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">個室ダイニング 和楽</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">和食</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都港区六本木6-2-3</div>
+          <div class="res-desc">個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-006" data-area="shinjuku-yoyogi" data-selected="false"
+           data-style="焼肉・ステーキ" data-desc="炭火で焼き上げる上質な肉。半個室席で会話もしやすい。">
+        <div class="card-photo" data-placeholder="Sumibian Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">焼肉 炭火庵</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">焼肉・ステーキ</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都新宿区西新宿1-8-2</div>
+          <div class="res-desc">炭火で焼き上げる上質な肉。半個室席で会話もしやすい。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-007" data-area="ebisu-nakameguro" data-selected="false"
+           data-style="イタリアン" data-desc="窯焼きピザと自家製パスタが人気。カジュアルな雰囲気。">
+        <div class="card-photo" data-placeholder="Trattoria Sole Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">トラットリア ソーレ</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">イタリアン</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都目黒区上目黒2-14-5</div>
+          <div class="res-desc">窯焼きピザと自家製パスタが人気。カジュアルな雰囲気。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-008" data-area="ginza-marunouchi" data-selected="false"
+           data-style="中華" data-desc="本格広東料理をモダンにアレンジ。落ち着いたテーブル席。">
+        <div class="card-photo" data-placeholder="Ryuen Chinese Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">中国料理 龍苑</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">中華</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都中央区銀座3-5-11</div>
+          <div class="res-desc">本格広東料理をモダンにアレンジ。落ち着いたテーブル席。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-009" data-area="shibuya-omotesando" data-selected="false"
+           data-style="寿司" data-desc="江戸前寿司を気軽に楽しめるカウンター席。職人との会話も楽しめる。">
+        <div class="card-photo" data-placeholder="Sushi Minato Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">鮨 みなと</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">寿司</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都渋谷区宇田川町12-3</div>
+          <div class="res-desc">江戸前寿司を気軽に楽しめるカウンター席。職人との会話も楽しめる。</div>
+        </div>
+      </div>
+
+      <div class="restaurant-card" data-id="res-010" data-area="shinjuku-yoyogi" data-selected="false"
+           data-style="フレンチ" data-desc="新宿駅近くの隠れ家ビストロ。ワインセレクトが充実。">
+        <div class="card-photo" data-placeholder="Bistro O Shinjuku Image">
+          <div class="like-btn" onclick="togglePick(event, this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="res-name"><span class="res-name-link" onclick="openRestaurantModal(this)">ビストロ・オー 新宿店</span></div>
+          <div class="res-meta-row">
+            <span class="meal-tag">フレンチ</span>
+            <span class="glass-meter">
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+              <svg class="glass-svg on" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
+            </span>
+          </div>
+          <div class="res-address">東京都新宿区新宿3-17-4</div>
+          <div class="res-desc">新宿駅近くの隠れ家ビストロ。ワインセレクトが充実。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pick-footer">
+      <div class="pick-progress" id="pickProgress">選択 <span id="pickCount">0</span>/3件以上</div>
+      <button class="complete-btn" id="completeBtn" type="button" disabled onclick="finishPick()">選択して完了</button>
+    </div>
+
+    <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+      <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+        <div class="shop-detail-hero-wrap">
+          <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+        </div>
+        <div class="shop-detail-body">
+          <div class="shop-detail-name" id="shopDetailName">店舗名</div>
+          <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div>
+        <div class="blp-head-scr">SCR-030B</div>
+        <div class="blp-head-title">行きたい店舗選択</div>
+        <div class="blp-head-sub">Onboarding Restaurant Pick / Chọn quán trong onboarding</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" onclick="toggleBlpFullscreen(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">プロフィール登録後、行きたい店舗を最低3件選び、マッチング後の予約候補に反映させるオンボーディング画面。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">主要な挙動</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>エリア絞り込み</strong>と店名検索で候補店舗を探す。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">ハートアイコンで<strong>3件以上</strong>選択するまで完了ボタンは非活性。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>選択して完了</strong>で Card View（SCR-060）へ遷移。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-030</strong> プロフィール基本情報</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で店舗を3件以上選択</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>SCR-060</strong> Card View へ</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Màn onboarding sau profile: chọn tối thiểu 3 quán muốn đi để dùng làm gợi ý đặt bàn sau khi match.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Lọc theo khu vực và tìm theo tên quán.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Phải chọn <strong>≥3 quán</strong> mới bật nút hoàn tất.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>選択して完了</strong> → SCR-060.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(function (btn) { btn.classList.remove('active'); });
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+    function toggleBlpFullscreen(button) {
+      var wrap = button.closest('.blp-wrap');
+      wrap.classList.toggle('fullscreen');
+      document.body.style.marginRight = wrap.classList.contains('fullscreen') ? (window.innerWidth - 200) + 'px' : '280px';
+    }
+    var MIN_PICK = 3;
+    var currentArea = 'all';
+    var searchOpen = false;
+    var pickSet = new Set();
+
+    function toggleSearch() {
+      var wrap = document.getElementById('searchBoxWrap');
+      var input = document.getElementById('search-input');
+      searchOpen = !searchOpen;
+      if (wrap) wrap.classList.toggle('hidden', !searchOpen);
+      if (searchOpen && input) setTimeout(function () { input.focus(); }, 30);
+      if (!searchOpen && input) {
+        input.value = '';
+        applyFilters();
+      }
+    }
+
+    function setArea(areaKey) {
+      currentArea = areaKey;
+      document.querySelectorAll('#areaChips .filter-chip').forEach(function (chip) {
+        chip.classList.toggle('active', chip.getAttribute('data-area') === areaKey);
+      });
+      applyFilters();
+    }
+
+    function applyFilters() {
+      var input = document.getElementById('search-input');
+      var query = (input ? input.value : '').toLowerCase().trim();
+      var emptyState = document.getElementById('emptyState');
+      var count = 0;
+      document.querySelectorAll('.restaurant-card').forEach(function (card) {
+        var name = (card.querySelector('.res-name') || {}).textContent || '';
+        var address = (card.querySelector('.res-address') || {}).textContent || '';
+        var desc = (card.querySelector('.res-desc') || {}).textContent || '';
+        var blob = (name + address + desc).toLowerCase();
+        var area = card.getAttribute('data-area') || 'all';
+        var matchArea = currentArea === 'all' || area === currentArea;
+        var matchSearch = !query || blob.includes(query);
+        var show = matchArea && matchSearch;
+        card.style.display = show ? 'block' : 'none';
+        if (show) count++;
+      });
+      if (emptyState) emptyState.classList.toggle('show', count === 0);
+    }
+
+    function updatePickUI() {
+      var count = pickSet.size;
+      var countEl = document.getElementById('pickCount');
+      var progressEl = document.getElementById('pickProgress');
+      var btn = document.getElementById('completeBtn');
+      if (countEl) countEl.textContent = String(count);
+      if (progressEl) progressEl.classList.toggle('ready', count >= MIN_PICK);
+      if (btn) btn.disabled = count < MIN_PICK;
+    }
+
+    function togglePick(e, btn) {
+      if (e) e.stopPropagation();
+      var card = btn.closest('.restaurant-card');
+      if (!card) return;
+      var id = card.getAttribute('data-id');
+      if (!id) return;
+      if (pickSet.has(id)) {
+        pickSet.delete(id);
+        btn.classList.remove('active');
+        card.setAttribute('data-selected', 'false');
+      } else {
+        pickSet.add(id);
+        btn.classList.add('active');
+        card.setAttribute('data-selected', 'true');
+      }
+      updatePickUI();
+    }
+
+    function openRestaurantModal(el) {
+      var card = el.closest('.restaurant-card');
+      if (!card) return;
+      document.getElementById('shopDetailName').textContent = el.textContent.trim();
+      document.getElementById('shopDetailOverview').textContent = card.getAttribute('data-desc') || '';
+      document.getElementById('shopDetailPopup').style.display = 'flex';
+    }
+
+    function closeShopDetail(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('shopDetailPopup').style.display = 'none';
+    }
+
+    function finishPick() {
+      if (pickSet.size < MIN_PICK) return;
+      localStorage.setItem('ot-onboarding-restaurants', JSON.stringify(Array.from(pickSet)));
+      window.location.href = 'wireframe_SCR060_flat.html';
+    }
+
+    applyFilters();
+    updatePickUI();
+  </script>
+</body>
+</html>

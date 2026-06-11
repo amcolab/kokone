@@ -79,6 +79,11 @@
     .user-info { flex: 1; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 1; }
     .name-row { display: flex; align-items: center; gap: 6px; }
     .user-name { font-size: 14px; font-weight: 700; color: #212121; }
+    .user-name-link {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
     .verify-dot {
       width: 14px; height: 14px; border-radius: 50%; background: #2e7d32; color: #fff;
       display: inline-flex; align-items: center; justify-content: center;
@@ -90,14 +95,6 @@
     .res-label { font-size: 10px; color: #757575; margin-bottom: 2px; }
     .res-tags { display: flex; flex-wrap: wrap; gap: 4px; }
     .res-tag-mini { font-size: 9px; padding: 2px 6px; background: #e3f2fd; border: 1px solid #90caf9; color: #1565c0; border-radius: 10px; }
-
-    /* Card action buttons */
-    .card-actions { display: flex; gap: 8px; margin-top: 10px; }
-    .a-btn { flex: 1; padding: 8px 0; font-size: 11px; font-weight: 600; text-align: center; border: 1px solid #000; background: #fff; cursor: pointer; }
-    .a-btn.primary { background: #000; color: #fff; }
-    .a-btn.change { background: #fff; color: var(--c5); border: 1px solid var(--c3); font-size: 11px; }
-    .a-btn.change-selected { background: #fff; color: var(--green); border: 1px solid var(--green-border); font-size: 11px; }
-    .a-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Status chip */
     .status-chip {
@@ -277,8 +274,7 @@
         <div class="selected-banner">
           <div class="selected-banner-icon">✅</div>
           <div class="selected-banner-text">
-            さくらさんを選定しました<br>
-            <span style="font-weight:400;font-size:11px;">選定相手を変更することもできます</span>
+            さくらさんを選定しました
           </div>
         </div>
 
@@ -293,7 +289,7 @@
           <div class="user-info">
             <span class="status-chip selected">✓ 選定済み</span>
             <div class="name-row">
-              <div class="user-name">さくら · 34歳</div>
+              <div class="user-name user-name-link" onclick="location.href='wireframe_SCR060_flat.html?idx=2&amp;view=profile&amp;return=wireframe_SCR074_selection_result.html'">さくら · 34歳</div>
               <span class="verify-dot">✓</span>
             </div>
             <div class="tag-row">
@@ -305,10 +301,6 @@
                 <span class="res-tag-mini">ビストロ・オー</span>
               </div>
             </div>
-            <div class="card-actions">
-              <button class="a-btn" onclick="location.href='wireframe_SCR062_partner_profile.html'">プロフ確認</button>
-              <button class="a-btn change-selected" onclick="openChangeModal('さくらさん', true)">選定を取り消す</button>
-            </div>
           </div>
         </div>
 
@@ -317,7 +309,7 @@
           <div class="photo-box">✕✕</div>
           <div class="user-info">
             <div class="name-row">
-              <div class="user-name">なつみ · 29歳</div>
+              <div class="user-name user-name-link" onclick="location.href='wireframe_SCR060_flat.html?idx=4&amp;view=profile&amp;return=wireframe_SCR074_selection_result.html'">なつみ · 29歳</div>
             </div>
             <div class="tag-row">
               <span class="tag">和食</span><span class="tag">イタリアン</span>
@@ -328,10 +320,6 @@
                 <span class="res-tag-mini">和食処 みやび</span>
               </div>
             </div>
-            <div class="card-actions">
-              <button class="a-btn" onclick="location.href='wireframe_SCR062_partner_profile.html'">プロフ確認</button>
-              <button class="a-btn change" onclick="openChangeModal('なつみさん', false)">この人に変更する</button>
-            </div>
           </div>
         </div>
 
@@ -340,7 +328,7 @@
           <div class="photo-box">✕✕</div>
           <div class="user-info">
             <div class="name-row">
-              <div class="user-name">あい · 31歳</div>
+              <div class="user-name user-name-link" onclick="location.href='wireframe_SCR060_flat.html?idx=6&amp;view=profile&amp;return=wireframe_SCR074_selection_result.html'">あい · 31歳</div>
               <span class="verify-dot">✓</span>
             </div>
             <div class="tag-row">
@@ -351,10 +339,6 @@
               <div class="res-tags">
                 <span class="res-tag-mini">ビストロ・オー</span>
               </div>
-            </div>
-            <div class="card-actions">
-              <button class="a-btn" onclick="location.href='wireframe_SCR062_partner_profile.html'">プロフ確認</button>
-              <button class="a-btn change" onclick="openChangeModal('あいさん', false)">この人に変更する</button>
             </div>
           </div>
         </div>
@@ -414,16 +398,13 @@
         <div class="blp-section">
           <div class="blp-section-title">表示ルール</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>選定済みカード</strong> — 緑ボーダー・背景ハイライト・「選定済み」バッジ表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>未選定カード</strong> —「この人に変更する」ボタンで変更フロー起動（未選定ラベルは表示しない）。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>変更確認モーダル</strong> — 変更時は現在の選定相手への通知・取消を警告してから実行。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>取消</strong> —「選定を取り消す」で選定なし状態に戻す（SCR-073と同じ選定フローに戻る）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>名前・年齢</strong> — 下線付き。タップで SCR-060 プロフィール閲覧（×・いいねボタンなし、戻るで本画面へ）。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">←</div><div class="blp-step-connector"></div></div><div class="blp-step-text">SCR-070「選定結果を見る」から遷移</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div><div class="blp-step-connector"></div></div><div class="blp-step-text">プロフ確認 → SCR-062 Partner Profile</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div></div><div class="blp-step-text">変更確定 → SCR-070 募集一覧（状態更新）</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div></div><div class="blp-step-text">名前タップ → SCR-060（view=profile）</div></div>
           </div>
         </div>
       </div>
@@ -435,16 +416,13 @@
         <div class="blp-section">
           <div class="blp-section-title">Quy tắc hiển thị</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Card đã chọn</strong> — viền xanh, nền highlight, badge「選定済み」.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Card chưa chọn</strong> — nút「この人に変更する」để chuyển sang người khác.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Modal xác nhận</strong> — cảnh báo sẽ gửi thông báo hủy cho người hiện tại trước khi đổi.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Hủy chọn</strong> —「選定を取り消す」trở về trạng thái chưa chọn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Tên · tuổi</strong> — gạch chân, bấm mở SCR-060 xem profile (không có × / tim, quay lại màn này).</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Chuyển màn</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">←</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Từ SCR-070「選定結果を見る」</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Xem profile → SCR-062</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div></div><div class="blp-step-text">Xác nhận đổi → SCR-070 (cập nhật trạng thái)</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">→</div></div><div class="blp-step-text">Bấm tên → SCR-060 (view=profile)</div></div>
           </div>
         </div>
       </div>

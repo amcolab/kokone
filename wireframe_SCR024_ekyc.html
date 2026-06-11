@@ -252,14 +252,20 @@
 
     .submit-btn {
       width: 100%;
-      height: 44px;
+      height: 60px;
+      min-height: 60px;
       background: var(--c6);
       color: var(--c0);
       border: none;
+      border-radius: 0;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: bold;
       margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .flow-section {
@@ -993,8 +999,7 @@
           ※ 撮影後、システムが自動的に審査を開始します。
         </div>
 
-        <button class="submit-btn" id="ekycSubmitBtn" onclick="finishEkyc()">提出して完了</button>
-
+        <button class="submit-btn" id="ekycSubmitBtn" onclick="finishEkyc()">提出する</button>
       </div>
     </div>
   </div>

@@ -361,6 +361,25 @@
     .blp-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9e9e9e; border-bottom: 1px solid #f0f0f0; padding-bottom: 4px; margin-bottom: 7px; }
     .blp-note { background: #fafafa; border: 1px solid #e0e0e0; border-left: 3px solid #bdbdbd; padding: 7px 9px; font-size: 10px; color: #757575; line-height: 1.55; }
     .blp-note.highlight { border-left-color: #212121; color: #424242; }
+    .blp-wrap.fullscreen { width: calc(100vw - 200px); }
+    .blp-wrap.fullscreen .blp-body { max-width: 760px; margin: 0 auto; columns: 2; column-gap: 24px; }
+    .blp-wrap.fullscreen .blp-section { break-inside: avoid; }
+    .blp-head { display: flex; align-items: flex-start; justify-content: space-between; }
+    .blp-fullscreen-btn { width: 24px; height: 24px; border: 1px solid #424242; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #9e9e9e; flex-shrink: 0; }
+    .blp-fullscreen-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .blp-section { margin-bottom: 14px; }
+    .blp-rule { display: flex; gap: 7px; margin-bottom: 7px; line-height: 1.5; }
+    .blp-rule-dot { width: 14px; height: 14px; background: #f5f5f5; border: 1px solid #e0e0e0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #757575; margin-top: 1px; }
+    .blp-rule-text { font-size: 11px; color: #212121; line-height: 1.55; }
+    .blp-flow { display: flex; flex-direction: column; }
+    .blp-flow-step { display: flex; align-items: flex-start; gap: 6px; padding-bottom: 8px; }
+    .blp-step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; margin-top: 2px; }
+    .blp-step-num { width: 16px; height: 16px; border: 1.5px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #424242; background: #fff; }
+    .blp-step-connector { width: 1px; flex: 1; background: #e0e0e0; min-height: 10px; margin-top: 2px; }
+    .blp-step-text { font-size: 11px; color: #424242; line-height: 1.5; padding-top: 1px; }
+    .blp-lang-switch { display: flex; border: 1px solid #444; border-radius: 4px; overflow: hidden; font-size: 9px; margin-right: 8px; }
+    .blp-lang-btn { padding: 2px 6px; background: transparent; color: #9e9e9e; cursor: pointer; }
+    .blp-lang-btn.active { background: #444; color: #fff; }
     .header-menu-overlay {
       position: absolute;
       inset: 0;
@@ -394,17 +413,51 @@
     .header-menu-item:last-child { border-bottom: 0; }
   </style>
 </head>
-<body>
+<body style="margin-left:200px; margin-right:280px;">
   <nav class="wf-sidebar">
-    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <a href="index.html" class="wf-sidebar-logo" style="text-decoration:none;"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_restaurant_pick.html"><span class="wf-nav-id">030B</span>行きたい店舗</a>
+    </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
       <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
     </div>
     <div class="wf-sidebar-group">
-      <div class="wf-group-label">E · Chat</div>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_deadline.html"><span class="wf-nav-id">090E</span>Chat Schedule Deadline</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">F · My Page</div>
+      <a class="wf-nav-link" href="wireframe_SCR110_mypage.html"><span class="wf-nav-id">110</span>My Page</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">G · Admin</div>
+      <a class="wf-nav-link" href="wireframe_SCR200_admin_dashboard.html"><span class="wf-nav-id">200</span>Admin Dashboard</a>
+      <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
     </div>
   </nav>
 
@@ -501,17 +554,69 @@
 
   <div class="blp-wrap">
     <div class="blp-head">
-      <div class="blp-head-scr">SCR-090G</div>
-      <div class="blp-head-title">Boshuu Matched Chat</div>
-      <div class="blp-head-sub">募集成立後チャット / Chat sau khi 募集 match</div>
+      <div>
+        <div class="blp-head-scr">SCR-090G</div>
+        <div class="blp-head-title">Boshuu Matched Chat</div>
+        <div class="blp-head-sub">募集成立後チャット / Chat sau khi 募集 match</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" onclick="toggleBlpFullscreen(this)">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+        </button>
+      </div>
     </div>
     <div class="blp-body">
-      <div class="blp-section-title">目的</div>
-      <div class="blp-note highlight">募集マッチ成立後の1:1チャット。決定済みの募集内容を表示し、待ち合わせなどを相談する。</div>
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">募集マッチ成立後の1:1チャット。決定済みの募集内容を表示し、待ち合わせ時間・場所などを相談する。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">主要な挙動</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>募集成立カード</strong>に日時・エリア・店舗を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">OtonaTableから<strong>予約ルール</strong>（募集者が予約）を案内。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">メニュー（⋮）から<strong>写真公開リクエスト / 通報 / ブロック</strong>。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-073</strong> で応募者承認</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-065</strong> の募集成立レコード</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>この画面</strong> でチャット調整</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Chat 1:1 sau khi 募集 match — hiển thị nội dung đã chốt và trao đổi lịch hẹn.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card <strong>募集が成立しました</strong> với ngày, khu vực, nhà hàng.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Tin hệ thống nhắc quy tắc đặt bàn.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Menu ⋮: yêu cầu ảnh / báo cáo / block.</div></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(function (btn) { btn.classList.remove('active'); });
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+    function toggleBlpFullscreen(button) {
+      var wrap = button.closest('.blp-wrap');
+      wrap.classList.toggle('fullscreen');
+      document.body.style.marginRight = wrap.classList.contains('fullscreen') ? (window.innerWidth - 200) + 'px' : '280px';
+    }
     function toggleHeaderMenu() {
       document.getElementById('headerMenuOverlay').classList.toggle('open');
     }
