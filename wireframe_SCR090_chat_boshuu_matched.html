@@ -446,6 +446,10 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_deadline.html"><span class="wf-nav-id">090E</span>Chat Schedule Deadline</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_change_menu.html"><span class="wf-nav-id">090I</span>Boshuu Change Menu</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_schedule_change.html"><span class="wf-nav-id">090J</span>Boshuu Schedule Change</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_restaurant_pick.html"><span class="wf-nav-id">090K</span>Boshuu Restaurant Pick</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_updated.html"><span class="wf-nav-id">090L</span>Boshuu Chat Updated</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
@@ -505,7 +509,7 @@
             </div>
             <div class="restaurant-name">個室ダイニング 和楽</div>
           </div>
-          <a class="change-link" href="wireframe_SCR082_date_confirm.html">&gt; 内容を変更する</a>
+          <a class="change-link" href="wireframe_SCR090_chat_boshuu_change_menu.html">&gt; 内容を変更する</a>
         </div>
       </div>
 
@@ -579,14 +583,15 @@
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>募集成立カード</strong>に日時・エリア・店舗を表示。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">OtonaTableから<strong>予約ルール</strong>（募集者が予約）を案内。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">メニュー（⋮）から<strong>写真公開リクエスト / 通報 / ブロック</strong>。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>内容を変更する</strong> → 090I。日時はチャット相談後に手入力（090J）、店舗は同エリアリストから選択（090K）。マッチングの提案フロー（082/083）とは別。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">メニュー（⋮）から<strong>写真公開リクエスト / 通報 / ブロック</strong>。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-073</strong> で応募者承認</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-065</strong> の募集成立レコード</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>この画面</strong> でチャット調整</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> でチャット調整</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>090I→090J/090K→090L</strong> 変更反映</div></div>
           </div>
         </div>
       </div>
@@ -599,7 +604,8 @@
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card <strong>募集が成立しました</strong> với ngày, khu vực, nhà hàng.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Tin hệ thống nhắc quy tắc đặt bàn.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Menu ⋮: yêu cầu ảnh / báo cáo / block.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Đổi nội dung</strong> → 090I → nhập giờ (090J) hoặc chọn quán cùng khu (090K) → 090L.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">Menu ⋮: yêu cầu ảnh / báo cáo / block.</div></div>
         </div>
       </div>
     </div>
