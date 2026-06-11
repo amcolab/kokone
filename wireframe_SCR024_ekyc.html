@@ -951,7 +951,7 @@
           <div style="display:flex; width:100%; align-items:center; gap:12px;">
             <div class="back-arrow" onclick="history.back()" style="cursor:pointer;">←</div>
             <div class="title" style="flex:1;">本人確認 (eKYC)</div>
-            <div class="skip-link" onclick="window.location.href='wireframe_SCR031_photo.html'"
+            <div class="skip-link" id="ekycSkipBtn" onclick="finishEkyc()"
               style="font-size:12px; color:#757575; cursor:pointer; text-decoration:underline;">スキップ</div>
           </div>
         </div>
@@ -993,8 +993,7 @@
           ※ 撮影後、システムが自動的に審査を開始します。
         </div>
 
-        <button class="submit-btn"
-          onclick="window.location.href='wireframe_SCR031_photo.html'">提出して完了</button>
+        <button class="submit-btn" id="ekycSubmitBtn" onclick="finishEkyc()">提出して完了</button>
 
       </div>
     </div>
@@ -1121,6 +1120,16 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+    function finishEkyc() {
+      var params = new URLSearchParams(window.location.search);
+      var returnTo = params.get('return');
+      if (returnTo) {
+        var sep = returnTo.indexOf('?') >= 0 ? '&' : '?';
+        window.location.href = returnTo + sep + 'ekyc=done';
+        return;
+      }
+      window.location.href = 'wireframe_SCR031_photo.html';
     }
   </script>
 

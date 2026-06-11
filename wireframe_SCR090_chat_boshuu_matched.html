@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-090G Chat Boshuu Matched</title>
+  <style>
+    :root {
+      --c0: #ffffff;
+      --c1: #f5f5f5;
+      --c2: #e0e0e0;
+      --c3: #bdbdbd;
+      --c4: #757575;
+      --c5: #424242;
+      --c6: #212121;
+      --wf-global-zoom: 1.1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin-left: 200px;
+      margin-right: 280px;
+      background: var(--c1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--c6);
+      zoom: var(--wf-global-zoom);
+    }
+    .device {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      margin: 20px auto;
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      flex-shrink: 0;
+    }
+    .back-btn, .header-action {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--c5);
+      cursor: pointer;
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+    }
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      background: linear-gradient(180deg, #d8d8d8 0%, #bdbdbd 100%);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .header-meta { min-width: 0; }
+    .header-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.2;
+    }
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--c4);
+      margin-top: 2px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--c4);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .boshuu-match-card {
+      background: #f0f0f0;
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .boshuu-match-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 10px;
+    }
+    .boshuu-detail-box {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .boshuu-detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c4);
+      margin-bottom: 10px;
+    }
+    .boshuu-detail-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--c5);
+      margin-bottom: 8px;
+    }
+    .boshuu-detail-row:last-of-type { margin-bottom: 0; }
+    .detail-icon {
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+      color: var(--c4);
+      font-size: 12px;
+    }
+    .restaurant-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .restaurant-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--c2);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .restaurant-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .restaurant-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c6);
+    }
+    .change-link {
+      display: block;
+      text-align: right;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--c4);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .msg-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .msg-row.sent {
+      justify-content: flex-end;
+    }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      background: var(--c2);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .msg-stack {
+      max-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .msg-row.sent .msg-stack {
+      align-items: flex-end;
+    }
+    .bubble {
+      padding: 10px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--c6);
+    }
+    .bubble.system {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      max-width: 100%;
+    }
+    .ot-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .bubble.received {
+      background: var(--c0);
+      border: 1px solid var(--c2);
+    }
+    .bubble.sent {
+      background: #e8e8e8;
+      border: 1px solid var(--c2);
+    }
+    .msg-time {
+      font-size: 10px;
+      color: var(--c4);
+      padding: 0 4px;
+    }
+    .input-bar {
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      padding: 10px 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .circle-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .input-field-wrap {
+      flex: 1;
+      height: 36px;
+      border-radius: 18px;
+      background: var(--c1);
+      border: 1px solid var(--c2);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .input-field-wrap input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 12px;
+      color: var(--c6);
+    }
+    .input-field-wrap input::placeholder { color: var(--c3); }
+    .emoji-btn {
+      border: none;
+      background: transparent;
+      color: var(--c4);
+      font-size: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .send-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+    .wf-sidebar { width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+    .wf-sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px; text-decoration: none; }
+    .wf-logo-mark { width: 22px; height: 22px; border: 2px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #424242; flex-shrink: 0; }
+    .wf-logo-text { font-size: 12px; font-weight: 700; color: #212121; }
+    .wf-sidebar-group { border-bottom: 1px solid #e0e0e0; }
+    .wf-group-label { padding: 7px 14px 3px; font-size: 9px; font-weight: 700; color: #bdbdbd; text-transform: uppercase; letter-spacing: 1px; }
+    .wf-nav-link { display: flex; align-items: center; gap: 5px; padding: 5px 14px; font-size: 11px; color: #757575; text-decoration: none; border-left: 2px solid transparent; line-height: 1.3; }
+    .wf-nav-link:hover { background: #f5f5f5; color: #424242; }
+    .wf-nav-link.wf-active { background: #f5f5f5; color: #212121; font-weight: 600; border-left-color: #424242; }
+    .wf-nav-id { font-size: 9px; color: #bdbdbd; width: 32px; flex-shrink: 0; }
+    .blp-wrap { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; overflow-y: auto; background: #fff; border-left: 2px solid #212121; z-index: 9998; font-size: 11px; color: #212121; }
+    .blp-head { position: sticky; top: 0; background: #212121; color: #fff; padding: 10px 14px; z-index: 2; }
+    .blp-head-scr { font-size: 9px; color: #bdbdbd; }
+    .blp-head-title { font-size: 12px; font-weight: 700; }
+    .blp-head-sub { font-size: 10px; color: #9e9e9e; margin-top: 2px; }
+    .blp-body { padding: 12px; }
+    .blp-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9e9e9e; border-bottom: 1px solid #f0f0f0; padding-bottom: 4px; margin-bottom: 7px; }
+    .blp-note { background: #fafafa; border: 1px solid #e0e0e0; border-left: 3px solid #bdbdbd; padding: 7px 9px; font-size: 10px; color: #757575; line-height: 1.55; }
+    .blp-note.highlight { border-left-color: #212121; color: #424242; }
+    .header-menu-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.12);
+      display: none;
+      z-index: 40;
+    }
+    .header-menu-overlay.open { display: block; }
+    .header-menu-sheet {
+      position: absolute;
+      top: 60px;
+      right: 14px;
+      width: 176px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .header-menu-item {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c6);
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .header-menu-item:last-child { border-bottom: 0; }
+  </style>
+</head>
+<body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat</div>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+    </div>
+  </nav>
+
+  <div class="device">
+    <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
+
+    <div class="chat-header">
+      <button type="button" class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</button>
+      <div class="header-center">
+        <div class="avatar">
+          <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><rect width='40' height='40' fill='%23d4cfc7'/><circle cx='20' cy='15' r='8' fill='%23b8a898'/><rect x='10' y='26' width='20' height='10' rx='5' fill='%23a89888'/></svg>">
+        </div>
+        <div class="header-meta">
+          <div class="header-name">Mizukiさん</div>
+          <div class="header-status"><span class="status-dot"></span>オンライン</div>
+        </div>
+      </div>
+      <button type="button" class="header-action" title="メニュー" onclick="toggleHeaderMenu()">⋮</button>
+    </div>
+
+    <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
+      <div class="header-menu-sheet" onclick="event.stopPropagation()">
+        <button class="header-menu-item" type="button" onclick="closeHeaderMenu()">写真公開リクエスト</button>
+        <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
+        <button class="header-menu-item" type="button" onclick="closeHeaderMenu()">ブロックする</button>
+      </div>
+    </div>
+
+    <div class="chat-body">
+      <div class="boshuu-match-card">
+        <div class="boshuu-match-title">🎉 募集が成立しました！</div>
+        <div class="boshuu-detail-box">
+          <div class="boshuu-detail-label">決定済みの内容</div>
+          <div class="boshuu-detail-row">
+            <span class="detail-icon">📅</span>
+            <span>3月20日（木）夜</span>
+          </div>
+          <div class="boshuu-detail-row">
+            <span class="detail-icon">📍</span>
+            <span>渋谷・恵比寿エリア</span>
+          </div>
+          <div class="restaurant-row">
+            <div class="restaurant-thumb">
+              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><rect width='36' height='36' fill='%23e0e0e0'/><rect x='6' y='20' width='24' height='10' rx='2' fill='%23bdbdbd'/><rect x='10' y='8' width='16' height='12' rx='2' fill='%239e9e9e'/></svg>">
+            </div>
+            <div class="restaurant-name">個室ダイニング 和楽</div>
+          </div>
+          <a class="change-link" href="wireframe_SCR082_date_confirm.html">&gt; 内容を変更する</a>
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="bubble system" style="flex:1;">
+          <div class="ot-badge">OT</div>
+          <div style="font-size:12px; line-height:1.6; color:var(--c5); padding-top:2px;">
+            予約は募集者が行うルールです。待ち合わせ場所や時間を相談してください。
+          </div>
+        </div>
+      </div>
+      <div style="font-size:10px; color:var(--c4); padding-left:4px;">12:30</div>
+
+      <div class="msg-row sent">
+        <div class="msg-stack">
+          <div class="bubble sent">ありがとうございます！<br>19:30スタートでいかがでしょうか？</div>
+          <div class="msg-time">12:31</div>
+        </div>
+        <div class="msg-avatar">
+          <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><rect width='28' height='28' fill='%23e0e0e0'/><circle cx='14' cy='11' r='5' fill='%23bdbdbd'/><rect x='7' y='18' width='14' height='7' rx='3' fill='%23a0a0a0'/></svg>">
+        </div>
+      </div>
+
+      <div class="msg-row">
+        <div class="msg-avatar">
+          <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><rect width='28' height='28' fill='%23d4cfc7'/><circle cx='14' cy='11' r='5' fill='%23b8a898'/><rect x='7' y='18' width='14' height='7' rx='3' fill='%23a89888'/></svg>">
+        </div>
+        <div class="msg-stack">
+          <div class="bubble received">はい、19:30で大丈夫です！<br>待ち合わせはお店の前でOKです🙌</div>
+          <div class="msg-time">12:32</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-bar">
+      <button type="button" class="circle-btn">+</button>
+      <div class="input-field-wrap">
+        <input type="text" placeholder="メッセージを入力...">
+        <button type="button" class="emoji-btn">☺</button>
+      </div>
+      <button type="button" class="send-btn" title="送信">
+        <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-scr">SCR-090G</div>
+      <div class="blp-head-title">Boshuu Matched Chat</div>
+      <div class="blp-head-sub">募集成立後チャット / Chat sau khi 募集 match</div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-section-title">目的</div>
+      <div class="blp-note highlight">募集マッチ成立後の1:1チャット。決定済みの募集内容を表示し、待ち合わせなどを相談する。</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleHeaderMenu() {
+      document.getElementById('headerMenuOverlay').classList.toggle('open');
+    }
+    function closeHeaderMenu() {
+      document.getElementById('headerMenuOverlay').classList.remove('open');
+    }
+    function goToReport() {
+      closeHeaderMenu();
+      localStorage.setItem('ot-report-return', window.location.href);
+      window.location.href = 'wireframe_SCR103_report.html';
+    }
+  </script>
+</body>
+</html>

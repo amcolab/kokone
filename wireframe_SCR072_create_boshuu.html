@@ -142,7 +142,8 @@
     .select-box {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid var(--c3);
+      border: 1px solid var(--c2);
+      border-radius: 10px;
       background: var(--c0);
       color: var(--c6);
       font-size: 12px;
@@ -153,7 +154,8 @@
       width: 100%;
       height: 80px;
       padding: 10px 12px;
-      border: 1px solid var(--c3);
+      border: 1px solid var(--c2);
+      border-radius: 10px;
       background: var(--c0);
       color: var(--c6);
       font-size: 12px;
@@ -323,88 +325,326 @@
       border-radius: 50%;
     }
 
-    /* Restaurant selection styles */
-    .restaurant-choice-list {
+    .datetime-row {
       display: flex;
-      flex-direction: column;
       gap: 10px;
-      margin-top: 8px;
+      align-items: flex-end;
     }
-    .restaurant-choice-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid var(--c3);
-      cursor: pointer;
+
+    .datetime-field {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .field-sublabel {
+      font-size: 11px;
+      color: var(--c4);
+      margin-bottom: 8px;
+    }
+
+    .calendar-trigger {
+      width: 100%;
+      padding: 10px 8px;
+      border: 1px solid var(--c2);
+      border-radius: 10px;
       background: var(--c0);
-      transition: background 0.2s;
+      color: var(--c4);
+      font-size: 11px;
+      text-align: center;
+      cursor: pointer;
     }
-    .restaurant-choice-item.selected {
-      background: #f0f4f8;
-      border-color: var(--c6);
+
+    .calendar-trigger.has-date {
+      color: var(--c6);
+      font-weight: 600;
     }
-    .res-check {
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--c3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: transparent;
+
+    .time-chips.compact {
+      gap: 6px;
     }
-    .restaurant-choice-item.selected .res-check {
+
+    .time-chips.compact .time-chip {
+      padding: 10px 0;
+      border-radius: 10px;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+    }
+
+    .time-chips.compact .time-chip.active {
       background: var(--c6);
       border-color: var(--c6);
-      color: var(--c0);
     }
-    .res-info {
+
+    .section-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--c4);
+    }
+
+    .candidate-store-list {
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--c0);
+    }
+
+    .candidate-store-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--c2);
+    }
+
+    .candidate-store-item:last-child {
+      border-bottom: none;
+    }
+
+    .store-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--c2);
+    }
+
+    .store-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .store-info {
       flex: 1;
+      min-width: 0;
     }
-    .res-name {
+
+    .store-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.3;
+    }
+
+    .store-meta {
+      font-size: 11px;
+      color: var(--c4);
+      margin-top: 3px;
+    }
+
+    .store-remove {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      color: var(--c3);
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .add-store-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px solid #d0d0d0;
+      border-radius: 999px;
+      background: #f5f5f5;
+      color: #757575;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .settings-block {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .setting-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+      flex-shrink: 0;
+    }
+
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 140px;
+      height: 40px;
+      border: 1px solid var(--c2);
+      border-radius: 10px;
+      background: var(--c0);
+      padding: 0 4px;
+    }
+
+    .stepper-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--c5);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .stepper-value {
       font-size: 13px;
       font-weight: 600;
       color: var(--c6);
     }
-    .res-meta {
-      font-size: 11px;
-      color: var(--c4);
-      margin-top: 2px;
-    }
 
-    /* Restaurant suggestion styles */
-    .restaurant-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .restaurant-item {
+    .picker-trigger {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
-      background: var(--c1);
-      border: 1px solid var(--c3);
-      font-size: 12px;
-    }
-    .remove-btn {
-      color: var(--c4);
-      cursor: pointer;
-      font-size: 18px;
-    }
-    .add-restaurant-btn {
-      width: 100%;
-      padding: 10px;
-      border: 1px dashed var(--c3);
+      width: 140px;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--c2);
+      border-radius: 10px;
       background: var(--c0);
-      color: var(--c5);
       font-size: 12px;
-      text-align: center;
+      color: var(--c6);
       cursor: pointer;
-      margin-top: 8px;
     }
+
+    .picker-chevron {
+      color: var(--c4);
+      font-size: 14px;
+    }
+
+    .wf-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10002;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wf-modal-overlay.show {
+      display: flex;
+    }
+
+    .wf-modal {
+      background: var(--c0);
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .wf-modal-head {
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c6);
+      border-bottom: 1px solid var(--c2);
+      text-align: center;
+    }
+
+    .calendar-grid {
+      padding: 12px 16px 16px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+    }
+
+    .calendar-nav button {
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      color: var(--c5);
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: 10px;
+      color: var(--c4);
+      text-align: center;
+    }
+
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-day {
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      font-size: 12px;
+      color: var(--c6);
+      cursor: pointer;
+    }
+
+    .calendar-day:hover {
+      background: var(--c1);
+    }
+
+    .calendar-day.selected {
+      background: var(--c6);
+      color: var(--c0);
+    }
+
+    .calendar-day.empty {
+      pointer-events: none;
+    }
+
+    .picker-options {
+      padding: 8px 0;
+    }
+
+    .picker-option {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      font-size: 13px;
+      color: var(--c6);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .picker-option:last-child {
+      border-bottom: none;
+    }
+
+    .picker-option.active {
+      font-weight: 700;
+      background: var(--c1);
+    }
+
     .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     /* === BUSINESS LOGIC PANEL === */
     .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
@@ -606,34 +846,17 @@
       <!-- Date/Time Section -->
       <div class="form-section">
         <div class="section-label">日時帯<span class="required">*</span></div>
-
-        <div style="margin-bottom: 12px;">
-          <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">日付</div>
-          <div class="chip-group" id="date-chips" style="margin-bottom: 8px;">
-            <div class="chip active" onclick="selectDate(this, 'today')">今日</div>
-            <div class="chip" onclick="selectDate(this, 'tomorrow')">明日</div>
-            <div class="chip" onclick="selectDate(this, 'other')">カレンダーから選択...</div>
+        <div class="datetime-row">
+          <div class="datetime-field">
+            <div class="field-sublabel">日付</div>
+            <div class="calendar-trigger" id="calendar-trigger" onclick="openCalendar()">カレンダーから選択</div>
           </div>
-          
-          <div id="day-selector" style="display:none;">
-            <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">曜日</div>
-            <div class="day-chips">
-              <div class="day-chip">月</div>
-              <div class="day-chip">火</div>
-              <div class="day-chip active">水</div>
-              <div class="day-chip">木</div>
-              <div class="day-chip">金</div>
-              <div class="day-chip">土</div>
-              <div class="day-chip">日</div>
+          <div class="datetime-field">
+            <div class="field-sublabel">時間帯</div>
+            <div class="time-chips compact">
+              <div class="time-chip" onclick="selectTime(this)">昼</div>
+              <div class="time-chip active" onclick="selectTime(this)">夜</div>
             </div>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">時間帯</div>
-          <div class="time-chips">
-            <div class="time-chip">昼</div>
-            <div class="time-chip active">夜</div>
           </div>
         </div>
       </div>
@@ -653,71 +876,57 @@
 
       <!-- Message Section -->
       <div class="form-section">
-        <div class="section-label">ひとこと<span class="required">*</span></div>
+        <div class="section-label">一言コメント<span class="required">*</span></div>
         <textarea class="textarea" placeholder="食事の雰囲気や、どんな方に会いたいか..."></textarea>
         <div class="character-counter">0 / 100</div>
       </div>
 
       <!-- Restaurant Selection Section -->
       <div class="form-section">
-        <div class="section-label">提案するお店を選択<span class="required">*</span></div>
-        <div style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">あなたのお気に入りのお店から最大3件まで提案できます。</div>
-        
-        <div class="restaurant-choice-list">
-          <!-- Item 1 -->
-          <div class="restaurant-choice-item selected" onclick="this.classList.toggle('selected')">
-            <div class="res-check">✓</div>
-            <div class="res-info">
-              <div class="res-name">ビストロ・オー 新宿店</div>
-              <div class="res-meta">カジュアルフレンチ · 新宿駅徒歩5分</div>
+        <div class="section-label">候補店舗<span class="required">*</span> <span class="section-sub">（最大3店舗）</span></div>
+        <div class="candidate-store-list" id="candidate-store-list">
+          <div class="candidate-store-item" data-store-id="1">
+            <div class="store-thumb">
+              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23e0e0e0'/><rect x='8' y='28' width='32' height='12' rx='2' fill='%23bdbdbd'/><rect x='14' y='10' width='20' height='16' rx='2' fill='%239e9e9e'/></svg>">
             </div>
+            <div class="store-info">
+              <div class="store-name">個室ダイニング 和楽</div>
+              <div class="store-meta">渋谷 ・ 和食 ・ ¥6,000〜¥8,000</div>
+            </div>
+            <button type="button" class="store-remove" onclick="removeStore(this)">×</button>
           </div>
-          <!-- Item 2 -->
-          <div class="restaurant-choice-item selected" onclick="this.classList.toggle('selected')">
-            <div class="res-check">✓</div>
-            <div class="res-info">
-              <div class="res-name">和食処 みやび Shibuya</div>
-              <div class="res-meta">創作和食 · 渋谷エリア</div>
+          <div class="candidate-store-item" data-store-id="2">
+            <div class="store-thumb">
+              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23d8d8d8'/><circle cx='24' cy='20' r='8' fill='%23bdbdbd'/><rect x='10' y='30' width='28' height='10' rx='3' fill='%23a0a0a0'/></svg>">
             </div>
-          </div>
-          <!-- Item 3 -->
-          <div class="restaurant-choice-item" onclick="this.classList.toggle('selected')">
-            <div class="res-check">✓</div>
-            <div class="res-info">
-              <div class="res-name">Trattoria Roma</div>
-              <div class="res-meta">イタリアン · 恵比寿</div>
+            <div class="store-info">
+              <div class="store-name">Trattoria Roma</div>
+              <div class="store-meta">恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000</div>
             </div>
+            <button type="button" class="store-remove" onclick="removeStore(this)">×</button>
           </div>
         </div>
-        
-        <div style="text-align: center; margin-top: 16px;">
-          <a href="#" style="font-size: 12px; color: var(--c5); text-decoration: underline;">+ 新しいお店をマイリストに追加</a>
-        </div>
+        <button type="button" class="add-store-btn" onclick="addStore()">+ 店舗を追加する（最大3件まで）</button>
       </div>
 
-      <!-- Max Applicants Section -->
+      <!-- Settings Section -->
       <div class="form-section">
-        <div class="section-label">応募人数の上限<span class="required">*</span></div>
-        <div style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">この募集に応募できる最大人数を選択してください。</div>
-        <div class="chip-group" id="max-applicants-chips">
-          <div class="chip" onclick="selectMaxApplicants(this)">1人</div>
-          <div class="chip active" onclick="selectMaxApplicants(this)">2人</div>
-          <div class="chip" onclick="selectMaxApplicants(this)">3人</div>
-          <div class="chip" onclick="selectMaxApplicants(this)">4人</div>
-          <div class="chip" onclick="selectMaxApplicants(this)">5人</div>
-          <div class="chip" onclick="selectMaxApplicants(this)">制限なし</div>
-        </div>
-        <div style="font-size: 10px; color: var(--c4); margin-top: 8px;">※ 上限に達した時点で自動的に募集が締め切られます</div>
-      </div>
-
-      <!-- Period Section -->
-      <div class="form-section">
-        <div class="section-label">募集期限<span class="required">*</span></div>
-        <div id="kigen-hint" style="font-size: 11px; color: var(--c4); margin-bottom: 12px;">食事日の前日がデフォルトの期限となります。</div>
-        <div class="period-chips" id="kigen-chips">
-          <div class="period-chip active" onclick="selectKigen(this)">前日まで</div>
-          <div class="period-chip" onclick="selectKigen(this)">3時間前</div>
-          <div class="period-chip" onclick="selectKigen(this)">1時間前</div>
+        <div class="settings-block">
+          <div class="setting-row">
+            <span class="setting-label">応募人数の上限</span>
+            <div class="stepper">
+              <button type="button" class="stepper-btn" onclick="changeApplicants(-1)">−</button>
+              <span class="stepper-value" id="applicant-count">2人</span>
+              <button type="button" class="stepper-btn" onclick="changeApplicants(1)">+</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <span class="setting-label">応募締切</span>
+            <div class="picker-trigger" onclick="openDeadlinePicker()">
+              <span id="deadline-value">前日まで</span>
+              <span class="picker-chevron">›</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -728,6 +937,36 @@
       <button class="publish-button" onclick="showConfirmModal()">募集を公開する</button>
     </div>
 
+    <!-- Calendar Modal -->
+    <div id="calendar-modal" class="wf-modal-overlay" onclick="if(event.target===this)closeCalendar()">
+      <div class="wf-modal">
+        <div class="wf-modal-head">日付を選択</div>
+        <div class="calendar-grid">
+          <div class="calendar-nav">
+            <button type="button" onclick="changeCalendarMonth(-1)">‹</button>
+            <span id="calendar-month-label"></span>
+            <button type="button" onclick="changeCalendarMonth(1)">›</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+          </div>
+          <div class="calendar-days" id="calendar-days"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deadline Picker Modal -->
+    <div id="deadline-modal" class="wf-modal-overlay" onclick="if(event.target===this)closeDeadlinePicker()">
+      <div class="wf-modal">
+        <div class="wf-modal-head">応募締切</div>
+        <div class="picker-options">
+          <button type="button" class="picker-option active" data-value="前日まで" onclick="selectDeadline(this)">前日まで</button>
+          <button type="button" class="picker-option" data-value="3時間前" onclick="selectDeadline(this)">3時間前</button>
+          <button type="button" class="picker-option" data-value="1時間前" onclick="selectDeadline(this)">1時間前</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Confirm Modal -->
     <div id="publish-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; padding:20px;">
       <div style="background:#fff; width:100%; max-width:320px; padding:24px; border:2px solid #212121;">
@@ -735,9 +974,9 @@
         
         <div style="margin-bottom:16px; font-size:12px; line-height:1.6;">
           <div style="color:#757575; margin-bottom:4px;">日時:</div>
-          <div id="confirm-datetime" style="font-weight:600; margin-bottom:12px;">今日 / 夜</div>
+          <div id="confirm-datetime" style="font-weight:600; margin-bottom:12px;">未選択 / 夜</div>
           
-          <div style="color:#757575; margin-bottom:4px;">提案するお店:</div>
+          <div style="color:#757575; margin-bottom:4px;">候補店舗:</div>
           <div id="confirm-restaurants" style="font-weight:600;"></div>
         </div>
         
@@ -785,8 +1024,8 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 日付、時間帯、希望エリア、ひとことメッセージ、店舗提案、応募人数上限。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>日付選択</strong> — 「今日」「明日」をクイック選択可能。それ以外はカレンダーから指定。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 日付、時間帯、希望エリア、一言コメント、候補店舗、応募人数上限。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>日付選択</strong> — カレンダーから日付を選択。選択後は年月日を表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗提案</strong> — 自分のお気に入りリストから最大3件まで選択。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期限</strong> — 基本は「食事日の前日」がデフォルトの期限。食事日が「今日」の場合は当日期限となる。</div></div>
@@ -802,7 +1041,7 @@
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Ngày, buổi, khu vực, lời nhắn, đề xuất quán, giới hạn số người.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>Chọn ngày</strong> — Cho phép chọn nhanh "Hôm nay", "Ngày mai". Khác thì chọn từ lịch.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>Chọn ngày</strong> — Chọn từ lịch. Sau khi chọn hiển thị ngày/tháng/năm.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đề xuất quán</strong> — Chọn tối đa 3 quán từ danh sách "Favorites" của mình.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn (Deadline)</strong> — Mặc định là "Trước ngày đi ăn". Nếu đi ăn ngày mai thì hôm nay là hạn. Nếu đi hôm nay thì hạn là vài tiếng trước khi ăn.</div></div>
@@ -817,63 +1056,142 @@
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
     }
-    function selectMaxApplicants(el) {
-      document.querySelectorAll('#max-applicants-chips .chip').forEach(c => c.classList.remove('active'));
+    var applicantCount = 2;
+    var selectedDate = null;
+    var calendarYear = 2026;
+    var calendarMonth = 2;
+    var extraStores = [
+      { name: '和食処 みやび', meta: '渋谷 ・ 創作和食 ・ ¥4,000〜¥6,000' }
+    ];
+
+    function selectTime(el) {
+      document.querySelectorAll('.time-chips .time-chip').forEach(function (c) { c.classList.remove('active'); });
       el.classList.add('active');
     }
-    function selectDate(el, type) {
-      document.querySelectorAll('#date-chips .chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      const daySelector = document.getElementById('day-selector');
-      const kigenHint = document.getElementById('kigen-hint');
-      const kigenChips = document.getElementById('kigen-chips');
-      
-      // Default behavior
-      document.querySelectorAll('#kigen-chips .period-chip').forEach(c => {
-        c.classList.remove('active');
-        c.style.display = 'block';
-      });
 
-      if (type === 'today') {
-        daySelector.style.display = 'none';
-        kigenHint.textContent = '今日が食事日のため、当日の期限を選択してください。';
-        kigenChips.children[0].style.display = 'none'; // "Before the day" is impossible
-        kigenChips.children[1].classList.add('active'); // Default to 3 hours
-      } else if (type === 'tomorrow') {
-        daySelector.style.display = 'none';
-        kigenHint.textContent = '明日の食事のため、今日中（前日）が期限となります。';
-        kigenChips.children[0].classList.add('active');
-      } else {
-        daySelector.style.display = 'block';
-        kigenHint.textContent = '食事日の前日がデフォルトの募集期限となります。';
-        kigenChips.children[0].classList.add('active');
+    function formatSelectedDate(date) {
+      return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
+    }
+
+    function openCalendar() {
+      if (selectedDate) {
+        calendarYear = selectedDate.getFullYear();
+        calendarMonth = selectedDate.getMonth();
+      }
+      renderCalendar();
+      document.getElementById('calendar-modal').classList.add('show');
+    }
+
+    function closeCalendar() {
+      document.getElementById('calendar-modal').classList.remove('show');
+    }
+
+    function changeCalendarMonth(delta) {
+      calendarMonth += delta;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear -= 1;
+      } else if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear += 1;
+      }
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      var label = document.getElementById('calendar-month-label');
+      var daysEl = document.getElementById('calendar-days');
+      label.textContent = calendarYear + '年' + (calendarMonth + 1) + '月';
+      daysEl.innerHTML = '';
+      var firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+      var daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+      for (var i = 0; i < firstDay; i++) {
+        var empty = document.createElement('span');
+        empty.className = 'calendar-day empty';
+        daysEl.appendChild(empty);
+      }
+      for (var d = 1; d <= daysInMonth; d++) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'calendar-day';
+        btn.textContent = d;
+        if (selectedDate &&
+          selectedDate.getFullYear() === calendarYear &&
+          selectedDate.getMonth() === calendarMonth &&
+          selectedDate.getDate() === d) {
+          btn.classList.add('selected');
+        }
+        (function (day) {
+          btn.onclick = function () { pickCalendarDay(day); };
+        })(d);
+        daysEl.appendChild(btn);
       }
     }
-    
-    function selectKigen(el) {
-      document.querySelectorAll('#kigen-chips .period-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
+
+    function pickCalendarDay(day) {
+      selectedDate = new Date(calendarYear, calendarMonth, day);
+      var trigger = document.getElementById('calendar-trigger');
+      trigger.textContent = formatSelectedDate(selectedDate);
+      trigger.classList.add('has-date');
+      closeCalendar();
     }
-    
+
+    function changeApplicants(delta) {
+      applicantCount = Math.min(5, Math.max(1, applicantCount + delta));
+      document.getElementById('applicant-count').textContent = applicantCount + '人';
+    }
+
+    function openDeadlinePicker() {
+      document.getElementById('deadline-modal').classList.add('show');
+    }
+
+    function closeDeadlinePicker() {
+      document.getElementById('deadline-modal').classList.remove('show');
+    }
+
+    function selectDeadline(el) {
+      document.querySelectorAll('#deadline-modal .picker-option').forEach(function (o) {
+        o.classList.remove('active');
+      });
+      el.classList.add('active');
+      document.getElementById('deadline-value').textContent = el.getAttribute('data-value');
+      closeDeadlinePicker();
+    }
+
+    function removeStore(btn) {
+      btn.closest('.candidate-store-item').remove();
+    }
+
+    function addStore() {
+      var list = document.getElementById('candidate-store-list');
+      if (list.children.length >= 3) return;
+      var store = extraStores[0];
+      if (!store) return;
+      var item = document.createElement('div');
+      item.className = 'candidate-store-item';
+      item.innerHTML = '<div class="store-thumb"><img alt="" src="data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\' viewBox=\'0 0 48 48\'><rect width=\'48\' height=\'48\' fill=\'%23e8e8e8\'/><rect x=\'10\' y=\'12\' width=\'28\' height=\'18\' rx=\'2\' fill=\'%23bdbdbd\'/></svg>"></div><div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div><button type="button" class="store-remove" onclick="removeStore(this)">×</button>';
+      list.appendChild(item);
+      extraStores.shift();
+    }
+
     function showConfirmModal() {
-      // Get selected date/time
-      const dateText = document.querySelector('#date-chips .chip.active').textContent;
-      const timeText = document.querySelector('.time-chip.active').textContent;
-      const kigenText = document.querySelector('#kigen-chips .period-chip.active').textContent;
-      document.getElementById('confirm-datetime').innerHTML = 
-        `${dateText} / ${timeText}<br><span style="font-weight:400; color:#c00;">(募集期限: ${kigenText})</span>`;
-      
-      // Get selected restaurants
-      const selectedRes = Array.from(document.querySelectorAll('.restaurant-choice-item.selected'))
-        .map(el => el.querySelector('.res-name').textContent);
-      
-      const resContainer = document.getElementById('confirm-restaurants');
-      if (selectedRes.length > 0) {
-        resContainer.innerHTML = selectedRes.map(name => `<div style="margin-bottom:4px;">・${name}</div>`).join('');
+      var dateText = selectedDate ? formatSelectedDate(selectedDate) : '未選択';
+      var timeText = document.querySelector('.time-chip.active').textContent;
+      var kigenText = document.getElementById('deadline-value').textContent;
+      document.getElementById('confirm-datetime').innerHTML =
+        dateText + ' / ' + timeText + '<br><span style="font-weight:400; color:#c00;">(応募締切: ' + kigenText + ')</span>';
+
+      var stores = Array.from(document.querySelectorAll('#candidate-store-list .store-name'))
+        .map(function (el) { return el.textContent; });
+      var resContainer = document.getElementById('confirm-restaurants');
+      if (stores.length > 0) {
+        resContainer.innerHTML = stores.map(function (name) {
+          return '<div style="margin-bottom:4px;">・' + name + '</div>';
+        }).join('');
       } else {
         resContainer.textContent = '選択なし';
       }
-      
+
       document.getElementById('publish-confirm-modal').style.display = 'flex';
     }
     

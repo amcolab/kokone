@@ -267,6 +267,12 @@
       border-color: #d0d0d0;
     }
 
+    .status-pill.expired {
+      background: #eeeeee;
+      color: #616161;
+      border-color: #bdbdbd;
+    }
+
     .countdown-badge {
       display: inline-block;
       margin-left: 8px;
@@ -868,6 +874,8 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
@@ -988,6 +996,22 @@
             </div>
             <div class="action-wrap" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_deadline.html'">
               <div class="match-preview">そうですね！予定が分かり次第すぐ見て...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item completed-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_schedule_expired.html'">
+          <div class="photo-box">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name">Yui · 33歳</div>
+                <div class="status-pill expired inline">期限切れ</div>
+              </div>
+              <div class="match-time">昨日</div>
+            </div>
+            <div class="action-wrap">
+              <div class="match-preview">日程確定の期限が切れました</div>
             </div>
           </div>
         </div>
@@ -1156,6 +1180,22 @@
             </div>
             <div class="action-wrap">
               <div class="match-preview">お食事お疲れ様でした！</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_boshuu_matched.html'">
+          <div class="photo-box">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name">Mizuki · 37歳</div>
+                <div class="status-pill active inline">募集成立</div>
+              </div>
+              <div class="match-time">昨日</div>
+            </div>
+            <div class="action-wrap">
+              <div class="match-preview">19:30スタートでいかがでしょうか？</div>
             </div>
           </div>
         </div>

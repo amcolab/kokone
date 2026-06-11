@@ -21,38 +21,166 @@
     .back-btn { font-size: 18px; cursor: pointer; color: var(--c6); }
     .app-title { font-size: 14px; font-weight: 600; color: var(--c6); flex: 1; }
     .content-area { flex: 1; overflow-y: auto; padding: 12px; }
-    .m-card { background: var(--c0); border: 1px solid var(--c6); margin-bottom: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .m-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-    .m-card-title { font-size: 14px; font-weight: 700; color: var(--c6); flex: 1; line-height: 1.35; }
-    .m-status-tag { font-size: 9px; font-weight: 700; padding: 2px 6px; border: 1px solid var(--c6); flex-shrink: 0; white-space: nowrap; }
-    .m-status-tag.APPLIED { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
-    .m-status-tag.WAITING { background: #fffde7; color: #f57f17; border-color: #fff59d; }
-    .m-status-tag.SELECTED { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
-    .m-status-tag.NOT_SELECTED { background: #ffebee; color: #c62828; border-color: #ef9a9a; }
-    .m-status-tag.CLOSED { background: #f5f5f5; color: #757575; border-color: #e0e0e0; }
-    .m-status-tag.WITHDRAWN { background: #f5f5f5; color: #757575; border-color: #e0e0e0; }
-    .m-card-row { display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--c5); }
-    .m-card-row.location-row { gap: 12px; }
-    .photo-box {
-      width: 24px; height: 24px; background: var(--c2); border: 1px solid var(--c3);
-      flex-shrink: 0; position: relative; overflow: hidden;
+
+    .boshuu-card-v2 {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     }
-    .photo-box.blurred { background: #d2d2d2; }
-    .photo-img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      filter: grayscale(1) blur(6px); transform: scale(1.08);
+
+    .boshuu-card-v2-top {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
     }
-    .photo-blur { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.12); }
-    .recruiter-name { font-size: 12px; font-weight: 600; color: var(--c6); }
-    .verify-dot {
-      width: 14px; height: 14px; border-radius: 50%; background: #2e7d32; color: #fff;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 900; margin-left: 4px; flex-shrink: 0;
+
+    .boshuu-card-v2-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e0e0e0;
     }
-    .m-card-meta { font-size: 11px; color: var(--c4); margin-top: 2px; }
-    .m-card-footer { display: flex; gap: 8px; margin-top: 4px; }
-    .m-btn { flex: 1; height: 32px; font-size: 11px; font-weight: 600; border: 1px solid var(--c6); background: var(--c0); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .m-btn.primary { background: var(--c6); color: var(--c0); }
+
+    .boshuu-card-v2-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .boshuu-card-v2-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .boshuu-card-v2-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .boshuu-card-v2-name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #212121;
+      line-height: 1.2;
+    }
+
+    .boshuu-card-v2-age {
+      font-size: 12px;
+      font-weight: 400;
+      color: #9e9e9e;
+    }
+
+    .boshuu-card-v2-verify {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .boshuu-card-v2-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .boshuu-card-v2-status.status-applied { background: #e3f2fd; color: #1565c0; }
+    .boshuu-card-v2-status.status-waiting { background: #fffde7; color: #f57f17; }
+    .boshuu-card-v2-status.status-selected { background: #e8f5e9; color: #2e7d32; }
+    .boshuu-card-v2-status.status-not-selected { background: #ffebee; color: #c62828; }
+    .boshuu-card-v2-status.status-closed { background: #f5f5f5; color: #757575; }
+    .boshuu-card-v2-status.status-withdrawn { background: #f5f5f5; color: #757575; }
+
+    .boshuu-card-v2-msg {
+      font-size: 13px;
+      color: #212121;
+      line-height: 1.5;
+    }
+
+    .boshuu-card-v2-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .boshuu-card-v2-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #424242;
+    }
+
+    .boshuu-card-v2-meta-row.between {
+      justify-content: space-between;
+    }
+
+    .boshuu-card-v2-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .boshuu-card-v2-applied-date {
+      font-size: 11px;
+      color: #9e9e9e;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .boshuu-card-v2-footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .boshuu-card-v2-btn {
+      flex: 1;
+      height: 44px;
+      border: none;
+      border-radius: 999px;
+      background: #212121;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .boshuu-card-v2-btn:hover { background: #424242; }
+
+    .boshuu-card-v2-btn.outline {
+      background: #fff;
+      color: #424242;
+      border: 1px solid #bdbdbd;
+    }
+
+    .boshuu-card-v2-btn.outline:hover { background: #f5f5f5; }
 
     .wf-sidebar { width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999; font-size: 11px; color: #212121; }
     .wf-sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px; text-decoration: none; }
@@ -163,114 +291,179 @@
     </div>
 
     <div class="content-area">
-      <div class="m-card">
-        <div class="m-card-header">
-          <div class="m-card-title">新宿で平日夜ご飯できる方</div>
-          <div class="m-status-tag APPLIED">応募済み</div>
-        </div>
-        <div class="m-card-row">
-          <div class="photo-box blurred">
-            <img class="photo-img" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/><circle cx='10.2' cy='8.6' r='0.8' fill='%23424242'/><circle cx='13.8' cy='8.6' r='0.8' fill='%23424242'/></svg>">
-            <div class="photo-blur"></div>
+      <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2-top">
+          <div class="boshuu-card-v2-avatar">
+            <img alt="かな" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23ddd8d0'/><circle cx='26' cy='20' r='10' fill='%23c8c0b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b8b0a8'/></svg>">
           </div>
-          <span class="recruiter-name">かな · 31歳<span class="verify-dot">✓</span></span>
+          <div class="boshuu-card-v2-body">
+            <div class="boshuu-card-v2-name-row">
+              <div class="boshuu-card-v2-name">
+                かな
+                <span class="boshuu-card-v2-age">31歳</span>
+                <span class="boshuu-card-v2-verify">✓</span>
+              </div>
+              <span class="boshuu-card-v2-status status-applied">応募済み</span>
+            </div>
+            <div class="boshuu-card-v2-msg">新宿で平日夜ご飯できる方</div>
+            <div class="boshuu-card-v2-meta">
+              <div class="boshuu-card-v2-meta-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                <span>新宿エリア</span>
+              </div>
+              <div class="boshuu-card-v2-meta-row between">
+                <div class="boshuu-card-v2-meta-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                  <span>3月28日（金）夜</span>
+                </div>
+                <div class="boshuu-card-v2-applied-date">応募日: 3月20日</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="m-card-row location-row">
-          <span>📍 新宿区</span>
-          <span>📅 3月28日（金）夜</span>
-        </div>
-        <div class="m-card-meta">応募日: 3月20日 10:00</div>
-        <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply'">詳細を見る</button>
-          <button class="m-btn" onclick="confirm('応募を取り消しますか？')">応募を取り消す</button>
+        <div class="boshuu-card-v2-footer">
+          <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply'">詳細を見る</button>
+          <button class="boshuu-card-v2-btn outline" onclick="confirm('応募を取り消しますか？')">応募を取り消す</button>
         </div>
       </div>
 
-      <div class="m-card">
-        <div class="m-card-header">
-          <div class="m-card-title">横浜で夜ご飯できる方募集</div>
-          <div class="m-status-tag SELECTED">選定されました</div>
-        </div>
-        <div class="m-card-row">
-          <div class="photo-box blurred">
-            <img class="photo-img" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/></svg>">
-            <div class="photo-blur"></div>
+      <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2-top">
+          <div class="boshuu-card-v2-avatar">
+            <img alt="みお" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
           </div>
-          <span class="recruiter-name">みお · 38歳<span class="verify-dot">✓</span></span>
+          <div class="boshuu-card-v2-body">
+            <div class="boshuu-card-v2-name-row">
+              <div class="boshuu-card-v2-name">
+                みお
+                <span class="boshuu-card-v2-age">38歳</span>
+                <span class="boshuu-card-v2-verify">✓</span>
+              </div>
+              <span class="boshuu-card-v2-status status-selected">選定されました</span>
+            </div>
+            <div class="boshuu-card-v2-msg">横浜で夜ご飯できる方募集</div>
+            <div class="boshuu-card-v2-meta">
+              <div class="boshuu-card-v2-meta-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                <span>横浜エリア</span>
+              </div>
+              <div class="boshuu-card-v2-meta-row between">
+                <div class="boshuu-card-v2-meta-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                  <span>3月30日（日）夜</span>
+                </div>
+                <div class="boshuu-card-v2-applied-date">応募日: 3月18日</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="m-card-row location-row">
-          <span>📍 横浜市</span>
-          <span>📅 3月30日（日）夜</span>
-        </div>
-        <div class="m-card-meta">応募日: 3月18日 09:00</div>
-        <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR065_match.html'">マッチを見る</button>
+        <div class="boshuu-card-v2-footer">
+          <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR065_match.html'">マッチを見る</button>
         </div>
       </div>
 
-      <div class="m-card">
-        <div class="m-card-header">
-          <div class="m-card-title">恵比寿でランチできる方</div>
-          <div class="m-status-tag NOT_SELECTED">見送り</div>
-        </div>
-        <div class="m-card-row">
-          <div class="photo-box blurred">
-            <img class="photo-img" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/></svg>">
-            <div class="photo-blur"></div>
+      <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2-top">
+          <div class="boshuu-card-v2-avatar">
+            <img alt="ゆみ" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
           </div>
-          <span class="recruiter-name">ゆみ · 34歳<span class="verify-dot">✓</span></span>
+          <div class="boshuu-card-v2-body">
+            <div class="boshuu-card-v2-name-row">
+              <div class="boshuu-card-v2-name">
+                ゆみ
+                <span class="boshuu-card-v2-age">34歳</span>
+                <span class="boshuu-card-v2-verify">✓</span>
+              </div>
+              <span class="boshuu-card-v2-status status-not-selected">見送り</span>
+            </div>
+            <div class="boshuu-card-v2-msg">恵比寿でランチできる方</div>
+            <div class="boshuu-card-v2-meta">
+              <div class="boshuu-card-v2-meta-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                <span>渋谷・恵比寿エリア</span>
+              </div>
+              <div class="boshuu-card-v2-meta-row between">
+                <div class="boshuu-card-v2-meta-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                  <span>3月27日（木）昼</span>
+                </div>
+                <div class="boshuu-card-v2-applied-date">応募日: 3月17日</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="m-card-row location-row">
-          <span>📍 渋谷区</span>
-          <span>📅 3月27日（木）昼</span>
-        </div>
-        <div class="m-card-meta">応募日: 3月17日 11:30</div>
-        <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
+        <div class="boshuu-card-v2-footer">
+          <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
         </div>
       </div>
 
-      <div class="m-card">
-        <div class="m-card-header">
-          <div class="m-card-title">銀座で和食ご一緒できる方</div>
-          <div class="m-status-tag CLOSED">終了</div>
-        </div>
-        <div class="m-card-row">
-          <div class="photo-box blurred">
-            <img class="photo-img" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/></svg>">
-            <div class="photo-blur"></div>
+      <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2-top">
+          <div class="boshuu-card-v2-avatar">
+            <img alt="ゆみ" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
           </div>
-          <span class="recruiter-name">ゆみ · 34歳<span class="verify-dot">✓</span></span>
+          <div class="boshuu-card-v2-body">
+            <div class="boshuu-card-v2-name-row">
+              <div class="boshuu-card-v2-name">
+                ゆみ
+                <span class="boshuu-card-v2-age">34歳</span>
+                <span class="boshuu-card-v2-verify">✓</span>
+              </div>
+              <span class="boshuu-card-v2-status status-closed">終了</span>
+            </div>
+            <div class="boshuu-card-v2-msg">銀座で和食ご一緒できる方</div>
+            <div class="boshuu-card-v2-meta">
+              <div class="boshuu-card-v2-meta-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                <span>銀座・中央区エリア</span>
+              </div>
+              <div class="boshuu-card-v2-meta-row between">
+                <div class="boshuu-card-v2-meta-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                  <span>3月26日（木）夜</span>
+                </div>
+                <div class="boshuu-card-v2-applied-date">応募日: 3月15日</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="m-card-row location-row">
-          <span>📍 中央区</span>
-          <span>📅 3月26日（木）夜</span>
-        </div>
-        <div class="m-card-meta">応募日: 3月15日 19:20</div>
-        <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
+        <div class="boshuu-card-v2-footer">
+          <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
         </div>
       </div>
 
-      <div class="m-card">
-        <div class="m-card-header">
-          <div class="m-card-title">週末ランチ募集</div>
-          <div class="m-status-tag WITHDRAWN">辞退済み</div>
-        </div>
-        <div class="m-card-row">
-          <div class="photo-box blurred">
-            <img class="photo-img" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23cfcfcf'/><circle cx='12' cy='9' r='4.2' fill='%239b9b9b'/><rect x='5' y='14' width='14' height='8' rx='4' fill='%23b3b3b3'/></svg>">
-            <div class="photo-blur"></div>
+      <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2-top">
+          <div class="boshuu-card-v2-avatar">
+            <img alt="かな" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23ddd8d0'/><circle cx='26' cy='20' r='10' fill='%23c8c0b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b8b0a8'/></svg>">
           </div>
-          <span class="recruiter-name">かな · 31歳<span class="verify-dot">✓</span></span>
+          <div class="boshuu-card-v2-body">
+            <div class="boshuu-card-v2-name-row">
+              <div class="boshuu-card-v2-name">
+                かな
+                <span class="boshuu-card-v2-age">31歳</span>
+                <span class="boshuu-card-v2-verify">✓</span>
+              </div>
+              <span class="boshuu-card-v2-status status-withdrawn">辞退済み</span>
+            </div>
+            <div class="boshuu-card-v2-msg">週末ランチ募集</div>
+            <div class="boshuu-card-v2-meta">
+              <div class="boshuu-card-v2-meta-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                <span>豊島区エリア</span>
+              </div>
+              <div class="boshuu-card-v2-meta-row between">
+                <div class="boshuu-card-v2-meta-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                  <span>3月25日（金）昼</span>
+                </div>
+                <div class="boshuu-card-v2-applied-date">応募日: 3月14日</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="m-card-row location-row">
-          <span>📍 豊島区</span>
-          <span>📅 3月25日（金）昼</span>
-        </div>
-        <div class="m-card-meta">応募日: 3月14日 08:00</div>
-        <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
+        <div class="boshuu-card-v2-footer">
+          <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply&amp;applyView=simple'">詳細を見る</button>
         </div>
       </div>
     </div>
