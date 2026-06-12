@@ -682,7 +682,7 @@
           <div style="width:100%;">
             <div class="system-title">おすすめのお店をご提案します</div>
             <div class="system-text">おふたりにぴったりのお店を選びました。</div>
-            <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR083_restaurant_recommend.html'">お店を見る</button>
+            <button type="button" class="primary-btn" onclick="openCreditCardRequired()">お店を見る</button>
           </div>
         </div>
         <div class="time">18:26</div>
@@ -720,6 +720,17 @@
       </div>
     </div>
     </div>
+    <div id="creditCardRequired" class="confirm-overlay" onclick="closeCreditCardRequired()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div style="font-size:28px;text-align:center;margin-bottom:10px;">💳</div>
+        <div class="confirm-title">クレジットカードの登録が必要です</div>
+        <div class="confirm-text">店舗予約フローへ進むには、クレジットカードの登録が必要です。<br><br>ご予約時のキャンセル料請求などに使用します。カード情報は安全に管理されます。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn" type="button" onclick="closeCreditCardRequired()">あとで</button>
+          <button class="confirm-btn primary" type="button" onclick="proceedToRestaurantFlow()">登録して進む</button>
+        </div>
+      </div>
+    </div>
     <div id="actionToast" class="toast"></div>
   </div>
 
@@ -754,12 +765,12 @@
         <div class="blp-section">
           <div class="blp-section-title">挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">システムメッセージで「日程確定済み」を案内します。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">おすすめ店舗カードから詳細提案画面へ進みます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>お店を見る</strong> — タップのたびにクレジットカード登録ポップアップを表示。「登録して進む」で店舗予約フロー（SCR083A）へ。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">`SCR082` の「この候補日で確定する」からこの画面へ（相手名は Noa）</div></div>
-          <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text">`お店を見る` で `SCR083A` を開く</div></div>
+          <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text">`お店を見る` → CC登録確認 → `SCR083A`</div></div>
           <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">承認待ちと予約完了チャットへ続く</div></div>
         </div>
       </div>
@@ -771,7 +782,7 @@
         <div class="blp-section">
           <div class="blp-section-title">Hành vi</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Hiển thị system message xác nhận đã chốt ngày.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Nút `お店を見る` mở màn chi tiết đề xuất nhà hàng.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`お店を見る` — mỗi lần nhấn đều hiện popup yêu cầu đăng ký thẻ tín dụng trước khi vào flow đặt quán.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
@@ -835,6 +846,19 @@
       actionToastTimer = setTimeout(function () {
         toast.classList.remove('show');
       }, 2200);
+    }
+
+    function openCreditCardRequired() {
+      document.getElementById('creditCardRequired').classList.add('open');
+    }
+
+    function closeCreditCardRequired() {
+      document.getElementById('creditCardRequired').classList.remove('open');
+    }
+
+    function proceedToRestaurantFlow() {
+      closeCreditCardRequired();
+      window.location.href = 'wireframe_SCR083_restaurant_recommend.html';
     }
 
     function setBlpLang(lang) {

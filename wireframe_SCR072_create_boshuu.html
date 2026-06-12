@@ -394,6 +394,11 @@
       gap: 10px;
       padding: 12px;
       border-bottom: 1px solid var(--c2);
+      cursor: pointer;
+    }
+
+    .candidate-store-item:hover {
+      background: var(--c1);
     }
 
     .candidate-store-item:last-child {
@@ -645,6 +650,300 @@
       background: var(--c1);
     }
 
+    .store-picker-modal .wf-modal {
+      max-width: 320px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .store-picker-list {
+      overflow-y: auto;
+      max-height: 420px;
+    }
+
+    .store-picker-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      border-bottom: 1px solid var(--c2);
+      background: var(--c0);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .store-picker-item:last-child {
+      border-bottom: none;
+    }
+
+    .store-picker-item:hover {
+      background: var(--c1);
+    }
+
+    .store-picker-item.added {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .store-picker-item .store-thumb {
+      width: 44px;
+      height: 44px;
+    }
+
+    .store-picker-empty {
+      padding: 24px 16px;
+      font-size: 12px;
+      color: var(--c4);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .shop-detail-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 10005;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+
+    .shop-detail-sheet {
+      width: 100%;
+      max-width: 328px;
+      height: 580px;
+      max-height: calc(100% - 40px);
+      background: var(--c0);
+      border-radius: 14px;
+      border: 1px solid var(--c2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      position: relative;
+    }
+
+    .shop-detail-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    .shop-detail-footer {
+      flex-shrink: 0;
+      padding: 10px 14px 14px;
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+    }
+
+    .shop-detail-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--c6);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .shop-detail-hero-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .shop-detail-hero {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--c2);
+      filter: grayscale(100%);
+    }
+
+    .shop-detail-body {
+      padding: 14px 14px 4px;
+    }
+
+    .shop-detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .shop-detail-badge {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--c3);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+
+    .shop-detail-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.3;
+    }
+
+    .shop-detail-price-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+      margin-bottom: 10px;
+    }
+
+    .shop-detail-help {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      color: var(--c4);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .shop-detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .shop-detail-tag {
+      padding: 5px 12px;
+      border: 1px solid var(--c2);
+      background: var(--c1);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--c5);
+      font-weight: 600;
+    }
+
+    .shop-detail-section {
+      margin-bottom: 14px;
+    }
+
+    .shop-detail-section.muted .shop-detail-section-title,
+    .shop-detail-section.muted .shop-detail-section-text {
+      color: var(--c4);
+    }
+
+    .shop-detail-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 6px;
+    }
+
+    .shop-detail-section-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.65;
+    }
+
+    .shop-detail-map {
+      border: 1px solid var(--c2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: var(--c1);
+    }
+
+    .shop-detail-map-visual {
+      height: 110px;
+      background: linear-gradient(180deg, #ececec 0%, #d8d8d8 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c4);
+      font-size: 11px;
+    }
+
+    .shop-detail-map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c6);
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .shop-detail-address {
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.5;
+      background: var(--c1);
+      border-top: 1px solid var(--c2);
+    }
+
+    .shop-detail-close-btn {
+      width: 100%;
+      height: 46px;
+      border: 1px solid var(--c6);
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .shop-glass-meter {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .shop-glass-svg {
+      width: 10px;
+      height: 10px;
+      stroke: rgba(33, 33, 33, 1);
+      fill: none;
+      stroke-width: 1.9;
+    }
+
+    .shop-glass-svg.on {
+      stroke: rgba(33, 33, 33, 1);
+    }
+
+    .shop-detail-price-text {
+      font-size: 12px;
+      font-weight: 800;
+      color: #212121;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+
     .blp-lang-switch{display:flex;border:1px solid #444;border-radius:4px;overflow:hidden;font-size:9px;color:#fff;cursor:pointer;margin-right:8px;}.blp-lang-btn{padding:2px 6px;background:transparent;color:#9e9e9e;}.blp-lang-btn.active{background:#444;color:#fff;}
     /* === BUSINESS LOGIC PANEL === */
     .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#212121;transition:width 0.2s ease;}
@@ -836,8 +1135,8 @@
 
     <div class="header-bar">
       <div class="header-left">
-        <div class="back-arrow" onclick="window.location.href='wireframe_SCR070_boshuu_list.html'" style="cursor:pointer;">←</div>
-        <span class="header-title">食事募集を作成</span>
+        <div class="back-arrow" id="backArrow" onclick="goBackFromBoshuuForm()" style="cursor:pointer;">←</div>
+        <span class="header-title" id="formHeaderTitle">食事募集を作成</span>
       </div>
       <div class="close-button">×</div>
     </div>
@@ -885,7 +1184,7 @@
       <div class="form-section">
         <div class="section-label">候補店舗<span class="required">*</span> <span class="section-sub">（最大3店舗）</span></div>
         <div class="candidate-store-list" id="candidate-store-list">
-          <div class="candidate-store-item" data-store-id="1">
+          <div class="candidate-store-item" data-store-id="waraku">
             <div class="store-thumb">
               <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23e0e0e0'/><rect x='8' y='28' width='32' height='12' rx='2' fill='%23bdbdbd'/><rect x='14' y='10' width='20' height='16' rx='2' fill='%239e9e9e'/></svg>">
             </div>
@@ -893,9 +1192,9 @@
               <div class="store-name">個室ダイニング 和楽</div>
               <div class="store-meta">渋谷 ・ 和食 ・ ¥6,000〜¥8,000</div>
             </div>
-            <button type="button" class="store-remove" onclick="removeStore(this)">×</button>
+            <button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>
           </div>
-          <div class="candidate-store-item" data-store-id="2">
+          <div class="candidate-store-item" data-store-id="roma">
             <div class="store-thumb">
               <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23d8d8d8'/><circle cx='24' cy='20' r='8' fill='%23bdbdbd'/><rect x='10' y='30' width='28' height='10' rx='3' fill='%23a0a0a0'/></svg>">
             </div>
@@ -903,10 +1202,10 @@
               <div class="store-name">Trattoria Roma</div>
               <div class="store-meta">恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000</div>
             </div>
-            <button type="button" class="store-remove" onclick="removeStore(this)">×</button>
+            <button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>
           </div>
         </div>
-        <button type="button" class="add-store-btn" onclick="addStore()">+ 店舗を追加する（最大3件まで）</button>
+        <button type="button" class="add-store-btn" id="add-store-btn" onclick="openStorePicker()">+ 店舗を追加する（最大3件まで）</button>
       </div>
 
       <!-- Settings Section -->
@@ -934,7 +1233,7 @@
     <div class="note" style="font-size: 10px; color: var(--c4); padding: 8px 16px; background: var(--c1); border-top: var(--border);">※ 公開後、相手が選ばれると自動で非公開になります</div>
 
     <div class="bottom-sticky">
-      <button class="publish-button" onclick="showConfirmModal()">募集を公開する</button>
+      <button class="publish-button" id="publishButton" onclick="executePublish()">募集を公開する</button>
     </div>
 
     <!-- Calendar Modal -->
@@ -955,6 +1254,14 @@
       </div>
     </div>
 
+    <!-- Restaurant Picker Modal -->
+    <div id="store-picker-modal" class="wf-modal-overlay store-picker-modal" onclick="if(event.target===this)closeStorePicker()">
+      <div class="wf-modal">
+        <div class="wf-modal-head">店舗を選択</div>
+        <div class="store-picker-list" id="store-picker-list"></div>
+      </div>
+    </div>
+
     <!-- Deadline Picker Modal -->
     <div id="deadline-modal" class="wf-modal-overlay" onclick="if(event.target===this)closeDeadlinePicker()">
       <div class="wf-modal">
@@ -967,24 +1274,42 @@
       </div>
     </div>
 
-    <!-- Confirm Modal -->
-    <div id="publish-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; padding:20px;">
-      <div style="background:#fff; width:100%; max-width:320px; padding:24px; border:2px solid #212121;">
-        <div style="font-size:16px; font-weight:bold; margin-bottom:16px; text-align:center;">募集内容の確認</div>
-        
-        <div style="margin-bottom:16px; font-size:12px; line-height:1.6;">
-          <div style="color:#757575; margin-bottom:4px;">日時:</div>
-          <div id="confirm-datetime" style="font-weight:600; margin-bottom:12px;">未選択 / 夜</div>
-          
-          <div style="color:#757575; margin-bottom:4px;">候補店舗:</div>
-          <div id="confirm-restaurants" style="font-weight:600;"></div>
+    <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+      <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+        <div class="shop-detail-hero-wrap">
+          <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+          <div class="shop-detail-hero" id="shopDetailHero"></div>
         </div>
-        
-        <div style="font-size:11px; color:#c00; margin-bottom:20px; text-align:center;">この内容で公開してよろしいですか？</div>
-        
-        <div style="display:flex; gap:12px;">
-          <button onclick="hideConfirmModal()" style="flex:1; height:40px; border:1px solid #bdbdbd; background:#fff; font-size:12px; font-weight:bold; cursor:pointer;">修正する</button>
-          <button onclick="executePublish()" style="flex:1; height:40px; border:none; background:#212121; color:#fff; font-size:12px; font-weight:bold; cursor:pointer;">公開する</button>
+        <div class="shop-detail-scroll">
+          <div class="shop-detail-body">
+            <div class="shop-detail-title-row">
+              <span class="shop-detail-badge">★</span>
+              <div class="shop-detail-name" id="shopDetailName"></div>
+            </div>
+            <div class="shop-detail-price-row">
+              <span id="shopDetailPrice"></span>
+              <span class="shop-detail-help">?</span>
+            </div>
+            <div class="shop-detail-tags" id="shopDetailTags"></div>
+            <div class="shop-detail-section">
+              <div class="shop-detail-section-title">概要</div>
+              <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+            </div>
+            <div class="shop-detail-section muted">
+              <div class="shop-detail-section-title">備考</div>
+              <div class="shop-detail-section-text" id="shopDetailNote"></div>
+            </div>
+            <div class="shop-detail-map">
+              <div class="shop-detail-map-visual">
+                地図
+                <div class="shop-detail-map-pin" id="shopDetailMapLabel"></div>
+              </div>
+              <div class="shop-detail-address" id="shopDetailAddress"></div>
+            </div>
+          </div>
+        </div>
+        <div class="shop-detail-footer">
+          <button type="button" class="shop-detail-close-btn" onclick="closeShopDetail()">閉じる</button>
         </div>
       </div>
     </div>
@@ -1029,6 +1354,7 @@
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗提案</strong> — 自分のお気に入りリストから最大3件まで選択。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期限</strong> — 基本は「食事日の前日」がデフォルトの期限。食事日が「今日」の場合は当日期限となる。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>編集モード</strong> — `?mode=edit` で応募者0件の自分の募集を編集。保存後は `070-2` へ戻る。</div></div>
       </div>
     </div>
 
@@ -1045,11 +1371,47 @@
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đề xuất quán</strong> — Chọn tối đa 3 quán từ danh sách "Favorites" của mình.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn (Deadline)</strong> — Mặc định là "Trước ngày đi ăn". Nếu đi ăn ngày mai thì hôm nay là hạn. Nếu đi hôm nay thì hạn là vài tiếng trước khi ăn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Chế độ sửa</strong> — `?mode=edit` cho tin của mình khi chưa có ứng viên. Lưu xong quay về `070-2`.</div></div>
       </div>
     </div>
   </div>
 
   <script>
+    var isEditMode = false;
+
+    function goBackFromBoshuuForm() {
+      var params = new URLSearchParams(window.location.search);
+      if (isEditMode) {
+        var url = 'wireframe_SCR070_2_my_boshuu.html';
+        if (params.get('from') === 'mypage') url += '?from=mypage';
+        window.location.href = url;
+        return;
+      }
+      window.location.href = 'wireframe_SCR070_boshuu_list.html';
+    }
+
+    function initEditMode() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mode') !== 'edit') return;
+      isEditMode = true;
+      document.getElementById('formHeaderTitle').textContent = '募集を編集';
+      document.getElementById('publishButton').textContent = '変更を保存する';
+      document.querySelector('.textarea').value = '金曜夜に軽くご飯に行ける方を探しています。難しく考えず、気軽に話せる方だと嬉しいです。';
+      document.querySelector('.character-counter').textContent = '48 / 100';
+      document.getElementById('calendar-trigger').textContent = '3月28日（金）';
+      selectedDate = new Date(2026, 2, 28);
+      var selectBox = document.querySelector('.select-box');
+      for (var i = 0; i < selectBox.options.length; i++) {
+        if (selectBox.options[i].textContent.indexOf('渋谷') !== -1) {
+          selectBox.selectedIndex = i;
+          break;
+        }
+      }
+      applicantCount = 5;
+      document.getElementById('applicant-count').textContent = '5人';
+      document.getElementById('deadline-value').textContent = '前日まで';
+    }
+
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
       document.querySelector('.lang-' + lang).style.display = 'block';
@@ -1060,9 +1422,65 @@
     var selectedDate = null;
     var calendarYear = 2026;
     var calendarMonth = 2;
-    var extraStores = [
-      { name: '和食処 みやび', meta: '渋谷 ・ 創作和食 ・ ¥4,000〜¥6,000' }
+    var thumbSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23e8e8e8'/><rect x='10' y='12' width='28' height='18' rx='2' fill='%23bdbdbd'/></svg>";
+    var storeNote = 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。';
+    var favoriteStores = [
+      { id: 'waraku', name: '個室ダイニング 和楽', meta: '渋谷 ・ 和食 ・ ¥6,000〜¥8,000', category: '和食', area: '渋谷', priceLevel: 2, overview: '個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適です。', note: storeNote, address: '東京都渋谷区道玄坂2-3-1', mapLabel: '個室ダイニング 和楽' },
+      { id: 'roma', name: 'Trattoria Roma', meta: '恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000', category: 'イタリアン', area: '恵比寿', priceLevel: 2, overview: '本格イタリアンをカジュアルに楽しめるトラットリア。ワインの種類も豊富です。', note: storeNote, address: '東京都渋谷区恵比寿西1-12-8', mapLabel: 'Trattoria Roma' },
+      { id: 'miyabi', name: '和食処 みやび', meta: '渋谷 ・ 創作和食 ・ ¥4,000〜¥6,000', category: '和食', area: '渋谷', priceLevel: 2, overview: '旬の食材を使った創作和食が楽しめるお店。カウンター席もあり会話しやすい雰囲気です。', note: storeNote, address: '東京都渋谷区宇田川町12-5', mapLabel: '和食処 みやび' },
+      { id: 'etoile', name: "Bistro L'Etoile", meta: '恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000', category: 'イタリアン', area: '恵比寿', priceLevel: 2, overview: 'カジュアルに楽しめるフレンチビストロ。グラスワインが豊富でデートに人気です。', note: storeNote, address: '東京都渋谷区恵比寿西1-12-8', mapLabel: "Bistro L'Etoile" },
+      { id: 'shizuku', name: '和食 しずく', meta: '渋谷 ・ 和食 ・ ¥4,500〜¥6,500', category: '和食', area: '渋谷', priceLevel: 2, overview: '落ち着いた照明の和空間で、旬の食材を使った創作和食を提供しています。', note: storeNote, address: '東京都渋谷区神宮前5-10-1', mapLabel: '和食 しずく' },
+      { id: 'aoba', name: 'ビストロ青葉', meta: '代々木 ・ フレンチ ・ ¥5,000〜¥8,000', category: 'フレンチ', area: '代々木', priceLevel: 2, overview: '落ち着いた個室で、季節のコース料理をゆっくり楽しめます。', note: storeNote, address: '東京都渋谷区代々木2-1-1', mapLabel: 'ビストロ青葉' },
+      { id: 'sumibian', name: '焼肉 炭火庵', meta: '恵比寿 ・ 焼肉 ・ ¥6,000〜¥10,000', category: '焼肉', area: '恵比寿', priceLevel: 3, overview: '炭火で焼き上げる上質な肉。半個室席で会話もしやすい空間です。', note: storeNote, address: '東京都渋谷区恵比寿南1-2-3', mapLabel: '焼肉 炭火庵' }
     ];
+
+    function getStoreById(id) {
+      for (var i = 0; i < favoriteStores.length; i++) {
+        if (favoriteStores[i].id === id) return favoriteStores[i];
+      }
+      return null;
+    }
+
+    function glassOnOnly(level) {
+      var l = Math.max(1, Math.min(parseInt(level || 1, 10), 5));
+      var svg = '<svg class="shop-glass-svg on" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+      var html = '';
+      for (var i = 0; i < l; i++) html += svg;
+      return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
+    }
+
+    function priceRangeText(level) {
+      var l = parseInt(level || 1, 10);
+      if (l <= 1) return '〜5,000円 / 人';
+      if (l === 2) return '5,001〜10,000円 / 人';
+      if (l === 3) return '10,001〜15,000円 / 人';
+      if (l === 4) return '15,001〜20,000円 / 人';
+      return '20,001円〜 / 人';
+    }
+
+    function openCandidateStoreDetail(storeId) {
+      var store = getStoreById(storeId);
+      if (!store) return;
+      document.getElementById('shopDetailHero').style.backgroundImage = '';
+      document.getElementById('shopDetailName').textContent = store.name;
+      document.getElementById('shopDetailPrice').innerHTML =
+        glassOnOnly(store.priceLevel) + '<span class="shop-detail-price-text">｜' + priceRangeText(store.priceLevel) + '</span>';
+      document.getElementById('shopDetailTags').innerHTML =
+        '<span class="shop-detail-tag">' + store.category + '</span>' +
+        '<span class="shop-detail-tag">' + store.area + '</span>';
+      document.getElementById('shopDetailOverview').textContent = store.overview;
+      document.getElementById('shopDetailNote').textContent = store.note;
+      document.getElementById('shopDetailMapLabel').textContent = store.mapLabel;
+      document.getElementById('shopDetailAddress').textContent = store.address;
+      var scrollEl = document.querySelector('#shopDetailPopup .shop-detail-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
+      document.getElementById('shopDetailPopup').style.display = 'flex';
+    }
+
+    function closeShopDetail(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('shopDetailPopup').style.display = 'none';
+    }
 
     function selectTime(el) {
       document.querySelectorAll('.time-chips .time-chip').forEach(function (c) { c.classList.remove('active'); });
@@ -1158,51 +1576,103 @@
       closeDeadlinePicker();
     }
 
+    function getSelectedStoreIds() {
+      return Array.from(document.querySelectorAll('#candidate-store-list .candidate-store-item'))
+        .map(function (el) { return el.getAttribute('data-store-id'); })
+        .filter(Boolean);
+    }
+
+    function updateAddStoreButton() {
+      var btn = document.getElementById('add-store-btn');
+      var count = document.getElementById('candidate-store-list').children.length;
+      if (count >= 3) {
+        btn.disabled = true;
+        btn.style.opacity = '0.45';
+        btn.style.cursor = 'default';
+      } else {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    }
+
     function removeStore(btn) {
       btn.closest('.candidate-store-item').remove();
+      updateAddStoreButton();
     }
 
-    function addStore() {
+    function openStorePicker() {
       var list = document.getElementById('candidate-store-list');
       if (list.children.length >= 3) return;
-      var store = extraStores[0];
-      if (!store) return;
+      renderStorePickerList();
+      document.getElementById('store-picker-modal').classList.add('show');
+    }
+
+    function closeStorePicker() {
+      document.getElementById('store-picker-modal').classList.remove('show');
+    }
+
+    function renderStorePickerList() {
+      var container = document.getElementById('store-picker-list');
+      var selected = getSelectedStoreIds();
+      var available = favoriteStores.filter(function (s) { return selected.indexOf(s.id) === -1; });
+      container.innerHTML = '';
+      if (available.length === 0) {
+        container.innerHTML = '<div class="store-picker-empty">追加できる店舗がありません。<br>お気に入り店舗を登録してください。</div>';
+        return;
+      }
+      available.forEach(function (store) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'store-picker-item';
+        btn.innerHTML =
+          '<div class="store-thumb"><img alt="" src="' + thumbSvg + '"></div>' +
+          '<div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div>';
+        btn.onclick = function () { pickStore(store); };
+        container.appendChild(btn);
+      });
+    }
+
+    function pickStore(store) {
+      var list = document.getElementById('candidate-store-list');
+      if (list.children.length >= 3) {
+        closeStorePicker();
+        return;
+      }
       var item = document.createElement('div');
       item.className = 'candidate-store-item';
-      item.innerHTML = '<div class="store-thumb"><img alt="" src="data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\' viewBox=\'0 0 48 48\'><rect width=\'48\' height=\'48\' fill=\'%23e8e8e8\'/><rect x=\'10\' y=\'12\' width=\'28\' height=\'18\' rx=\'2\' fill=\'%23bdbdbd\'/></svg>"></div><div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div><button type="button" class="store-remove" onclick="removeStore(this)">×</button>';
+      item.setAttribute('data-store-id', store.id);
+      item.innerHTML =
+        '<div class="store-thumb"><img alt="" src="' + thumbSvg + '"></div>' +
+        '<div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div>' +
+        '<button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>';
       list.appendChild(item);
-      extraStores.shift();
+      closeStorePicker();
+      updateAddStoreButton();
     }
 
-    function showConfirmModal() {
-      var dateText = selectedDate ? formatSelectedDate(selectedDate) : '未選択';
-      var timeText = document.querySelector('.time-chip.active').textContent;
-      var kigenText = document.getElementById('deadline-value').textContent;
-      document.getElementById('confirm-datetime').innerHTML =
-        dateText + ' / ' + timeText + '<br><span style="font-weight:400; color:#c00;">(応募締切: ' + kigenText + ')</span>';
+    document.getElementById('candidate-store-list').addEventListener('click', function (e) {
+      if (e.target.closest('.store-remove')) return;
+      var item = e.target.closest('.candidate-store-item');
+      if (!item) return;
+      var storeId = item.getAttribute('data-store-id');
+      if (storeId) openCandidateStoreDetail(storeId);
+    });
 
-      var stores = Array.from(document.querySelectorAll('#candidate-store-list .store-name'))
-        .map(function (el) { return el.textContent; });
-      var resContainer = document.getElementById('confirm-restaurants');
-      if (stores.length > 0) {
-        resContainer.innerHTML = stores.map(function (name) {
-          return '<div style="margin-bottom:4px;">・' + name + '</div>';
-        }).join('');
-      } else {
-        resContainer.textContent = '選択なし';
-      }
-
-      document.getElementById('publish-confirm-modal').style.display = 'flex';
-    }
-    
-    function hideConfirmModal() {
-      document.getElementById('publish-confirm-modal').style.display = 'none';
-    }
-    
     function executePublish() {
+      if (isEditMode) {
+        alert('変更を保存しました');
+        var url = 'wireframe_SCR070_2_my_boshuu.html';
+        if (new URLSearchParams(window.location.search).get('from') === 'mypage') url += '?from=mypage';
+        window.location.href = url;
+        return;
+      }
       alert('募集を公開しました！');
-      window.location.href='wireframe_SCR070_boshuu_list.html';
+      window.location.href = 'wireframe_SCR070_boshuu_list.html';
     }
+
+    initEditMode();
+    updateAddStoreButton();
   </script>
 </div>
 </html>

@@ -261,6 +261,12 @@
       border-color: #a5d6a7;
     }
 
+    .status-pill.boshuu {
+      background: #e8eaf6;
+      color: #3949ab;
+      border-color: #9fa8da;
+    }
+
     .status-pill.cancelled {
       background: #f5f5f5;
       color: var(--c4);
@@ -875,6 +881,7 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_booking_failed.html"><span class="wf-nav-id">090E</span>Booking Failed Chat</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_visit.html"><span class="wf-nav-id">090M</span>Boshuu Visit Check</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
@@ -1190,12 +1197,28 @@
             <div class="match-name-row">
               <div class="match-name-main">
                 <div class="match-name">Mizuki · 37歳</div>
-                <div class="status-pill active inline">募集成立</div>
+                <div class="status-pill boshuu inline">募集成立</div>
               </div>
               <div class="match-time">昨日</div>
             </div>
             <div class="action-wrap">
               <div class="match-preview">19:30スタートでいかがでしょうか？</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_boshuu_visit.html'">
+          <div class="photo-box">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name">Sora · 33歳</div>
+                <div class="status-pill boshuu inline">募集成立</div>
+              </div>
+              <div class="match-time">30分前</div>
+            </div>
+            <div class="action-wrap">
+              <div class="match-preview">予約店舗への来店確認をお願いします</div>
             </div>
           </div>
         </div>
@@ -1384,6 +1407,12 @@
         </div>
       </div>
       <div class="blp-section">
+        <div class="blp-section-title">募集成立 · 来店確認</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>募集成立</strong> — Mizuki（調整中）の次に Sora（来店確認待ち）を表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">食事日後、<strong>チャット内</strong>（090M）で来店確認。`来店した` → SCR100 レビュー。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>来店しなかった</strong> — チャット上で記録のみ。レビューは送信しない。</div></div>
+      </div>
+      <div class="blp-section">
         <div class="blp-section-title">表示優先順位</div>
         <div class="blp-rule"><div class="blp-rule-dot">↑</div><div class="blp-rule-text">アクション必要（タイマー残り少ない・未読メッセージあり）のマッチが上部優先。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">↓</div><div class="blp-rule-text">FINISHED・UNMATCHEDは折りたたみ可能な「過去のマッチ」セクションに移動。</div></div>
@@ -1440,6 +1469,12 @@
             <div class="blp-step-text"><strong>Để sau</strong> → vào SCR-080 Match Detail sau.</div>
           </div>
         </div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">募集成立 · Xác nhận来店</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Record Sora đặt sau Mizuki trong danh sách.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">来店確認 hỏi <strong>trong chat</strong> (090M). `来店した` → SCR100.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>来店しなかった</strong> → chỉ ghi nhận trong chat.</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Huỷ match</div>

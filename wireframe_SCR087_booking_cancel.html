@@ -203,6 +203,99 @@
     .primary-btn.danger {
       background: #b71c1c;
     }
+    .primary-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .reason-card {
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .reason-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--c2);
+      cursor: pointer;
+    }
+    .reason-option:last-child {
+      border-bottom: 0;
+    }
+    .reason-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--c3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .reason-option.selected .reason-radio {
+      border-color: var(--c6);
+    }
+    .reason-option.selected .reason-radio::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c6);
+    }
+    .reason-label {
+      font-size: 12px;
+      color: var(--c6);
+      line-height: 1.45;
+      font-weight: 600;
+    }
+    .reason-detail {
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .reason-detail.open {
+      display: block;
+    }
+    .reason-detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c5);
+      margin-bottom: 8px;
+    }
+    .reason-detail-hint {
+      font-size: 10px;
+      color: var(--c4);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .reason-textarea {
+      width: 100%;
+      min-height: 96px;
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-family: inherit;
+      color: var(--c6);
+      background: var(--c1);
+      resize: vertical;
+      line-height: 1.55;
+    }
+    .reason-textarea::placeholder {
+      color: var(--c4);
+    }
+    .reason-counter {
+      font-size: 10px;
+      color: var(--c4);
+      text-align: right;
+      margin-top: 6px;
+    }
     .secondary-btn {
       width: 100%;
       height: 44px;
@@ -541,7 +634,30 @@
         </div>
       </div>
 
-      <button class="primary-btn danger" type="button" onclick="alert('キャンセルしました')">上記に同意してキャンセルする</button>
+      <div class="policy-section-title">キャンセル理由</div>
+      <div class="reason-card">
+        <div class="reason-option" onclick="selectCancelReason('self', this)">
+          <div class="reason-radio"></div>
+          <div class="reason-label">自己都合によるキャンセル</div>
+        </div>
+        <div class="reason-option" onclick="selectCancelReason('partner', this)">
+          <div class="reason-radio"></div>
+          <div class="reason-label">相手都合によるキャンセル</div>
+        </div>
+        <div class="reason-option" onclick="selectCancelReason('mutual', this)">
+          <div class="reason-radio"></div>
+          <div class="reason-label">双方合意によるキャンセル</div>
+        </div>
+      </div>
+
+      <div id="partnerReasonDetail" class="reason-detail">
+        <div class="reason-detail-label">相手都合の理由</div>
+        <div class="reason-detail-hint">お相手の都合によりキャンセルとなる場合、具体的な内容をご記入ください。</div>
+        <textarea id="partnerReasonInput" class="reason-textarea" maxlength="300" placeholder="例：お相手より当日の急なご都合でキャンセル希望の連絡がありました" oninput="updatePartnerReasonCounter(); updateCancelBtnState();"></textarea>
+        <div id="partnerReasonCounter" class="reason-counter">0 / 300</div>
+      </div>
+
+      <button id="cancelBtn" class="primary-btn danger" type="button" disabled onclick="confirmCancel()">上記に同意してキャンセルする</button>
     </div>
   </div>
 
@@ -553,16 +669,58 @@
     <div class="blp-body">
       <div class="blp-lang lang-ja">
         <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">予約キャンセル前に相談導線とキャンセルポリシーを確認させる画面です。</div></div>
-        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">`チャットに戻る` で予約確定後チャット（087）へ戻ります。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">キャンセル料・負担ルールを確認のうえ、同意ボタンでキャンセル処理へ進みます。</div></div></div>
+        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">`チャットに戻る` で予約確定後チャット（087）へ戻ります。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">キャンセル料・負担ルールを確認します。</div></div><div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">キャンセル理由を1つ選択（自己都合 / 相手都合 / 双方合意）。`相手都合` 選択時は理由入力欄を表示し、記入後に同意ボタンが有効化されます。</div></div></div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section"><div class="blp-section-title">Mục đích</div><div class="blp-note highlight">Màn xác nhận chính sách hủy trước khi hủy đặt bàn.</div></div>
-        <div class="blp-section"><div class="blp-section-title">Hành vi</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Nút quay chat dẫn về màn chat sau khi đặt bàn (087).</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Hiển thị phí hủy và quy tắc chia sẻ trách nhiệm trước khi đồng ý hủy.</div></div></div>
+        <div class="blp-section"><div class="blp-section-title">Hành vi</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Nút quay chat dẫn về màn chat sau khi đặt bàn (087).</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Hiển thị phí hủy và quy tắc chia sẻ trách nhiệm.</div></div><div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Chọn 1 lý do hủy. Khi chọn `相手都合` hiện ô nhập lý do chi tiết; nút hủy chỉ bật sau khi nhập.</div></div></div>
       </div>
     </div>
   </div>
 
   <script>
+    var selectedCancelReason = '';
+
+    function selectCancelReason(reason, el) {
+      selectedCancelReason = reason;
+      document.querySelectorAll('.reason-option').forEach(function (item) {
+        item.classList.remove('selected');
+      });
+      el.classList.add('selected');
+      var partnerDetail = document.getElementById('partnerReasonDetail');
+      if (reason === 'partner') {
+        partnerDetail.classList.add('open');
+      } else {
+        partnerDetail.classList.remove('open');
+      }
+      updateCancelBtnState();
+    }
+
+    function updatePartnerReasonCounter() {
+      var input = document.getElementById('partnerReasonInput');
+      document.getElementById('partnerReasonCounter').textContent = input.value.length + ' / 300';
+    }
+
+    function updateCancelBtnState() {
+      var btn = document.getElementById('cancelBtn');
+      if (!selectedCancelReason) {
+        btn.disabled = true;
+        return;
+      }
+      if (selectedCancelReason === 'partner') {
+        var text = document.getElementById('partnerReasonInput').value.trim();
+        btn.disabled = text.length === 0;
+        return;
+      }
+      btn.disabled = false;
+    }
+
+    function confirmCancel() {
+      if (!selectedCancelReason) return;
+      if (selectedCancelReason === 'partner' && !document.getElementById('partnerReasonInput').value.trim()) return;
+      alert('キャンセルしました');
+    }
+
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(function (el) { el.style.display = 'none'; });
       document.querySelector('.lang-' + lang).style.display = 'block';

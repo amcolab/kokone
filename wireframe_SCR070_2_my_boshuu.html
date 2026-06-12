@@ -67,6 +67,40 @@
       justify-content: center;
     }
     .m-btn.primary { background: #212121; color: var(--c0); border-color: #212121; }
+    .m-btn.danger { color: #c62828; border-color: #ef9a9a; background: #fff5f5; }
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-dialog {
+      width: 100%;
+      max-width: 300px;
+      background: var(--c0);
+      border-radius: 16px;
+      padding: 20px 18px 16px;
+      border: 1px solid #e8e8e8;
+    }
+    .confirm-title { font-size: 15px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+    .confirm-text { font-size: 12px; color: var(--c5); line-height: 1.6; text-align: center; margin-bottom: 16px; }
+    .confirm-actions { display: flex; gap: 8px; }
+    .confirm-btn {
+      flex: 1;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid #bdbdbd;
+      background: var(--c0);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .confirm-btn.danger { background: #c62828; color: var(--c0); border-color: #c62828; }
     .m-partner-info {
       font-size: 11px;
       color: #2e7d32;
@@ -192,15 +226,15 @@
     <div class="content-area" id="list-container">
       <!-- R-001 -->
       <div class="m-card">
-        <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E9%87%91%E6%9B%9C%E5%A4%9C%E3%81%AB%E8%BB%BD%E3%81%8F%E3%81%94%E9%A3%AF%E8%A1%8C%E3%81%91%E3%82%8B%E6%96%B9'" style="cursor:pointer;">
+        <div class="m-card-header" onclick="goBoshuuDetail('wireframe_SCR071_boshuu_detail.html?mode=my&amp;applicants=0&amp;title=%E9%87%91%E6%9B%9C%E5%A4%9C%E3%81%AB%E8%BB%BD%E3%81%8F%E3%81%94%E9%A3%AF%E8%A1%8C%E3%81%91%E3%82%8B%E6%96%B9')" style="cursor:pointer;">
           <div class="m-card-title">金曜夜に軽くご飯行ける方</div>
           <div class="m-status-tag OPEN">募集中</div>
         </div>
         <div class="m-card-row"><span>📍 渋谷区</span><span>📅 3月28日（金）夜</span></div>
         <div class="m-card-meta"><span>応募者: 0/5名</span><span>期限: 3月27日 18:00</span></div>
         <div class="m-card-footer">
-          <button class="m-btn primary" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E9%87%91%E6%9B%9C%E5%A4%9C%E3%81%AB%E8%BB%BD%E3%81%8F%E3%81%94%E9%A3%AF%E8%A1%8C%E3%81%91%E3%82%8B%E6%96%B9'">詳細を見る</button>
-          <button class="m-btn" onclick="confirm('募集を終了しますか？')">募集を終了</button>
+          <button class="m-btn primary" onclick="goEditBoshuu()">編集する</button>
+          <button class="m-btn danger" type="button" onclick="openDeleteBoshuuModal()">削除する</button>
         </div>
       </div>
 
@@ -270,6 +304,17 @@
         </div>
       </div>
     </div>
+
+    <div id="deleteBoshuuModal" class="confirm-overlay" onclick="closeDeleteBoshuuModal()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">募集を削除しますか？</div>
+        <div class="confirm-text">削除すると元に戻せません。応募者がいない募集のみ削除できます。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn" type="button" onclick="closeDeleteBoshuuModal()">キャンセル</button>
+          <button class="confirm-btn danger" type="button" onclick="confirmDeleteBoshuu()">削除する</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="blp-wrap">
@@ -288,17 +333,46 @@
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>一覧表示</strong> — 日時（例: 3月20日（木）夜）、エリア（例: 📍 渋谷区）を表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>ステータス</strong> — 募集中 / 満員 / 選定中 / マッチング成立 / 終了 をカード上に表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募者管理</strong> — 応募者一覧へ遷移し、候補者を選定。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>応募者0件</strong> — `編集する`（SCR072 edit）と `削除する` を表示。応募開始後は編集・削除不可。</div></div>
       </div>
     </div>
   </div>
   <script>
     (function () {
-      var from = new URLSearchParams(window.location.search).get('from');
+      var params = new URLSearchParams(window.location.search);
+      var from = params.get('from');
       var backUrl = from === 'mypage'
         ? 'wireframe_SCR110_mypage.html'
         : 'wireframe_SCR070_boshuu_list.html';
       var backBtn = document.getElementById('backBtn');
       if (backBtn) backBtn.onclick = function () { window.location.href = backUrl; };
+
+      window.goBoshuuDetail = function (url) {
+        if (from === 'mypage' && url.indexOf('from=mypage') === -1) {
+          url = url.replace('?', '?from=mypage&');
+        }
+        window.location.href = url;
+      };
+
+      window.goEditBoshuu = function () {
+        var url = 'wireframe_SCR072_create_boshuu.html?mode=edit';
+        if (from === 'mypage') url += '&from=mypage';
+        window.location.href = url;
+      };
+
+      window.openDeleteBoshuuModal = function () {
+        document.getElementById('deleteBoshuuModal').classList.add('open');
+      };
+
+      window.closeDeleteBoshuuModal = function () {
+        document.getElementById('deleteBoshuuModal').classList.remove('open');
+      };
+
+      window.confirmDeleteBoshuu = function () {
+        closeDeleteBoshuuModal();
+        alert('募集を削除しました');
+      };
+
       if (from === 'mypage') {
         document.querySelectorAll('[onclick*="SCR071_boshuu_detail"]').forEach(function (el) {
           var attr = el.getAttribute('onclick');

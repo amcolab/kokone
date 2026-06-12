@@ -330,6 +330,83 @@
       border-color: var(--c5);
     }
 
+    .button.danger {
+      color: #c62828;
+      border-color: #ef9a9a;
+      background: #fff5f5;
+    }
+
+    .zero-applicant-banner {
+      margin: 12px 16px 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      font-size: 11px;
+      color: #6d4c00;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100001;
+      padding: 20px;
+    }
+
+    .confirm-overlay.open { display: flex; }
+
+    .confirm-dialog {
+      width: 100%;
+      max-width: 300px;
+      background: var(--c0);
+      border-radius: 16px;
+      padding: 20px 18px 16px;
+      border: 1px solid var(--c2);
+    }
+
+    .confirm-title {
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .confirm-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .confirm-btn {
+      flex: 1;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--c3);
+      background: var(--c0);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .confirm-btn.danger {
+      background: #c62828;
+      color: var(--c0);
+      border-color: #c62828;
+    }
+
     .note {
       font-size: 10px;
       color: var(--c4);
@@ -751,6 +828,7 @@
     </div>
 
     <div class="content">
+      <div class="zero-applicant-banner" id="zeroApplicantBanner">応募者がいないため、内容の編集または削除ができます。</div>
       <div class="boshuu-title-card" id="boshuuTitleCard" style="display:none;">
         <div class="boshuu-title-text" id="boshuuTitleText">募集タイトル</div>
       </div>
@@ -887,20 +965,64 @@
       <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
     </div>
 
+    <div id="deleteBoshuuModal" class="confirm-overlay" onclick="closeDeleteBoshuuModal()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">募集を削除しますか？</div>
+        <div class="confirm-text">削除すると元に戻せません。応募者がいない募集のみ削除できます。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn" type="button" onclick="closeDeleteBoshuuModal()">キャンセル</button>
+          <button class="confirm-btn danger" type="button" onclick="confirmDeleteBoshuu()">削除する</button>
+        </div>
+      </div>
+    </div>
+
     <script>
+      var returnMyListUrl = 'wireframe_SCR070_2_my_boshuu.html';
+
+      function goEditBoshuuFromDetail() {
+        var url = 'wireframe_SCR072_create_boshuu.html?mode=edit';
+        if (new URLSearchParams(window.location.search).get('from') === 'mypage') {
+          url += '&from=mypage';
+        }
+        window.location.href = url;
+      }
+
+      function openDeleteBoshuuModal() {
+        document.getElementById('deleteBoshuuModal').classList.add('open');
+      }
+
+      function closeDeleteBoshuuModal() {
+        document.getElementById('deleteBoshuuModal').classList.remove('open');
+      }
+
+      function confirmDeleteBoshuu() {
+        closeDeleteBoshuuModal();
+        alert('募集を削除しました');
+        window.location.href = returnMyListUrl;
+      }
+
       (function(){
         var urlParams = new URLSearchParams(window.location.search);
         var mode = urlParams.get('mode');
         
         if (mode === 'my') {
-          var returnMyList = 'wireframe_SCR070_2_my_boshuu.html' +
+          returnMyListUrl = 'wireframe_SCR070_2_my_boshuu.html' +
             (urlParams.get('from') === 'mypage' ? '?from=mypage' : '');
+          var hasNoApplicants = urlParams.get('applicants') === '0';
           var btnContainer = document.querySelector('.bottom-sticky');
           if (btnContainer) {
-            btnContainer.innerHTML =
-              '<button class="button" onclick="window.location.href=\'' + returnMyList + '\'">一覧に戻る</button>' +
-              '<button class="button primary" onclick="window.location.href=\'wireframe_SCR073_boshuu_applicants.html\'">応募者の一覧を見る</button>';
+            if (hasNoApplicants) {
+              btnContainer.innerHTML =
+                '<button class="button primary" onclick="goEditBoshuuFromDetail()">編集する</button>' +
+                '<button class="button danger" onclick="openDeleteBoshuuModal()">削除する</button>';
+            } else {
+              btnContainer.innerHTML =
+                '<button class="button" onclick="window.location.href=\'' + returnMyListUrl + '\'">一覧に戻る</button>' +
+                '<button class="button primary" onclick="window.location.href=\'wireframe_SCR073_boshuu_applicants.html\'">応募者の一覧を見る</button>';
+            }
           }
+          var zeroBanner = document.getElementById('zeroApplicantBanner');
+          if (zeroBanner) zeroBanner.style.display = hasNoApplicants ? 'block' : 'none';
           var note = document.querySelector('.note');
           if (note) note.style.display = 'none';
           document.querySelector('.header-title').textContent = '自分の募集詳細';
@@ -908,7 +1030,7 @@
           var backArrow = document.querySelector('.back-arrow');
           if (backArrow) {
             backArrow.onclick = function () {
-              window.location.href = returnMyList;
+              window.location.href = returnMyListUrl;
             };
           }
 
@@ -1099,6 +1221,7 @@
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>希望条件</strong> — 日時、エリア、人数を表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗選択</strong> — 提案されたお店から行きたいものを複数選択可。最低1つ必須。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募後</strong> — 相手が承認（Match）するまで連絡は不可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>自分の募集・応募0件</strong> — `mode=my&amp;applicants=0` で編集（SCR072 edit）・削除が可能。</div></div>
       </div>
     </div>
 
@@ -1113,6 +1236,7 @@
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Điều kiện</strong> — Hiển thị ngày giờ, khu vực, số người.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Chọn quán</strong> — Chọn tối thiểu 1 quán từ danh sách đề xuất để ứng tuyển.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Sau ứng tuyển</strong> — Chờ người đăng xác nhận. Match rồi mới chat được.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Tin của mình, 0 ứng viên</strong> — Cho phép sửa (SCR072 edit) hoặc xóa.</div></div>
       </div>
     </div>
   </div>
