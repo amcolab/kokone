@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -189,6 +189,49 @@
             font-size: 10px;
             text-decoration: underline;
         }
+    .matching-target-card {
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      margin: 8px 12px 0;
+      padding: 12px;
+    }
+    .matching-target-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .matching-target-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #212121;
+    }
+    .matching-target-hint {
+      font-size: 10px;
+      color: #9e9e9e;
+    }
+    .matching-target-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .matching-chip {
+      min-width: 64px;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid #d8d8d8;
+      border-radius: 999px;
+      background: #f6f6f6;
+      color: #616161;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .matching-chip.active {
+      border-color: #212121;
+      background: #212121;
+      color: #ffffff;
+    }
     .availability-card {
       border: 1px solid #90caf9;
       background: #ffffff;
@@ -513,7 +556,7 @@
     <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
     <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
     <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
-    <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+    
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">B · Home</div>
@@ -594,6 +637,18 @@
             <div class="profile-name">たろう</div>
             <div class="profile-badge">本人確認 ✓</div>
             <a href="wireframe_SCR112_edit_profile.html" class="profile-edit">プロフィールを編集 ></a>
+          </div>
+        </div>
+
+        <div class="matching-target-card">
+          <div class="matching-target-head">
+            <div class="matching-target-title">マッチングしたい人</div>
+            <span class="matching-target-hint">探索に反映されます</span>
+          </div>
+          <div class="matching-target-chips" id="matchingTargetChips">
+            <button type="button" class="matching-chip" data-value="男性" onclick="selectMatchingTarget(this)">男性</button>
+            <button type="button" class="matching-chip active" data-value="女性" onclick="selectMatchingTarget(this)">女性</button>
+            <button type="button" class="matching-chip" data-value="両方" onclick="selectMatchingTarget(this)">両方</button>
           </div>
         </div>
 
@@ -763,9 +818,10 @@
       <div class="blp-section">
         <div class="blp-section-title">構成</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>プロフィール概要</strong> — ニックネーム、年齢、会員ステータス。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>本人確認アラート</strong> — 否認時などに目立つ位置に表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>プラン管理</strong> — 現在のプラン（有料/無料）と変更・解約。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>設定一覧</strong> — 通知、シークレットモード、アカウント。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>マッチングしたい人</strong> — 男性 / 女性 / 両方。変更は探索結果に反映。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>本人確認アラート</strong> — 否認時などに目立つ位置に表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>プラン管理</strong> — 現在のプラン（有料/無料）と変更・解約。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>設定一覧</strong> — 通知、シークレットモード、アカウント。</div></div>
       </div>
     </div>
 
@@ -778,9 +834,10 @@
       <div class="blp-section">
         <div class="blp-section-title">Nội dung</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Profile</strong> — Nickname, tuổi, trạng thái thành viên.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Alert xác minh</strong> — Hiển thị nổi bật khi bị từ chối/chưa xác minh.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Gói dịch vụ</strong> — Kiểm tra và thay đổi gói Free/Paid.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Cài đặt</strong> — Thông báo, Secret Mode, Tài khoản.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đối tượng muốn match</strong> — Nam / Nữ / Cả hai; thay đổi ảnh hưởng kết quả khám phá.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Alert xác minh</strong> — Hiển thị nổi bật khi bị từ chối/chưa xác minh.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Gói dịch vụ</strong> — Kiểm tra và thay đổi gói Free/Paid.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Cài đặt</strong> — Thông báo, Secret Mode, Tài khoản.</div></div>
       </div>
     </div>
   </div>
@@ -791,6 +848,13 @@
       document.querySelector('.lang-' + lang).style.display = 'block';
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+
+    function selectMatchingTarget(btn) {
+      document.querySelectorAll('.matching-chip').forEach(function (chip) {
+        chip.classList.remove('active');
+      });
+      btn.classList.add('active');
     }
   </script>
 </div>

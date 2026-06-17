@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -1663,8 +1663,59 @@
     }
     .shop-card {
       filter: none !important;
-      background: #e6e6e6 !important;
+      background-color: #e6e6e6;
       border-color: #d6d6d6 !important;
+    }
+    .shop-card.selected {
+      border: 2px solid #2e7d32 !important;
+      box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.18);
+    }
+    .shop-select-btn {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: rgba(0, 0, 0, 0.42);
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .shop-card.selected .shop-select-btn {
+      display: none;
+    }
+    .shop-selected-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+      pointer-events: none;
+    }
+    .shop-card.selected .shop-selected-badge {
+      display: flex;
+    }
+    .shop-card-body {
+      position: absolute;
+      inset: 0;
     }
 
     .shop-detail-overlay {
@@ -2114,7 +2165,7 @@
       <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
       <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
-      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+      
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
@@ -2558,6 +2609,7 @@
         ];
         var idx = 0;
         var currentPhotoIndex = 0;
+        var selectedShopIndex = null;
         var viewOnly = false;
         var ekycVerified = false;
         var returnTo = 'wireframe_SCR073_boshuu_applicants.html';
@@ -2660,6 +2712,7 @@
         }
         function renderCard() {
           var c = CANDIDATES[idx];
+          selectedShopIndex = null;
           var d = DETAIL_PRESETS[idx % DETAIL_PRESETS.length];
           var tags = '';
           var hobbyText = c.tags && c.tags.length ? c.tags.join(' / ') : d.hobbies;
@@ -2696,11 +2749,16 @@
 
           shops.forEach(function (shop, shopIdx) {
             var level = priceLevelFromPriceString(shop.price);
-            shopsHtml += '<div class="shop-card" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
+            var bgStyle = shop.image ? " style=\"background-image:url('" + shop.image + "')\"" : '';
+            shopsHtml += '<div class="shop-card" data-shop-idx="' + shopIdx + '"' + bgStyle + '>' +
+                         '<button type="button" class="shop-select-btn" onclick="selectShop(event,' + shopIdx + ')" title="選択">+</button>' +
+                         '<div class="shop-selected-badge">✓</div>' +
+                         '<div class="shop-card-body" onclick="openShopDetail(' + idx + ',' + shopIdx + ')">' +
                          '<div class="shop-overlay"></div>' +
                          '<div class="shop-text-overlay">' +
                          '<div class="shop-name">' + shop.name.replace('\n', '<br>') + '</div>' +
                          '<div class="shop-price">' + shopGlassIcons(level) + '</div>' +
+                         '</div>' +
                          '</div>' +
                          '</div>';
           });
@@ -2889,6 +2947,10 @@
 
         function showLikePopup() {
           if (viewOnly) return;
+          if (selectedShopIndex === null) {
+            alert('いいねする前に、お店を1つ選択してください');
+            return;
+          }
           if (ekycVerified) {
             performLike();
             return;
@@ -3031,9 +3093,14 @@
           document.getElementById('shopDetailPopup').style.display = 'none';
         }
 
-        function requestShop() {
-          document.getElementById('shopDetailPopup').style.display = 'none';
-          alert('このお店でリクエストを送信しました');
+        function selectShop(event, shopIdx) {
+          if (event) event.stopPropagation();
+          if (viewOnly) return;
+          selectedShopIndex = shopIdx;
+          document.querySelectorAll('.shop-card').forEach(function (card) {
+            var cardIdx = parseInt(card.getAttribute('data-shop-idx'), 10);
+            card.classList.toggle('selected', cardIdx === selectedShopIndex);
+          });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -3115,9 +3182,6 @@
                 <div class="shop-detail-address" id="shopDetailAddress"></div>
               </div>
             </div>
-          </div>
-          <div class="shop-detail-footer">
-            <button type="button" class="shop-detail-request-btn" onclick="requestShop()">このお店でリクエスト</button>
           </div>
         </div>
       </div>

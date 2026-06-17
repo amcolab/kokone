@@ -277,7 +277,11 @@
       border: 1px solid var(--c2);
       overflow: hidden;
     }
-    .shop-detail-hero-wrap { position: relative; height: 170px; background: #e0e0e0; }
+    .shop-detail-hero-wrap {
+      position: relative;
+      height: 170px;
+      background: #e0e0e0;
+    }
     .shop-detail-close {
       position: absolute;
       top: 10px;
@@ -288,11 +292,146 @@
       border: 1px solid rgba(0,0,0,0.12);
       background: rgba(255,255,255,0.92);
       cursor: pointer;
+      color: #424242;
+      font-size: 16px;
+      font-weight: 900;
       z-index: 3;
     }
-    .shop-detail-body { padding: 14px; }
-    .shop-detail-name { font-size: 15px; font-weight: 900; }
-    .shop-detail-section-text { font-size: 12px; color: #424242; line-height: 1.6; margin-top: 8px; }
+    .shop-detail-hero {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .shop-detail-scroll {
+      max-height: 360px;
+      overflow-y: auto;
+      background: #fff;
+    }
+    .shop-detail-body {
+      padding: 14px 14px 18px;
+    }
+    .shop-detail-title-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .shop-detail-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #212121;
+      color: #fff;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .shop-detail-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: #212121;
+      line-height: 1.3;
+    }
+    .shop-detail-price-row {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .shop-detail-price-text {
+      font-size: 12px;
+      font-weight: 800;
+      color: #212121;
+      white-space: nowrap;
+    }
+    .shop-detail-help {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9e9e9e;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .shop-detail-tags {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .shop-detail-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #e0e0e0;
+      background: #fafafa;
+      color: #424242;
+      font-weight: 700;
+    }
+    .shop-detail-section {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #eeeeee;
+    }
+    .shop-detail-section-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: #616161;
+      margin-bottom: 6px;
+    }
+    .shop-detail-section-text {
+      font-size: 12px;
+      color: #424242;
+      line-height: 1.6;
+    }
+    .shop-detail-map {
+      margin-top: 14px;
+      border-top: 1px solid #eeeeee;
+      padding-top: 12px;
+    }
+    .shop-detail-map-visual {
+      height: 92px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #757575;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .shop-detail-map-pin {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #212121;
+      max-width: calc(100% - 20px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .shop-detail-address {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #757575;
+      line-height: 1.5;
+    }
     .wf-sidebar { width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
     .wf-sidebar-logo { height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #e0e0e0; gap: 8px; text-decoration: none; }
     .wf-logo-mark { width: 22px; height: 22px; border: 2px solid #424242; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #424242; flex-shrink: 0; }
@@ -345,7 +484,7 @@
       <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
       <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR030_restaurant_pick.html"><span class="wf-nav-id">030B</span>行きたい店舗</a>
-      <a class="wf-nav-link" href="wireframe_SCR032_food_style.html"><span class="wf-nav-id">032</span>食事スタイル選択</a>
+      
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">B · Home</div>
@@ -419,7 +558,10 @@
       <div class="empty-state" id="emptyState">条件に一致する店舗が見つかりませんでした。</div>
 
       <div class="restaurant-card" data-id="res-001" data-area="shibuya-omotesando" data-selected="false"
-           data-style="和食" data-desc="落ち着いた照明の和空間で、旬の食材を使った創作和食を提供。">
+           data-style="和食" data-area-label="表参道" data-address="東京都渋谷区神宮前5-10-1"
+           data-desc="落ち着いた照明の和空間で、旬の食材を使った創作和食を提供。初対面でも会話がしやすい距離感の席配置です。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="2">
         <div class="card-photo" data-placeholder="Washoku Shizuku Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -441,7 +583,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-002" data-area="ebisu-nakameguro" data-selected="false"
-           data-style="イタリアン" data-desc="カジュアルに楽しめるフレンチビストロ。グラスワインが豊富。">
+           data-style="イタリアン" data-area-label="恵比寿" data-address="東京都渋谷区恵比寿西1-12-8"
+           data-desc="カジュアルに楽しめるフレンチビストロ。グラスワインが豊富で、食事のペースに合わせて心地よく過ごせます。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="3">
         <div class="card-photo" data-placeholder="Bistro L'Etoile Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -463,7 +608,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-003" data-area="ginza-marunouchi" data-selected="false"
-           data-style="焼肉・ステーキ" data-desc="江戸前の技と季節の一品を少量ずつ。カウンター中心。">
+           data-style="焼肉・ステーキ" data-area-label="銀座" data-address="東京都中央区銀座4-2-1"
+           data-desc="江戸前の技と季節の一品を少量ずつ。カウンター中心で会話のテンポも合わせやすく、特別な日に選びたい一軒です。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="4">
         <div class="card-photo" data-placeholder="Ginza Sushi Ken Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -486,7 +634,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-004" data-area="shinjuku-yoyogi" data-selected="false"
-           data-style="フレンチ" data-desc="落ち着いた個室で、季節のコース料理をゆっくり楽しめます。">
+           data-style="フレンチ" data-area-label="代々木" data-address="東京都渋谷区代々木2-1-1"
+           data-desc="落ち着いた個室で、季節のコース料理をゆっくり楽しめます。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="2">
         <div class="card-photo" data-placeholder="Restaurant Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -507,7 +658,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-005" data-area="roppongi-azabu" data-selected="false"
-           data-style="和食" data-desc="個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適。">
+           data-style="和食" data-area-label="六本木" data-address="東京都港区六本木6-2-3"
+           data-desc="個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="3">
         <div class="card-photo" data-placeholder="Waraku Dining Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -529,7 +683,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-006" data-area="shinjuku-yoyogi" data-selected="false"
-           data-style="焼肉・ステーキ" data-desc="炭火で焼き上げる上質な肉。半個室席で会話もしやすい。">
+           data-style="焼肉・ステーキ" data-area-label="新宿" data-address="東京都新宿区西新宿1-8-2"
+           data-desc="炭火で焼き上げる上質な肉。半個室席で会話もしやすい。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="4">
         <div class="card-photo" data-placeholder="Sumibian Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -552,7 +709,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-007" data-area="ebisu-nakameguro" data-selected="false"
-           data-style="イタリアン" data-desc="窯焼きピザと自家製パスタが人気。カジュアルな雰囲気。">
+           data-style="イタリアン" data-area-label="中目黒" data-address="東京都目黒区上目黒2-14-5"
+           data-desc="窯焼きピザと自家製パスタが人気。カジュアルな雰囲気。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="2">
         <div class="card-photo" data-placeholder="Trattoria Sole Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -573,7 +733,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-008" data-area="ginza-marunouchi" data-selected="false"
-           data-style="中華" data-desc="本格広東料理をモダンにアレンジ。落ち着いたテーブル席。">
+           data-style="中華" data-area-label="銀座" data-address="東京都中央区銀座3-5-11"
+           data-desc="本格広東料理をモダンにアレンジ。落ち着いたテーブル席。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="3">
         <div class="card-photo" data-placeholder="Ryuen Chinese Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -596,7 +759,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-009" data-area="shibuya-omotesando" data-selected="false"
-           data-style="寿司" data-desc="江戸前寿司を気軽に楽しめるカウンター席。職人との会話も楽しめる。">
+           data-style="寿司" data-area-label="渋谷" data-address="東京都渋谷区宇田川町12-3"
+           data-desc="江戸前寿司を気軽に楽しめるカウンター席。職人との会話も楽しめる。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="5">
         <div class="card-photo" data-placeholder="Sushi Minato Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -620,7 +786,10 @@
       </div>
 
       <div class="restaurant-card" data-id="res-010" data-area="shinjuku-yoyogi" data-selected="false"
-           data-style="フレンチ" data-desc="新宿駅近くの隠れ家ビストロ。ワインセレクトが充実。">
+           data-style="フレンチ" data-area-label="新宿" data-address="東京都新宿区新宿3-17-4"
+           data-desc="新宿駅近くの隠れ家ビストロ。ワインセレクトが充実。"
+           data-note="ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。"
+           data-price="3">
         <div class="card-photo" data-placeholder="Bistro O Shinjuku Image">
           <div class="like-btn" onclick="togglePick(event, this)">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -651,10 +820,35 @@
       <div class="shop-detail-sheet" onclick="event.stopPropagation()">
         <div class="shop-detail-hero-wrap">
           <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+          <div class="shop-detail-hero" id="shopDetailHero"></div>
         </div>
-        <div class="shop-detail-body">
-          <div class="shop-detail-name" id="shopDetailName">店舗名</div>
-          <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+        <div class="shop-detail-scroll">
+          <div class="shop-detail-body">
+            <div class="shop-detail-title-row">
+              <span class="shop-detail-badge">★</span>
+              <div class="shop-detail-name" id="shopDetailName">店舗名</div>
+            </div>
+            <div class="shop-detail-price-row">
+              <div id="shopDetailPrice"></div>
+              <div class="shop-detail-help">?</div>
+            </div>
+            <div class="shop-detail-tags" id="shopDetailTags"></div>
+            <div class="shop-detail-section">
+              <div class="shop-detail-section-title">概要</div>
+              <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+            </div>
+            <div class="shop-detail-section">
+              <div class="shop-detail-section-title">備考</div>
+              <div class="shop-detail-section-text" id="shopDetailNote"></div>
+            </div>
+            <div class="shop-detail-map">
+              <div class="shop-detail-map-visual">
+                地図
+                <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
+              </div>
+              <div class="shop-detail-address" id="shopDetailAddress"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -798,11 +992,52 @@
       updatePickUI();
     }
 
+    function glassOnOnly(level) {
+      var max = 5;
+      var l = Math.max(0, Math.min(parseInt(level || '0', 10), max));
+      var svg = '<svg class="glass-svg on" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+      var html = '';
+      for (var i = 1; i <= l; i++) html += svg;
+      return '<span class="glass-meter" aria-label="price">' + html + '</span>';
+    }
+
+    function priceRangeText(level) {
+      var l = parseInt(level || '0', 10);
+      if (Number.isNaN(l) || l <= 1) return '〜5,000円 / 人';
+      if (l === 2) return '5,001〜10,000円 / 人';
+      if (l === 3) return '10,001〜15,000円 / 人';
+      if (l === 4) return '15,001〜20,000円 / 人';
+      return '20,001円〜 / 人';
+    }
+
     function openRestaurantModal(el) {
+      if (!el) return;
       var card = el.closest('.restaurant-card');
       if (!card) return;
-      document.getElementById('shopDetailName').textContent = el.textContent.trim();
-      document.getElementById('shopDetailOverview').textContent = card.getAttribute('data-desc') || '';
+      var name = el.textContent.trim();
+      var style = card.getAttribute('data-style') || '-';
+      var areaLabel = card.getAttribute('data-area-label') || '';
+      var address = card.getAttribute('data-address') || '-';
+      var desc = card.getAttribute('data-desc') || '';
+      var note = card.getAttribute('data-note') || '';
+      var price = card.getAttribute('data-price') || '0';
+      var photo = card.querySelector('.card-photo');
+      var hero = document.getElementById('shopDetailHero');
+      if (hero && photo) {
+        hero.style.backgroundImage = photo.style.backgroundImage || getComputedStyle(photo).backgroundImage;
+      }
+      document.getElementById('shopDetailName').textContent = name;
+      document.getElementById('shopDetailPrice').innerHTML =
+        glassOnOnly(price) + '<span class="shop-detail-price-text">｜' + priceRangeText(price) + '</span>';
+      document.getElementById('shopDetailTags').innerHTML =
+        '<span class="shop-detail-tag">' + style + '</span>' +
+        (areaLabel ? '<span class="shop-detail-tag">' + areaLabel + '</span>' : '');
+      document.getElementById('shopDetailOverview').textContent = desc;
+      document.getElementById('shopDetailNote').textContent = note;
+      document.getElementById('shopDetailMapLabel').textContent = name;
+      document.getElementById('shopDetailAddress').textContent = address;
+      var scrollEl = document.querySelector('.shop-detail-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
       document.getElementById('shopDetailPopup').style.display = 'flex';
     }
 
