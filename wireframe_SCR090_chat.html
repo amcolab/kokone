@@ -828,7 +828,8 @@
   </div>
   <div class="wf-sidebar-group">
     <div class="wf-group-label">E · Chat & Review</div>
-    <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+    <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat (Free)</a>
+    <a class="wf-nav-link" href="wireframe_SCR090_chat.html?plan=paid"><span class="wf-nav-id">090+</span>Chat (Paid)</a>
     <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
     <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
     <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
@@ -954,7 +955,7 @@
             </div>
         </div>
 
-        <div class="input-area">
+        <div class="input-area" id="chatInputArea">
             <button class="attachment-btn" type="button" onclick="openWizard()">+</button>
             <input id="chatInput" class="input-field" type="text" placeholder="メッセージを入力..." />
             <button class="send-btn" type="button" onclick="sendMessage()">
@@ -1063,6 +1064,16 @@
                 </div>
             </div>
         </div>
+        <div id="planGateConfirm" class="confirm-overlay" onclick="closePlanGateConfirm()">
+            <div class="confirm-dialog" onclick="event.stopPropagation()">
+                <div class="confirm-title">この機能はプレミアムプラン限定です</div>
+                <div class="confirm-text">マッチ後のメッセージ送信や日程調整など、<br>実際に会うための機能をご利用いただくには<br>プレミアムプランへの登録が必要です。</div>
+                <div class="confirm-actions">
+                    <button class="confirm-btn secondary" type="button" onclick="closePlanGateConfirm()">あとで</button>
+                    <button class="confirm-btn primary" type="button" onclick="goSubscribe()">プランを見る</button>
+                </div>
+            </div>
+        </div>
         <div id="actionToast" class="toast"></div>
     </div>
 
@@ -1092,9 +1103,10 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>開始</strong> — マッチ成立直後からメッセージ送信が可能。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>表示</strong> — メッセージ本文、送信時刻、既読状態を表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>期限</strong> — 最初のメッセージから24時間以内に返信がない場合、マッチ解消の警告。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>無料範囲</strong> — 登録〜マッチ成立まで無料（さがす・いいね・マッチ確認）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>チャットゲート</strong> — 無料会員が<strong>送信ボタン</strong>を押すとプラン購入ポップアップ → SCR-111（`?plan=paid` で送信可デモ）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>表示</strong> — メッセージ本文、送信時刻、既読状態を表示（有料登録後）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>期限</strong> — 最初のメッセージから24時間以内に返信がない場合、マッチ解消の警告。</div></div>
       </div>
     </div>
 
@@ -1106,15 +1118,36 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt đầu</strong> — Có thể nhắn tin ngay khi match thành công.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Hiển thị</strong> — Nội dung, thời gian, trạng thái đã đọc.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Hạn chốt</strong> — Cảnh báo nếu không phản hồi trong 24h đầu.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Miễn phí</strong> — Đăng ký đến khi match thành công (tìm kiếm, like, xem match).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Paywall chat</strong> — Free user bấm <strong>Gửi</strong> → popup mua plan → SCR-111 (`?plan=paid` = đã mua).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Hiển thị</strong> — Nội dung, thời gian, trạng thái đã đọc (sau khi trả phí).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Hạn chốt</strong> — Cảnh báo nếu không phản hồi trong 24h đầu.</div></div>
       </div>
     </div>
   </div>
 
   <script>
     let actionToastTimer;
+    var isChatUnlocked = false;
+
+    function applyPlanGate() {
+      var params = new URLSearchParams(window.location.search);
+      isChatUnlocked = params.get('plan') === 'paid';
+    }
+
+    function openPlanGateConfirm() {
+      document.getElementById('planGateConfirm').classList.add('open');
+    }
+
+    function closePlanGateConfirm() {
+      document.getElementById('planGateConfirm').classList.remove('open');
+    }
+
+    function goSubscribe() {
+      window.location.href = 'wireframe_SCR111_subscription.html?from=chat';
+    }
+
+    applyPlanGate();
 
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');
@@ -1201,6 +1234,11 @@
         const text = input.value.trim();
 
         if (!text) return;
+
+        if (!isChatUnlocked) {
+            openPlanGateConfirm();
+            return;
+        }
 
         const now = new Date();
         const hh = String(now.getHours()).padStart(2, '0');

@@ -446,12 +446,6 @@
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_deadline.html"><span class="wf-nav-id">090E</span>Chat Schedule Deadline</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_boshuu_matched.html"><span class="wf-nav-id">090G</span>Boshuu Matched Chat</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_visit.html"><span class="wf-nav-id">090M</span>Boshuu Visit Check</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_change_menu.html"><span class="wf-nav-id">090I</span>Boshuu Change Menu</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_schedule_change.html"><span class="wf-nav-id">090J</span>Boshuu Schedule Change</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_restaurant_pick.html"><span class="wf-nav-id">090K</span>Boshuu Restaurant Pick</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_boshuu_updated.html"><span class="wf-nav-id">090L</span>Boshuu Chat Updated</a>
-      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_expired.html"><span class="wf-nav-id">090H</span>Chat Schedule Expired</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
     </div>
@@ -495,7 +489,7 @@
       <div class="boshuu-match-card">
         <div class="boshuu-match-title">🎉 募集が成立しました！</div>
         <div class="boshuu-detail-box">
-          <div class="boshuu-detail-label">決定済みの内容</div>
+          <div class="boshuu-detail-label">募集内容</div>
           <div class="boshuu-detail-row">
             <span class="detail-icon">📅</span>
             <span>3月20日（木）夜</span>
@@ -504,13 +498,6 @@
             <span class="detail-icon">📍</span>
             <span>渋谷・恵比寿エリア</span>
           </div>
-          <div class="restaurant-row">
-            <div class="restaurant-thumb">
-              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><rect width='36' height='36' fill='%23e0e0e0'/><rect x='6' y='20' width='24' height='10' rx='2' fill='%23bdbdbd'/><rect x='10' y='8' width='16' height='12' rx='2' fill='%239e9e9e'/></svg>">
-            </div>
-            <div class="restaurant-name">個室ダイニング 和楽</div>
-          </div>
-          <a class="change-link" href="wireframe_SCR090_chat_boshuu_change_menu.html">&gt; 内容を変更する</a>
         </div>
       </div>
 
@@ -518,7 +505,7 @@
         <div class="bubble system" style="flex:1;">
           <div class="ot-badge">OT</div>
           <div style="font-size:12px; line-height:1.6; color:var(--c5); padding-top:2px;">
-            予約は募集者が行うルールです。待ち合わせ場所や時間を相談してください。
+            マッチングおめでとうございます。待ち合わせの日時や場所は、お互いのチャットで自由に相談してください。
           </div>
         </div>
       </div>
@@ -578,35 +565,32 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">募集マッチ成立後の1:1チャット。決定済みの募集内容を表示し、待ち合わせ時間・場所などを相談する。</div>
+          <div class="blp-note highlight">募集マッチ成立後の1:1チャット。募集時の希望条件を参照表示し、日時・場所・お店などはユーザー同士でチャット相談する。システムはマッチ後の内容を管理しない。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>募集成立カード</strong>に日時・エリア・店舗を表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">OtonaTableから<strong>予約ルール</strong>（募集者が予約）を案内。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>内容を変更する</strong> → 090I。日時はチャット相談後に手入力（090J）、店舗は同エリアリストから選択（090K）。マッチングの提案フロー（082/083）とは別。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">メニュー（⋮）から<strong>写真公開リクエスト / 通報 / ブロック</strong>。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>募集成立カード</strong>に募集時の日時・エリアのみ表示（参考情報）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">店舗・詳細日程の変更・来店確認・レビューは<strong>行わない</strong>。すべてチャットで合意。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">メニュー（⋮）から<strong>写真公開リクエスト / 通報 / ブロック</strong>。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>SCR-073</strong> で応募者承認</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> でチャット調整</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>090I→090J/090K→090L</strong> 変更反映</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div></div><div class="blp-step-text"><strong>この画面</strong> で自由にチャット</div></div>
           </div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Chat 1:1 sau khi 募集 match — hiển thị nội dung đã chốt và trao đổi lịch hẹn.</div>
+          <div class="blp-note highlight">Chat 1:1 sau khi 募集 match — hiển thị điều kiện lúc đăng tin; mọi thỏa thuận (giờ, quán, địa điểm) qua chat. Hệ thống không quản lý sau match.</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card <strong>募集が成立しました</strong> với ngày, khu vực, nhà hàng.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Tin hệ thống nhắc quy tắc đặt bàn.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Đổi nội dung</strong> → 090I → nhập giờ (090J) hoặc chọn quán cùng khu (090K) → 090L.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">Menu ⋮: yêu cầu ảnh / báo cáo / block.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card chỉ hiển thị ngày/buổi và khu vực từ tin 募集.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Không đổi quán/giờ qua app, không xác nhận来店, không review.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Menu ⋮: yêu cầu ảnh / báo cáo / block.</div></div>
         </div>
       </div>
     </div>

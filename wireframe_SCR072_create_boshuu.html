@@ -1180,34 +1180,6 @@
         <div class="character-counter">0 / 100</div>
       </div>
 
-      <!-- Restaurant Selection Section -->
-      <div class="form-section">
-        <div class="section-label">候補店舗<span class="required">*</span> <span class="section-sub">（最大3店舗）</span></div>
-        <div class="candidate-store-list" id="candidate-store-list">
-          <div class="candidate-store-item" data-store-id="waraku">
-            <div class="store-thumb">
-              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23e0e0e0'/><rect x='8' y='28' width='32' height='12' rx='2' fill='%23bdbdbd'/><rect x='14' y='10' width='20' height='16' rx='2' fill='%239e9e9e'/></svg>">
-            </div>
-            <div class="store-info">
-              <div class="store-name">個室ダイニング 和楽</div>
-              <div class="store-meta">渋谷 ・ 和食 ・ ¥6,000〜¥8,000</div>
-            </div>
-            <button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>
-          </div>
-          <div class="candidate-store-item" data-store-id="roma">
-            <div class="store-thumb">
-              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23d8d8d8'/><circle cx='24' cy='20' r='8' fill='%23bdbdbd'/><rect x='10' y='30' width='28' height='10' rx='3' fill='%23a0a0a0'/></svg>">
-            </div>
-            <div class="store-info">
-              <div class="store-name">Trattoria Roma</div>
-              <div class="store-meta">恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000</div>
-            </div>
-            <button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>
-          </div>
-        </div>
-        <button type="button" class="add-store-btn" id="add-store-btn" onclick="openStorePicker()">+ 店舗を追加する（最大3件まで）</button>
-      </div>
-
       <!-- Settings Section -->
       <div class="form-section">
         <div class="settings-block">
@@ -1254,14 +1226,6 @@
       </div>
     </div>
 
-    <!-- Restaurant Picker Modal -->
-    <div id="store-picker-modal" class="wf-modal-overlay store-picker-modal" onclick="if(event.target===this)closeStorePicker()">
-      <div class="wf-modal">
-        <div class="wf-modal-head">店舗を選択</div>
-        <div class="store-picker-list" id="store-picker-list"></div>
-      </div>
-    </div>
-
     <!-- Deadline Picker Modal -->
     <div id="deadline-modal" class="wf-modal-overlay" onclick="if(event.target===this)closeDeadlinePicker()">
       <div class="wf-modal">
@@ -1270,46 +1234,6 @@
           <button type="button" class="picker-option active" data-value="前日まで" onclick="selectDeadline(this)">前日まで</button>
           <button type="button" class="picker-option" data-value="3時間前" onclick="selectDeadline(this)">3時間前</button>
           <button type="button" class="picker-option" data-value="1時間前" onclick="selectDeadline(this)">1時間前</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
-      <div class="shop-detail-sheet" onclick="event.stopPropagation()">
-        <div class="shop-detail-hero-wrap">
-          <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
-          <div class="shop-detail-hero" id="shopDetailHero"></div>
-        </div>
-        <div class="shop-detail-scroll">
-          <div class="shop-detail-body">
-            <div class="shop-detail-title-row">
-              <span class="shop-detail-badge">★</span>
-              <div class="shop-detail-name" id="shopDetailName"></div>
-            </div>
-            <div class="shop-detail-price-row">
-              <span id="shopDetailPrice"></span>
-              <span class="shop-detail-help">?</span>
-            </div>
-            <div class="shop-detail-tags" id="shopDetailTags"></div>
-            <div class="shop-detail-section">
-              <div class="shop-detail-section-title">概要</div>
-              <div class="shop-detail-section-text" id="shopDetailOverview"></div>
-            </div>
-            <div class="shop-detail-section muted">
-              <div class="shop-detail-section-title">備考</div>
-              <div class="shop-detail-section-text" id="shopDetailNote"></div>
-            </div>
-            <div class="shop-detail-map">
-              <div class="shop-detail-map-visual">
-                地図
-                <div class="shop-detail-map-pin" id="shopDetailMapLabel"></div>
-              </div>
-              <div class="shop-detail-address" id="shopDetailAddress"></div>
-            </div>
-          </div>
-        </div>
-        <div class="shop-detail-footer">
-          <button type="button" class="shop-detail-close-btn" onclick="closeShopDetail()">閉じる</button>
         </div>
       </div>
     </div>
@@ -1349,12 +1273,11 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 日付、時間帯、希望エリア、一言コメント、候補店舗、応募人数上限。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>必須項目</strong> — 日付、時間帯、希望エリア、一言コメント、応募人数上限。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>日付選択</strong> — カレンダーから日付を選択。選択後は年月日を表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗提案</strong> — 自分のお気に入りリストから最大3件まで選択。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>募集期限</strong> — 基本は「食事日の前日」がデフォルトの期限。食事日が「今日」の場合は当日期限となる。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>編集モード</strong> — `?mode=edit` で応募者0件の自分の募集を編集。保存後は `070-2` へ戻る。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>応募人数上限</strong> — 1〜5人 または「制限なし」から選択。上限に達すると自動締め切り。デフォルト: 2人。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>募集期限</strong> — 基本は「食事日の前日」がデフォルトの期限。食事日が「今日」の場合は当日期限となる。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>編集モード</strong> — `?mode=edit` で応募者0件の自分の募集を編集。保存後は `070-2` へ戻る。</div></div>
       </div>
     </div>
 
@@ -1366,12 +1289,11 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Ngày, buổi, khu vực, lời nhắn, đề xuất quán, giới hạn số người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Bắt buộc</strong> — Ngày, buổi, khu vực, lời nhắn, giới hạn số người.</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">1a</div><div class="blp-rule-text"><strong>Chọn ngày</strong> — Chọn từ lịch. Sau khi chọn hiển thị ngày/tháng/năm.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đề xuất quán</strong> — Chọn tối đa 3 quán từ danh sách "Favorites" của mình.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thời hạn (Deadline)</strong> — Mặc định là "Trước ngày đi ăn". Nếu đi ăn ngày mai thì hôm nay là hạn. Nếu đi hôm nay thì hạn là vài tiếng trước khi ăn.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Chế độ sửa</strong> — `?mode=edit` cho tin của mình khi chưa có ứng viên. Lưu xong quay về `070-2`.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Giới hạn số người応募</strong> — Chọn 1–5 người hoặc "Không giới hạn". Khi đạt giới hạn, tự động đóng. Mặc định: 2 người.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Thời hạn (Deadline)</strong> — Mặc định là "Trước ngày đi ăn". Nếu đi ăn ngày mai thì hôm nay là hạn. Nếu đi hôm nay thì hạn là vài tiếng trước khi ăn.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Chế độ sửa</strong> — `?mode=edit` cho tin của mình khi chưa có ứng viên. Lưu xong quay về `070-2`.</div></div>
       </div>
     </div>
   </div>
@@ -1422,66 +1344,6 @@
     var selectedDate = null;
     var calendarYear = 2026;
     var calendarMonth = 2;
-    var thumbSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23e8e8e8'/><rect x='10' y='12' width='28' height='18' rx='2' fill='%23bdbdbd'/></svg>";
-    var storeNote = 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。';
-    var favoriteStores = [
-      { id: 'waraku', name: '個室ダイニング 和楽', meta: '渋谷 ・ 和食 ・ ¥6,000〜¥8,000', category: '和食', area: '渋谷', priceLevel: 2, overview: '個室完備の和ダイニング。落ち着いた空間で初対面の食事にも最適です。', note: storeNote, address: '東京都渋谷区道玄坂2-3-1', mapLabel: '個室ダイニング 和楽' },
-      { id: 'roma', name: 'Trattoria Roma', meta: '恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000', category: 'イタリアン', area: '恵比寿', priceLevel: 2, overview: '本格イタリアンをカジュアルに楽しめるトラットリア。ワインの種類も豊富です。', note: storeNote, address: '東京都渋谷区恵比寿西1-12-8', mapLabel: 'Trattoria Roma' },
-      { id: 'miyabi', name: '和食処 みやび', meta: '渋谷 ・ 創作和食 ・ ¥4,000〜¥6,000', category: '和食', area: '渋谷', priceLevel: 2, overview: '旬の食材を使った創作和食が楽しめるお店。カウンター席もあり会話しやすい雰囲気です。', note: storeNote, address: '東京都渋谷区宇田川町12-5', mapLabel: '和食処 みやび' },
-      { id: 'etoile', name: "Bistro L'Etoile", meta: '恵比寿 ・ イタリアン ・ ¥5,000〜¥7,000', category: 'イタリアン', area: '恵比寿', priceLevel: 2, overview: 'カジュアルに楽しめるフレンチビストロ。グラスワインが豊富でデートに人気です。', note: storeNote, address: '東京都渋谷区恵比寿西1-12-8', mapLabel: "Bistro L'Etoile" },
-      { id: 'shizuku', name: '和食 しずく', meta: '渋谷 ・ 和食 ・ ¥4,500〜¥6,500', category: '和食', area: '渋谷', priceLevel: 2, overview: '落ち着いた照明の和空間で、旬の食材を使った創作和食を提供しています。', note: storeNote, address: '東京都渋谷区神宮前5-10-1', mapLabel: '和食 しずく' },
-      { id: 'aoba', name: 'ビストロ青葉', meta: '代々木 ・ フレンチ ・ ¥5,000〜¥8,000', category: 'フレンチ', area: '代々木', priceLevel: 2, overview: '落ち着いた個室で、季節のコース料理をゆっくり楽しめます。', note: storeNote, address: '東京都渋谷区代々木2-1-1', mapLabel: 'ビストロ青葉' },
-      { id: 'sumibian', name: '焼肉 炭火庵', meta: '恵比寿 ・ 焼肉 ・ ¥6,000〜¥10,000', category: '焼肉', area: '恵比寿', priceLevel: 3, overview: '炭火で焼き上げる上質な肉。半個室席で会話もしやすい空間です。', note: storeNote, address: '東京都渋谷区恵比寿南1-2-3', mapLabel: '焼肉 炭火庵' }
-    ];
-
-    function getStoreById(id) {
-      for (var i = 0; i < favoriteStores.length; i++) {
-        if (favoriteStores[i].id === id) return favoriteStores[i];
-      }
-      return null;
-    }
-
-    function glassOnOnly(level) {
-      var l = Math.max(1, Math.min(parseInt(level || 1, 10), 5));
-      var svg = '<svg class="shop-glass-svg on" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
-      var html = '';
-      for (var i = 0; i < l; i++) html += svg;
-      return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
-    }
-
-    function priceRangeText(level) {
-      var l = parseInt(level || 1, 10);
-      if (l <= 1) return '〜5,000円 / 人';
-      if (l === 2) return '5,001〜10,000円 / 人';
-      if (l === 3) return '10,001〜15,000円 / 人';
-      if (l === 4) return '15,001〜20,000円 / 人';
-      return '20,001円〜 / 人';
-    }
-
-    function openCandidateStoreDetail(storeId) {
-      var store = getStoreById(storeId);
-      if (!store) return;
-      document.getElementById('shopDetailHero').style.backgroundImage = '';
-      document.getElementById('shopDetailName').textContent = store.name;
-      document.getElementById('shopDetailPrice').innerHTML =
-        glassOnOnly(store.priceLevel) + '<span class="shop-detail-price-text">｜' + priceRangeText(store.priceLevel) + '</span>';
-      document.getElementById('shopDetailTags').innerHTML =
-        '<span class="shop-detail-tag">' + store.category + '</span>' +
-        '<span class="shop-detail-tag">' + store.area + '</span>';
-      document.getElementById('shopDetailOverview').textContent = store.overview;
-      document.getElementById('shopDetailNote').textContent = store.note;
-      document.getElementById('shopDetailMapLabel').textContent = store.mapLabel;
-      document.getElementById('shopDetailAddress').textContent = store.address;
-      var scrollEl = document.querySelector('#shopDetailPopup .shop-detail-scroll');
-      if (scrollEl) scrollEl.scrollTop = 0;
-      document.getElementById('shopDetailPopup').style.display = 'flex';
-    }
-
-    function closeShopDetail(event) {
-      if (event && event.target !== event.currentTarget) return;
-      document.getElementById('shopDetailPopup').style.display = 'none';
-    }
-
     function selectTime(el) {
       document.querySelectorAll('.time-chips .time-chip').forEach(function (c) { c.classList.remove('active'); });
       el.classList.add('active');
@@ -1576,89 +1438,6 @@
       closeDeadlinePicker();
     }
 
-    function getSelectedStoreIds() {
-      return Array.from(document.querySelectorAll('#candidate-store-list .candidate-store-item'))
-        .map(function (el) { return el.getAttribute('data-store-id'); })
-        .filter(Boolean);
-    }
-
-    function updateAddStoreButton() {
-      var btn = document.getElementById('add-store-btn');
-      var count = document.getElementById('candidate-store-list').children.length;
-      if (count >= 3) {
-        btn.disabled = true;
-        btn.style.opacity = '0.45';
-        btn.style.cursor = 'default';
-      } else {
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        btn.style.cursor = 'pointer';
-      }
-    }
-
-    function removeStore(btn) {
-      btn.closest('.candidate-store-item').remove();
-      updateAddStoreButton();
-    }
-
-    function openStorePicker() {
-      var list = document.getElementById('candidate-store-list');
-      if (list.children.length >= 3) return;
-      renderStorePickerList();
-      document.getElementById('store-picker-modal').classList.add('show');
-    }
-
-    function closeStorePicker() {
-      document.getElementById('store-picker-modal').classList.remove('show');
-    }
-
-    function renderStorePickerList() {
-      var container = document.getElementById('store-picker-list');
-      var selected = getSelectedStoreIds();
-      var available = favoriteStores.filter(function (s) { return selected.indexOf(s.id) === -1; });
-      container.innerHTML = '';
-      if (available.length === 0) {
-        container.innerHTML = '<div class="store-picker-empty">追加できる店舗がありません。<br>お気に入り店舗を登録してください。</div>';
-        return;
-      }
-      available.forEach(function (store) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'store-picker-item';
-        btn.innerHTML =
-          '<div class="store-thumb"><img alt="" src="' + thumbSvg + '"></div>' +
-          '<div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div>';
-        btn.onclick = function () { pickStore(store); };
-        container.appendChild(btn);
-      });
-    }
-
-    function pickStore(store) {
-      var list = document.getElementById('candidate-store-list');
-      if (list.children.length >= 3) {
-        closeStorePicker();
-        return;
-      }
-      var item = document.createElement('div');
-      item.className = 'candidate-store-item';
-      item.setAttribute('data-store-id', store.id);
-      item.innerHTML =
-        '<div class="store-thumb"><img alt="" src="' + thumbSvg + '"></div>' +
-        '<div class="store-info"><div class="store-name">' + store.name + '</div><div class="store-meta">' + store.meta + '</div></div>' +
-        '<button type="button" class="store-remove" onclick="event.stopPropagation(); removeStore(this)">×</button>';
-      list.appendChild(item);
-      closeStorePicker();
-      updateAddStoreButton();
-    }
-
-    document.getElementById('candidate-store-list').addEventListener('click', function (e) {
-      if (e.target.closest('.store-remove')) return;
-      var item = e.target.closest('.candidate-store-item');
-      if (!item) return;
-      var storeId = item.getAttribute('data-store-id');
-      if (storeId) openCandidateStoreDetail(storeId);
-    });
-
     function executePublish() {
       if (isEditMode) {
         alert('変更を保存しました');
@@ -1672,7 +1451,6 @@
     }
 
     initEditMode();
-    updateAddStoreButton();
   </script>
 </div>
 </html>

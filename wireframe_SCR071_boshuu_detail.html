@@ -870,85 +870,6 @@
         <!-- removed 1対1 -->
       </div>
 
-      <!-- Proposed Restaurants Section -->
-      <div class="section" id="restaurant-proposal-section">
-        <div class="section-title" id="resProposalSectionTitle">提案されたお店</div>
-        <div id="resProposalHint" style="font-size: 11px; color: var(--c4); margin-bottom: 8px;">下記の中から、行きたいお店を選んでください</div>
-        
-        <div class="res-prop-list" id="resPropList">
-          <!-- Item 1 -->
-          <div class="res-prop-item selected" onclick="this.classList.toggle('selected')">
-            <div class="res-check-box">✓</div>
-            <div>
-              <div class="res-name-text"><span class="res-name-link" onclick="openShopModal(event, 'ビストロ・オー 新宿店', '新宿', 'イタリアン', 2)">ビストロ・オー 新宿店</span></div>
-              <div class="res-meta-text">
-                <div class="meta-row">
-                  <span class="area-glass">
-                    <span class="res-area-price">新宿｜</span>
-                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
-                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Item 2 -->
-          <div class="res-prop-item" id="resPropItemMiyabi" onclick="this.classList.toggle('selected')">
-            <div class="res-check-box">✓</div>
-            <div>
-              <div class="res-name-text"><span class="res-name-link" onclick="openShopModal(event, '和食処 みやび Shibuya', '渋谷', '焼肉・ステーキ', 3)">和食処 みやび Shibuya</span></div>
-              <div class="res-meta-text">
-                <div class="meta-row">
-                  <span class="area-glass">
-                    <span class="res-area-price">渋谷｜</span>
-                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
-                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
-                    <svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
-        <div class="shop-detail-sheet" onclick="event.stopPropagation()">
-          <div class="shop-detail-hero-wrap">
-            <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
-            <div class="shop-detail-hero" id="shopDetailHero"></div>
-          </div>
-          <div class="shop-detail-scroll">
-            <div class="shop-detail-body">
-              <div class="shop-detail-title-row">
-                <span class="shop-detail-badge">★</span>
-                <div class="shop-detail-name" id="shopDetailName">店舗名</div>
-              </div>
-              <div class="shop-detail-price-row">
-                <div id="shopDetailPrice"></div>
-                <div class="shop-detail-help">?</div>
-              </div>
-              <div class="shop-detail-tags" id="shopDetailTags"></div>
-              <div class="shop-detail-section">
-                <div class="shop-detail-section-title">概要</div>
-                <div class="shop-detail-section-text" id="shopDetailOverview"></div>
-              </div>
-              <div class="shop-detail-section muted">
-                <div class="shop-detail-section-title">備考</div>
-                <div class="shop-detail-section-text" id="shopDetailNote"></div>
-              </div>
-              <div class="shop-detail-map">
-                <div class="shop-detail-map-visual">
-                  地図
-                  <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
-                </div>
-                <div class="shop-detail-address" id="shopDetailAddress"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <div class="bottom-sticky">
@@ -1045,16 +966,6 @@
           }
           if (titleCard) titleCard.style.display = 'block';
 
-          var hint = document.getElementById('resProposalHint');
-          if (hint) hint.style.display = 'none';
-
-          var list = document.getElementById('resPropList');
-          if (list) list.classList.add('readonly');
-
-          document.querySelectorAll('.res-prop-item').forEach(function (it) {
-            it.removeAttribute('onclick');
-            it.classList.remove('selected');
-          });
         } else if (mode === 'apply') {
           var returnUrl = 'wireframe_SCR070_3_applied_boshuu.html' +
             (urlParams.get('from') === 'mypage' ? '?from=mypage' : '');
@@ -1092,25 +1003,6 @@
             content.insertBefore(appInfo, content.firstChild);
           }
 
-          var hint = document.getElementById('resProposalHint');
-          if (hint) hint.style.display = 'none';
-
-          var sectionTitle = document.getElementById('resProposalSectionTitle');
-          if (sectionTitle) sectionTitle.textContent = '選択されたお店';
-
-          var miyabi = document.getElementById('resPropItemMiyabi');
-          if (miyabi) miyabi.style.display = 'none';
-
-          var list = document.getElementById('resPropList');
-          if (list) list.classList.add('readonly');
-
-          document.querySelectorAll('.res-prop-item').forEach(function (it) {
-            if (it.style.display === 'none') return;
-            it.removeAttribute('onclick');
-            it.classList.remove('selected');
-          });
-          var firstItem = document.querySelector('.res-prop-item');
-          if (firstItem && firstItem.style.display !== 'none') firstItem.classList.add('selected');
         }
 
         var recruiterCard = document.getElementById('recruiterCard');
@@ -1128,67 +1020,8 @@
       
       // Applicant function
       function handleApply() {
-        const selected = document.querySelectorAll('.res-prop-item.selected');
-        if (selected.length === 0) {
-          alert('お店を1つ以上選んでください');
-          return;
-        }
-        alert(selected.length + '件のお店を選択して応募しました！');
+        alert('応募しました！');
         window.location.href = 'wireframe_SCR070_boshuu_list.html';
-      }
-
-      function glassOnOnly(level) {
-        var max = 5;
-        var l = Math.max(0, Math.min(parseInt(level || '0', 10), max));
-        var svg = '<svg class="glass-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
-        var html = '';
-        for (var i = 1; i <= l; i++) html += svg;
-        return '<span class="glass-meter" aria-label="price">' + html + '</span>';
-      }
-
-      function priceRangeText(level) {
-        var l = parseInt(level || '0', 10);
-        if (Number.isNaN(l) || l <= 1) return '〜5,000円 / 人';
-        if (l === 2) return '5,001〜10,000円 / 人';
-        if (l === 3) return '10,001〜15,000円 / 人';
-        if (l === 4) return '15,001〜20,000円 / 人';
-        return '20,001円〜 / 人';
-      }
-
-      function heroGradient(level) {
-        var l = Math.max(1, Math.min(parseInt(level || '1', 10), 5));
-        if (l <= 2) return 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
-        if (l === 3) return 'linear-gradient(135deg, #f7f7f7 0%, #e0e0e0 100%)';
-        if (l === 4) return 'linear-gradient(135deg, #f3f5f7 0%, #b7c4d1 100%)';
-        return 'linear-gradient(135deg, #f7f3f0 0%, #d2c5bb 100%)';
-      }
-
-      function openShopModal(e, name, area, style, level) {
-        if (e) e.stopPropagation();
-        var hero = document.getElementById('shopDetailHero');
-        if (hero) hero.style.backgroundImage = heroGradient(level);
-
-        document.getElementById('shopDetailName').textContent = name;
-        document.getElementById('shopDetailPrice').innerHTML =
-          glassOnOnly(level) + '<span class="shop-detail-price-text">｜' + priceRangeText(level) + '</span>';
-        document.getElementById('shopDetailTags').innerHTML =
-          '<span class="shop-detail-tag">' + style + '</span>' +
-          (area ? '<span class="shop-detail-tag">' + area + '</span>' : '');
-        document.getElementById('shopDetailOverview').textContent = '落ち着いた雰囲気で、初対面でも会話がしやすいお店です。';
-        document.getElementById('shopDetailNote').textContent = '混雑状況により、席の時間制限がある場合があります。';
-        document.getElementById('shopDetailMapLabel').textContent = name;
-        document.getElementById('shopDetailAddress').textContent = '東京都（' + (area || '-') + '）';
-
-        var scrollEl = document.querySelector('.shop-detail-scroll');
-        if (scrollEl) scrollEl.scrollTop = 0;
-        var overlay = document.getElementById('shopDetailPopup');
-        if (overlay) overlay.style.display = 'flex';
-      }
-
-      function closeShopDetail(event) {
-        if (event && event.target !== event.currentTarget) return;
-        var overlay = document.getElementById('shopDetailPopup');
-        if (overlay) overlay.style.display = 'none';
       }
     </script>
   </div> <!-- /device -->
@@ -1214,14 +1047,13 @@
     <div class="blp-lang lang-ja">
       <div class="blp-section">
         <div class="blp-section-title">目的</div>
-        <div class="blp-note highlight">募集内容の確認と応募。相手の希望条件を理解し、適切なお店を選択する。</div>
+        <div class="blp-note highlight">募集内容の確認と応募。相手の希望条件を理解して応募する。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>希望条件</strong> — 日時、エリア、人数を表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>店舗選択</strong> — 提案されたお店から行きたいものを複数選択可。最低1つ必須。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>応募後</strong> — 相手が承認（Match）するまで連絡は不可。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>自分の募集・応募0件</strong> — `mode=my&amp;applicants=0` で編集（SCR072 edit）・削除が可能。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>応募後</strong> — 相手が承認（Match）するまで連絡は不可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>自分の募集・応募0件</strong> — `mode=my&amp;applicants=0` で編集（SCR072 edit）・削除が可能。</div></div>
       </div>
     </div>
 
@@ -1234,9 +1066,8 @@
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Điều kiện</strong> — Hiển thị ngày giờ, khu vực, số người.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Chọn quán</strong> — Chọn tối thiểu 1 quán từ danh sách đề xuất để ứng tuyển.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Sau ứng tuyển</strong> — Chờ người đăng xác nhận. Match rồi mới chat được.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Tin của mình, 0 ứng viên</strong> — Cho phép sửa (SCR072 edit) hoặc xóa.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Sau ứng tuyển</strong> — Chờ người đăng xác nhận. Match rồi mới chat được.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Tin của mình, 0 ứng viên</strong> — Cho phép sửa (SCR072 edit) hoặc xóa.</div></div>
       </div>
     </div>
   </div>

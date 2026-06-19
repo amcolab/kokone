@@ -358,27 +358,30 @@
     <div class="status-bar"></div>
 
     <div class="header">
-      <div class="back-arrow" onclick="window.location.href='wireframe_SCR110_mypage.html'" style="cursor:pointer;">←</div>
+      <div class="back-arrow" id="subscriptionBackBtn" onclick="window.location.href='wireframe_SCR110_mypage.html'" style="cursor:pointer;">←</div>
       <div class="header-title">プランを選択</div>
     </div>
 
     <div class="content">
-      <div class="current-plan-banner">
+      <div id="chatGateBanner" class="current-plan-banner" style="display:none; background:#e3f2fd; border-color:#1565c0; color:#1565c0;">
+        メッセージを送るにはプレミアムプランへの登録が必要です
+      </div>
+      <div class="current-plan-banner" id="currentPlanBanner">
         現在のプラン: <strong>プレミアムプラン</strong> (4月15日更新)
       </div>
 
-      <!-- Plan 1: Current -->
-      <div class="plan-card recommended current">
-        <div class="recommended-badge">現在のプラン</div>
+      <!-- Plan 1 -->
+      <div class="plan-card recommended current" id="planCard1Month">
+        <div class="recommended-badge" id="plan1CurrentBadge">現在のプラン</div>
         <div class="plan-name">1ヶ月プラン</div>
         <div class="plan-price-row">
           <div>
-            <span class="plan-price">¥8,500</span>
+            <span class="plan-price">¥9,800</span>
             <span class="plan-price-unit"> / 月</span>
           </div>
         </div>
-        <div class="plan-discount">—</div>
-        <button class="plan-button" disabled style="background:#bdbdbd; border-color:#bdbdbd;">選択中</button>
+        <div class="plan-total">総額 ¥9,800</div>
+        <button type="button" class="plan-button" id="plan1SelectBtn" disabled style="background:#bdbdbd; border-color:#bdbdbd;">選択中</button>
       </div>
 
       <!-- Plan 2: 3-month -->
@@ -386,13 +389,13 @@
         <div class="plan-name">3ヶ月プラン</div>
         <div class="plan-price-row">
           <div>
-            <span class="plan-price">¥6,500</span>
+            <span class="plan-price">¥7,800</span>
             <span class="plan-price-unit"> / 月</span>
           </div>
         </div>
-        <div class="plan-total">総額 ¥19,500</div>
-        <div class="plan-discount">▼ 月額 23% OFF</div>
-        <button class="plan-button outline" onclick="openPlanConfirmDialog('3ヶ月プラン', '¥6,500', '総額 ¥19,500')">このプランを選ぶ</button>
+        <div class="plan-total">総額 ¥23,400</div>
+        <div class="plan-discount">▼ 月額 20% OFF</div>
+        <button class="plan-button outline" onclick="openPlanConfirmDialog('3ヶ月プラン', '¥7,800', '総額 ¥23,400')">このプランを選ぶ</button>
       </div>
 
       <!-- Plan 3: 6-month -->
@@ -400,13 +403,13 @@
         <div class="plan-name">6ヶ月プラン</div>
         <div class="plan-price-row">
           <div>
-            <span class="plan-price">¥5,500</span>
+            <span class="plan-price">¥5,800</span>
             <span class="plan-price-unit"> / 月</span>
           </div>
         </div>
-        <div class="plan-total">総額 ¥33,000</div>
-        <div class="plan-discount">▼ 月額 35% OFF</div>
-        <button class="plan-button outline" onclick="openPlanConfirmDialog('6ヶ月プラン', '¥5,500', '総額 ¥33,000')">このプランを選ぶ</button>
+        <div class="plan-total">総額 ¥34,800</div>
+        <div class="plan-discount">▼ 月額 41% OFF</div>
+        <button class="plan-button outline" onclick="openPlanConfirmDialog('6ヶ月プラン', '¥5,800', '総額 ¥34,800')">このプランを選ぶ</button>
       </div>
 
       <!-- Plan 4: 12-month -->
@@ -414,13 +417,13 @@
         <div class="plan-name">12ヶ月プラン</div>
         <div class="plan-price-row">
           <div>
-            <span class="plan-price">¥4,500</span>
+            <span class="plan-price">¥3,800</span>
             <span class="plan-price-unit"> / 月</span>
           </div>
         </div>
-        <div class="plan-total">総額 ¥54,000</div>
-        <div class="plan-discount">▼ 月額 47% OFF</div>
-        <button class="plan-button outline" onclick="openPlanConfirmDialog('12ヶ月プラン', '¥4,500', '総額 ¥54,000')">このプランを選ぶ</button>
+        <div class="plan-total">総額 ¥45,600</div>
+        <div class="plan-discount">▼ 月額 61% OFF</div>
+        <button class="plan-button outline" onclick="openPlanConfirmDialog('12ヶ月プラン', '¥3,800', '総額 ¥45,600')">このプランを選ぶ</button>
       </div>
 
       <div class="note">
@@ -437,7 +440,7 @@
       transform:translate(-50%,-50%);
       background:#fff; border-radius:12px; padding:22px 20px 18px;
       width:300px; z-index:201; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
-      <div style="font-size:14px; font-weight:700; margin-bottom:14px;">📋 プラン変更の確認</div>
+      <div style="font-size:14px; font-weight:700; margin-bottom:14px;" id="planDialogTitle">📋 プラン変更の確認</div>
       <div style="background:#f9f9f9; border-radius:8px; padding:12px 14px; margin-bottom:14px; font-size:12px; line-height:2;">
         <div style="display:flex; justify-content:space-between;">
           <span style="color:#888;">新プラン</span>
@@ -461,7 +464,7 @@
           <span style="font-weight:700; color:#1565c0;">4月16日 00:00</span>
         </div>
       </div>
-      <div style="font-size:11px; color:#999; margin-bottom:16px; line-height:1.6;">
+      <div style="font-size:11px; color:#999; margin-bottom:16px; line-height:1.6;" id="planDialogNote">
         現在のプランは4月15日まで有効です。<br>
         4月16日から新プランが自動的に適用されます。
       </div>
@@ -471,7 +474,7 @@
           border-radius:8px; font-size:12px; cursor:pointer;">
           キャンセル
         </button>
-        <button onclick="confirmPlanChange()" style="
+        <button id="planDialogConfirmBtn" onclick="confirmPlanChange()" style="
           flex:1; padding:11px; background:var(--c6,#e91e8c); color:#fff; border:none;
           border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
           変更する
@@ -515,9 +518,11 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>プラン</strong> — 1, 3, 6, 12ヶ月の期間から選択。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>制限</strong> — 無料会員は月間の「いいね」数や1日の閲覧数に上限あり。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>特典</strong> — 有料会員は「いいね」無制限、優先表示、マッチ後の追加機能など。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>プラン</strong> — 1ヶ月 ¥9,800 / 3ヶ月 ¥7,800/月（¥23,400）/ 6ヶ月 ¥5,800/月（¥34,800）/ 12ヶ月 ¥3,800/月（¥45,600）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>無料範囲</strong> — 登録・プロフィール作成・さがす・いいね・マッチ成立までは無料。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>有料が必要なタイミング</strong> — マッチ後の<strong>チャット送信</strong>（SCR-090）。`?from=chat` は未契約の一覧（どのプランも未選択）＋案内バナー。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>制限</strong> — 無料会員はチャット以外の月間上限（いいね数など）は別途設定可。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>特典</strong> — 有料会員はチャット利用、いいね無制限、優先表示など。</div></div>
       </div>
     </div>
 
@@ -529,14 +534,18 @@
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Gói</strong> — Gói 1, 3, 6, 12 tháng.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Giới hạn</strong> — Thành viên Free bị giới hạn số like và số card xem mỗi ngày.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Quyền lợi</strong> — Paid được không giới hạn like, ưu tiên hiển thị.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Gói</strong> — 1 tháng ¥9,800 / 3 tháng ¥7,800/tháng (¥23,400) / 6 tháng ¥5,800/tháng (¥34,800) / 12 tháng ¥3,800/tháng (¥45,600).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Miễn phí</strong> — Đến khi match (đăng ký, tìm kiếm, like, nhận match).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Trả phí khi</strong> — Gửi chat sau match (090). `?from=chat` = list plan chưa chọn gói + banner.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Giới hạn Free</strong> — Có thể giới hạn like/xem card ngoài chat.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Quyền lợi Paid</strong> — Chat, không giới hạn like, ưu tiên hiển thị.</div></div>
       </div>
     </div>
   </div>
 
   <script>
+    var isSubscribeFromChat = false;
+
     function openPlanConfirmDialog(name, price, total) {
       document.getElementById('dialogPlanName').textContent = name;
       document.getElementById('dialogPrice').textContent = price + ' / 月';
@@ -550,8 +559,55 @@
     }
     function confirmPlanChange() {
       closePlanConfirmDialog();
-      window.location.href = 'wireframe_SCR110_mypage.html';
+      var returnUrl = isSubscribeFromChat
+        ? 'wireframe_SCR090_chat.html?plan=paid'
+        : 'wireframe_SCR110_mypage.html';
+      window.location.href = returnUrl;
     }
+
+    function initSubscribeFromChat() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('from') !== 'chat') return;
+      isSubscribeFromChat = true;
+
+      var chatBanner = document.getElementById('chatGateBanner');
+      var currentBanner = document.getElementById('currentPlanBanner');
+      if (chatBanner) chatBanner.style.display = 'block';
+      if (currentBanner) currentBanner.style.display = 'none';
+
+      var planCard1 = document.getElementById('planCard1Month');
+      var plan1Badge = document.getElementById('plan1CurrentBadge');
+      var plan1Btn = document.getElementById('plan1SelectBtn');
+      if (planCard1) planCard1.classList.remove('recommended', 'current');
+      if (plan1Badge) plan1Badge.style.display = 'none';
+      if (plan1Btn) {
+        plan1Btn.disabled = false;
+        plan1Btn.removeAttribute('style');
+        plan1Btn.className = 'plan-button outline';
+        plan1Btn.textContent = 'このプランを選ぶ';
+        plan1Btn.onclick = function () {
+          openPlanConfirmDialog('1ヶ月プラン', '¥9,800', '総額 ¥9,800');
+        };
+      }
+
+      var backBtn = document.getElementById('subscriptionBackBtn');
+      if (backBtn) {
+        backBtn.onclick = function () {
+          window.location.href = 'wireframe_SCR090_chat.html';
+        };
+      }
+
+      var dialogTitle = document.getElementById('planDialogTitle');
+      var dialogNote = document.getElementById('planDialogNote');
+      var dialogConfirmBtn = document.getElementById('planDialogConfirmBtn');
+      if (dialogTitle) dialogTitle.textContent = '📋 プラン登録の確認';
+      if (dialogNote) {
+        dialogNote.innerHTML = '登録後すぐにメッセージ送信など<br>プレミアム機能をご利用いただけます。';
+      }
+      if (dialogConfirmBtn) dialogConfirmBtn.textContent = '登録する';
+    }
+
+    initSubscribeFromChat();
 
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');

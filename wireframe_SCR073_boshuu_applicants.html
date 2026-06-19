@@ -228,15 +228,9 @@
           <div class="tag-row">
             <span class="tag">和食</span><span class="tag">イタリアン</span><span class="tag">焼肉・ステーキ</span>
           </div>
-          <div class="chosen-res">
-            <div class="res-label">行きたいお店の希望:</div>
-            <div class="res-tags">
-              <span class="res-tag-mini">ビストロ・オー</span>
-            </div>
-          </div>
           <div class="card-actions">
             <button class="a-btn" onclick="location.href='wireframe_SCR060_flat.html?idx=2&amp;view=profile&amp;return=wireframe_SCR073_boshuu_applicants.html'">プロフ確認</button>
-            <button class="a-btn primary" onclick="openSelectionModal('さくら', 'ビストロ・オー 新宿店', '新宿｜イタリアン')">この人を承認する</button>
+            <button class="a-btn primary" onclick="openSelectionModal('さくら')">この人を承認する</button>
           </div>
         </div>
       </div>
@@ -254,15 +248,9 @@
           <div class="tag-row">
             <span class="tag">和食</span><span class="tag">イタリアン</span>
           </div>
-          <div class="chosen-res">
-            <div class="res-label">行きたいお店の希望:</div>
-            <div class="res-tags">
-              <span class="res-tag-mini">和食処 みやび</span>
-            </div>
-          </div>
           <div class="card-actions">
             <button class="a-btn" onclick="location.href='wireframe_SCR060_flat.html?idx=4&amp;view=profile&amp;return=wireframe_SCR073_boshuu_applicants.html'">プロフ確認</button>
-            <button class="a-btn primary" onclick="openSelectionModal('なつみ', '和食処 みやび Shibuya', '渋谷｜和食')">この人を承認する</button>
+            <button class="a-btn primary" onclick="openSelectionModal('なつみ')">この人を承認する</button>
           </div>
         </div>
       </div>
@@ -281,15 +269,9 @@
           <div class="tag-row">
             <span class="tag">和食</span><span class="tag">焼肉・ステーキ</span>
           </div>
-          <div class="chosen-res">
-            <div class="res-label">行きたいお店の希望:</div>
-            <div class="res-tags">
-              <span class="res-tag-mini">ビストロ・オー</span>
-            </div>
-          </div>
           <div class="card-actions">
             <button class="a-btn" onclick="location.href='wireframe_SCR060_flat.html?idx=6&amp;view=profile&amp;return=wireframe_SCR073_boshuu_applicants.html'">プロフ確認</button>
-            <button class="a-btn primary" onclick="openSelectionModal('あい', 'ビストロ・オー 新宿店', '新宿｜イタリアン')">この人を承認する</button>
+            <button class="a-btn primary" onclick="openSelectionModal('あい')">この人を承認する</button>
           </div>
         </div>
       </div>
@@ -298,13 +280,7 @@
     <!-- Final Selection Modal -->
     <div class="modal-overlay" id="selection-modal">
       <div class="modal-content">
-        <div class="modal-title"><span id="target-name"></span> さんとマッチングを確定します。選択したお店：</div>
-        <div class="modal-res-list">
-          <div class="modal-res-item">
-            <div class="m-name" id="modal-shop-name">—</div>
-            <div class="m-meta" id="modal-shop-meta">—</div>
-          </div>
-        </div>
+        <div class="modal-title"><span id="target-name"></span> さんとマッチングを確定しますか？</div>
         <div class="modal-actions">
           <button class="m-btn" onclick="closeModal()">戻る</button>
           <button class="m-btn primary" onclick="finalizeMatch()">確定する</button>
@@ -331,31 +307,27 @@
     <div class="blp-body">
       <div class="blp-section">
         <div class="blp-section-title">画面の目的</div>
-        <div class="blp-note highlight">自分の募集に応募したユーザーを一覧し、マッチング相手と食事場所を確定する。</div>
+        <div class="blp-note highlight">自分の募集に応募したユーザーを一覧し、マッチング相手を確定する。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">主な機能</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>応募者一覧</strong> — プロフィール概要、希望店舗タグを表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>応募者一覧</strong> — プロフィール概要を表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>プロフ確認</strong> — 相手の公開プロフィールへ遷移。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>承認フロー</strong> — 「この人を承認する」で応募者が選んだ1店を確認 → マッチング成立。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>承認フロー</strong> — 「この人を承認する」でマッチング成立。</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">UXポイント</div>
-        <div class="blp-note">応募者が選んだ「行きたいお店」1件をポップアップで確認し、そのまま確定する。</div>
+        <div class="blp-note">承認前に確認ポップアップを表示し、そのまま確定する。</div>
       </div>
     </div>
   </div>
   
   <script>
     let selectedName = '';
-    let selectedShopName = '';
 
-    function openSelectionModal(name, shopName, shopMeta) {
+    function openSelectionModal(name) {
       selectedName = name;
-      selectedShopName = shopName;
       document.getElementById('target-name').textContent = name;
-      document.getElementById('modal-shop-name').textContent = shopName;
-      document.getElementById('modal-shop-meta').textContent = shopMeta;
       document.getElementById('selection-modal').style.display = 'flex';
     }
 
