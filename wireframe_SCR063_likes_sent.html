@@ -419,51 +419,19 @@
       width: 104px;
       height: 104px;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 35%, #d9d9d9 0 26px, #bdbdbd 27px 45px, #efefef 46px 100%);
-      border: 1px solid #d6d6d6;
+      border: 2px solid #ffffff;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+      background: #e8e8e8;
+      flex-shrink: 0;
     }
-    .match-photo::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 20px;
-      width: 42px;
-      height: 42px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: #6b6b6b;
-      opacity: 0.88;
-    }
-    .match-photo::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -8px;
-      width: 88px;
-      height: 68px;
-      transform: translateX(-50%);
-      border-radius: 46px 46px 22px 22px;
-      background: #8a8a8a;
-      opacity: 0.72;
-    }
-    .match-photo.left::before {
-      background: #555555;
-    }
-    .match-photo.right::before {
-      background: #767676;
-    }
-    .match-mask {
-      position: absolute;
-      left: 50%;
-      top: 28px;
-      transform: translateX(-50%);
-      width: 44px;
-      height: 56px;
-      background: linear-gradient(180deg, #8d8d8d 0%, #b3b3b3 100%);
-      opacity: 0.75;
-      z-index: 2;
+    .match-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) contrast(1.08);
     }
     .match-heart {
       width: 52px;
@@ -545,10 +513,14 @@
     }
     .match-copy {
       text-align: center;
-      font-size: 12px;
-      line-height: 1.8;
-      color: #444;
+      font-size: 13px;
+      line-height: 1.85;
+      color: #3d3d3d;
       margin-bottom: 16px;
+    }
+    .match-copy-accent {
+      color: #7a2e3a;
+      font-weight: 700;
     }
     .match-note {
       display: flex;
@@ -883,15 +855,18 @@
         <button class="match-modal-close" type="button" onclick="closeMatchPopup()">×</button>
         <div class="match-hero">
           <div class="match-spark left"><span></span><span></span><span></span></div>
-          <div class="match-photo left"><div class="match-mask"></div></div>
+          <div class="match-photo left">
+            <img class="match-photo-img" alt="" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=208&h=208&fit=crop&q=80">
+          </div>
           <div class="match-heart">♥</div>
-          <div class="match-photo right"><div class="match-mask"></div></div>
+          <div class="match-photo right">
+            <img class="match-photo-img" alt="" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=208&h=208&fit=crop&q=80">
+          </div>
           <div class="match-spark right"><span></span><span></span><span></span></div>
         </div>
         <div class="match-modal-title">マッチが成立しました！</div>
-        <div class="match-modal-sub">お互いに <strong>「いいね！」</strong> しました</div>
         <div class="match-divider"><span>♥</span></div>
-        <div class="match-copy">まずは一緒に食事の日程を決めましょう<br>素敵なご縁になりますように。</div>
+        <div class="match-copy">まずは<span class="match-copy-accent">食事</span>へ向けて話してみましょう。<br>その後、OtonaTableから<br>お二人に合った<span class="match-copy-accent">食事プラン</span>をご提案します。</div>
         <div class="match-note">
           <div class="match-note-icon">
             <svg viewBox="0 0 24 24">
@@ -906,7 +881,7 @@
             <div class="match-note-body">日程調整からお店選びまで、しっかりサポートします</div>
           </div>
         </div>
-        <button class="match-modal-action" type="button" onclick="goToChat()">メッセージを送る・日程を決める <span>›</span></button>
+        <button class="match-modal-action" type="button" onclick="goToChat()">食事へ向けて話してみる <span>›</span></button>
         <div class="match-modal-footer">
           <svg viewBox="0 0 24 24">
             <rect x="5" y="11" width="14" height="9" rx="2"></rect>
