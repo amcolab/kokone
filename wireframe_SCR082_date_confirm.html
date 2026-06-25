@@ -111,7 +111,7 @@
         }
         .progress {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 0;
             padding: 14px 18px 10px;
             border-bottom: 1px solid var(--c2);
@@ -221,11 +221,22 @@
             font-weight: 700;
             margin-bottom: 8px;
         }
+        .proposal-schedule {
+            font-size: 11px;
+            color: var(--c4);
+            margin-bottom: 6px;
+        }
         .proposal-date {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 800;
             color: var(--c6);
             line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .proposal-meta {
+            font-size: 12px;
+            color: var(--c5);
+            line-height: 1.45;
             margin-bottom: 8px;
         }
         .proposal-text {
@@ -237,7 +248,20 @@
         .proposal-actions {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+        }
+        .link-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .text-link {
+            border: 0;
+            background: none;
+            font-size: 11px;
+            color: var(--c5);
+            text-decoration: underline;
+            cursor: pointer;
         }
         .primary-btn {
             width: 100%;
@@ -527,8 +551,9 @@
             <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
         </div>
         <div class="progress">
-            <div class="step active">日程調整</div>
-            <div class="step">店舗提案</div>
+            <div class="step active">食事プラン提案</div>
+            <div class="step">双方承認</div>
+            <div class="step">予約手続き</div>
             <div class="step">予約完了</div>
         </div>
         <div class="chat-body">
@@ -556,12 +581,17 @@
             <div class="proposal-card">
                 <div class="proposal-icon">📅</div>
                 <div style="flex:1;">
-                    <div class="proposal-title">日程提案が届きました</div>
-                    <div class="proposal-date" id="receivedProposalDate">5/24（土）19:00〜</div>
-                    <div class="proposal-text">Noaさんから選んだ候補日時です。問題なければ確定、難しければ別候補を送り返せます。</div>
+                    <div class="proposal-title">食事プランの承認依頼が届きました</div>
+                    <div class="proposal-schedule" id="receivedProposalDate">5/24（土）19:00〜</div>
+                    <div class="proposal-date" id="receivedStoreName">食堂 まぐろとさば</div>
+                    <div class="proposal-meta" id="receivedStoreMeta">和食 | 海鮮 | 🍷🍷🍷</div>
+                    <div class="proposal-text">Noaさんから食事プランの承認依頼です。内容を確認し、問題なければ承認してください。日時や店舗を変更したい場合は下のリンクから調整できます。</div>
                     <div class="proposal-actions">
-                        <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat_restaurant_intro.html'">この候補日で確定する</button>
-                        <button type="button" class="secondary-btn" onclick="window.location.href='wireframe_SCR082_date_proposal_change.html'">候補日を再提案する</button>
+                        <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_waiting.html'">この内容を承認する</button>
+                        <div class="link-row">
+                            <button type="button" class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html'">日時を変更する</button>
+                            <button type="button" class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_shop_list.html'">店舗を変更する</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -630,12 +660,13 @@
     <div class="blp-lang lang-ja">
       <div class="blp-section">
         <div class="blp-section-title">目的</div>
-        <div class="blp-note highlight">お相手から届いた候補日時を確認し、そのまま確定するか、別候補を再提案するかを選ぶ返答画面です。</div>
+          <div class="blp-note highlight">お相手から届いた食事プラン承認依頼を確認し、承認または日時・店舗の調整を行う返答画面です。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャット内カード</strong> — 上部は進捗バー＋通常メッセージ、下部に「日程提案が届きました」カードを表示します。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>返答</strong> — 「この候補日で確定する」または「候補日を再提案する」の2択です。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャット内カード</strong> — 日時・店舗名・ジャンル/価格帯をまとめて表示します。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認</strong> — 「この内容を承認する」で双方承認フローへ進みます。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>調整</strong> — ボタン下のテキストリンク「日時を変更する」「店舗を変更する」から各調整画面へ遷移できます。</div></div>
       </div>
     </div>
 
@@ -643,12 +674,13 @@
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
         <div class="blp-section-title">Mục đích</div>
-        <div class="blp-note highlight">Màn phản hồi khi user nhận được đề xuất lịch từ đối phương, cho phép chấp nhận ngay hoặc gửi lại đề xuất khác.</div>
+          <div class="blp-note highlight">Màn phản hồi khi user nhận yêu cầu duyệt plan bữa ăn từ đối phương — hiển thị ngày/giờ và cửa hàng, có thể duyệt hoặc chỉnh sửa.</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
-        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Ngày được gửi tới</strong> được hiển thị nổi bật theo đúng proposal hiện có.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>2 lựa chọn</strong> gồm xác nhận luôn hoặc chuyển sang flow đề xuất lại ngày khác.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>System card</strong> hiển thị ngày/giờ, tên cửa hàng và thể loại/giá.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認</strong> — nút chính この内容を承認する chuyển sang flow chờ duyệt.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Text link</strong> dưới nút chính: 日時を変更する và 店舗を変更する.</div></div>
       </div>
     </div>
   </div>
@@ -710,7 +742,11 @@
     }
 
     var receivedProposal = localStorage.getItem('ot-schedule-proposal') || '5/24（土）19:00〜';
+    var receivedStoreName = localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば';
+    var receivedStoreMeta = localStorage.getItem('ot-restaurant-meta') || '和食 | 海鮮 | 🍷🍷🍷';
     document.getElementById('receivedProposalDate').textContent = receivedProposal;
+    document.getElementById('receivedStoreName').textContent = receivedStoreName;
+    document.getElementById('receivedStoreMeta').textContent = receivedStoreMeta;
 
     function setBlpLang(lang) {
       document.querySelectorAll('.blp-lang').forEach(el => el.style.display = 'none');

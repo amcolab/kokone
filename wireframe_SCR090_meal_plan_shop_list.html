@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-090M Meal Plan Shop List</title>
+  <style>
+    :root { --c0:#fff; --c1:#f6f6f6; --c2:#e3e3e3; --c4:#8a8a8a; --c5:#4f4f4f; --c6:#212121; --wf-global-zoom:1.1; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--c1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--c6);padding:20px 300px 20px 220px;zoom:var(--wf-global-zoom)}
+    .device{width:360px;height:812px;border:1.5px solid var(--c6);background:var(--c0);display:flex;flex-direction:column;overflow:hidden;position:relative}
+    .status-bar{height:20px;background:var(--c6);color:var(--c0);display:flex;justify-content:space-between;align-items:center;padding:0 8px;font-size:9px}
+    .header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--c2)}
+    .back-btn{font-size:18px;cursor:pointer}
+    .title{flex:1;text-align:center;font-size:15px;font-weight:700;margin-right:18px}
+    .hint{padding:10px 14px;background:#f0f0f0;border-bottom:1px solid var(--c2);font-size:11px;color:var(--c5)}
+    .list{flex:1;overflow-y:auto;background:var(--c1);padding:12px 14px}
+    .card{background:var(--c0);border:1px solid var(--c2);border-radius:14px;padding:10px;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+    .thumb{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#f0f0f0 0%,#dcdcdc 50%,#cfcfcf 100%);border:1px solid var(--c2);flex-shrink:0}
+    .meta{flex:1;min-width:0}
+    .label{font-size:10px;color:var(--c4);margin-bottom:3px}
+    .name{font-size:12px;font-weight:700;margin-bottom:4px}
+    .sub{font-size:10px;color:var(--c5);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+    .glass-meter{display:inline-flex;align-items:center;gap:2px}
+    .glass-svg{width:9px;height:9px;stroke:var(--c5);fill:none;stroke-width:1.8}
+    .btn{height:32px;padding:0 12px;border:0;border-radius:999px;background:var(--c6);color:var(--c0);font-size:11px;font-weight:700;cursor:pointer}
+    .wf-sidebar{width:200px;min-width:200px;background:#fff;border-right:1px solid #e0e0e0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+    .wf-sidebar-logo{height:44px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #e0e0e0;gap:8px;text-decoration:none}
+    .wf-logo-mark{width:22px;height:22px;border:2px solid #424242;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#424242;flex-shrink:0}
+    .wf-logo-text{font-size:12px;font-weight:700;color:#212121}
+    .wf-sidebar-group{border-bottom:1px solid #e0e0e0}
+    .wf-group-label{padding:7px 14px 3px;font-size:9px;font-weight:700;color:#bdbdbd;text-transform:uppercase;letter-spacing:1px}
+    .wf-nav-link{display:flex;align-items:center;gap:5px;padding:5px 14px;font-size:11px;color:#757575;text-decoration:none;border-left:2px solid transparent;line-height:1.3}
+    .wf-nav-link:hover{background:#f5f5f5;color:#424242}
+    .wf-nav-link.wf-active{background:#f5f5f5;color:#212121;font-weight:600;border-left-color:#424242}
+    .wf-nav-id{font-size:9px;color:#bdbdbd;width:32px;flex-shrink:0}
+    .blp-wrap{position:fixed;top:0;right:0;width:280px;height:100vh;overflow-y:auto;background:#fff;border-left:2px solid #212121;z-index:9998;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-size:11px;color:#212121}
+    .blp-head{position:sticky;top:0;background:#212121;color:#fff;padding:10px 14px 9px;z-index:2}
+    .blp-head-scr{font-size:9px;color:#bdbdbd;margin-bottom:2px}
+    .blp-head-title{font-size:12px;font-weight:700}
+    .blp-head-sub{font-size:10px;color:#9e9e9e;margin-top:2px}
+    .blp-body{padding:10px 12px 20px}
+    .blp-section{margin-bottom:14px}
+    .blp-section-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9e9e9e;border-bottom:1px solid #f0f0f0;padding-bottom:4px;margin-bottom:7px}
+    .blp-rule{display:flex;gap:7px;margin-bottom:7px;line-height:1.5}
+    .blp-rule-dot{width:14px;height:14px;background:#f5f5f5;border:1px solid #e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#757575}
+    .blp-note{font-size:11px;line-height:1.55;color:#424242}
+    .blp-note.highlight{background:#f5f5f5;border-left:3px solid #212121;padding:8px 10px}
+  </style>
+</head>
+<body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group"><div class="wf-group-label">A · Onboarding</div><a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a><a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">B · Home</div><a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a><a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">C · 募集</div><a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a><a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">E · Chat & Review</div><a class="wf-nav-link" href="wireframe_SCR090_meal_plan_proposal.html"><span class="wf-nav-id">090I</span>Meal Plan Proposal</a><a class="wf-nav-link" href="wireframe_SCR090_meal_plan_reschedule.html"><span class="wf-nav-id">090J</span>Meal Plan Reschedule</a><a class="wf-nav-link" href="wireframe_SCR090_meal_plan_waiting.html"><span class="wf-nav-id">090K</span>Meal Plan Waiting</a><a class="wf-nav-link wf-active" href="wireframe_SCR090_meal_plan_shop_list.html"><span class="wf-nav-id">090M</span>Meal Plan Shop List</a><a class="wf-nav-link" href="wireframe_SCR090_meal_plan_shop_pick.html"><span class="wf-nav-id">090L</span>Meal Plan Shop Pick</a></div>
+  </nav>
+  <div class="device">
+    <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
+    <div class="header"><div class="back-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html'">‹</div><div class="title">候補店舗の確認</div></div>
+    <div class="hint">第1候補〜第3候補のうち、変更したい店舗で <strong>変更する</strong> を押してください。</div>
+    <div class="list">
+      <div class="card"><div class="thumb"></div><div class="meta"><div class="label">第1候補</div><div class="name" id="c1Name">食堂 まぐろとさば</div><div class="sub"><span id="c1Genre">和食 | 海鮮</span> | <span id="c1Price"></span></div></div><button class="btn" onclick="goPick('1')">変更する</button></div>
+      <div class="card"><div class="thumb"></div><div class="meta"><div class="label">第2候補</div><div class="name" id="c2Name">鮨 さかなや</div><div class="sub"><span id="c2Genre">寿司 | 和食</span> | <span id="c2Price"></span></div></div><button class="btn" onclick="goPick('2')">変更する</button></div>
+      <div class="card"><div class="thumb"></div><div class="meta"><div class="label">第3候補</div><div class="name" id="c3Name">割烹 えびす</div><div class="sub"><span id="c3Genre">割烹 | 日本料理</span> | <span id="c3Price"></span></div></div><button class="btn" onclick="goPick('3')">変更する</button></div>
+    </div>
+  </div>
+  <div class="blp-wrap">
+    <div class="blp-head"><div class="blp-head-scr">SCR-090M</div><div class="blp-head-title">Meal Plan Shop List</div><div class="blp-head-sub">候補店舗一覧 / Danh sách 3候補</div></div>
+    <div class="blp-body">
+      <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">店舗変更の対象を第1/第2/第3候補から選ぶための中間画面。候補ごとに変更導線を分離します。</div></div>
+      <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div>各候補カードに店名・ジャンル2つ・価格帯（グラス）を表示。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div><strong>変更する</strong>で 090L に遷移し、対象候補番号を渡す。</div></div><div class="blp-rule"><div class="blp-rule-dot">3</div><div>090L 完了後は 090I に戻り、対象候補だけ更新。</div></div></div>
+    </div>
+  </div>
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    function val(key, fallback){ return params.get(key) || fallback; }
+    function glass(level){
+      var svg = '<svg class="glass-svg" viewBox="0 0 24 24"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+      var html = '<span class="glass-meter">';
+      for (var i=0;i<level;i++) html += svg;
+      return html + '</span>';
+    }
+    var c1 = val('c1','食堂 まぐろとさば');
+    var c2 = val('c2','鮨 さかなや');
+    var c3 = val('c3','割烹 えびす');
+    document.getElementById('c1Name').textContent = c1;
+    document.getElementById('c2Name').textContent = c2;
+    document.getElementById('c3Name').textContent = c3;
+    document.getElementById('c1Price').innerHTML = glass(3);
+    document.getElementById('c2Price').innerHTML = glass(2);
+    document.getElementById('c3Price').innerHTML = glass(4);
+    function goPick(target){
+      var url = 'wireframe_SCR090_meal_plan_shop_pick.html?target=' + encodeURIComponent(target) +
+        '&c1=' + encodeURIComponent(c1) + '&c2=' + encodeURIComponent(c2) + '&c3=' + encodeURIComponent(c3);
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>

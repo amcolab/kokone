@@ -233,7 +233,7 @@
     }
     .progress {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
       padding: 14px 18px 10px;
       border-bottom: 1px solid var(--c2);
@@ -765,6 +765,9 @@
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_meal_plan_proposal.html"><span class="wf-nav-id">090I</span>Meal Plan Proposal</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_meal_plan_reschedule.html"><span class="wf-nav-id">090J</span>Meal Plan Reschedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_meal_plan_waiting.html"><span class="wf-nav-id">090K</span>Meal Plan Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
       <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
       <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
@@ -787,8 +790,9 @@
       <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
     </div>
     <div class="progress">
-      <div class="step active">日程調整</div>
-      <div class="step">店舗提案</div>
+      <div class="step active">食事プラン提案</div>
+      <div class="step">双方承認</div>
+      <div class="step">予約手続き</div>
       <div class="step">予約完了</div>
     </div>
     <div class="chat-body">
@@ -816,9 +820,9 @@
       <div class="schedule-card">
         <div class="schedule-icon">📅</div>
         <div style="flex:1;">
-          <div class="schedule-title">まずは一緒に食事の日程を決めてみませんか？</div>
-          <div class="schedule-text">OtonaTableが空き時間をもとに、調整しやすい候補日をまとめてご提案します。</div>
-          <button class="primary-btn" onclick="window.location.href='wireframe_SCR081_schedule_empty.html'">日程候補を見る</button>
+          <div class="schedule-title">OtonaTableからのご案内</div>
+          <div class="schedule-text">お二人のやり取りをもとに、<br>食事プランをご提案できます。<br>日時とお店をまとめてご提案します。</div>
+          <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html'">食事プランを見る</button>
         </div>
       </div>
     </div>
@@ -877,15 +881,15 @@
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャットUIのまま</strong>相手との会話を見せて心理的な連続性を保ちます。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>3段階ステッパー</strong>で、この先が「日程調整 → 店舗提案 → 予約完了」と分かる構成です。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>日程候補を見る</strong>から新設の候補日登録フローへ入ります。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>4段階ステッパー</strong>で、この先が「食事プラン提案 → 双方承認 → 予約手続き → 予約完了」と分かる構成です。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>食事プランを見る</strong>から食事プラン提案フロー（090I → 090J → 090K）へ入ります。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Match Detail</strong> またはマッチ一覧からチャットへ入る</div></div>
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で日程調整を開始</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Schedule Empty</strong> または日程登録フローへ進む</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Meal Plan Proposal (090I)</strong> 食事プラン提案画面へ進む</div></div>
           </div>
         </div>
       </div>
@@ -898,14 +902,14 @@
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Giữ nguyên UI chat</strong> để flow không bị gãy mạch.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Stepper 3 bước</strong> cho biết sau đặt lịch sẽ tới gợi ý quán và hoàn tất đặt chỗ.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>日程候補を見る</strong> mở flow đăng ký ngày giờ có thể gặp.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>食事プランを見る</strong> mở flow đề xuất kế hoạch ăn uống (090I → 090J → 090K).</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Match Detail</strong> hoặc danh sách match đi vào chat</div></div>
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> bắt đầu bước chọn lịch</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Schedule Empty</strong> hoặc flow nhập lịch nhanh</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Meal Plan Proposal (090I)</strong> màn đề xuất kế hoạch ăn uống</div></div>
           </div>
         </div>
       </div>

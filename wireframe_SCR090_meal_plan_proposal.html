@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-090I Meal Plan Proposal</title>
+  <style>
+    :root {
+      --c0: #ffffff;
+      --c1: #f6f6f6;
+      --c2: #e3e3e3;
+      --c3: #c7c7c7;
+      --c4: #8a8a8a;
+      --c5: #4f4f4f;
+      --c6: #212121;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--c6);
+      padding: 20px 300px 20px 220px;
+    }
+    .device {
+      width: 360px;
+      height: 812px;
+      border: 1.5px solid var(--c6);
+      background: var(--c0);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 20px;
+      background: var(--c6);
+      color: var(--c0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--c2);
+      flex-shrink: 0;
+    }
+    .back-btn { font-size: 18px; cursor: pointer; color: var(--c6); }
+    .page-title { flex: 1; text-align: center; font-size: 15px; font-weight: 700; margin-right: 18px; }
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 12px 10px 10px;
+      border-bottom: 1px solid var(--c2);
+      background: #fbfbfb;
+      flex-shrink: 0;
+    }
+    .step {
+      text-align: center;
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--c3);
+    }
+    .step::before {
+      content: "";
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin: 0 auto 5px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      background: var(--c0);
+    }
+    .step.active { color: var(--c6); }
+    .step.active::before { background: var(--c6); border-color: var(--c6); }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--c1);
+      padding: 12px 14px 100px;
+    }
+    .deadline-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      background: #ececec;
+      margin-bottom: 14px;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .deadline-icon { font-size: 18px; flex-shrink: 0; }
+    .deadline-label { font-weight: 700; margin-bottom: 2px; }
+    .deadline-date { color: var(--c5); }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .main-card {
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      background: var(--c0);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .main-photo {
+      height: 140px;
+      background: linear-gradient(135deg, #f0f0f0 0%, #dcdcdc 50%, #cfcfcf 100%);
+    }
+    .main-body { padding: 12px; }
+    .rest-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .rest-meta { font-size: 11px; color: var(--c5); line-height: 1.5; margin-bottom: 8px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      color: var(--c5);
+      background: var(--c1);
+    }
+    .note-text { font-size: 10px; color: var(--c4); line-height: 1.5; margin-bottom: 6px; }
+    .note-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 10px;
+    }
+    .note-station { color: var(--c4); }
+    .map-link { color: var(--c5); text-decoration: underline; }
+    .alt-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .alt-card {
+      border: 1px solid var(--c2);
+      border-radius: 12px;
+      background: var(--c0);
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .alt-card.selected { border-color: var(--c6); background: #f0f0f0; }
+    .alt-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f0f0f0 0%, #dcdcdc 45%, #cfcfcf 100%);
+      flex-shrink: 0;
+      border: 1px solid var(--c2);
+    }
+    .alt-meta { min-width: 0; flex: 1; }
+    .alt-label { font-size: 10px; color: var(--c4); margin-bottom: 3px; }
+    .alt-name { font-size: 11px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
+    .alt-info {
+      font-size: 10px;
+      color: var(--c5);
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .alt-info .shop-glass-meter {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .alt-info .shop-glass-svg {
+      width: 9px;
+      height: 9px;
+      stroke: var(--c5);
+      fill: none;
+      stroke-width: 1.8;
+    }
+    .shop-detail-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 260;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+    .shop-detail-sheet {
+      width: 100%;
+      max-width: 328px;
+      height: 580px;
+      max-height: calc(100% - 40px);
+      background: var(--c0);
+      border-radius: 14px;
+      border: 1px solid var(--c2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      position: relative;
+    }
+    .shop-detail-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .shop-detail-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--c6);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .shop-detail-hero-wrap { position: relative; flex-shrink: 0; }
+    .shop-detail-hero {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--c2);
+      filter: grayscale(100%);
+    }
+    .shop-detail-body { padding: 14px 14px 4px; }
+    .shop-detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .shop-detail-badge {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--c3);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+    .shop-detail-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.3;
+    }
+    .shop-detail-price-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+      margin-bottom: 10px;
+    }
+    .shop-detail-help {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      color: var(--c4);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .shop-detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .shop-detail-tag {
+      padding: 5px 12px;
+      border: 1px solid var(--c2);
+      background: var(--c1);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--c5);
+      font-weight: 600;
+    }
+    .shop-detail-section { margin-bottom: 14px; }
+    .shop-detail-section.muted .shop-detail-section-title,
+    .shop-detail-section.muted .shop-detail-section-text { color: var(--c4); }
+    .shop-detail-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 6px;
+    }
+    .shop-detail-section-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.65;
+    }
+    .shop-detail-map {
+      border: 1px solid var(--c2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: var(--c1);
+    }
+    .shop-detail-map-visual {
+      height: 110px;
+      background: linear-gradient(180deg, #ececec 0%, #d8d8d8 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c4);
+      font-size: 11px;
+    }
+    .shop-detail-map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c6);
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    .shop-detail-address {
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.5;
+      background: var(--c1);
+      border-top: 1px solid var(--c2);
+    }
+    .shop-glass-meter {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .shop-glass-svg {
+      width: 10px;
+      height: 10px;
+      stroke: var(--c5);
+      fill: none;
+      stroke-width: 1.9;
+    }
+    .shop-glass-svg.popup { stroke: rgba(33, 33, 33, 1); }
+    .shop-detail-price-text {
+      font-size: 12px;
+      font-weight: 800;
+      color: #212121;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+    .summary-card {
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      background: #ececec;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--c2);
+    }
+    .summary-row:last-child { border-bottom: 0; }
+    .summary-label { color: var(--c4); flex-shrink: 0; }
+    .summary-value { font-weight: 600; text-align: right; line-height: 1.45; }
+    .bottom-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 14px 16px;
+      background: var(--c0);
+      border-top: 1px solid var(--c2);
+    }
+    .primary-btn {
+      width: 100%;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .link-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .text-link {
+      border: 0;
+      background: none;
+      font-size: 11px;
+      color: var(--c5);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .wf-sidebar {
+      width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0;
+      position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+    .wf-sidebar-logo {
+      height: 44px; display: flex; align-items: center; padding: 0 14px;
+      border-bottom: 1px solid #e0e0e0; gap: 8px; text-decoration: none;
+    }
+    .wf-logo-mark {
+      width: 22px; height: 22px; border: 2px solid #424242;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: #424242; flex-shrink: 0;
+    }
+    .wf-logo-text { font-size: 12px; font-weight: 700; color: #212121; }
+    .wf-sidebar-group { border-bottom: 1px solid #e0e0e0; }
+    .wf-group-label {
+      padding: 7px 14px 3px; font-size: 9px; font-weight: 700; color: #bdbdbd;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .wf-nav-link {
+      display: flex; align-items: center; gap: 5px; padding: 5px 14px;
+      font-size: 11px; color: #757575; text-decoration: none;
+      border-left: 2px solid transparent; line-height: 1.3;
+    }
+    .wf-nav-link:hover { background: #f5f5f5; color: #424242; }
+    .wf-nav-link.wf-active {
+      background: #f5f5f5; color: #212121; font-weight: 600; border-left-color: #424242;
+    }
+    .wf-nav-id { font-size: 9px; color: #bdbdbd; width: 32px; flex-shrink: 0; }
+    .blp-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      overflow-y: auto;
+      background: #fff;
+      border-left: 2px solid #212121;
+      z-index: 9998;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-size: 11px;
+      color: #212121;
+      transition: width 0.2s ease;
+    }
+    .blp-wrap.fullscreen {
+      width: calc(100vw - 200px);
+    }
+    .blp-wrap.fullscreen .blp-body {
+      max-width: 760px;
+      margin: 0 auto;
+      columns: 2;
+      column-gap: 24px;
+    }
+    .blp-wrap.fullscreen .blp-section {
+      break-inside: avoid;
+    }
+    .blp-wrap::-webkit-scrollbar { width: 4px; }
+    .blp-wrap::-webkit-scrollbar-thumb { background: #e0e0e0; }
+    .blp-head {
+      position: sticky;
+      top: 0;
+      background: #212121;
+      color: #fff;
+      padding: 10px 14px 9px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .blp-head-scr {
+      font-size: 9px;
+      color: #bdbdbd;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+    .blp-head-title { font-size: 12px; font-weight: 700; }
+    .blp-head-sub { font-size: 10px; color: #9e9e9e; margin-top: 2px; }
+    .blp-fullscreen-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #424242;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #9e9e9e;
+    }
+    .blp-fullscreen-btn:hover { background: #424242; color: #fff; }
+    .blp-fullscreen-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+    .blp-body { padding: 10px 12px 20px; }
+    .blp-section { margin-bottom: 14px; }
+    .blp-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #9e9e9e;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 4px;
+      margin-bottom: 7px;
+    }
+    .blp-rule {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+      line-height: 1.5;
+    }
+    .blp-rule-dot {
+      width: 14px;
+      height: 14px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #757575;
+      margin-top: 1px;
+    }
+    .blp-rule-text {
+      font-size: 11px;
+      color: #212121;
+      line-height: 1.55;
+    }
+    .blp-rule-text strong { font-weight: 700; }
+    .blp-flow { display: flex; flex-direction: column; margin-bottom: 4px; }
+    .blp-flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding-bottom: 8px;
+    }
+    .blp-flow-step:last-child { padding-bottom: 0; }
+    .blp-step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .blp-step-num {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #424242;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #424242;
+      background: #fff;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .blp-step-connector {
+      width: 1px;
+      flex: 1;
+      background: #e0e0e0;
+      min-height: 10px;
+      margin-top: 2px;
+    }
+    .blp-step-text {
+      font-size: 11px;
+      color: #424242;
+      line-height: 1.5;
+      padding-top: 1px;
+    }
+    .blp-step-text strong { color: #212121; }
+    .blp-note {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-left: 3px solid #bdbdbd;
+      padding: 7px 9px;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+    .blp-note.highlight {
+      border-left-color: #212121;
+      color: #424242;
+    }
+    .blp-note.warn {
+      border-left-color: #e65100;
+      background: #fff8f0;
+      color: #5d2e00;
+    }
+    .blp-lang-switch {
+      display: flex;
+      border: 1px solid #444;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: 9px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .blp-lang-btn {
+      padding: 2px 6px;
+      background: transparent;
+      color: #9e9e9e;
+    }
+    .blp-lang-btn.active {
+      background: #444;
+      color: #fff;
+    }
+  </style>
+  <style>
+    :root { --wf-global-zoom: 1.1; }
+    body { zoom: var(--wf-global-zoom); }
+  </style>
+</head>
+<body>
+  <nav class="wf-sidebar">
+    <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">A · Onboarding</div>
+      <a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a>
+      <a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a>
+      <a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a>
+      <a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a>
+      <a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a>
+      <a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a>
+      <a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">B · Home</div>
+      <a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a>
+      <a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a>
+      <a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a>
+      <a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">C · 募集</div>
+      <a class="wf-nav-link" href="wireframe_SCR070_boshuu_list.html"><span class="wf-nav-id">070</span>募集 List</a>
+      <a class="wf-nav-link" href="wireframe_SCR071_boshuu_detail.html"><span class="wf-nav-id">071</span>募集 Detail</a>
+      <a class="wf-nav-link" href="wireframe_SCR072_create_boshuu.html"><span class="wf-nav-id">072</span>Create 募集</a>
+      <a class="wf-nav-link" href="wireframe_SCR073_boshuu_applicants.html"><span class="wf-nav-id">073</span>応募者一覧</a>
+      <a class="wf-nav-link" href="wireframe_SCR074_selection_result.html"><span class="wf-nav-id">074</span>選定結果</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">D · Booking</div>
+      <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
+      <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
+      <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
+    </div>
+    <div class="wf-sidebar-group">
+      <div class="wf-group-label">E · Chat & Review</div>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_meal_plan_proposal.html"><span class="wf-nav-id">090I</span>Meal Plan Proposal</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_meal_plan_reschedule.html"><span class="wf-nav-id">090J</span>Meal Plan Reschedule</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_meal_plan_waiting.html"><span class="wf-nav-id">090K</span>Meal Plan Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
+      <a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a>
+      <a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a>
+    </div>
+  </nav>
+  <div class="device">
+    <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
+    <div class="page-header">
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR090_chat_schedule_intro.html'">‹</div>
+      <div class="page-title">食事プラン</div>
+    </div>
+    <div class="progress">
+      <div class="step active">食事プラン提案</div>
+      <div class="step">双方承認</div>
+      <div class="step">予約手続き</div>
+      <div class="step">予約完了</div>
+    </div>
+    <div class="content">
+      <div class="deadline-banner">
+        <div class="deadline-icon">⏳</div>
+        <div>
+          <div class="deadline-label">承認期限</div>
+          <div class="deadline-date">2025年6月24日（火）18:00まで</div>
+        </div>
+      </div>
+      <div class="section-label">第1候補（おすすめ）</div>
+      <div class="main-card" id="mainPlan">
+        <div class="main-photo"></div>
+        <div class="main-body">
+          <div class="rest-name">食堂 まぐろとさば</div>
+          <div class="rest-meta">和食 | 海鮮 | 🍷🍷🍷</div>
+          <div class="tag-row">
+            <span class="tag">個室あり</span>
+            <span class="tag">テーブル席</span>
+          </div>
+          <div class="note-text">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。</div>
+          <div class="note-meta-row">
+            <span class="note-station">恵比寿駅 徒歩5分</span>
+            <span class="map-link">地図で見る</span>
+          </div>
+        </div>
+      </div>
+      <div class="alt-row" id="altSection">
+        <div class="alt-card" onclick="openShopDetail('sakana')">
+          <div class="alt-thumb" onclick="openShopDetail('sakana'); event.stopPropagation();"></div>
+          <div class="alt-meta">
+            <div class="alt-label">第2候補</div>
+            <div class="alt-name">鮨 さかなや</div>
+            <div class="alt-info" id="altInfoSakana"></div>
+          </div>
+        </div>
+        <div class="alt-card" onclick="openShopDetail('ebisu')">
+          <div class="alt-thumb" onclick="openShopDetail('ebisu'); event.stopPropagation();"></div>
+          <div class="alt-meta">
+            <div class="alt-label">第3候補</div>
+            <div class="alt-name">割烹 えびす</div>
+            <div class="alt-info" id="altInfoEbisu"></div>
+          </div>
+        </div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-row"><span class="summary-label">日時</span><span class="summary-value" id="planDate">6月27日（土）18:00〜</span></div>
+        <div class="summary-row"><span class="summary-label">人数</span><span class="summary-value">2名</span></div>
+        <div class="summary-row"><span class="summary-label">予約担当</span><span class="summary-value">男性</span></div>
+        <div class="summary-row"><span class="summary-label">お会計</span><span class="summary-value">当日相談して決める</span></div>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_waiting.html'">この内容で承認する</button>
+      <div class="link-row">
+        <button class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html'">日時を変更する</button>
+        <button class="text-link" onclick="goShopList()">店舗を変更する</button>
+      </div>
+    </div>
+    <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+      <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+        <div class="shop-detail-hero-wrap">
+          <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+          <div class="shop-detail-hero" id="shopDetailHero"></div>
+        </div>
+        <div class="shop-detail-scroll">
+          <div class="shop-detail-body">
+            <div class="shop-detail-title-row">
+              <span class="shop-detail-badge">★</span>
+              <div class="shop-detail-name" id="shopDetailName">店舗名</div>
+            </div>
+            <div class="shop-detail-price-row">
+              <span id="shopDetailPrice"></span>
+              <span class="shop-detail-help">?</span>
+            </div>
+            <div class="shop-detail-tags" id="shopDetailTags"></div>
+            <div class="shop-detail-section">
+              <div class="shop-detail-section-title">概要</div>
+              <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+            </div>
+            <div class="shop-detail-section muted">
+              <div class="shop-detail-section-title">備考</div>
+              <div class="shop-detail-section-text" id="shopDetailNote"></div>
+            </div>
+            <div class="shop-detail-map">
+              <div class="shop-detail-map-visual">
+                地図
+                <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
+              </div>
+              <div class="shop-detail-address" id="shopDetailAddress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blp-wrap">
+    <div class="blp-head">
+      <div class="blp-head-info">
+        <div class="blp-head-scr">SCR-090I</div>
+        <div class="blp-head-title">Meal Plan Proposal</div>
+        <div class="blp-head-sub">食事プラン提案 / Đề xuất kế hoạch ăn uống</div>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="blp-lang-switch">
+          <div id="langJa" class="blp-lang-btn active" onclick="setBlpLang('ja')">JA</div>
+          <div id="langVi" class="blp-lang-btn" onclick="setBlpLang('vi')">VI</div>
+        </div>
+        <button class="blp-fullscreen-btn" title="Mở rộng / Thu nhỏ" onclick="toggleBlpFullscreen(this)">
+          <svg viewBox="0 0 24 24">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="blp-body">
+      <div class="blp-lang lang-ja">
+        <div class="blp-section">
+          <div class="blp-section-title">画面の目的</div>
+          <div class="blp-note highlight">OtonaTableがチャット内容をもとに作成した食事プラン（店舗・日時・条件）を確認し、承認または変更する画面です。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">UI構成（左画面）</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>4段階ステッパー</strong> — 現在地は「食事プラン提案」。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認期限バナー</strong> — 双方承認の締切日時を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>第1候補カード</strong> — おすすめ店舗の写真・店名・ジャンル・予算・エリア・タグ・提案理由。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>第2・第3候補</strong> — 代替店舗を縦並びで表示。タップで店舗詳細ポップアップ（SCR060と同型）を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>プランサマリー</strong> — 日時・人数・お会計・予約担当を一覧表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>固定フッター</strong> — 承認ボタン＋日時変更・店舗変更リンク。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">主要な挙動</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>この内容で承認する</strong> → SCR-090K 承認待ち画面へ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日時を変更する</strong> → SCR-090J 日時変更画面へ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗を変更する</strong> → 第2・第3候補エリアへスクロール。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">090J から戻る際、<code>?date=</code> パラメータでサマリーの日時を更新。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">遷移</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>090A</strong> の「食事プランを見る」から入る</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> でプラン確認・承認</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">承認後 <strong>090K</strong> → 双方承認完了後は予約手続きへ</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="blp-lang lang-vi" style="display:none;">
+        <div class="blp-section">
+          <div class="blp-section-title">Mục đích</div>
+          <div class="blp-note highlight">Màn xem và phê duyệt kế hoạch ăn uống do OtonaTable đề xuất dựa trên nội dung chat — gồm nhà hàng, ngày giờ và điều kiện.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Cấu trúc UI (màn trái)</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Stepper 4 bước</strong> — đang ở「食事プラン提案」.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Banner hạn duyệt</strong> — hiển thị deadline phê duyệt.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Card ứng viên 1</strong> — nhà hàng đề xuất chính kèm ảnh, giá, khu vực, tag.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Ứng viên 2・3</strong> — nhà hàng thay thế, chọn bằng tap.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Tóm tắt kế hoạch</strong> — ngày giờ, số người, thanh toán, đặt chỗ.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>Footer cố định</strong> — nút duyệt + link đổi ngày/đổi quán.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>この内容で承認する</strong> → SCR-090K chờ duyệt.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日時を変更する</strong> → SCR-090J đổi ngày giờ.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗を変更する</strong> → scroll tới khu vực ứng viên 2・3.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Luồng</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Vào từ <strong>090A</strong>「食事プランを見る」</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> xem và duyệt kế hoạch</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">Sau duyệt → <strong>090K</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function setBlpLang(lang) {
+      document.querySelectorAll('.blp-lang').forEach(function(el) { el.style.display = 'none'; });
+      document.querySelector('.lang-' + lang).style.display = 'block';
+      document.querySelectorAll('.blp-lang-btn').forEach(function(btn) { btn.classList.remove('active'); });
+      document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    }
+    function toggleBlpFullscreen(btn) {
+      var w = btn.closest('.blp-wrap');
+      var isFs = w.classList.toggle('fullscreen');
+      document.body.style.paddingRight = isFs ? (window.innerWidth - 200) + 'px' : '300px';
+    }
+    var SHOP_DETAILS = {
+      sakana: {
+        displayName: '鮨 さかなや',
+        genre1: '寿司',
+        genre2: '和食',
+        priceLevel: 2,
+        hero: 'linear-gradient(135deg, #2f2f2f 0%, #6a6a6a 50%, #1d1d1d 100%)',
+        category: '寿司',
+        area: '中目黒',
+        overview: 'カウンター越しに職人の技を楽しめる寿司店。素材の良さを活かした握りが中心で、会話もしやすい落ち着いた空間です。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '目黒区上目黒2-14-8',
+        mapLabel: '鮨 さかなや'
+      },
+      ebisu: {
+        displayName: '割烹 えびす',
+        genre1: '割烹',
+        genre2: '日本料理',
+        priceLevel: 4,
+        hero: 'linear-gradient(135deg, #1f1f1f 0%, #555 45%, #111 100%)',
+        category: '割烹',
+        area: '広尾',
+        overview: '季節の食材を使ったコースが楽しめる割烹。半個室もあり、初対面でも落ち着いて食事と会話を楽しめます。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '渋谷区広尾3-12-5',
+        mapLabel: '割烹 えびす'
+      },
+      maguro: {
+        displayName: '食堂 まぐろとさば',
+        genre1: '和食',
+        genre2: '海鮮',
+        priceLevel: 3,
+        hero: 'linear-gradient(135deg, #2a2a2a 0%, #6b6b6b 50%, #1a1a1a 100%)',
+        category: '和食',
+        area: '恵比寿',
+        overview: '落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '渋谷区恵比寿南1-6-1',
+        mapLabel: '食堂 まぐろとさば'
+      }
+    };
+    function glassOnOnly(level, popup) {
+      var cls = popup ? 'shop-glass-svg popup on' : 'shop-glass-svg on';
+      var svg = '<svg class="' + cls + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+      var html = '';
+      for (var i = 0; i < level; i++) html += svg;
+      return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
+    }
+    function priceRangeText(level) {
+      if (level <= 1) return '〜5,000円 / 人';
+      if (level === 2) return '5,001〜10,000円 / 人';
+      if (level === 3) return '10,001〜15,000円 / 人';
+      if (level === 4) return '15,001〜20,000円 / 人';
+      return '20,001円〜 / 人';
+    }
+    function renderAltInfo(id, targetId) {
+      var shop = SHOP_DETAILS[id];
+      if (!shop) return;
+      document.getElementById(targetId).innerHTML =
+        shop.genre1 + ' | ' + shop.genre2 + ' | ' + glassOnOnly(shop.priceLevel, false);
+    }
+    function openShopDetail(id) {
+      var detail = SHOP_DETAILS[id];
+      if (!detail) return;
+      document.getElementById('shopDetailHero').style.background = detail.hero;
+      document.getElementById('shopDetailName').textContent = detail.displayName;
+      document.getElementById('shopDetailPrice').innerHTML =
+        glassOnOnly(detail.priceLevel, true) + '<span class="shop-detail-price-text">｜' + priceRangeText(detail.priceLevel) + '</span>';
+      document.getElementById('shopDetailTags').innerHTML =
+        '<span class="shop-detail-tag">' + detail.category + '</span>' +
+        '<span class="shop-detail-tag">' + detail.area + '</span>';
+      document.getElementById('shopDetailOverview').textContent = detail.overview;
+      document.getElementById('shopDetailNote').textContent = detail.note;
+      document.getElementById('shopDetailMapLabel').textContent = detail.mapLabel;
+      document.getElementById('shopDetailAddress').textContent = detail.address;
+      var scrollEl = document.querySelector('.shop-detail-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
+      document.getElementById('shopDetailPopup').style.display = 'flex';
+    }
+    function closeShopDetail(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('shopDetailPopup').style.display = 'none';
+    }
+    function renderWine(level) {
+      var wine = '';
+      for (var i = 0; i < level; i++) wine += '🍷';
+      return wine;
+    }
+    function applySelectedShopToMain(id) {
+      var detail = SHOP_DETAILS[id];
+      if (!detail) return;
+      document.querySelector('.main-photo').style.background = detail.hero;
+      document.querySelector('.rest-name').textContent = detail.displayName;
+      document.querySelector('.rest-meta').textContent = detail.genre1 + ' | ' + detail.genre2 + ' | ' + renderWine(detail.priceLevel);
+      document.querySelector('.note-text').textContent = detail.overview;
+      document.querySelector('.note-station').textContent = detail.area + '駅 徒歩5分';
+    }
+    function goShopList() {
+      var c1 = document.querySelector('.rest-name').textContent.trim();
+      var c2 = document.querySelectorAll('.alt-name')[0].textContent.trim();
+      var c3 = document.querySelectorAll('.alt-name')[1].textContent.trim();
+      var url = 'wireframe_SCR090_meal_plan_shop_list.html?c1=' + encodeURIComponent(c1) + '&c2=' + encodeURIComponent(c2) + '&c3=' + encodeURIComponent(c3);
+      window.location.href = url;
+    }
+    renderAltInfo('sakana', 'altInfoSakana');
+    renderAltInfo('ebisu', 'altInfoEbisu');
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('c1')) document.querySelector('.rest-name').textContent = params.get('c1');
+    if (params.get('c2')) document.querySelectorAll('.alt-name')[0].textContent = params.get('c2');
+    if (params.get('c3')) document.querySelectorAll('.alt-name')[1].textContent = params.get('c3');
+    if (params.get('date')) {
+      document.getElementById('planDate').textContent = params.get('date');
+    }
+    if (params.get('shop')) {
+      applySelectedShopToMain(params.get('shop'));
+    }
+  </script>
+</body>
+</html>
