@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -79,7 +79,11 @@
       border-radius: 50%;
       border: 1px solid currentColor;
       background: var(--c0);
+      line-height: 20px;
+      font-size: 11px;
     }
+    .step.done { color: var(--c4); }
+    .step.done::before { content: "✓"; border-color: var(--c3); color: var(--c4); font-weight: 700; }
     .step.active { color: var(--c6); }
     .step.active::before { background: var(--c6); border-color: var(--c6); }
     .content {
@@ -122,6 +126,7 @@
     }
     .main-body { padding: 12px; }
     .rest-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; cursor: pointer; }
+    .rest-name.static { cursor: default; }
     .rest-meta { font-size: 11px; color: var(--c5); line-height: 1.5; margin-bottom: 8px; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
     .tag {
@@ -143,53 +148,43 @@
     .note-station { color: var(--c4); }
     .map-link { color: var(--c5); text-decoration: underline; }
     .alt-row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-bottom: 14px;
+    }
+    .alt-candidate-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
     .alt-card {
       border: 1px solid var(--c2);
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--c0);
-      padding: 10px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     }
     .alt-card.selected { border-color: var(--c6); background: #f0f0f0; }
     .alt-thumb {
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 10px;
       background: linear-gradient(135deg, #f0f0f0 0%, #dcdcdc 45%, #cfcfcf 100%);
       flex-shrink: 0;
       border: 1px solid var(--c2);
     }
     .alt-meta { min-width: 0; flex: 1; }
-    .alt-label { font-size: 10px; color: var(--c4); margin-bottom: 3px; }
-    .alt-name { font-size: 11px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
+    .alt-label { font-size: 10px; color: var(--c4); margin-bottom: 4px; }
+    .alt-name { font-size: 12px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
     .alt-info {
       font-size: 10px;
       color: var(--c5);
       line-height: 1.45;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-    .alt-info .shop-glass-meter {
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
-    }
-    .alt-info .shop-glass-svg {
-      width: 9px;
-      height: 9px;
-      stroke: var(--c5);
-      fill: none;
-      stroke-width: 1.8;
     }
     .shop-detail-overlay {
       position: absolute;
@@ -378,25 +373,6 @@
       color: #212121;
       white-space: nowrap;
       margin-left: 6px;
-    }
-    .alt-row.retry-mode {
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .alt-row.retry-mode .alt-card {
-      display: block;
-      padding: 0;
-      overflow: hidden;
-      border-radius: 16px;
-    }
-    .alt-row.retry-mode .alt-thumb {
-      width: 100%;
-      height: 120px;
-      border-radius: 0;
-      border: 0;
-    }
-    .alt-row.retry-mode .alt-meta {
-      padding: 12px;
     }
     .summary-card {
       border: 1px solid var(--c2);
@@ -704,7 +680,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
@@ -747,7 +722,7 @@
       <div class="main-card" id="mainPlan">
         <div class="main-photo" onclick="openMainShopDetail()"></div>
         <div class="main-body">
-          <div class="rest-name" onclick="openMainShopDetail()">食堂 まぐろとさば</div>
+          <div class="rest-name" id="mainRestName" onclick="openMainShopDetail()">食堂 まぐろとさば</div>
           <div class="rest-meta">和食 | 海鮮 | 🍷🍷🍷</div>
           <div class="tag-row">
             <span class="tag">個室あり</span>
@@ -761,21 +736,44 @@
         </div>
       </div>
       </div>
-      <div class="alt-row" id="altSection">
-        <div class="alt-card" onclick="openShopDetail('sakana')">
-          <div class="alt-thumb" onclick="openShopDetail('sakana'); event.stopPropagation();"></div>
-          <div class="alt-meta">
-            <div class="alt-label">第2候補</div>
-            <div class="alt-name">鮨 さかなや</div>
-            <div class="alt-info" id="altInfoSakana"></div>
+      <div id="retryMainSection" style="display:none;">
+        <div class="section-label">第2候補</div>
+        <div class="main-card" id="retryMainPlan">
+          <div class="main-photo" id="retryMainPhoto" onclick="openShopDetail('sakana')"></div>
+          <div class="main-body">
+            <div class="rest-name" id="retryMainName" onclick="openShopDetail('sakana')">鮨 さかなや</div>
+            <div class="rest-meta" id="retryMainMeta">寿司 | 和食 | 🍷🍷</div>
+            <div class="tag-row" id="retryMainTags">
+              <span class="tag">カウンター席</span>
+              <span class="tag">落ち着いた空間</span>
+            </div>
+            <div class="note-text" id="retryMainNote">カウンター越しに職人の技を楽しめる寿司店。素材の良さを活かした握りが中心で、会話もしやすい落ち着いた空間です。</div>
+            <div class="note-meta-row">
+              <span class="note-station" id="retryMainStation">中目黒駅 徒歩5分</span>
+              <span class="map-link">地図で見る</span>
+            </div>
           </div>
         </div>
-        <div class="alt-card" onclick="openShopDetail('ebisu')">
-          <div class="alt-thumb" onclick="openShopDetail('ebisu'); event.stopPropagation();"></div>
-          <div class="alt-meta">
-            <div class="alt-label">第3候補</div>
-            <div class="alt-name">割烹 えびす</div>
-            <div class="alt-info" id="altInfoEbisu"></div>
+      </div>
+      <div class="alt-row" id="altSection">
+        <div class="alt-candidate-block" id="altBlockSakana">
+          <div class="alt-card" onclick="openShopDetail('sakana')">
+            <div class="alt-thumb" onclick="openShopDetail('sakana'); event.stopPropagation();"></div>
+            <div class="alt-meta">
+              <div class="alt-label">第2候補</div>
+              <div class="alt-name">鮨 さかなや</div>
+              <div class="alt-info" id="altInfoSakana"></div>
+            </div>
+          </div>
+        </div>
+        <div class="alt-candidate-block">
+          <div class="alt-card" onclick="openShopDetail('ebisu')">
+            <div class="alt-thumb" onclick="openShopDetail('ebisu'); event.stopPropagation();"></div>
+            <div class="alt-meta">
+              <div class="alt-label">第3候補</div>
+              <div class="alt-name">割烹 えびす</div>
+              <div class="alt-info" id="altInfoEbisu"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -985,8 +983,8 @@
     function renderAltInfo(id, targetId) {
       var shop = SHOP_DETAILS[id];
       if (!shop) return;
-      document.getElementById(targetId).innerHTML =
-        shop.genre1 + ' | ' + shop.genre2 + ' | ' + glassOnOnly(shop.priceLevel, false);
+      document.getElementById(targetId).textContent =
+        shop.genre1 + ' | ' + shop.genre2 + ' | ' + renderWine(shop.priceLevel);
     }
     function openMainShopDetail() {
       openShopDetail(currentMainShopId);
@@ -1047,14 +1045,36 @@
     if (params.get('shop')) {
       applySelectedShopToMain(params.get('shop'));
     }
+    if (params.get('from') === '090A') {
+      var mainRestName = document.getElementById('mainRestName');
+      if (mainRestName) {
+        mainRestName.removeAttribute('onclick');
+        mainRestName.classList.add('static');
+      }
+    }
     if (params.get('retry') === '1') {
       var firstSection = document.getElementById('firstCandidateSection');
+      var retryMainSection = document.getElementById('retryMainSection');
+      var altBlockSakana = document.getElementById('altBlockSakana');
       var altSection = document.getElementById('altSection');
       if (firstSection) firstSection.style.display = 'none';
+      if (retryMainSection) retryMainSection.style.display = 'block';
+      if (altBlockSakana) altBlockSakana.style.display = 'none';
+      var sakana = SHOP_DETAILS.sakana;
+      if (sakana) {
+        var retryPhoto = document.getElementById('retryMainPhoto');
+        if (retryPhoto) retryPhoto.style.background = sakana.hero;
+        var retryName = document.getElementById('retryMainName');
+        if (retryName) retryName.textContent = sakana.displayName;
+        var retryMeta = document.getElementById('retryMainMeta');
+        if (retryMeta) retryMeta.textContent = sakana.genre1 + ' | ' + sakana.genre2 + ' | ' + renderWine(sakana.priceLevel);
+        var retryNote = document.getElementById('retryMainNote');
+        if (retryNote) retryNote.textContent = sakana.overview;
+        var retryStation = document.getElementById('retryMainStation');
+        if (retryStation) retryStation.textContent = sakana.area + '駅 徒歩5分';
+      }
       if (altSection) {
-        altSection.classList.add('retry-mode');
         var thumbs = altSection.querySelectorAll('.alt-thumb');
-        if (thumbs[0]) thumbs[0].style.background = SHOP_DETAILS.sakana.hero;
         if (thumbs[1]) thumbs[1].style.background = SHOP_DETAILS.ebisu.hero;
       }
       document.querySelectorAll('.progress .step').forEach(function(step, index) {
@@ -1062,6 +1082,10 @@
         if (index < 2) step.classList.add('done');
         if (index === 2) step.classList.add('active');
       });
+      var backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.setAttribute('onclick', "window.location.href='wireframe_SCR082_otona_booking_failed.html'");
+      }
     }
   </script>
 </body>

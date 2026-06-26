@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -720,8 +720,6 @@
     </div>
     <div class="wf-sidebar-group">
       <div class="wf-group-label">D · Booking</div>
-      
-      <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a>
@@ -780,10 +778,10 @@
       <div class="schedule-card">
         <div class="schedule-icon">⏱</div>
         <div style="flex:1;">
-          <div class="schedule-title">⏱ 日程確定まで残り時間</div>
+          <div class="schedule-title">⏱ 食事プランまで残り時間</div>
           <div class="countdown-value">05:22:48</div>
-          <div class="schedule-text">期限までに日程が未確定の場合、マッチングが自動キャンセルされます。候補日を確認して、食事日程を確定してください。</div>
-          <button class="primary-btn" onclick="window.location.href='wireframe_SCR081_schedule_empty.html'">日程候補を見る</button>
+          <div class="schedule-text">期限までに食事プランが未確定の場合、マッチングが自動キャンセルされます。食事プランを確認して、食事日程を確定してください。</div>
+          <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html?from=090A'">食事プランを見る</button>
         </div>
       </div>
     </div>
@@ -816,7 +814,7 @@
       <div class="blp-head-info">
         <div class="blp-head-scr">SCR-090E</div>
         <div class="blp-head-title">Chat Schedule Deadline</div>
-        <div class="blp-head-sub">日程確定期限 / Chat cảnh báo sắp hết hạn chốt lịch</div>
+        <div class="blp-head-sub">食事プラン期限 / Chat cảnh báo sắp hết hạn chốt meal plan</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -837,12 +835,12 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">チャット開始から一定期間が経過しても日程が決まっていない場合に、残り時間を強調して候補日確認を促す画面です。</div>
+          <div class="blp-note highlight">チャット開始から一定期間が経過しても食事プランが決まっていない場合に、残り時間を強調して食事プラン確認を促す画面です。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>残り時間</strong>を大きく表示し、緊急度を伝えます。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日程候補を見る</strong>から通常の日程候補確認フローへ戻せます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong>から食事プラン提案フロー（090I → 090J → 090K）へ入ります。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>チャット文脈</strong>を維持したまま催促できる構成です。</div></div>
         </div>
         <div class="blp-section">
@@ -850,20 +848,28 @@
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Mutual Match</strong> の期限つきレコードから開く</div></div>
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で残り時間を確認</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>Schedule Empty</strong> へ進み日程候補を選ぶ</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>090I</strong> 食事プラン提案 → <strong>090J</strong> / <strong>090K</strong> へ進む</div></div>
           </div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chat cảnh báo rằng đã qua 6 ngày nhưng vẫn chưa chốt lịch, nên cần hiển thị đồng hồ đếm ngược để thúc đẩy user chọn ngày.</div>
+          <div class="blp-note highlight">Màn chat cảnh báo hết hạn chốt meal plan, hiển thị countdown để thúc đẩy user xác nhận食事プラン.</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Countdown</strong> được hiển thị nổi bật ngay trong card chat.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日程候補を見る</strong> mở lại flow xem và chọn candidate dates.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong> mở flow đề xuất kế hoạch ăn uống (090I → 090J → 090K).</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">UI vẫn giữ dạng chat để không làm đứt mạch trao đổi.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Luồng</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Từ <strong>065</strong> record có hạn chót</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> xem countdown</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>090I</strong> → <strong>090J</strong> → <strong>090K</strong></div></div>
+          </div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Ghi chú</div>
