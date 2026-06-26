@@ -79,6 +79,9 @@
       line-height: 1.45;
     }
     .slot-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .pick-section { margin-bottom: 18px; transition: opacity 0.15s ease; }
+    .pick-section.section-inactive { opacity: 0.45; }
+    .pick-section.section-active { opacity: 1; }
     .slot-item {
       display: flex;
       align-items: center;
@@ -157,6 +160,65 @@
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
+    }
+    .primary-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 50;
+      padding: 20px 16px;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-dialog {
+      width: 100%;
+      max-width: 300px;
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+    }
+    .confirm-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 12px;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .confirm-text {
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.75;
+      text-align: center;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .confirm-btn {
+      flex: 1;
+      border-radius: 999px;
+      padding: 11px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c6);
+      font-weight: 700;
+    }
+    .confirm-btn.primary {
+      background: var(--c6);
+      color: var(--c0);
+      border-color: var(--c6);
     }
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0;
@@ -324,7 +386,7 @@
   <div class="device">
     <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
     <div class="page-header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html'">‹</div>
+      <div class="back-btn" id="backBtn" onclick="goBack()">‹</div>
       <div class="page-title">日時を変更</div>
     </div>
     <div class="content">
@@ -333,6 +395,7 @@
         <div class="current-name">食堂 まぐろとさば。恵比寿</div>
         <div class="current-date">6月27日（土）18:00〜</div>
       </div>
+      <div id="slotSection" class="pick-section section-inactive">
       <div class="section-title">再提案候補（相手との共通空き日時）</div>
       <div class="slot-list">
         <div class="slot-item" onclick="selectSlot(this, '6月29日（月）18:00〜')">
@@ -361,6 +424,8 @@
           <div class="slot-arrow">›</div>
         </div>
       </div>
+      </div>
+      <div id="manualSection" class="pick-section section-active">
       <div class="section-title">日付を選択（自分で日時を指定する）</div>
       <div class="calendar-card">
         <div class="cal-head">
@@ -381,9 +446,27 @@
           <option>20:00</option>
         </select>
       </div>
+      </div>
     </div>
     <div class="bottom-bar">
-      <button class="primary-btn" onclick="submitReschedule()">この日時で再提案する</button>
+      <button id="submitBtn" class="primary-btn" onclick="submitReschedule()">この日時で再提案する</button>
+    </div>
+    <div id="rescheduleConfirm" class="confirm-overlay" onclick="closeRescheduleConfirm()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">日時変更を申請しますか？</div>
+        <div class="confirm-text">
+          日時変更を行う前に、<br>
+          チャットでお相手へご相談ください。<br><br>
+          お相手の了承を得たうえで、<br>
+          日時変更をお願いいたします。<br><br>
+          変更後は予約内容が更新され、<br>
+          お相手へ通知されます。
+        </div>
+        <div class="confirm-actions">
+          <button class="confirm-btn" type="button" onclick="closeRescheduleConfirm()">キャンセル</button>
+          <button class="confirm-btn primary" type="button" onclick="confirmRescheduleChange()">日時を変更する</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="blp-wrap">
@@ -418,15 +501,15 @@
           <div class="blp-section-title">UI構成（左画面）</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>ヘッダー</strong> — 戻る（090I）＋タイトル「日時を変更」。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>現在の提案カード</strong> — 選択中の店舗名と日時を参照表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>再提案候補リスト</strong> — 相手との共通空き日時を最大5件。タップで選択。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>再提案候補と日付指定</strong> — どちらか一方のみ選択可能。選ぶと他方は非アクティブ表示になります。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>カレンダー</strong> — 月表示。日付をタップして選択。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>開始希望時間</strong> — ドロップダウンで時刻選択。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>固定ボタン</strong> —「この日時で再提案する」。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>固定ボタン</strong> — 087経由は「この日時で変更する」＋確認ポップアップ。082経由は 090K へ、それ以外は 090I へ。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">候補リストまたはカレンダー＋時刻で日時を選択。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>この日時で再提案する</strong> → SCR-090I へ戻り、サマリーの日時を更新。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>この日時で変更する</strong>（087経由）— 確認ダイアログ → 了承後 <strong>087F</strong> へ。082経由は 090K、通常は 090I へ。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">店舗は変更せず、日時のみ再提案する想定。</div></div>
         </div>
         <div class="blp-section">
@@ -480,16 +563,37 @@
       var isFs = w.classList.toggle('fullscreen');
       document.body.style.paddingRight = isFs ? (window.innerWidth - 200) + 'px' : '300px';
     }
-    var selectedDate = '7月2日（水）19:00〜';
+    var flowFrom = new URLSearchParams(window.location.search).get('from');
+    var selectionMode = 'calendar';
+    var selectedSlotDate = '';
     var selectedCalendarDate = new Date(2025, 6, 2);
     var currentMonthDate = new Date(2025, 6, 1);
     var weekdayJa = ['日', '月', '火', '水', '木', '金', '土'];
+
+    function goBack() {
+      if (flowFrom === '082') {
+        window.location.href = 'wireframe_SCR082_date_confirm.html';
+      } else if (flowFrom === '087') {
+        window.location.href = 'wireframe_SCR087_booking_detail.html';
+      } else {
+        window.location.href = 'wireframe_SCR090_meal_plan_proposal.html';
+      }
+    }
+
+    function updateSectionStates() {
+      var slotSec = document.getElementById('slotSection');
+      var manualSec = document.getElementById('manualSection');
+      slotSec.classList.toggle('section-active', selectionMode === 'slot');
+      slotSec.classList.toggle('section-inactive', selectionMode !== 'slot');
+      manualSec.classList.toggle('section-active', selectionMode === 'calendar');
+      manualSec.classList.toggle('section-inactive', selectionMode !== 'calendar');
+    }
 
     function formatTime(dateObj) {
       return String(dateObj.getHours()).padStart(2, '0') + ':' + String(dateObj.getMinutes()).padStart(2, '0');
     }
     function formatSelectedDate() {
-      if (!selectedCalendarDate) return selectedDate;
+      if (!selectedCalendarDate) return selectedSlotDate;
       var m = selectedCalendarDate.getMonth() + 1;
       var d = selectedCalendarDate.getDate();
       var w = weekdayJa[selectedCalendarDate.getDay()];
@@ -510,7 +614,12 @@
         }
       }
       select.addEventListener('change', function() {
-        selectedDate = formatSelectedDate();
+        if (selectionMode !== 'calendar') {
+          selectionMode = 'calendar';
+          selectedSlotDate = '';
+          document.querySelectorAll('.slot-item').forEach(function(s) { s.classList.remove('selected'); });
+          updateSectionStates();
+        }
       });
     }
     function renderCalendar() {
@@ -557,6 +666,9 @@
         }
         cell.addEventListener('click', (function(dateRef) {
           return function() {
+            selectionMode = 'calendar';
+            selectedSlotDate = '';
+            document.querySelectorAll('.slot-item').forEach(function(s) { s.classList.remove('selected'); });
             selectedCalendarDate = dateRef;
             if (
               currentMonthDate.getFullYear() !== dateRef.getFullYear() ||
@@ -564,7 +676,7 @@
             ) {
               currentMonthDate = new Date(dateRef.getFullYear(), dateRef.getMonth(), 1);
             }
-            selectedDate = formatSelectedDate();
+            updateSectionStates();
             renderCalendar();
           };
         })(cellDate));
@@ -572,12 +684,49 @@
       }
     }
     function selectSlot(el, date) {
+      selectionMode = 'slot';
+      selectedSlotDate = date;
+      selectedCalendarDate = null;
       document.querySelectorAll('.slot-item').forEach(function(s) { s.classList.remove('selected'); });
       el.classList.add('selected');
-      selectedDate = date;
+      updateSectionStates();
+      renderCalendar();
+    }
+    function getSelectedDate() {
+      return selectionMode === 'slot' ? selectedSlotDate : formatSelectedDate();
+    }
+    function openRescheduleConfirm() {
+      document.getElementById('rescheduleConfirm').classList.add('open');
+    }
+    function closeRescheduleConfirm() {
+      document.getElementById('rescheduleConfirm').classList.remove('open');
+    }
+    function confirmRescheduleChange() {
+      var date = getSelectedDate();
+      if (!date) {
+        alert('日時を選択してください');
+        return;
+      }
+      localStorage.setItem('ot-schedule-proposal', date);
+      closeRescheduleConfirm();
+      window.location.href = 'wireframe_SCR087_schedule_change_done.html?date=' + encodeURIComponent(date);
     }
     function submitReschedule() {
-      window.location.href = 'wireframe_SCR090_meal_plan_proposal.html?date=' + encodeURIComponent(selectedDate);
+      var date = getSelectedDate();
+      if (!date) {
+        alert('日時を選択してください');
+        return;
+      }
+      if (flowFrom === '087') {
+        openRescheduleConfirm();
+        return;
+      }
+      localStorage.setItem('ot-schedule-proposal', date);
+      if (flowFrom === '082') {
+        window.location.href = 'wireframe_SCR090_meal_plan_waiting.html?date=' + encodeURIComponent(date);
+      } else {
+        window.location.href = 'wireframe_SCR090_meal_plan_proposal.html?date=' + encodeURIComponent(date);
+      }
     }
     document.getElementById('prevMonthBtn').addEventListener('click', function() {
       currentMonthDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() - 1, 1);
@@ -588,8 +737,12 @@
       renderCalendar();
     });
     populateTimeOptions();
-    selectedDate = formatSelectedDate();
+    updateSectionStates();
     renderCalendar();
+    if (flowFrom === '087') {
+      var submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) submitBtn.textContent = 'この日時で変更する';
+    }
   </script>
 </body>
 </html>

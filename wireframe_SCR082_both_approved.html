@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-090K Meal Plan Waiting</title>
+  <title>SCR-082D Both Approved</title>
   <style>
     :root {
       --c0: #ffffff;
@@ -183,7 +183,7 @@
       padding: 0 4px;
     }
     .read-mark { color: var(--c4); margin-right: 4px; }
-    .waiting-card {
+    .status-card {
       background: var(--c0);
       border: 1px solid var(--c2);
       border-radius: 20px;
@@ -193,13 +193,26 @@
       align-items: center;
       text-align: center;
     }
-    .status-icon { font-size: 36px; margin-bottom: 10px; }
+    .status-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      color: #2e7d32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 800;
+      margin: 4px 0 12px;
+    }
     .status-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
     .status-sub {
       font-size: 11px;
       color: var(--c5);
       line-height: 1.6;
-      margin-bottom: 14px;
+      margin-bottom: 0;
       max-width: 280px;
     }
     .countdown-card {
@@ -207,9 +220,9 @@
       border: 1px solid var(--c2);
       border-radius: 14px;
       background: #ececec;
-      padding: 14px;
+      padding: 16px;
       text-align: center;
-      margin-bottom: 0;
+      margin-bottom: 16px;
     }
     .countdown-label { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
     .countdown-time { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
@@ -231,7 +244,7 @@
       width: 56px;
       height: 56px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #2a2a2a 0%, #6b6b6b 50%, #1a1a1a 100%);
+      background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 45%, #c4c4c4 100%);
       flex-shrink: 0;
       cursor: pointer;
     }
@@ -249,52 +262,6 @@
     .plan-row:last-child { border-bottom: 0; }
     .plan-label { color: var(--c4); }
     .plan-value { font-weight: 600; text-align: right; }
-    .input-bar {
-      border-top: 1px solid var(--c2);
-      background: var(--c0);
-      padding: 10px 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-    .circle-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 1px solid var(--c2);
-      background: var(--c0);
-      color: var(--c5);
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .input-placeholder {
-      flex: 1;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--c2);
-      background: #fafafa;
-      padding: 0 14px;
-      display: flex;
-      align-items: center;
-      color: var(--c4);
-      font-size: 12px;
-    }
-    .send-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 0;
-      background: var(--c5);
-      color: var(--c0);
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
     .shop-detail-overlay {
       position: absolute;
       inset: 0;
@@ -479,6 +446,52 @@
       white-space: nowrap;
       margin-left: 6px;
     }
+    .input-bar {
+      border-top: 1px solid var(--c2);
+      background: var(--c0);
+      padding: 10px 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .circle-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: var(--c0);
+      color: var(--c5);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .input-placeholder {
+      flex: 1;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--c2);
+      background: #fafafa;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      color: var(--c4);
+      font-size: 12px;
+    }
+    .send-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--c5);
+      color: var(--c0);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff; border-right: 1px solid #e0e0e0;
       position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 9999;
@@ -632,6 +645,7 @@
       <a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a>
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR082_both_approved.html"><span class="wf-nav-id">082D</span>Both Approved</a>
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
       <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
     </div>
@@ -654,7 +668,7 @@
         <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
         <div class="avatar"></div>
         <div class="header-meta">
-          <div class="name-row">Rei · 34歳</div>
+          <div class="name-row">Noa · 32歳</div>
           <div class="online">オンライン</div>
         </div>
       </div>
@@ -662,33 +676,28 @@
     </div>
     <div class="progress">
       <div class="step done">食事プラン提案</div>
-      <div class="step active">双方承認</div>
-      <div class="step">予約手続き</div>
+      <div class="step done">双方承認</div>
+      <div class="step active">予約手続き</div>
       <div class="step">予約完了</div>
     </div>
     <div class="chat-body">
       <div class="message-row">
         <div class="mini-avatar"></div>
         <div class="message-stack">
-          <div class="bubble">食事プラン、見てみました！<br>このお店、雰囲気よさそうですね。</div>
-          <div class="time">18:40</div>
+          <div class="bubble">食事プラン、承認しました！<br>当日楽しみにしています。</div>
+          <div class="time">18:50</div>
         </div>
       </div>
       <div class="message-row sent">
         <div class="message-stack">
-          <div class="bubble sent">私もこの内容で承認しました。<br>よろしくお願いします！</div>
-          <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>18:42</div>
+          <div class="bubble sent">こちらも承認しました。<br>予約が確定するのを待ちましょう。</div>
+          <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>18:52</div>
         </div>
       </div>
-      <div class="waiting-card">
-        <div class="status-icon">⏳</div>
-        <div class="status-title">相手の承認待ちです</div>
-        <div class="status-sub">双方の承認が完了すると<br>予約手続きへ進みます。</div>
-        <div class="countdown-card">
-          <div class="countdown-label">承認期限</div>
-          <div class="countdown-time">残り 31時間</div>
-          <div class="countdown-date">2025年6月24日（火）18:00まで</div>
-        </div>
+      <div class="status-card">
+        <div class="status-icon">✓</div>
+        <div class="status-title">双方の承認が完了しました！</div>
+        <div class="status-sub">OtonaTableが予約手続きを開始します。<br>完了次第、チャットでお知らせします。</div>
       </div>
       <div class="plan-card">
         <div class="plan-top">
@@ -700,8 +709,8 @@
         </div>
         <div class="plan-rows">
           <div class="plan-row"><span class="plan-label">人数</span><span class="plan-value">2名</span></div>
-          <div class="plan-row"><span class="plan-label">予約担当</span><span class="plan-value">男性</span></div>
-          <div class="plan-row"><span class="plan-label">お会計</span><span class="plan-value">当日相談して決める</span></div>
+          <div class="plan-row"><span class="plan-label">お会計</span><span class="plan-value">割り勘（当日相談して決める）</span></div>
+          <div class="plan-row"><span class="plan-label">予約担当</span><span class="plan-value">OtonaTable</span></div>
         </div>
       </div>
     </div>
@@ -750,9 +759,9 @@
   <div class="blp-wrap">
     <div class="blp-head">
       <div class="blp-head-info">
-        <div class="blp-head-scr">SCR-090K</div>
-        <div class="blp-head-title">Meal Plan Waiting</div>
-        <div class="blp-head-sub">承認待ち / Chờ đối phương duyệt</div>
+        <div class="blp-head-scr">SCR-082D</div>
+        <div class="blp-head-title">Both Approved</div>
+        <div class="blp-head-sub">双方承認完了 / Sau khi cả hai duyệt</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -773,57 +782,43 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">自分は食事プランを承認済みで、相手の承認を待っている状態を示す画面です。双方承認後に予約手続きへ進みます。</div>
+          <div class="blp-note highlight">082で食事プランを承認した後、双方の承認が完了し OtonaTable が予約手続きを開始する画面です。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">UI構成（左画面）</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャットヘッダー</strong> — 戻る・相手名・アバター・OTバッジ。上部に会話履歴を表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>4段階ステッパー</strong> —「食事プラン提案」完了、「双方承認」が現在地。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>チャット本文</strong> — 過去メッセージ＋承認待ちカード（⏳・期限）＋プランサマリーカード。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>4段階ステッパー</strong> —「食事プラン提案」「双方承認」完了、「予約手続き」が現在地。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>チャット本文</strong> — 過去メッセージ＋完了カード（✓）＋プランサマリーカード。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>プランサマリーカード</strong> — 店舗サムネ・店名タップで SCR060 同型の店舗詳細ポップアップ。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>入力バー</strong> — 待機中も通常チャットと同様にメッセージ入力可能。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">相手が承認するまでこの画面で待機。編集操作はなし。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">承認期限を過ぎた場合は別フロー（期限切れ）へ遷移する想定。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">双方承認完了後 →「予約手続き」ステップの画面へ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">閲覧専用。予約完了後はチャットで通知が届く想定。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">予約手続き完了後 →「予約完了」ステップの画面へ遷移。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>090I</strong>「この内容で承認する」から入る</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で相手の承認を待つ</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">双方承認後 <strong>予約手続き</strong> へ</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>082</strong>「この内容を承認する」から入る</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div></div><div class="blp-step-text">予約完了後 <strong>087</strong> 等へ</div></div>
           </div>
-          <div class="blp-note ok">090A → 090I → 090K が食事プラン提案フローの主経路です。</div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chờ đối phương phê duyệt sau khi bản thân đã duyệt kế hoạch ăn uống. Cả hai duyệt xong mới sang bước đặt chỗ.</div>
+          <div class="blp-note highlight">Sau khi duyệt ở SCR-082 — cả hai đã đồng ý, OtonaTable bắt đầu thủ tục đặt bàn.</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">Cấu trúc UI (màn trái)</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Header chat</strong> — tên đối phương, vẫn hiện lịch sử tin nhắn phía trên.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Stepper 4 bước</strong> — bước 1 xong, đang ở「双方承認」.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Khu chat</strong> — tin nhắn cũ + card chờ duyệt + card tóm tắt plan.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Thanh nhập</strong> — vẫn chat được khi đang chờ.</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Chỉ xem, không chỉnh sửa cho đến khi đối phương duyệt.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Hết hạn → flow hết hạn (wireframe riêng).</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Cả hai duyệt → bước「予約手続き」.</div></div>
+          <div class="blp-section-title">Cấu trúc UI</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Stepper</strong> — bước 1–2 xong, đang ở「予約手続き」.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Thông báo</strong> — icon ✓ + tiêu đề + hướng dẫn chờ chat.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Card</strong> — ảnh quán, tên, ngày giờ, số người, お会計, 予約担当.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
-          <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Từ <strong>090I</strong> sau khi duyệt</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> chờ đối phương</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text">Xong → <strong>予約手続き</strong></div></div>
-          </div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Từ <strong>082</strong> bấm この内容を承認する.</div></div>
         </div>
       </div>
     </div>
@@ -843,7 +838,10 @@
 
     var params = new URLSearchParams(window.location.search);
     var planDate = params.get('date') || localStorage.getItem('ot-schedule-proposal') || '6月27日（土）18:00〜';
-    var planShop = params.get('shop') || localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば';
+    var planShop = params.get('shop') || localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば。恵比寿';
+    if (planShop.indexOf('。') === -1 && planShop === '食堂 まぐろとさば') {
+      planShop = '食堂 まぐろとさば。恵比寿';
+    }
     document.getElementById('planDate').textContent = planDate;
     document.getElementById('planName').textContent = planShop;
     localStorage.setItem('ot-schedule-proposal', planDate);
@@ -851,8 +849,6 @@
 
     var SHOP_DETAIL = {
       displayName: '食堂 まぐろとさば',
-      genre1: '和食',
-      genre2: '海鮮',
       priceLevel: 3,
       hero: 'linear-gradient(135deg, #2a2a2a 0%, #6b6b6b 50%, #1a1a1a 100%)',
       category: '和食',

@@ -118,9 +118,10 @@
     .main-photo {
       height: 140px;
       background: linear-gradient(135deg, #f0f0f0 0%, #dcdcdc 50%, #cfcfcf 100%);
+      cursor: pointer;
     }
     .main-body { padding: 12px; }
-    .rest-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .rest-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; cursor: pointer; }
     .rest-meta { font-size: 11px; color: var(--c5); line-height: 1.5; margin-bottom: 8px; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
     .tag {
@@ -377,6 +378,25 @@
       color: #212121;
       white-space: nowrap;
       margin-left: 6px;
+    }
+    .alt-row.retry-mode {
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .alt-row.retry-mode .alt-card {
+      display: block;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .alt-row.retry-mode .alt-thumb {
+      width: 100%;
+      height: 120px;
+      border-radius: 0;
+      border: 0;
+    }
+    .alt-row.retry-mode .alt-meta {
+      padding: 12px;
     }
     .summary-card {
       border: 1px solid var(--c2);
@@ -722,11 +742,12 @@
           <div class="deadline-date">2025年6月24日（火）18:00まで</div>
         </div>
       </div>
+      <div id="firstCandidateSection">
       <div class="section-label">第1候補（おすすめ）</div>
       <div class="main-card" id="mainPlan">
-        <div class="main-photo"></div>
+        <div class="main-photo" onclick="openMainShopDetail()"></div>
         <div class="main-body">
-          <div class="rest-name">食堂 まぐろとさば</div>
+          <div class="rest-name" onclick="openMainShopDetail()">食堂 まぐろとさば</div>
           <div class="rest-meta">和食 | 海鮮 | 🍷🍷🍷</div>
           <div class="tag-row">
             <span class="tag">個室あり</span>
@@ -738,6 +759,7 @@
             <span class="map-link">地図で見る</span>
           </div>
         </div>
+      </div>
       </div>
       <div class="alt-row" id="altSection">
         <div class="alt-card" onclick="openShopDetail('sakana')">
@@ -959,11 +981,15 @@
       if (level === 4) return '15,001〜20,000円 / 人';
       return '20,001円〜 / 人';
     }
+    var currentMainShopId = 'maguro';
     function renderAltInfo(id, targetId) {
       var shop = SHOP_DETAILS[id];
       if (!shop) return;
       document.getElementById(targetId).innerHTML =
         shop.genre1 + ' | ' + shop.genre2 + ' | ' + glassOnOnly(shop.priceLevel, false);
+    }
+    function openMainShopDetail() {
+      openShopDetail(currentMainShopId);
     }
     function openShopDetail(id) {
       var detail = SHOP_DETAILS[id];
@@ -995,6 +1021,7 @@
     function applySelectedShopToMain(id) {
       var detail = SHOP_DETAILS[id];
       if (!detail) return;
+      currentMainShopId = id;
       document.querySelector('.main-photo').style.background = detail.hero;
       document.querySelector('.rest-name').textContent = detail.displayName;
       document.querySelector('.rest-meta').textContent = detail.genre1 + ' | ' + detail.genre2 + ' | ' + renderWine(detail.priceLevel);
@@ -1019,6 +1046,22 @@
     }
     if (params.get('shop')) {
       applySelectedShopToMain(params.get('shop'));
+    }
+    if (params.get('retry') === '1') {
+      var firstSection = document.getElementById('firstCandidateSection');
+      var altSection = document.getElementById('altSection');
+      if (firstSection) firstSection.style.display = 'none';
+      if (altSection) {
+        altSection.classList.add('retry-mode');
+        var thumbs = altSection.querySelectorAll('.alt-thumb');
+        if (thumbs[0]) thumbs[0].style.background = SHOP_DETAILS.sakana.hero;
+        if (thumbs[1]) thumbs[1].style.background = SHOP_DETAILS.ebisu.hero;
+      }
+      document.querySelectorAll('.progress .step').forEach(function(step, index) {
+        step.classList.remove('active', 'done');
+        if (index < 2) step.classList.add('done');
+        if (index === 2) step.classList.add('active');
+      });
     }
   </script>
 </body>

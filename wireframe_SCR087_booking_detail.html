@@ -35,6 +35,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
     .status-bar {
       height: 20px;
@@ -61,133 +62,309 @@
       flex: 1;
       overflow-y: auto;
       background: var(--c1);
-      padding: 14px;
+      padding: 14px 14px 20px;
     }
-    .info-card, .restaurant-card, .note-card {
+    .block-card {
       border: 1px solid var(--c2);
       background: var(--c0);
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 14px;
       margin-bottom: 12px;
     }
-    .info-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .info-title {
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .info-link {
-      font-size: 10px;
-      color: var(--c4);
-      text-decoration: none;
-    }
-    .info-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-    .info-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .info-icon {
-      width: 18px;
-      flex-shrink: 0;
-      color: var(--c5);
-      font-size: 14px;
-      line-height: 1.4;
-      text-align: center;
-    }
-    .info-row-body {
-      flex: 1;
-      min-width: 0;
-      display: grid;
-      grid-template-columns: minmax(72px, auto) 1fr;
-      gap: 2px 12px;
-      align-items: start;
-    }
-    .info-label {
-      color: var(--c4);
-      white-space: nowrap;
-    }
-    .info-value {
-      color: var(--c6);
-      font-weight: 600;
-      text-align: right;
-      word-break: break-word;
-      line-height: 1.55;
-    }
-    .info-datetime {
-      color: var(--c6);
-      font-weight: 600;
-      line-height: 1.45;
-      white-space: nowrap;
-    }
-    .section-title {
+    .block-title {
       font-size: 12px;
       font-weight: 700;
-      margin: 14px 2px 10px;
+      margin-bottom: 10px;
+      color: var(--c6);
     }
-    .photo {
-      height: 82px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%);
-      margin-bottom: 12px;
-      position: relative;
+    .shop-card {
+      border: 1px solid var(--c2);
+      border-radius: 16px;
+      background: var(--c0);
       overflow: hidden;
+      margin-bottom: 12px;
     }
-    .photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.28));
+    .shop-photo {
+      height: 140px;
+      background: linear-gradient(135deg, #f0f0f0 0%, #dcdcdc 50%, #cfcfcf 100%);
+      cursor: pointer;
     }
-    .restaurant-name {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
+    .shop-body { padding: 12px; }
+    .rest-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; cursor: pointer; }
+    .rest-meta { font-size: 11px; color: var(--c5); line-height: 1.5; margin-bottom: 8px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      color: var(--c5);
+      background: var(--c1);
     }
-    .restaurant-meta {
-      font-size: 11px;
+    .note-text { font-size: 10px; color: var(--c4); line-height: 1.55; margin-bottom: 8px; }
+    .shop-address {
+      font-size: 10px;
       color: var(--c4);
       line-height: 1.5;
       margin-bottom: 8px;
     }
-    .tags {
+    .note-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 10px;
+    }
+    .note-station { color: var(--c4); }
+    .map-link { color: var(--c5); text-decoration: underline; cursor: pointer; }
+    .shop-detail-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 260;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+    .shop-detail-sheet {
+      width: 100%;
+      max-width: 328px;
+      height: 580px;
+      max-height: calc(100% - 40px);
+      background: var(--c0);
+      border-radius: 14px;
+      border: 1px solid var(--c2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      position: relative;
+    }
+    .shop-detail-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .shop-detail-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--c2);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--c6);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .shop-detail-hero-wrap { position: relative; flex-shrink: 0; }
+    .shop-detail-hero {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--c2);
+      filter: grayscale(100%);
+    }
+    .shop-detail-body { padding: 14px 14px 4px; }
+    .shop-detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .shop-detail-badge {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--c3);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--c5);
+      flex-shrink: 0;
+    }
+    .shop-detail-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--c6);
+      line-height: 1.3;
+    }
+    .shop-detail-price-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c6);
+      margin-bottom: 10px;
+    }
+    .shop-detail-help {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--c3);
+      color: var(--c4);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .shop-detail-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 14px;
     }
-    .tag {
+    .shop-detail-tag {
+      padding: 5px 12px;
       border: 1px solid var(--c2);
-      background: #fafafa;
-      color: var(--c5);
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 10px;
-      font-weight: 600;
-    }
-    .description {
+      background: var(--c1);
+      border-radius: 6px;
       font-size: 11px;
       color: var(--c5);
-      line-height: 1.6;
-      margin-bottom: 10px;
+      font-weight: 600;
     }
-    .footer-row {
+    .shop-detail-section { margin-bottom: 14px; }
+    .shop-detail-section.muted .shop-detail-section-title,
+    .shop-detail-section.muted .shop-detail-section-text { color: var(--c4); }
+    .shop-detail-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--c6);
+      margin-bottom: 6px;
+    }
+    .shop-detail-section-text {
+      font-size: 12px;
+      color: var(--c5);
+      line-height: 1.65;
+    }
+    .shop-detail-map {
+      border: 1px solid var(--c2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: var(--c1);
+    }
+    .shop-detail-map-visual {
+      height: 110px;
+      background: linear-gradient(180deg, #ececec 0%, #d8d8d8 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c4);
+      font-size: 11px;
+    }
+    .shop-detail-map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background: var(--c0);
+      border: 1px solid var(--c2);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c6);
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    .shop-detail-address {
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.5;
+      background: var(--c1);
+      border-top: 1px solid var(--c2);
+    }
+    .shop-glass-meter { display: inline-flex; align-items: center; gap: 3px; }
+    .shop-glass-svg {
+      width: 10px;
+      height: 10px;
+      stroke: var(--c5);
+      fill: none;
+      stroke-width: 1.9;
+    }
+    .shop-glass-svg.popup { stroke: rgba(33, 33, 33, 1); }
+    .shop-detail-price-text {
+      font-size: 12px;
+      font-weight: 800;
+      color: #212121;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+    .detail-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .detail-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      color: var(--c4);
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--c1);
+      font-size: 11px;
+      line-height: 1.5;
     }
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-label {
+      color: var(--c4);
+      flex-shrink: 0;
+      min-width: 72px;
+    }
+    .detail-value {
+      color: var(--c6);
+      font-weight: 600;
+      text-align: right;
+      flex: 1;
+      word-break: break-word;
+    }
+    .detail-value-stack {
+      text-align: right;
+      font-weight: 600;
+      color: var(--c6);
+      line-height: 1.55;
+    }
+    .price-glasses {
+      letter-spacing: 1px;
+      font-size: 10px;
+    }
+    .notice-list {
+      list-style: none;
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.7;
+    }
+    .notice-list li {
+      padding: 4px 0;
+      border-bottom: 1px solid var(--c1);
+    }
+    .notice-list li:last-child { border-bottom: 0; }
+    .aux-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 4px 0 14px;
+      padding: 0 4px;
+    }
+    .aux-link {
+      font-size: 11px;
+      color: var(--c5);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .action-group { margin-top: 4px; }
     .primary-btn {
       width: 100%;
       height: 44px;
@@ -397,47 +574,107 @@
     <a href="index.html" class="wf-sidebar-logo"><div class="wf-logo-mark">O</div><span class="wf-logo-text">Otona Table WF</span></a>
     <div class="wf-sidebar-group"><div class="wf-group-label">A · Onboarding</div><a class="wf-nav-link" href="wireframe_SCR020_login.html"><span class="wf-nav-id">020</span>Login</a><a class="wf-nav-link" href="wireframe_SCR021_register.html"><span class="wf-nav-id">021</span>Register</a><a class="wf-nav-link" href="wireframe_SCR022_verify_code.html"><span class="wf-nav-id">022</span>認証コード入力</a><a class="wf-nav-link" href="wireframe_SCR023_verify_done.html"><span class="wf-nav-id">023</span>メール認証完了</a><a class="wf-nav-link" href="wireframe_SCR024_ekyc.html"><span class="wf-nav-id">024</span>eKYC 本人確認</a><a class="wf-nav-link" href="wireframe_SCR031_photo.html"><span class="wf-nav-id">031</span>写真アップロード</a><a class="wf-nav-link" href="wireframe_SCR030_profile1.html"><span class="wf-nav-id">030</span>Profile 基本情報</a></div>
     <div class="wf-sidebar-group"><div class="wf-group-label">B · Home</div><a class="wf-nav-link" href="wireframe_SCR060_flat.html"><span class="wf-nav-id">060</span>Card View</a><a class="wf-nav-link" href="wireframe_SCR062_partner_profile.html"><span class="wf-nav-id">062</span>Partner Profile</a><a class="wf-nav-link" href="wireframe_SCR063_likes_sent.html"><span class="wf-nav-id">063</span>Likes Sent</a><a class="wf-nav-link" href="wireframe_SCR064_likes_received.html"><span class="wf-nav-id">064</span>Likes Received</a><a class="wf-nav-link" href="wireframe_SCR065_match.html"><span class="wf-nav-id">065</span>Mutual Match</a></div>
-    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a><a class="wf-nav-link" href="wireframe_SCR121_availability.html"><span class="wf-nav-id">121</span>Availability</a><a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_primary.html"><span class="wf-nav-id">082A</span>Date Proposal 1</a><a class="wf-nav-link" href="wireframe_SCR082_date_proposal_change.html"><span class="wf-nav-id">082B</span>Date Proposal Change</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_recommend.html"><span class="wf-nav-id">083A</span>Restaurant Recommend</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_waiting.html"><span class="wf-nav-id">083B</span>Restaurant Waiting</a><a class="wf-nav-link" href="wireframe_SCR083_restaurant_approved.html"><span class="wf-nav-id">083C</span>Restaurant Approved</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a><a class="wf-nav-link wf-active" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a><a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a><a class="wf-nav-link" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a><a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a><a class="wf-nav-link" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a></div>
-    <div class="wf-sidebar-group"><div class="wf-group-label">E · Chat & Review</div><a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a><a class="wf-nav-link" href="wireframe_SCR090_chat_restaurant_intro.html"><span class="wf-nav-id">090C</span>Chat Restaurant Intro</a><a class="wf-nav-link" href="wireframe_SCR090_chat_booking_done.html"><span class="wf-nav-id">090D</span>Chat Booking Done</a><a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a><a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">D · Booking</div><a class="wf-nav-link" href="wireframe_SCR081_schedule_empty.html"><span class="wf-nav-id">081A</span>Schedule Empty</a><a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a><a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a><a class="wf-nav-link" href="wireframe_SCR082_both_approved.html"><span class="wf-nav-id">082D</span>Both Approved</a><a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a><a class="wf-nav-link wf-active" href="wireframe_SCR087_booking_detail.html"><span class="wf-nav-id">087A</span>Booking Detail</a><a class="wf-nav-link" href="wireframe_SCR087_booking_proposal.html"><span class="wf-nav-id">087B</span>Booking Proposal</a><a class="wf-nav-link" href="wireframe_SCR087_booking_cancel.html"><span class="wf-nav-id">087C</span>Booking Cancel</a><a class="wf-nav-link" href="wireframe_SCR087_booking_done_chat.html"><span class="wf-nav-id">087D</span>Booking Done Chat</a><a class="wf-nav-link" href="wireframe_SCR087_booking_schedule_change.html"><span class="wf-nav-id">087E</span>Schedule Change</a></div>
+    <div class="wf-sidebar-group"><div class="wf-group-label">E · Chat & Review</div><a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a><a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a><a class="wf-nav-link" href="wireframe_SCR090_meal_plan_proposal.html"><span class="wf-nav-id">090I</span>Meal Plan Proposal</a><a class="wf-nav-link" href="wireframe_SCR100_review_prompt_chat.html"><span class="wf-nav-id">100</span>Review</a><a class="wf-nav-link" href="wireframe_SCR103_report.html"><span class="wf-nav-id">103</span>Report / Block</a></div>
   </nav>
 
   <div class="device">
     <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
     <div class="header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
+      <div class="back-btn" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">‹</div>
       <div class="title">予約詳細</div>
       <div style="width:18px;"></div>
     </div>
     <div class="content">
-      <div class="info-card" style="padding:0; overflow:hidden;">
-        <div style="height:140px; background:linear-gradient(135deg,#2a2a2a 0%,#555 45%,#1f1f1f 100%); filter:grayscale(100%);"></div>
-        <div style="padding:12px 12px 10px;">
-          <div style="font-size:14px; font-weight:800;">レストラン オトナ</div>
-          <div style="font-size:11px; color:var(--c4); margin-top:2px;">イタリアン ｜ 恵比寿</div>
-          <div style="margin-top:8px; font-size:11px; color:var(--c4); text-align:right;">地図で見る</div>
-        </div>
-        <div class="info-rows" style="padding:0 12px 12px;">
-          <div class="info-row"><div class="info-icon">📅</div><div class="info-row-body"><div class="info-label">日程</div><div class="info-value">5/24（土）　19:00〜</div></div></div>
-          <div class="info-row"><div class="info-icon">👤</div><div class="info-row-body"><div class="info-label">人数</div><div class="info-value">2名</div></div></div>
-          <div class="info-row"><div class="info-icon">💴</div><div class="info-row-body"><div class="info-label">お会計</div><div class="info-value">当日相談して決める</div></div></div>
-          <div class="info-row"><div class="info-icon">🏠</div><div class="info-row-body"><div class="info-label">待ち合わせ場所</div><div class="info-value">当日のお店の中で</div></div></div>
-          <div class="info-row"><div class="info-icon">👤</div><div class="info-row-body"><div class="info-label">予約者</div><div class="info-value" style="white-space:nowrap;">あなたが予約します</div></div></div>
-        </div>
-      </div>
-
-      <div class="note-card">
-        <div style="font-size:11px; color:var(--c5); line-height:1.6;">
-          店舗からの確認事項
-          <div style="margin-top:6px; font-size:10px; color:var(--c4); line-height:1.6;">
-            ・サービス料10%がかかります<br>
-            ・キャンセル規定は別途ご確認ください<br>
-            ・アレルギー等があれば事前にご連絡ください
+      <div class="shop-card">
+        <div class="shop-photo" onclick="openShopDetail()"></div>
+        <div class="shop-body">
+          <div class="rest-name" id="shopName" onclick="openShopDetail()">食堂 まぐろとさば</div>
+          <div class="rest-meta">和食 | 海鮮 | 🍷🍷🍷</div>
+          <div class="tag-row">
+            <span class="tag">個室あり</span>
+            <span class="tag">テーブル席</span>
+          </div>
+          <div class="note-text">落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。</div>
+          <div class="shop-address">東京都渋谷区恵比寿南1-6-1</div>
+          <div class="note-meta-row">
+            <span class="note-station">恵比寿駅 徒歩5分</span>
+            <span class="map-link">地図で見る</span>
           </div>
         </div>
       </div>
 
-      <button id="scheduleChangeBtn" class="primary-btn" onclick="window.location.href='wireframe_SCR087_booking_proposal.html'">日時を調整する</button>
-      <button class="secondary-btn" onclick="window.location.href='wireframe_SCR087_booking_cancel.html'">予約をキャンセルする</button>
+      <div class="block-card">
+        <div class="detail-rows">
+          <div class="detail-row">
+            <span class="detail-label">日時</span>
+            <div class="detail-value-stack" id="bookingDateTime">
+              <div>6月27日（土）</div>
+              <div>18:00～</div>
+            </div>
+          </div>
+          <div class="detail-row"><span class="detail-label">人数</span><span class="detail-value">2名</span></div>
+          <div class="detail-row"><span class="detail-label">お会計</span><span class="detail-value">当日相談して決定</span></div>
+          <div class="detail-row"><span class="detail-label">待ち合わせ</span><span class="detail-value">お店の中</span></div>
+          <div class="detail-row"><span class="detail-label">予約担当</span><span class="detail-value">OtonaTable</span></div>
+        </div>
+      </div>
+
+      <div class="block-card">
+        <div class="block-title">店舗からのお知らせ</div>
+        <ul class="notice-list">
+          <li>喫煙可否：店内禁煙（店外に喫煙スペースあり）</li>
+          <li>コース情報：おまかせコースあり（要事前連絡）</li>
+          <li>来店時注意事項：予約時間の5分前までにお越しください</li>
+        </ul>
+      </div>
+
+      <div class="aux-links">
+        <span class="aux-link">コミュニティガイドライン</span>
+        <span class="aux-link">キャンセルポリシー</span>
+        <span class="aux-link">よくある質問</span>
+      </div>
+
+      <div class="action-group">
+        <button id="scheduleChangeBtn" class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html?from=087'">日時を変更する</button>
+        <button class="secondary-btn" onclick="window.location.href='wireframe_SCR087_booking_cancel.html'">予約をキャンセルする</button>
+      </div>
+    </div>
+    <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
+      <div class="shop-detail-sheet" onclick="event.stopPropagation()">
+        <div class="shop-detail-hero-wrap">
+          <button type="button" class="shop-detail-close" onclick="closeShopDetail()">×</button>
+          <div class="shop-detail-hero" id="shopDetailHero"></div>
+        </div>
+        <div class="shop-detail-scroll">
+          <div class="shop-detail-body">
+            <div class="shop-detail-title-row">
+              <span class="shop-detail-badge">★</span>
+              <div class="shop-detail-name" id="shopDetailName">店舗名</div>
+            </div>
+            <div class="shop-detail-price-row">
+              <span id="shopDetailPrice"></span>
+              <span class="shop-detail-help">?</span>
+            </div>
+            <div class="shop-detail-tags" id="shopDetailTags"></div>
+            <div class="shop-detail-section">
+              <div class="shop-detail-section-title">概要</div>
+              <div class="shop-detail-section-text" id="shopDetailOverview"></div>
+            </div>
+            <div class="shop-detail-section muted">
+              <div class="shop-detail-section-title">備考</div>
+              <div class="shop-detail-section-text" id="shopDetailNote"></div>
+            </div>
+            <div class="shop-detail-map">
+              <div class="shop-detail-map-visual">
+                地図
+                <div class="shop-detail-map-pin" id="shopDetailMapLabel">店舗名</div>
+              </div>
+              <div class="shop-detail-address" id="shopDetailAddress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -448,18 +685,37 @@
     </div>
     <div class="blp-body">
       <div class="blp-lang lang-ja">
-        <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">予約確定後の「予約詳細」を表示。日時調整・キャンセルへ遷移できる。</div></div>
-        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">店舗情報＋予約情報（日時/人数/会計/待ち合わせ/予約者）をまとめて表示。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`日時を調整する` → 予約提案（日時調整）へ。`予約をキャンセルする` → キャンセル画面へ。</div></div></div>
-        <div class="blp-section"><div class="blp-section-title">補足</div><div class="blp-note ok">デザインは黒/白/グレーの最小構成。</div></div>
+        <div class="blp-section"><div class="blp-section-title">目的</div><div class="blp-note highlight">予約確定後の詳細画面。店舗情報・予約内容・店舗からのお知らせ・補助リンクを一覧表示します。</div></div>
+        <div class="blp-section"><div class="blp-section-title">表示内容</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>店舗情報</strong> — 画像付きカード（店名・ジャンル/価格帯・タグ・説明・住所・最寄駅/地図）。店名・画像タップで SCR060 同型の詳細ポップアップ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>予約情報</strong> — 日時・人数・お会計・待ち合わせ・予約担当。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗からのお知らせ</strong> — 管理画面入力（喫煙可否・コース・注意事項など）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>補助リンク</strong> — コミュニティガイドライン・キャンセルポリシー・FAQ。</div></div>
+        </div>
+        <div class="blp-section"><div class="blp-section-title">挙動</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">087「予約詳細を見る」から遷移。戻る → 087 Booking Confirmed。</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`日時を変更する` → 090J → 確認後 087F。`予約をキャンセルする` → キャンセルフローへ。</div></div></div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
-        <div class="blp-section"><div class="blp-section-title">Mục đích</div><div class="blp-note highlight">Màn xem nhà hàng được đề xuất trước khi gửi sang phía đối phương để xin chấp nhận.</div></div>
-        <div class="blp-section"><div class="blp-section-title">Hành vi</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Hiển thị cùng lúc thông tin lịch hẹn và nhà hàng gợi ý.</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Nút chính chuyển sang trạng thái chờ đối phương duyệt.</div></div></div>
+        <div class="blp-section"><div class="blp-section-title">Mục đích</div><div class="blp-note highlight">Màn chi tiết đặt bàn sau khi xác nhận — thông tin quán, lịch hẹn, thông báo từ quán và link hỗ trợ.</div></div>
+        <div class="blp-section"><div class="blp-section-title">Nội dung</div><div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">店舗情報 + 日時/人数/お会計/待ち合わせ/予約担当.</div></div><div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">店舗からのお知らせ (CMS) + 補助リンク.</div></div></div>
       </div>
     </div>
   </div>
 
   <script>
+    (function () {
+      var shop = localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば';
+      var dateRaw = localStorage.getItem('ot-schedule-proposal') || '6月27日（土）18:00〜';
+      var shopEl = document.getElementById('shopName');
+      if (shopEl) shopEl.textContent = shop.replace('。恵比寿', '');
+      var dtEl = document.getElementById('bookingDateTime');
+      if (dtEl) {
+        var timeMatch = dateRaw.match(/(\d{1,2}:\d{2})[〜～]?/);
+        var datePart = dateRaw.replace(/\d{1,2}:\d{2}[〜～]?/g, '').trim();
+        if (!datePart) datePart = '6月27日（土）';
+        var timePart = timeMatch ? timeMatch[1].replace('〜', '') + '～' : '18:00～';
+        dtEl.innerHTML = '<div>' + datePart + '</div><div>' + timePart + '</div>';
+      }
+    })();
     if (new URLSearchParams(window.location.search).get('from') === '089') {
       var scheduleChangeBtn = document.getElementById('scheduleChangeBtn');
       if (scheduleChangeBtn) {
@@ -476,6 +732,54 @@
       var wrap = button.closest('.blp-wrap');
       var isFullscreen = wrap.classList.toggle('fullscreen');
       document.body.style.paddingRight = isFullscreen ? (window.innerWidth - 200) + 'px' : '300px';
+    }
+    var SHOP_DETAIL = {
+      displayName: '食堂 まぐろとさば',
+      genre1: '和食',
+      genre2: '海鮮',
+      priceLevel: 3,
+      hero: 'linear-gradient(135deg, #2a2a2a 0%, #6b6b6b 50%, #1a1a1a 100%)',
+      category: '和食',
+      area: '恵比寿',
+      overview: '落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。',
+      note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+      address: '東京都渋谷区恵比寿南1-6-1',
+      mapLabel: '食堂 まぐろとさば'
+    };
+    function glassOnOnly(level, popup) {
+      var cls = popup ? 'shop-glass-svg popup on' : 'shop-glass-svg on';
+      var svg = '<svg class="' + cls + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
+      var html = '';
+      for (var i = 0; i < level; i++) html += svg;
+      return '<span class="shop-glass-meter" aria-label="price">' + html + '</span>';
+    }
+    function priceRangeText(level) {
+      if (level <= 1) return '〜5,000円 / 人';
+      if (level === 2) return '5,001〜10,000円 / 人';
+      if (level === 3) return '10,001〜15,000円 / 人';
+      if (level === 4) return '15,001〜20,000円 / 人';
+      return '20,001円〜 / 人';
+    }
+    function openShopDetail() {
+      var detail = SHOP_DETAIL;
+      document.getElementById('shopDetailHero').style.background = detail.hero;
+      document.getElementById('shopDetailName').textContent = detail.displayName;
+      document.getElementById('shopDetailPrice').innerHTML =
+        glassOnOnly(detail.priceLevel, true) + '<span class="shop-detail-price-text">｜' + priceRangeText(detail.priceLevel) + '</span>';
+      document.getElementById('shopDetailTags').innerHTML =
+        '<span class="shop-detail-tag">' + detail.category + '</span>' +
+        '<span class="shop-detail-tag">' + detail.area + '</span>';
+      document.getElementById('shopDetailOverview').textContent = detail.overview;
+      document.getElementById('shopDetailNote').textContent = detail.note;
+      document.getElementById('shopDetailMapLabel').textContent = detail.mapLabel;
+      document.getElementById('shopDetailAddress').textContent = detail.address;
+      var scrollEl = document.querySelector('.shop-detail-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
+      document.getElementById('shopDetailPopup').style.display = 'flex';
+    }
+    function closeShopDetail(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('shopDetailPopup').style.display = 'none';
     }
   </script>
 </body>

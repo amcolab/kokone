@@ -362,7 +362,7 @@
   <div class="device">
     <div class="status-bar"><div>9:41</div><div>●●● WiFi ▮▮▮</div></div>
     <div class="header">
-      <div class="back-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html'">‹</div>
+      <div class="back-btn" onclick="goBack()">‹</div>
       <div class="header-title">店舗を変更</div>
       <div class="header-icon" onclick="toggleSearch()">🔍</div>
     </div>
@@ -463,7 +463,7 @@
         <div class="blp-section-title">挙動</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div>カードタップで1件選択（単一選択）。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div>店名の下線リンクをタップすると店舗詳細ポップアップを表示（SCR030系と同型）。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div><strong>この店舗で更新する</strong> で 090I に戻り、`shop` パラメータで反映。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div><strong>この店舗で更新する</strong> — SCR-082 経由なら 090K へ、通常は 090I に戻り反映。</div></div>
       </div>
     </div>
   </div>
@@ -471,6 +471,7 @@
   <script>
     var selectedShop = '';
     var params = new URLSearchParams(window.location.search);
+    var flowFrom = params.get('from');
     var target = params.get('target') || '1';
     var c1 = params.get('c1') || '食堂 まぐろとさば';
     var c2 = params.get('c2') || '鮨 さかなや';
@@ -585,12 +586,30 @@
       if (event && event.target !== event.currentTarget) return;
       document.getElementById('shopDetailPopup').style.display = 'none';
     }
+    function goBack() {
+      if (flowFrom === '082') {
+        window.location.href = 'wireframe_SCR082_date_confirm.html';
+        return;
+      }
+      if (params.get('target')) {
+        var listUrl = 'wireframe_SCR090_meal_plan_shop_list.html?c1=' + encodeURIComponent(c1) +
+          '&c2=' + encodeURIComponent(c2) + '&c3=' + encodeURIComponent(c3);
+        window.location.href = listUrl;
+        return;
+      }
+      window.location.href = 'wireframe_SCR090_meal_plan_proposal.html';
+    }
     function applyShop() {
       if (!selectedShop) return;
       var selectedName = '';
       if (selectedShop === 'sakana') selectedName = '鮨 さかなや';
       if (selectedShop === 'ebisu') selectedName = '割烹 えびす';
       if (selectedShop === 'maguro') selectedName = '食堂 まぐろとさば';
+      if (flowFrom === '082') {
+        localStorage.setItem('ot-restaurant-name', selectedName);
+        window.location.href = 'wireframe_SCR090_meal_plan_waiting.html?shop=' + encodeURIComponent(selectedName);
+        return;
+      }
       if (target === '1') c1 = selectedName;
       if (target === '2') c2 = selectedName;
       if (target === '3') c3 = selectedName;
