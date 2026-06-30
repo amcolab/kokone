@@ -711,6 +711,7 @@
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link wf-active" href="wireframe_SCR080_photo_request.html"><span class="wf-nav-id">080A</span>Photo Request</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_public.html"><span class="wf-nav-id">090FP</span>Photo Public Chat</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
@@ -783,7 +784,7 @@
     <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
       <div class="confirm-dialog" onclick="event.stopPropagation()">
         <div class="confirm-title">写真公開リクエストを送りますか？</div>
-        <div class="confirm-text">お相手にプロフィール写真の公開リクエストを送信します。</div>
+        <div class="confirm-text">お相手に写真公開の承認リクエストを送信します。承認されると双方のメイン写真が公開されます。</div>
         <div class="confirm-actions">
           <button class="confirm-btn secondary" type="button" onclick="closePhotoRequestConfirm()">キャンセル</button>
           <button class="confirm-btn primary" type="button" onclick="submitPhotoRequest()">送信する</button>
@@ -818,13 +819,23 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">チャット内で安全な写真相互公開の承認依頼を確認し、その場で承認または辞退できる画面。</div>
+          <div class="blp-note highlight">ユーザーAが写真公開リクエストを送信し、ユーザーBが承認すると双方の写真が公開される。どちらか一方が公開解除した場合は双方とも再度モザイク表示になる。</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">フロー</div>
+          <div class="blp-flow">
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>ユーザーA</strong>がチャットメニューから写真公開リクエストを送信（<strong>090F</strong>）</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>ユーザーB</strong>が受信カードで承認または辞退（<strong>080A</strong>）</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>承認時</strong> — 双方のメイン写真が同時に公開される（<strong>062</strong> 公開版）</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">4</div></div><div class="blp-step-text"><strong>公開解除時</strong> — どちらか一方が解除すると双方とも再度モザイク表示</div></div>
+          </div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主な動作</div>
+          <div class="blp-note">チャット内で安全な写真相互公開の承認依頼を確認し、その場で承認または辞退できる画面（ユーザーB側）。</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">カード内の説明で、相互公開であることを明示する。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`断る` で辞退、`承認する` で双方のメイン写真公開を受け入れる。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">承認後は `✓ 写真の公開を許可しました`、辞退後は `リクエストを見送りました` を1行表示する。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`承認する` で双方のメイン写真が同時に公開される。`断る` で辞退。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">承認後は `双方の写真が公開されました`、辞退後は `リクエストを見送りました` を表示。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">表示方針</div>
@@ -834,10 +845,17 @@
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chat để xem yêu cầu mở ảnh chính theo cơ chế hai chiều và quyết định ngay trong cuộc trò chuyện.</div>
+          <div class="blp-note highlight">User A gửi yêu cầu → User B duyệt → cả hai bên được mở ảnh. Nếu một bên hủy công khai thì cả hai quay lại mosaic.</div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Luồng</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">A gửi request (090F) → B nhận card (080A).</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">B chấp nhận → ảnh <strong>cả hai bên</strong> hiển thị công khai.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Một bên hủy công khai → cả hai quay lại mosaic.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-note">Màn chat phía người nhận yêu cầu, quyết định ngay trong cuộc trò chuyện.</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card giải thích rõ đây là cơ chế mở ảnh lẫn nhau.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">`断る` dùng để từ chối, `承認する` dùng để chấp nhận mở ảnh của cả hai bên.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Sau khi chấp nhận/từ chối, hiển thị kết quả ngay trong card bằng một dòng text.</div></div>
@@ -887,7 +905,7 @@
       text.className = 'request-text result';
       if (type === 'approved') {
         card.classList.add('is-approved');
-        text.innerHTML = '<span class="request-status-line approved"><span class="status-check">✓</span><span>写真の公開を許可しました</span></span>';
+        text.innerHTML = '<span class="request-status-line approved"><span class="status-check">✓</span><span>双方の写真が公開されました</span></span>';
       } else {
         card.classList.add('is-declined');
         text.innerHTML = '<span class="request-status-line declined">リクエストを見送りました</span>';

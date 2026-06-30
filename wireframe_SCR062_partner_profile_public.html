@@ -88,7 +88,74 @@
     /* Blur overlay removed or hidden for public version */
     .photo-blur-overlay {
       display: none;
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.15) 0,
+        rgba(255,255,255,0.15) 8px,
+        rgba(0,0,0,0.08) 8px,
+        rgba(0,0,0,0.08) 16px
+      );
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c5);
+      pointer-events: none;
     }
+    .device.is-mosaic .main-photo,
+    .device.is-mosaic .sub-photo img {
+      filter: blur(16px);
+    }
+    .device.is-mosaic .photo-blur-overlay {
+      display: flex;
+    }
+    .revoke-photo-btn {
+      margin: 0 16px 12px;
+      width: calc(100% - 32px);
+      height: 40px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      background: var(--c0);
+      color: var(--c5);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .confirm-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 40;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-dialog {
+      width: 100%;
+      max-width: 300px;
+      background: var(--c0);
+      border-radius: 14px;
+      padding: 20px 18px 16px;
+      border: 1px solid var(--c2);
+    }
+    .confirm-title { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+    .confirm-text { font-size: 12px; color: var(--c5); line-height: 1.6; margin-bottom: 16px; }
+    .confirm-actions { display: flex; gap: 8px; }
+    .confirm-btn {
+      flex: 1;
+      height: 40px;
+      border-radius: 10px;
+      border: 0;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .confirm-btn.secondary { background: var(--c1); color: var(--c5); }
+    .confirm-btn.primary { background: var(--c6); color: var(--c0); }
     .sub-photos {
       display: flex;
       gap: 8px;
@@ -344,11 +411,12 @@
     <div class="back-btn" onclick="history.back()"><</div>
   </div>
 
-  <button class="state-toggle" onclick="window.location.href='wireframe_SCR062_partner_profile.html'">🔒 ぼかし版を表示</button>
+  <button class="state-toggle" id="stateToggleBtn" type="button">🔒 モザイク版を表示</button>
 
   <div class="scroll-content">
     <div class="photo-section">
       <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mizuki" class="main-photo" alt="Profile">
+      <div class="photo-blur-overlay">モザイク表示</div>
     </div>
 
     <div class="sub-photos">
@@ -364,6 +432,8 @@
         <span class="verify-badge">本人確認済</span>
       </div>
     </div>
+
+    <button class="revoke-photo-btn" id="revokePhotoBtn" type="button" onclick="openRevokeConfirm()">写真の公開を解除する</button>
 
     <div class="section-title-full">A. 基本情報</div>
     <div class="intro-section">
@@ -466,6 +536,17 @@
     <div class="secondary-btn">❤</div>
     <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_chat.html'">メッセージを送る</button>
   </div>
+
+  <div id="revokeConfirm" class="confirm-overlay" onclick="closeRevokeConfirm()">
+    <div class="confirm-dialog" onclick="event.stopPropagation()">
+      <div class="confirm-title">写真の公開を解除しますか？</div>
+      <div class="confirm-text">公開を解除すると、お相手の写真も含め双方とも再度モザイク表示になります。</div>
+      <div class="confirm-actions">
+        <button class="confirm-btn secondary" type="button" onclick="closeRevokeConfirm()">キャンセル</button>
+        <button class="confirm-btn primary" type="button" onclick="confirmRevokePhoto()">解除する</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="blp-wrap">
@@ -481,12 +562,19 @@
 
       <div class="blp-section">
         <div class="blp-section-title">画面の目的</div>
-        <div class="blp-note highlight">マッチング成立後、または相互写真公開後のプロフィール表示。写真のモザイク・ブラーが全て解除される。</div>
+        <div class="blp-note highlight">写真公開リクエスト承認後のプロフィール。双方のメイン・サブ写真がモザイクなしで表示される。</div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">写真公開フロー</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>ユーザーA</strong>が写真公開リクエストを送信（090F）</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>ユーザーB</strong>が承認（080A）</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>承認時</strong> — 双方の写真が同時に公開（この画面）</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>公開解除</strong> — どちらか一方が「写真の公開を解除する」を実行すると双方とも再度モザイク表示</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">写真表示の変化</div>
         <div class="blp-rule"><div class="blp-rule-dot">✓</div><div class="blp-rule-text">メイン写真・サブ写真ともにモザイク・ブラーなしでフル表示。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">写真公開は一方向ではなく<strong>相互同意</strong>が必要（photo_requestフロー参照）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">!</div><div class="blp-rule-text">公開は<strong>相互同意</strong>が必要。一方の解除で双方がモザイクに戻る（<code>?mosaic=1</code> でモザイク版を確認）。</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">マッチ後のアクション</div>
@@ -504,12 +592,12 @@
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
       <div class="blp-section-title">Nội dung</div>
-      <div class="blp-note highlight">Trạng thái sau khi matching hoặc khi user đã đồng ý public ảnh cho đối phương.</div>
+      <div class="blp-note highlight">Sau khi B chấp nhận request, ảnh <strong>cả hai bên</strong> hiển thị công khai. Một bên hủy → cả hai quay lại mosaic.</div>
     </div>
     <div class="blp-section">
       <div class="blp-section-title">Trạng thái ảnh</div>
       <p style="font-size:10px; line-height:1.4;">
-        Tất cả ảnh (Main & Sub) được hiển thị rõ nét, không có lớp mờ (blur).
+        Public: ảnh rõ nét. Mosaic (<code>?mosaic=1</code>): blur + lớp mosaic sau khi hủy công khai.
       </p>
     </div>
     </div>
@@ -520,6 +608,41 @@
       document.querySelectorAll('.blp-lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
     }
+    function applyProfilePhotoState() {
+      var isMosaic = new URLSearchParams(window.location.search).get('mosaic') === '1';
+      var device = document.querySelector('.device');
+      var toggleBtn = document.getElementById('stateToggleBtn');
+      var revokeBtn = document.getElementById('revokePhotoBtn');
+      if (isMosaic) {
+        device.classList.add('is-mosaic');
+        if (toggleBtn) {
+          toggleBtn.textContent = '🔓 公開版を表示';
+          toggleBtn.style.background = '#757575';
+        }
+        if (revokeBtn) revokeBtn.style.display = 'none';
+      } else if (toggleBtn) {
+        toggleBtn.textContent = '🔒 モザイク版を表示';
+        toggleBtn.style.background = '#4caf50';
+      }
+    }
+    function toggleProfilePhotoState() {
+      var isMosaic = new URLSearchParams(window.location.search).get('mosaic') === '1';
+      window.location.href = isMosaic
+        ? 'wireframe_SCR062_partner_profile_public.html'
+        : 'wireframe_SCR062_partner_profile_public.html?mosaic=1';
+    }
+    function openRevokeConfirm() {
+      document.getElementById('revokeConfirm').classList.add('open');
+    }
+    function closeRevokeConfirm() {
+      document.getElementById('revokeConfirm').classList.remove('open');
+    }
+    function confirmRevokePhoto() {
+      closeRevokeConfirm();
+      window.location.href = 'wireframe_SCR090_chat_photo_request_sent.html?state=revoked';
+    }
+    document.getElementById('stateToggleBtn').addEventListener('click', toggleProfilePhotoState);
+    document.addEventListener('DOMContentLoaded', applyProfilePhotoState);
   </script>
 
   </div>

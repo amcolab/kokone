@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCR-090F Photo Request Sent</title>
+  <title>SCR-090FP Photo Public Chat</title>
   <style>
     :root {
       --c0: #ffffff;
@@ -712,7 +712,8 @@
     <div class="wf-sidebar-group">
       <div class="wf-group-label">E · Chat & Review</div>
       <a class="wf-nav-link" href="wireframe_SCR080_photo_request.html"><span class="wf-nav-id">080A</span>Photo Request</a>
-      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
+      <a class="wf-nav-link wf-active" href="wireframe_SCR090_chat_photo_public.html"><span class="wf-nav-id">090FP</span>Photo Public Chat</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
@@ -731,33 +732,55 @@
         <div class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</div>
         <div class="avatar"></div>
         <div class="header-meta">
-          <div class="name-row">Rina</div>
+          <div class="name-row">Saki</div>
           <div class="online">オンライン</div>
         </div>
       </div>
       <div class="menu-icon" onclick="toggleHeaderMenu()">⋮</div>
     </div>
-    <div class="progress">
-      <div class="step active">食事プラン提案</div>
-      <div class="step">双方承認</div>
-      <div class="step">予約手続き</div>
-      <div class="step">予約完了</div>
-    </div>
     <div class="chat-body">
-      <div class="date-divider">本日</div>
+      <div class="date-divider">昨日</div>
+      <div class="message-row">
+        <div class="mini-avatar"></div>
+        <div class="message-stack">
+          <div class="bubble">はじめまして！<br>よろしくお願いします。</div>
+          <div class="time">昨日 17:40</div>
+        </div>
+      </div>
       <div class="message-row sent">
         <div class="message-stack">
-          <div class="bubble sent">写真公開リクエストを送りました。</div>
-          <div class="time" style="text-align:right;">18:02</div>
+          <div class="bubble sent">こちらこそ、よろしくお願いします！</div>
+          <div class="time" style="text-align:right;">昨日 17:42</div>
         </div>
       </div>
-      <div class="request-card is-waiting" id="photoRequestCard">
-        <div class="request-icon" id="requestCardIcon">⏳</div>
-        <div style="flex:1;">
-          <div class="request-text" id="requestCardText">写真リクエストを送信しました。相手の返答をお待ちください。</div>
+      <div class="message-row">
+        <div class="mini-avatar"></div>
+        <div class="message-stack">
+          <div class="bubble">お互いの写真、見せ合えて嬉しいです。<br>どんなお店が好きですか？</div>
+          <div class="time">昨日 17:45</div>
         </div>
       </div>
-      <div class="system-notice" id="photoRequestNotice" style="display:none;"></div>
+      <div class="message-row sent">
+        <div class="message-stack">
+          <div class="bubble sent">和食が好きです！<br>落ち着いたお店でゆっくり話せたら嬉しいです。</div>
+          <div class="time" style="text-align:right;">昨日 17:48</div>
+        </div>
+      </div>
+      <div class="date-divider">本日</div>
+      <div class="message-row">
+        <div class="mini-avatar"></div>
+        <div class="message-stack">
+          <div class="bubble">いいですね！<br>では今度、おすすめのお店を探してみますね。</div>
+          <div class="time">10:15</div>
+        </div>
+      </div>
+      <div class="message-row sent">
+        <div class="message-stack">
+          <div class="bubble sent">楽しみにしています！</div>
+          <div class="time" style="text-align:right;">10:18</div>
+        </div>
+      </div>
+      <div class="system-notice" id="photoRevokeNotice" style="display:none;"></div>
     </div>
     <div class="input-bar">
       <div class="circle-btn">+</div>
@@ -766,9 +789,19 @@
     </div>
     <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
       <div class="header-menu-sheet" onclick="event.stopPropagation()">
-        <button class="header-menu-item" type="button" onclick="openPhotoRequestConfirm()">写真公開リクエスト</button>
+        <button class="header-menu-item" id="photoMenuBtn" type="button" onclick="handlePhotoMenuAction()">写真公開解除</button>
         <button class="header-menu-item" type="button" onclick="goToReport()">通報する</button>
         <button class="header-menu-item" type="button" onclick="blockUser()">ブロックする</button>
+      </div>
+    </div>
+    <div id="photoRevokeConfirm" class="confirm-overlay" onclick="closePhotoRevokeConfirm()">
+      <div class="confirm-dialog" onclick="event.stopPropagation()">
+        <div class="confirm-title">写真の公開を解除しますか？</div>
+        <div class="confirm-text">公開を解除すると、お相手の写真も含め双方とも再度モザイク表示になります。</div>
+        <div class="confirm-actions">
+          <button class="confirm-btn secondary" type="button" onclick="closePhotoRevokeConfirm()">キャンセル</button>
+          <button class="confirm-btn primary" type="button" onclick="confirmPhotoRevoke()">解除する</button>
+        </div>
       </div>
     </div>
     <div id="photoRequestConfirm" class="confirm-overlay" onclick="closePhotoRequestConfirm()">
@@ -786,9 +819,9 @@
   <div class="blp-wrap">
     <div class="blp-head">
       <div class="blp-head-info">
-        <div class="blp-head-scr">SCR-090F</div>
-        <div class="blp-head-title">Photo Request Sent</div>
-        <div class="blp-head-sub">送信側・返答待ち / Người gửi chờ phản hồi</div>
+        <div class="blp-head-scr">SCR-090FP</div>
+        <div class="blp-head-title">Photo Public Chat</div>
+        <div class="blp-head-sub">双方公開中チャット / Chat khi ảnh đã mở hai chiều</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -809,41 +842,34 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">ユーザーA（送信側）のチャット。相手の承認待ち・双方公開完了・公開解除後の表示を確認する。</div>
+          <div class="blp-note highlight">双方の写真が公開された後の通常チャット。メニュー（⋮）から写真公開解除・通報・ブロックが可能。</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">フロー</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>ユーザーA</strong>がリクエスト送信 → 返答待ち</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>ユーザーB</strong>が承認 → 双方の写真が同時に公開</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">どちらか一方が<strong>公開解除</strong> → 双方とも再度モザイク表示</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">主な状態</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>返答待ち</strong> — `写真リクエストを送信しました。相手の返答をお待ちください。`（ボタンなし）</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>相手が承認</strong> — `双方の写真が公開されました。プロフィールから確認できます。`</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>相手が辞退</strong> — カードを隠し、システム通知 `お相手は写真を非公開にしています。仲が深まったら再度リクエストしてみましょう。`</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>公開解除</strong> — `写真の公開が解除されました。双方とも再度モザイク表示になります。`</div></div>
+          <div class="blp-section-title">メニュー挙動</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>写真公開解除</strong> — 確認後、双方がモザイク表示に戻る。メニュー項目は<strong>写真公開リクエスト</strong>に切り替わる。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>通報する</strong> → 103</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>ブロックする</strong> — トースト表示</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Wireframe切替</div>
-          <div class="blp-note"><a href="wireframe_SCR090_chat_photo_request_sent.html">返答待ち</a> / <a href="wireframe_SCR090_chat_photo_request_sent.html?state=approved">双方公開</a> / <a href="wireframe_SCR090_chat_photo_request_sent.html?state=declined">相手辞退</a></div>
+          <div class="blp-note"><a href="wireframe_SCR090_chat_photo_public.html">双方公開中</a> / <a href="wireframe_SCR090_chat_photo_public.html?revoked=1">公開解除後</a></div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chat phía người đã gửi yêu cầu mở ảnh, chờ hoặc nhận kết quả từ đối phương.</div>
+          <div class="blp-note highlight">Chat bình thường khi ảnh hai bên đã public. Menu ⋮ có 写真公開解除 / 通報 / ブロック.</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">Trạng thái</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Chờ phản hồi: card xám nhạt, không có nút.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Đối phương đồng ý → <strong>ảnh cả hai bên</strong> được công khai.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Một bên hủy công khai → cả hai quay lại mosaic.</div></div>
+          <div class="blp-section-title">Menu</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Hủy công khai → xác nhận → nút đổi thành 写真公開リクエスト.</div></div>
         </div>
       </div>
     </div>
   </div>
   <script>
+    var photoPublicRevoked = false;
+
     function toggleHeaderMenu() {
       document.getElementById('headerMenuOverlay').classList.toggle('open');
     }
@@ -875,34 +901,57 @@
       showActionToast('ブロックしました');
     }
 
-    function applySenderPhotoRequestState() {
-      var state = new URLSearchParams(window.location.search).get('state') || 'waiting';
-      var card = document.getElementById('photoRequestCard');
-      var notice = document.getElementById('photoRequestNotice');
-      var icon = document.getElementById('requestCardIcon');
-      var text = document.getElementById('requestCardText');
-      card.style.display = 'flex';
-      notice.style.display = 'none';
-      if (state === 'approved') {
-        card.className = 'request-card is-approved-partner';
-        icon.textContent = '✨';
-        text.innerHTML = '<span class="request-status-line celebrate"><span class="status-sparkle">✨</span><span>双方の写真が公開されました。プロフィールから確認できます。</span></span>';
-      } else if (state === 'declined') {
-        card.style.display = 'none';
-        notice.style.display = 'block';
-        notice.textContent = 'お相手は写真を非公開にしています。仲が深まったら再度リクエストしてみましょう。';
-      } else if (state === 'revoked') {
-        card.style.display = 'none';
-        notice.style.display = 'block';
-        notice.textContent = '写真の公開が解除されました。双方とも再度モザイク表示になります。';
+    function updatePhotoMenuButton() {
+      var btn = document.getElementById('photoMenuBtn');
+      if (!btn) return;
+      btn.textContent = photoPublicRevoked ? '写真公開リクエスト' : '写真公開解除';
+    }
+
+    function handlePhotoMenuAction() {
+      closeHeaderMenu();
+      if (photoPublicRevoked) {
+        openPhotoRequestConfirm();
       } else {
-        card.className = 'request-card is-waiting';
-        icon.textContent = '⏳';
-        text.textContent = '写真リクエストを送信しました。相手の返答をお待ちください。';
+        openPhotoRevokeConfirm();
       }
     }
 
-    document.addEventListener('DOMContentLoaded', applySenderPhotoRequestState);
+    function openPhotoRevokeConfirm() {
+      document.getElementById('photoRevokeConfirm').classList.add('open');
+    }
+
+    function closePhotoRevokeConfirm() {
+      document.getElementById('photoRevokeConfirm').classList.remove('open');
+    }
+
+    function confirmPhotoRevoke() {
+      closePhotoRevokeConfirm();
+      photoPublicRevoked = true;
+      updatePhotoMenuButton();
+      var notice = document.getElementById('photoRevokeNotice');
+      if (notice) {
+        notice.style.display = 'block';
+        notice.textContent = '写真の公開が解除されました。双方とも再度モザイク表示になります。';
+      }
+      showActionToast('写真の公開を解除しました');
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', 'wireframe_SCR090_chat_photo_public.html?revoked=1');
+      }
+    }
+
+    function applyPhotoPublicState() {
+      photoPublicRevoked = new URLSearchParams(window.location.search).get('revoked') === '1';
+      updatePhotoMenuButton();
+      if (photoPublicRevoked) {
+        var notice = document.getElementById('photoRevokeNotice');
+        if (notice) {
+          notice.style.display = 'block';
+          notice.textContent = '写真の公開が解除されました。双方とも再度モザイク表示になります。';
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', applyPhotoPublicState);
 
     function showActionToast(message) {
       var toast = document.getElementById('actionToast');

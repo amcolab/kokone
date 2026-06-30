@@ -60,15 +60,15 @@
     .content {
       flex: 1;
       overflow-y: auto;
-      background: var(--c1);
-      padding: 14px;
+      background: #f7f7f7;
+      padding: 12px 10px 16px;
     }
-    .info-card, .restaurant-card, .note-card {
-      border: 1px solid var(--c2);
-      background: var(--c0);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
+    .note-card {
+      border: 1px solid #dfdfdf;
+      background: #f1f1f1;
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-bottom: 10px;
     }
     .info-head {
       display: flex;
@@ -190,10 +190,10 @@
     }
     .primary-btn {
       width: 100%;
-      height: 44px;
+      height: 36px;
       border: 0;
-      border-radius: 999px;
-      background: var(--c5);
+      border-radius: 8px;
+      background: #1f1f1f;
       color: var(--c0);
       font-size: 13px;
       font-weight: 700;
@@ -201,7 +201,7 @@
       margin-top: 8px;
     }
     .primary-btn.danger {
-      background: #b71c1c;
+      background: #1f1f1f;
     }
     .primary-btn:disabled {
       opacity: 0.45;
@@ -298,55 +298,137 @@
     }
     .secondary-btn {
       width: 100%;
-      height: 44px;
-      border: 1px solid var(--c2);
-      border-radius: 999px;
-      background: var(--c0);
-      color: var(--c5);
-      font-size: 13px;
+      height: 33px;
+      border: 1px solid #c8c8c8;
+      border-radius: 7px;
+      background: #fafafa;
+      color: #555;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 9px;
     }
     .step-card {
-      border: 1px solid var(--c2);
-      background: var(--c0);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 12px;
+      border: 1px solid #dfdfdf;
+      background: #f2f2f2;
+      border-radius: 8px;
+      padding: 10px 10px 9px;
+      margin-bottom: 8px;
     }
     .step-head {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
     }
     .step-badge {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #e65100;
-      color: var(--c0);
-      font-size: 11px;
+      width: 14px;
+      color: #303030;
+      font-size: 21px;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      line-height: 1;
       flex-shrink: 0;
     }
-    .step-badge.muted {
-      background: var(--c0);
-      border: 1px solid var(--c2);
-      color: var(--c6);
-    }
     .step-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .step-desc {
       font-size: 11px;
-      color: var(--c5);
+      color: #666;
+      line-height: 1.45;
+    }
+    .attention-list {
+      margin: 3px 0 0 14px;
+      color: #555;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+    .attention-list li + li {
+      margin-top: 4px;
+    }
+    .policy-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+      padding: 14px;
+    }
+    .policy-overlay.open {
+      display: flex;
+    }
+    .policy-modal {
+      width: 100%;
+      max-width: 320px;
+      max-height: calc(100% - 20px);
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      padding: 12px;
+    }
+    .policy-modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .policy-modal-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #222;
+    }
+    .policy-close-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cfcfcf;
+      background: #f8f8f8;
+      color: #444;
+      font-size: 14px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .policy-list {
+      border: 1px solid #dfdfdf;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .policy-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      font-size: 10px;
+      border-bottom: 1px solid #ededed;
+      background: #fafafa;
+    }
+    .policy-item:last-child {
+      border-bottom: 0;
+    }
+    .policy-item-label {
+      color: #666;
+    }
+    .policy-item-value {
+      color: #222;
+      font-weight: 700;
+      text-align: right;
+    }
+    .policy-sample {
+      border: 1px solid #dfdfdf;
+      border-radius: 8px;
+      background: #f7f7f7;
+      padding: 10px;
+      font-size: 10px;
       line-height: 1.6;
+      color: #2d2d2d;
+      white-space: pre-line;
     }
     .policy-section-title {
       font-size: 13px;
@@ -580,15 +662,26 @@
     </div>
     <div class="content">
       <div class="note-card">
-        <div style="font-size:11px; color:var(--c5); line-height:1.6;">キャンセル前に以下をご確認ください</div>
+      <div style="font-size:12px; color:#595959; line-height:1.55;">キャンセルする前に、<br>以下の内容をご確認ください。</div>
       </div>
 
       <div class="step-card">
         <div class="step-head">
-          <div class="step-badge muted">1</div>
+          <div class="step-badge">1</div>
           <div>
-            <div class="step-title">お相手に相談しましょう</div>
-            <div class="step-desc">まずは相手に相談しましょう。ご都合が合わない場合は日程調整も可能です。</div>
+            <div class="step-title">キャンセルポリシーを確認する</div>
+            <div class="step-desc">キャンセル料が発生する場合があります</div>
+          </div>
+        </div>
+        <button class="secondary-btn" type="button" onclick="openPolicyInfo()">ポリシーを確認する</button>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="step-title">相手に事情相談しましょう</div>
+            <div class="step-desc">キャンセル理由と事情をなるべくご配慮してした上で、チャットに戻ることをご提案しています。</div>
           </div>
         </div>
         <button class="secondary-btn" type="button" onclick="window.location.href='wireframe_SCR087_booking_confirmed.html'">チャットに戻る</button>
@@ -596,68 +689,36 @@
 
       <div class="step-card">
         <div class="step-head">
-          <div class="step-badge">2</div>
+          <div class="step-badge">3</div>
           <div>
-            <div class="step-title">キャンセルポリシーの確認</div>
-            <div class="step-desc">内容をご確認のうえ、キャンセルへ進んでください。</div>
+            <div class="step-title">キャンセルの注意事項</div>
+            <ul class="attention-list">
+              <li>当日の無断キャンセルでお店が100%請求の対象となる場合があります。</li>
+              <li>お相手がキャンセル理由を受信した時点で、キャンセルしたとみなされることがあります。</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <div class="policy-section-title">キャンセルポリシー</div>
-      <div class="policy-card">
-        <div class="policy-block">
-          <div class="policy-block-title">キャンセル料</div>
-          <div class="policy-row">
-            <div class="policy-row-label">1営業日前まで</div>
-            <div class="policy-row-value">平均単価の50%以内</div>
-          </div>
-          <div class="policy-row">
-            <div class="policy-row-label">当日キャンセル</div>
-            <div class="policy-row-value">平均単価の100%以内</div>
-          </div>
-          <div class="policy-row">
-            <div class="policy-row-label">無断キャンセル</div>
-            <div class="policy-row-value">平均単価の100%以内</div>
-          </div>
+      <button id="cancelBtn" class="primary-btn danger" type="button" onclick="confirmCancel()">上記に同意してキャンセルする</button>
+    </div>
+
+    <div id="policyOverlay" class="policy-overlay" onclick="closePolicyInfo(event)">
+      <div class="policy-modal" onclick="event.stopPropagation()">
+        <div class="policy-modal-head">
+          <div class="policy-modal-title">キャンセル料シミュレーション</div>
+          <button class="policy-close-btn" type="button" onclick="closePolicyInfo()">×</button>
         </div>
-        <div class="policy-block">
-          <div class="policy-block-title">負担ルール</div>
-          <div class="policy-row">
-            <div class="policy-row-label">原則</div>
-            <div class="policy-row-value">原因となった側が負担</div>
-          </div>
-          <div class="policy-row">
-            <div class="policy-row-label">双方責任の場合</div>
-            <div class="policy-row-value">50:50で負担</div>
-          </div>
+        <div class="policy-list">
+          <div class="policy-item"><div class="policy-item-label">ランチ前日キャンセル料</div><div class="policy-item-value">1,925円 × 人数</div></div>
+          <div class="policy-item"><div class="policy-item-label">ランチ当日キャンセル料</div><div class="policy-item-value">3,850円 × 人数</div></div>
+          <div class="policy-item"><div class="policy-item-label">ディナー前日キャンセル料</div><div class="policy-item-value">2,750円 × 人数</div></div>
+          <div class="policy-item"><div class="policy-item-label">ディナー当日キャンセル料</div><div class="policy-item-value">5,500円 × 人数</div></div>
+          <div class="policy-item"><div class="policy-item-label">無断キャンセル料</div><div class="policy-item-value">100%（目安）</div></div>
+          <div class="policy-item"><div class="policy-item-label">無料期限</div><div class="policy-item-value">2営業日前まで</div></div>
+          <div class="policy-item"><div class="policy-item-label">特記事項</div><div class="policy-item-value">店舗・プランにより変動</div></div>
         </div>
       </div>
-
-      <div class="policy-section-title">キャンセル理由</div>
-      <div class="reason-card">
-        <div class="reason-option" onclick="selectCancelReason('self', this)">
-          <div class="reason-radio"></div>
-          <div class="reason-label">自己都合によるキャンセル</div>
-        </div>
-        <div class="reason-option" onclick="selectCancelReason('partner', this)">
-          <div class="reason-radio"></div>
-          <div class="reason-label">相手都合によるキャンセル</div>
-        </div>
-        <div class="reason-option" onclick="selectCancelReason('mutual', this)">
-          <div class="reason-radio"></div>
-          <div class="reason-label">双方合意によるキャンセル</div>
-        </div>
-      </div>
-
-      <div id="partnerReasonDetail" class="reason-detail">
-        <div class="reason-detail-label">相手都合の理由</div>
-        <div class="reason-detail-hint">お相手の都合によりキャンセルとなる場合、具体的な内容をご記入ください。</div>
-        <textarea id="partnerReasonInput" class="reason-textarea" maxlength="300" placeholder="例：お相手より当日の急なご都合でキャンセル希望の連絡がありました" oninput="updatePartnerReasonCounter(); updateCancelBtnState();"></textarea>
-        <div id="partnerReasonCounter" class="reason-counter">0 / 300</div>
-      </div>
-
-      <button id="cancelBtn" class="primary-btn danger" type="button" disabled onclick="confirmCancel()">上記に同意してキャンセルする</button>
     </div>
   </div>
 
@@ -679,46 +740,18 @@
   </div>
 
   <script>
-    var selectedCancelReason = '';
-
-    function selectCancelReason(reason, el) {
-      selectedCancelReason = reason;
-      document.querySelectorAll('.reason-option').forEach(function (item) {
-        item.classList.remove('selected');
-      });
-      el.classList.add('selected');
-      var partnerDetail = document.getElementById('partnerReasonDetail');
-      if (reason === 'partner') {
-        partnerDetail.classList.add('open');
-      } else {
-        partnerDetail.classList.remove('open');
-      }
-      updateCancelBtnState();
+    function openPolicyInfo() {
+      document.getElementById('policyOverlay').classList.add('open');
     }
 
-    function updatePartnerReasonCounter() {
-      var input = document.getElementById('partnerReasonInput');
-      document.getElementById('partnerReasonCounter').textContent = input.value.length + ' / 300';
-    }
-
-    function updateCancelBtnState() {
-      var btn = document.getElementById('cancelBtn');
-      if (!selectedCancelReason) {
-        btn.disabled = true;
-        return;
-      }
-      if (selectedCancelReason === 'partner') {
-        var text = document.getElementById('partnerReasonInput').value.trim();
-        btn.disabled = text.length === 0;
-        return;
-      }
-      btn.disabled = false;
+    function closePolicyInfo(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('policyOverlay').classList.remove('open');
     }
 
     function confirmCancel() {
-      if (!selectedCancelReason) return;
-      if (selectedCancelReason === 'partner' && !document.getElementById('partnerReasonInput').value.trim()) return;
       alert('キャンセルしました');
+      window.location.href = 'wireframe_SCR065_match.html';
     }
 
     function setBlpLang(lang) {
