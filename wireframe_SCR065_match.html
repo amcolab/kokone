@@ -878,6 +878,8 @@
       <a class="wf-nav-link" href="wireframe_SCR080_photo_request.html"><span class="wf-nav-id">080A</span>Photo Request</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_request_sent.html"><span class="wf-nav-id">090F</span>Photo Request Sent</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_photo_public.html"><span class="wf-nav-id">090FP</span>Photo Public Chat</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_chat_date_day.html"><span class="wf-nav-id">090Q</span>Chat Date Day</a>
+      <a class="wf-nav-link" href="wireframe_SCR090_support_no_show.html"><span class="wf-nav-id">090R</span>Support No-Show</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat.html"><span class="wf-nav-id">090</span>Chat 1:1</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_intro.html"><span class="wf-nav-id">090A</span>Chat Schedule Intro</a>
       <a class="wf-nav-link" href="wireframe_SCR090_chat_schedule_pending.html"><span class="wf-nav-id">090B</span>Chat Waiting</a>
@@ -1169,6 +1171,22 @@
             </div>
           </div>
         </div>
+
+        <div class="match-item" style="cursor:pointer;" onclick="window.location.href='wireframe_SCR090_chat_date_day.html'">
+          <div class="photo-box">✕✕</div>
+          <div class="match-info">
+            <div class="match-name-row">
+              <div class="match-name-main">
+                <div class="match-name">Nao · 33歳</div>
+                <div class="status-pill confirmed inline">予約完了</div>
+              </div>
+              <div class="match-time">30分前</div>
+            </div>
+            <div class="action-wrap">
+              <div class="match-preview">本日19:00お待ち合わせ。来店がない場合の案内はチャット内</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="section-history" class="tab-content">
@@ -1400,6 +1418,13 @@
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>承認時</strong> — 双方の写真が同時に公開（<strong>062</strong> 公開版）</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>公開解除</strong> — どちらか一方が解除すると双方とも再度モザイク（062 <code>?mosaic=1</code> / 090F <code>?state=revoked</code>）</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>双方公開中チャット</strong> — <strong>090FP</strong>（Saki行）メニューから写真公開解除 → 解除後は写真公開リクエストに切替</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">当日・お相手未来店（Nao行）</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>待機</strong> — 来店予定時刻から約15分程度待機。チャットで相手へ連絡。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>報告</strong> — 待機後も来店しない場合、<strong>090Q</strong> から <strong>090R</strong> へ報告。報告後は店舗スタッフの案内に従う（退店または食事を続ける等）。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>運営</strong> — リアルタイム対応なし。後日、申告内容・チャット履歴・店舗確認により無断キャンセル等の事実確認。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text"><strong>065</strong> Nao（予約完了）→ <strong>090Q</strong> → <strong>090R</strong></div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">募集成立</div>
