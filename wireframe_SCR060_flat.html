@@ -2025,6 +2025,25 @@
       display: none !important;
     }
     
+    .act-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .act-item button {
+      pointer-events: auto;
+    }
+
+    .act-label {
+      font-size: 11px;
+      color: #757575;
+      font-weight: 500;
+      line-height: 1;
+    }
+
     .act-btn-skip {
       width: 54px;
       height: 54px;
@@ -2088,6 +2107,31 @@
       0% { transform: scale(1); }
       40% { transform: scale(1.18); }
       100% { transform: scale(1); }
+    }
+
+    .act-btn-treat {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1.5px solid #d0d0d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s;
+    }
+
+    .act-btn-treat:active {
+      transform: scale(0.92);
+    }
+
+    .act-btn-treat svg {
+      stroke: #616161;
+      width: 24px;
+      height: 24px;
     }
     
     /* Menubar / Bottom Nav Redesign - Grayscale */
@@ -2251,17 +2295,34 @@
         </div>
       </div>
       <div class="action-row">
-        <button class="act-btn-skip" id="btnSkip" onclick="skipCard()" title="スキップ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-        <button class="act-btn-like" id="btnLike" onclick="showLikePopup()" title="いいね">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-        </button>
+        <div class="act-item">
+          <button class="act-btn-skip" id="btnSkip" onclick="skipCard()" title="スキップ">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+          <span class="act-label">スキップ</span>
+        </div>
+        <div class="act-item">
+          <button class="act-btn-like" id="btnLike" onclick="showLikePopup()" title="いいね">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+          <span class="act-label">いいね</span>
+        </div>
+        <div class="act-item">
+          <button class="act-btn-treat" id="btnTreat" onclick="showTreatConfirm()" title="ごちそうする">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 22h8" />
+              <path d="M12 15v7" />
+              <path d="M5 3h14l-1 6a6 6 0 0 1-12 0L5 3z" />
+              <path d="M5.5 6h13" />
+            </svg>
+          </button>
+          <span class="act-label">ごちそうする</span>
+        </div>
       </div>
       <script>
         var CANDIDATES = [
@@ -2988,6 +3049,26 @@
           }, 450);
         }
 
+        function showTreatConfirm() {
+          if (viewOnly) return;
+          if (selectedShopIndex === null) {
+            alert('いいねする前に、お店を1つ選択してください');
+            return;
+          }
+          document.getElementById('treatConfirmPopup').style.display = 'flex';
+        }
+        function closeTreatConfirm() {
+          document.getElementById('treatConfirmPopup').style.display = 'none';
+        }
+        function confirmTreatLike() {
+          document.getElementById('treatConfirmPopup').style.display = 'none';
+          document.getElementById('treatSuccessPopup').style.display = 'flex';
+        }
+        function closeTreatSuccess() {
+          document.getElementById('treatSuccessPopup').style.display = 'none';
+          performLike();
+        }
+
         function closeWelcomePopup() {
           document.getElementById('welcomePopup').style.display = 'none';
         }
@@ -3200,6 +3281,52 @@
             <button class="m-btn" onclick="closeLikePopup()"
               style="background:transparent; color:var(--c4); border:1px solid var(--c3); padding:10px; font-size:12px; width:100%; cursor:pointer;">キャンセル</button>
           </div>
+        </div>
+      </div>
+
+      <!-- TREAT CONFIRM POPUP -->
+      <div id="treatConfirmPopup" class="modal-overlay" style="display:none;">
+        <div class="modal-content" style="border-radius:16px; padding:28px 22px;">
+          <div style="margin-bottom:14px; display:flex; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#b08333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 22h8" />
+              <path d="M12 15v7" />
+              <path d="M5 3h14l-1 6a6 6 0 0 1-12 0L5 3z" />
+              <path d="M5.5 6h13" />
+            </svg>
+          </div>
+          <div class="modal-title" style="line-height:1.5;">ごちそうする内容で<br>いいねしますか？</div>
+          <div class="modal-desc" style="text-align:center; margin-bottom:8px;">
+            マッチ後に食事が成立した場合、お会計はあなたが負担する設定になります。
+          </div>
+          <div class="modal-desc" style="text-align:center; margin-bottom:22px;">
+            この内容は食事プラン提案時にも表示されます。
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button onclick="closeTreatConfirm()"
+              style="flex:1; background:transparent; color:var(--c4); border:1px solid var(--c3); padding:12px; border-radius:24px; font-size:13px; cursor:pointer;">戻る</button>
+            <button onclick="confirmTreatLike()"
+              style="flex:1.4; background:#b08333; color:#fff; border:none; padding:12px; border-radius:24px; font-size:13px; font-weight:bold; cursor:pointer;">ごちそうでいいね</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TREAT SUCCESS POPUP -->
+      <div id="treatSuccessPopup" class="modal-overlay" style="display:none;">
+        <div class="modal-content" style="border-radius:16px; padding:28px 22px;">
+          <div style="margin-bottom:16px; display:flex; justify-content:center;">
+            <div style="width:52px; height:52px; border-radius:50%; background:#e85a8a; display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="#fff">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="modal-title" style="line-height:1.5;">ごちそうでいいねを<br>送りました！</div>
+          <div class="modal-desc" style="text-align:center; margin-bottom:24px;">
+            お相手からのいいねを待ちましょう。
+          </div>
+          <button onclick="closeTreatSuccess()"
+            style="width:100%; background:transparent; color:#e85a8a; border:1.5px solid #e85a8a; padding:12px; border-radius:24px; font-size:13px; font-weight:bold; cursor:pointer;">閉じる</button>
         </div>
       </div>
       <div class="app-bottom-nav">

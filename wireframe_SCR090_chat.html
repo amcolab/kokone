@@ -332,6 +332,36 @@
             flex-direction: column;
             gap: 12px;
         }
+        .gochisou-notice {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 14px 16px;
+        }
+        .gochisou-notice-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #616161;
+            flex-shrink: 0;
+        }
+        .gochisou-notice-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+        .gochisou-notice-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #424242;
+            line-height: 1.55;
+        }
         .date-divider {
             align-self: center;
             padding: 4px 16px;
@@ -881,30 +911,26 @@
         </div>
 
         <div class="chat-area" id="chatArea">
-            <button class="match-banner" type="button" onclick="openWizard()">
-                <div class="match-banner-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M4 5h5l-1 5a2.5 2.5 0 0 1-5 0L4 5z"></path>
-                        <path d="M15 5h5l1 5a2.5 2.5 0 0 1-5 0L15 5z"></path>
-                        <path d="M9 5l3 14"></path>
-                        <path d="M15 5l-3 14"></path>
-                        <path d="M9 21h6"></path>
-                    </svg>
-                </div>
-                <div>
-                    <div class="match-banner-title">マッチが成立しました！</div>
-                    <div class="match-banner-text">まずは一緒に食事の日程を決めましょう♪</div>
-                </div>
-            </button>
-
             <div class="chat-timeline" id="chatTimeline">
                 <div class="date-divider">今日</div>
                 <div class="message-group received">
                     <div class="brand-badge">OT</div>
                     <div class="message-stack">
-                        <div class="message-bubble system-bubble"><strong>OtonaTableへようこそ！</strong>マッチありがとうございます。<br>まずは気軽に会話を楽しんでみてください。<br>お二人のやり取りをもとに、<br>後ほどOtonaTableから食事プランをご提案します。</div>
-                        <div class="message-time">09:41</div>
+                        <div class="message-bubble system-bubble"><strong>🎉 マッチが成立しました！</strong>まずはメッセージを送ってみましょう。<br>その後、OtonaTableから<br>お二人に合った食事プランをご提案します。</div>
+                        <div class="message-time">10:30</div>
                     </div>
+                </div>
+
+                <div class="gochisou-notice">
+                    <div class="gochisou-notice-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 22h8" />
+                            <path d="M12 15v7" />
+                            <path d="M5 3h14l-1 6a6 6 0 0 1-12 0L5 3z" />
+                            <path d="M5.5 6h13" />
+                        </svg>
+                    </div>
+                    <div class="gochisou-notice-text">今回のお会計は、あなたが<br>ごちそうする設定になっています。</div>
                 </div>
             </div>
 

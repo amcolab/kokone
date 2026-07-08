@@ -242,6 +242,44 @@
       text-align: right;
     }
 
+    .date-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .location-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .gochisou-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      width: fit-content;
+      background: #f7efe0;
+      color: #a5762a;
+      border: 1px solid #e3cfa4;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .gochisou-badge svg {
+      width: 11px;
+      height: 11px;
+      stroke: #a5762a;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
     .action-buttons {
       display: flex;
       gap: 8px;
@@ -816,7 +854,18 @@
               <div class="user-name">ほなみさん · 28歳</div>
               <div class="sent-date">4時間前</div>
             </div>
-            <div class="user-location">渋谷区</div>
+            <div class="location-row">
+              <div class="user-location">渋谷区</div>
+              <div class="gochisou-badge">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 22h8" />
+                  <path d="M12 15v7" />
+                  <path d="M5 3h14l-1 6a6 6 0 0 1-12 0L5 3z" />
+                  <path d="M5.5 6h13" />
+                </svg>
+                ごちそう
+              </div>
+            </div>
             <div class="action-buttons">
               <div class="btn">ごめんなさい</div>
               <div class="btn primary" onclick="showMatchPopup()">いいね返す ♥</div>
@@ -860,7 +909,18 @@
                 <div class="user-name">あいさん · 31歳</div>
                 <div class="sent-date">5日前</div>
               </div>
-              <div class="user-location">品川区</div>
+              <div class="location-row">
+                <div class="user-location">品川区</div>
+                <div class="gochisou-badge">
+                  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 22h8" />
+                    <path d="M12 15v7" />
+                    <path d="M5 3h14l-1 6a6 6 0 0 1-12 0L5 3z" />
+                    <path d="M5.5 6h13" />
+                  </svg>
+                  ごちそう
+                </div>
+              </div>
             </div>
           </div>
 

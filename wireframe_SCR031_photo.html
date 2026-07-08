@@ -322,6 +322,9 @@
       padding: 0 12px 14px;
       background: #f3f3f3;
       overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .header {
@@ -358,162 +361,415 @@
       display: none;
     }
 
-    .section {
-      margin-bottom: 0;
+    :root {
+      --pink: #e84b8a;
+      --pink-light: #fce4ef;
+      --pink-soft: #fff0f6;
     }
 
-    .section-title {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .description {
-      font-size: 12px;
-      line-height: 1.5;
-      color: #555555;
+    .intro-row {
       margin-bottom: 14px;
     }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+    .intro-text {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #555;
     }
 
-    .photo-card {
-      min-height: 220px;
-      border: 1px dashed #c7c7c7;
-      border-radius: 14px;
-      background: #f8f8f8;
+    .photo-section-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-head h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #212121;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 10px;
+      line-height: 1.3;
+    }
+
+    .badge-required {
+      background: var(--pink);
+      color: #fff;
+    }
+
+    .badge-optional {
+      background: #e8e8e8;
+      color: #666;
+    }
+
+    .sub-counter {
+      font-size: 11px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .section-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .main-photo-layout {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .main-photo-left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .main-photo-left .section-head {
+      margin-bottom: 6px;
+    }
+
+    .main-photo-left .section-desc {
+      margin-bottom: 12px;
+    }
+
+    .blur-panel {
+      border: 1px solid #eee;
+      border-radius: 10px;
       padding: 10px;
+      background: #fafafa;
+    }
+
+    .blur-panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .blur-panel-label {
+      font-size: 11px;
+      color: #444;
+      font-weight: 600;
+    }
+
+    .blur-panel-value {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pink);
+    }
+
+    .blur-slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: #999;
+      margin-top: 6px;
+    }
+
+    .main-photo-preview {
+      flex: 0 0 118px;
+      width: 118px;
+      height: 156px;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ddd;
+      --photo-blur: 4px;
+      isolation: isolate;
+      flex-shrink: 0;
+    }
+
+    .main-photo-preview.empty {
+      border: 1.5px dashed #ccc;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .main-photo-preview.empty span {
+      font-size: 10px;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .main-photo-preview .mock-photo {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tip-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: var(--pink-soft);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 10px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .tip-box .bulb {
+      flex-shrink: 0;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .sub-photo-grid {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .sub-photo-grid::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .sub-photo-grid::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .sub-slot {
       position: relative;
       display: flex;
       flex-direction: column;
+      flex: 0 0 calc((100% - 16px) / 3);
+      width: calc((100% - 16px) / 3);
+      min-width: calc((100% - 16px) / 3);
+      scroll-snap-align: start;
     }
 
-    .photo-card.filled {
-      --photo-blur: 4px;
-      background: #f5f5f5;
+    .sub-slot-inner {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e0e0e0;
+      --photo-blur: 3px;
+      isolation: isolate;
+      flex-shrink: 0;
+    }
+
+    .sub-slot.empty .sub-slot-inner {
+      border: 1.5px dashed #ccc;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .sub-slot-num {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      font-size: 9px;
+      font-weight: 700;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .sub-slot.empty .sub-slot-num {
+      background: rgba(255, 255, 255, 0.92);
+      color: #999;
     }
 
     .remove-photo-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 28px;
-      height: 28px;
+      top: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
       border: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      color: #777777;
-      font-size: 19px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #888;
+      font-size: 13px;
       line-height: 1;
       cursor: pointer;
       z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     }
 
-    .photo-preview {
-      height: 154px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #d5d5d5;
+    .main-photo-preview .remove-photo-btn {
+      width: 22px;
+      height: 22px;
+      font-size: 15px;
+      top: 6px;
+      right: 6px;
     }
 
     .mock-photo {
       width: 100%;
       height: 100%;
-      background:
-        linear-gradient(90deg, #b9b9b9 0%, #dcdcdc 28%, #c8c8c8 52%, #e3e3e3 72%, #aaaaaa 100%);
       position: relative;
       overflow: hidden;
+      display: block;
     }
 
-    .mock-photo-scene {
+    .mock-photo .mock-photo-scene {
       position: absolute;
-      inset: 0;
-      filter: blur(var(--photo-blur));
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(var(--photo-blur, 3px));
+      transform: scale(1.05);
+      transform-origin: center;
+      pointer-events: none;
+    }
+
+    .mock-photo .mock-photo-scene.scene-suit {
       background:
-        radial-gradient(circle at 27% 20%, rgba(245, 245, 245, 0.92) 0 14%, transparent 15%),
-        radial-gradient(circle at 52% 22%, #565656 0 14%, transparent 15%),
-        radial-gradient(circle at 52% 37%, #9b9b9b 0 16%, transparent 17%),
-        radial-gradient(ellipse at 52% 56%, #aaaaaa 0 17%, transparent 18%),
-        radial-gradient(ellipse at 48% 85%, #2c2c2c 0 34%, transparent 35%),
-        radial-gradient(ellipse at 26% 86%, #232323 0 22%, transparent 23%);
-      transform: scale(1.06);
+        linear-gradient(180deg, #8a9bb0 0%, #6b7d94 40%, #4a5568 100%),
+        radial-gradient(ellipse at 50% 30%, #d4a574 0 18%, transparent 19%),
+        radial-gradient(ellipse at 50% 55%, #2c3e50 0 30%, transparent 31%);
     }
 
-    .blur-control {
-      margin-top: 10px;
+    .mock-photo .mock-photo-scene.scene-dog {
+      background:
+        linear-gradient(180deg, #a8c4d4 0%, #7ba3b8 100%),
+        radial-gradient(ellipse at 40% 45%, #f5d0c5 0 22%, transparent 23%),
+        radial-gradient(ellipse at 65% 70%, #8b6914 0 15%, transparent 16%);
     }
 
-    .blur-row {
+    .mock-photo .mock-photo-scene.scene-sunset {
+      background:
+        linear-gradient(180deg, #f4a261 0%, #e76f51 35%, #264653 100%);
+    }
+
+    .sub-blur-control {
+      margin-top: 6px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .sub-blur-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 11px;
-      color: #444444;
-      font-weight: 600;
-      margin-bottom: 6px;
+      font-size: 8px;
+      color: #666;
+      margin-bottom: 2px;
     }
 
-    .blur-row strong {
-      font-size: 12px;
+    .sub-blur-row strong {
+      font-size: 9px;
+      color: var(--pink);
       font-weight: 700;
+    }
+
+    .sub-blur-control .blur-slider-labels {
+      font-size: 8px;
+      margin-top: 4px;
     }
 
     .blur-slider {
       width: 100%;
       appearance: none;
       -webkit-appearance: none;
-      height: 4px;
+      height: 3px;
       border-radius: 999px;
-      background: #d1d1d1;
+      background: linear-gradient(to right, var(--pink) 0%, var(--pink) var(--val, 25%), #ddd var(--val, 25%), #ddd 100%);
       outline: none;
     }
 
     .blur-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: #737373;
-      border: 0;
+      background: var(--pink);
+      border: 2px solid #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
       cursor: pointer;
     }
 
     .blur-slider::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: #737373;
-      border: 0;
+      background: var(--pink);
+      border: 2px solid #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
       cursor: pointer;
     }
 
-    .upload-card {
-      align-items: center;
-      justify-content: center;
+    .sub-slot.empty .add-label {
+      font-size: 7px;
+      color: #bbb;
       text-align: center;
-      color: #b3b3b3;
+      line-height: 1.2;
     }
 
     .upload-icon-shell {
-      width: 42px;
-      height: 42px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: #e7e7e7;
+      background: #eee;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+    }
+
+    .main-photo-upload .upload-icon-shell {
+      width: 36px;
+      height: 36px;
     }
 
     .camera-mini {
-      width: 18px;
-      height: 12px;
-      border: 2px solid #8c8c8c;
-      border-radius: 3px;
+      width: 16px;
+      height: 11px;
+      border: 1.5px solid #aaa;
+      border-radius: 2px;
       position: relative;
     }
 
@@ -521,39 +777,152 @@
       content: "";
       position: absolute;
       left: 1px;
-      top: -5px;
-      width: 7px;
-      height: 4px;
-      border: 2px solid #8c8c8c;
+      top: -4px;
+      width: 6px;
+      height: 3px;
+      border: 1.5px solid #aaa;
       border-bottom: 0;
-      border-radius: 3px 3px 0 0;
+      border-radius: 2px 2px 0 0;
     }
 
     .camera-lens {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 5px;
-      height: 5px;
-      border: 2px solid #8c8c8c;
+      width: 4px;
+      height: 4px;
+      border: 1.5px solid #aaa;
       border-radius: 50%;
       transform: translate(-50%, -50%);
     }
 
-    .plus-mini {
-      position: absolute;
-      right: -9px;
-      bottom: -8px;
-      color: #8c8c8c;
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1;
+    .sub-note {
+      font-size: 9px;
+      line-height: 1.5;
+      color: #999;
     }
 
-    .upload-hint {
-      font-size: 11px;
-      color: #a9a9a9;
-      line-height: 1.35;
+    .guidelines-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .guide-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .guide-header .icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .guide-header.ok .icon {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .guide-header.bad .icon {
+      background: #fce4ec;
+      color: #c62828;
+    }
+
+    .guide-header h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #212121;
+    }
+
+    .guide-sub {
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .guide-examples {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .guide-example {
+      text-align: center;
+    }
+
+    .guide-thumb {
+      position: relative;
+      width: 100%;
+      height: 88px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 4px;
+      background: #e8e8e8;
+    }
+
+    .guide-thumb .mock-photo-scene {
+      display: none;
+    }
+
+    .guide-thumb.scene-full {
+      background: linear-gradient(180deg, #b0bec5, #78909c);
+    }
+
+    .guide-thumb.scene-hobby {
+      background: linear-gradient(180deg, #ffcc80, #ff8a65);
+    }
+
+    .guide-thumb.scene-work {
+      background: linear-gradient(180deg, #90caf9, #5c6bc0);
+    }
+
+    .guide-thumb.scene-hidden {
+      background: linear-gradient(180deg, #bcaaa4, #8d6e63);
+    }
+
+    .guide-thumb.scene-selfie {
+      background: linear-gradient(180deg, #ef9a9a, #e57373);
+    }
+
+    .guide-thumb.scene-group {
+      background: linear-gradient(180deg, #ce93d8, #ab47bc);
+    }
+
+    .guide-caption {
+      font-size: 9px;
+      color: #666;
+      line-height: 1.3;
+    }
+
+    .lock-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #fff8e6;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+      font-size: 10px;
+      line-height: 1.55;
+      color: #666;
+    }
+
+    .lock-notice .lock-icon {
+      flex-shrink: 0;
+      font-size: 14px;
+      line-height: 1;
     }
 
     .next-btn {
@@ -566,7 +935,8 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 700;
-      margin-top: auto;
+      margin-top: 4px;
+      flex-shrink: 0;
     }
 
     .next-btn:disabled {
@@ -1215,53 +1585,163 @@
           </div>
         </div>
 
-        <div class="section">
-          <div class="section-title">写真設定</div>
-          <div class="description">マッチング後、相手のぼかし解除申請を承認すると、メイン写真・サブ写真すべてのぼかしが解除されます。</div>
-          <div class="photo-grid">
-            <div class="photo-card filled" id="previewCard">
-              <button type="button" class="remove-photo-btn">×</button>
-              <div class="photo-preview">
-                <div class="mock-photo">
-                  <div class="mock-photo-scene"></div>
-                </div>
+        <div class="intro-row">
+          <p class="intro-text">マッチング後、相手のぼかし解除申請を承認すると、<br>メイン写真・サブ写真すべてのぼかしが解除されます。</p>
+        </div>
+
+        <div class="photo-section-card">
+          <div class="main-photo-layout">
+            <div class="main-photo-left">
+              <div class="section-head">
+                <h2>メイン写真（1枚）<span class="badge badge-required">必須</span></h2>
               </div>
-              <div class="blur-control">
-                <div class="blur-row">
-                  <span>ぼかしの強度</span>
-                  <strong id="blurValue">25%</strong>
+              <p class="section-desc">プロフィールで最初に表示される写真です。全身または上半身がはっきり映った写真を設定してください。</p>
+              <div class="blur-panel">
+                <div class="blur-panel-top">
+                  <span class="blur-panel-label">ぼかしの強さ</span>
+                  <span class="blur-panel-value" id="blurValue">25%</span>
                 </div>
-                <input class="blur-slider" type="range" min="0" max="100" value="25" oninput="updateBlur(this.value)">
+                <input class="blur-slider" id="mainBlurSlider" type="range" min="0" max="100" value="25" style="--val:25%" oninput="updateMainBlur(this)">
+                <div class="blur-slider-labels">
+                  <span>ぼかし弱</span>
+                  <span>ぼかし強</span>
+                </div>
               </div>
             </div>
-            <div class="photo-card upload-card">
-              <div class="upload-icon-shell">
-                <div class="camera-mini">
-                  <span class="camera-lens"></span>
-                  <span class="plus-mini">+</span>
-                </div>
+            <div class="main-photo-preview" id="mainPreview" style="--photo-blur:4px" onclick="changeMainPhoto()">
+              <button type="button" class="remove-photo-btn" onclick="event.stopPropagation(); removeMainPhoto()">×</button>
+              <div class="mock-photo">
+                <div class="mock-photo-scene scene-suit"></div>
               </div>
-              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
-            </div>
-            <div class="photo-card upload-card">
-              <div class="upload-icon-shell">
-                <div class="camera-mini">
-                  <span class="camera-lens"></span>
-                  <span class="plus-mini">+</span>
-                </div>
-              </div>
-              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
-            </div>
-            <div class="photo-card upload-card">
-              <div class="upload-icon-shell">
-                <div class="camera-mini">
-                  <span class="camera-lens"></span>
-                  <span class="plus-mini">+</span>
-                </div>
-              </div>
-              <div class="upload-hint">推奨: 顔がはっきり写った写真</div>
             </div>
           </div>
+          <div class="tip-box">
+            <span class="bulb">💡</span>
+            <span>ぼかしを調整することで、相手からのぼかし解除申請が増えることがあります。</span>
+          </div>
+        </div>
+
+        <div class="photo-section-card">
+          <div class="section-head">
+            <h2>サブ写真（最大6枚）<span class="badge badge-optional">任意</span></h2>
+            <span class="sub-counter" id="subCounter">3/6枚</span>
+          </div>
+          <p class="section-desc">趣味や日常がわかる写真を追加しましょう。</p>
+          <div class="sub-photo-grid" id="subPhotoGrid">
+            <div class="sub-slot filled" data-index="1">
+              <div class="sub-slot-inner" style="--photo-blur:3px">
+                <span class="sub-slot-num">1</span>
+                <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
+                <div class="mock-photo"><div class="mock-photo-scene scene-dog"></div></div>
+              </div>
+              <div class="sub-blur-control">
+                <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">20%</strong></div>
+                <input class="blur-slider sub-blur-slider" type="range" min="0" max="100" value="20" style="--val:20%" oninput="updateSubBlur(this)">
+                <div class="blur-slider-labels"><span>弱</span><span>強</span></div>
+              </div>
+            </div>
+            <div class="sub-slot filled" data-index="2">
+              <div class="sub-slot-inner" style="--photo-blur:2px">
+                <span class="sub-slot-num">2</span>
+                <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
+                <div class="mock-photo"><div class="mock-photo-scene scene-suit"></div></div>
+              </div>
+              <div class="sub-blur-control">
+                <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">10%</strong></div>
+                <input class="blur-slider sub-blur-slider" type="range" min="0" max="100" value="10" style="--val:10%" oninput="updateSubBlur(this)">
+                <div class="blur-slider-labels"><span>弱</span><span>強</span></div>
+              </div>
+            </div>
+            <div class="sub-slot filled" data-index="3">
+              <div class="sub-slot-inner" style="--photo-blur:5px">
+                <span class="sub-slot-num">3</span>
+                <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
+                <div class="mock-photo"><div class="mock-photo-scene scene-sunset"></div></div>
+              </div>
+              <div class="sub-blur-control">
+                <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">30%</strong></div>
+                <input class="blur-slider sub-blur-slider" type="range" min="0" max="100" value="30" style="--val:30%" oninput="updateSubBlur(this)">
+                <div class="blur-slider-labels"><span>弱</span><span>強</span></div>
+              </div>
+            </div>
+            <div class="sub-slot empty" data-index="4" onclick="addSubPhoto(this)">
+              <div class="sub-slot-inner">
+                <span class="sub-slot-num">4</span>
+                <div class="upload-icon-shell">
+                  <div class="camera-mini"><span class="camera-lens"></span></div>
+                </div>
+                <span class="add-label">写真を追加</span>
+              </div>
+            </div>
+            <div class="sub-slot empty" data-index="5" onclick="addSubPhoto(this)">
+              <div class="sub-slot-inner">
+                <span class="sub-slot-num">5</span>
+                <div class="upload-icon-shell">
+                  <div class="camera-mini"><span class="camera-lens"></span></div>
+                </div>
+                <span class="add-label">写真を追加</span>
+              </div>
+            </div>
+            <div class="sub-slot empty" data-index="6" onclick="addSubPhoto(this)">
+              <div class="sub-slot-inner">
+                <span class="sub-slot-num">6</span>
+                <div class="upload-icon-shell">
+                  <div class="camera-mini"><span class="camera-lens"></span></div>
+                </div>
+                <span class="add-label">写真を追加</span>
+              </div>
+            </div>
+          </div>
+          <p class="sub-note">※ 相手にはぼかした状態で表示されます。マッチング後、ぼかし解除申請を承認した場合のみ原画が表示されます。</p>
+        </div>
+
+        <div class="guidelines-card">
+          <div class="guide-header ok">
+            <span class="icon">✓</span>
+            <h3>OKな写真の例</h3>
+          </div>
+          <p class="guide-sub">マッチング率が上がりやすい写真です。</p>
+          <div class="guide-examples">
+            <div class="guide-example">
+              <div class="guide-thumb scene-full"></div>
+              <div class="guide-caption">全身写真</div>
+            </div>
+            <div class="guide-example">
+              <div class="guide-thumb scene-hobby"></div>
+              <div class="guide-caption">趣味がわかる</div>
+            </div>
+            <div class="guide-example">
+              <div class="guide-thumb scene-work"></div>
+              <div class="guide-caption">仕事の様子</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guidelines-card">
+          <div class="guide-header bad">
+            <span class="icon">✕</span>
+            <h3>Badな写真の例</h3>
+          </div>
+          <p class="guide-sub">顔が隠れていたり、情報がわかりにくい写真は避けましょう。</p>
+          <div class="guide-examples">
+            <div class="guide-example">
+              <div class="guide-thumb scene-hidden"></div>
+              <div class="guide-caption">顔が見えない</div>
+            </div>
+            <div class="guide-example">
+              <div class="guide-thumb scene-selfie"></div>
+              <div class="guide-caption">自撮り・過度な露出</div>
+            </div>
+            <div class="guide-example">
+              <div class="guide-thumb scene-group"></div>
+              <div class="guide-caption">複数人が写っている</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lock-notice">
+          <span class="lock-icon">🔒</span>
+          <span>設定した写真は、マッチング後に相手のぼかし解除申請を承認した場合にのみ表示されます。</span>
         </div>
 
         <button class="next-btn" id="nextBtn" type="button" onclick="goNext()">次に進む</button>
@@ -1358,66 +1838,110 @@
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
     }
 
-    function updateBlur(value) {
-      document.getElementById('blurValue').textContent = value + '%';
-      document.getElementById('previewCard').style.setProperty('--photo-blur', (value / 12 + 2) + 'px');
+    var subScenes = ['scene-dog', 'scene-suit', 'scene-sunset'];
+
+    function blurPx(value) {
+      return (value / 12 + 2) + 'px';
     }
 
-    function hasUploadedPhoto() {
-      return !!document.querySelector('.photo-card.filled');
+    function updateSliderTrack(slider) {
+      slider.style.setProperty('--val', slider.value + '%');
+    }
+
+    function updateMainBlur(slider) {
+      var value = slider.value;
+      document.getElementById('blurValue').textContent = value + '%';
+      document.getElementById('mainPreview').style.setProperty('--photo-blur', blurPx(value));
+      updateSliderTrack(slider);
+    }
+
+    function updateSubBlur(slider) {
+      var slot = slider.closest('.sub-slot');
+      var inner = slot.querySelector('.sub-slot-inner');
+      var valEl = slot.querySelector('.sub-blur-val');
+      inner.style.setProperty('--photo-blur', blurPx(slider.value));
+      if (valEl) valEl.textContent = slider.value + '%';
+      updateSliderTrack(slider);
+    }
+
+    function hasMainPhoto() {
+      return !!document.getElementById('mainPreview').querySelector('.mock-photo');
+    }
+
+    function updateSubCounter() {
+      var filled = document.querySelectorAll('.sub-slot.filled').length;
+      document.getElementById('subCounter').textContent = filled + '/6枚';
     }
 
     function updateNextBtn() {
       var btn = document.getElementById('nextBtn');
-      if (btn) btn.disabled = !hasUploadedPhoto();
+      if (btn) btn.disabled = !hasMainPhoto();
     }
 
     function goNext() {
-      if (hasUploadedPhoto()) {
+      if (hasMainPhoto()) {
         window.location.href = 'wireframe_SCR030_profile1.html';
       }
     }
 
-    document.querySelectorAll('.upload-card').forEach(function (card) {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', function () {
-        if (card.classList.contains('filled')) return;
-        card.classList.remove('upload-card');
-        card.classList.add('filled');
-        card.innerHTML =
-          '<button type="button" class="remove-photo-btn" onclick="removePhoto(this)">×</button>' +
-          '<div class="photo-preview"><div class="mock-photo"><div class="mock-photo-scene"></div></div></div>';
-        updateNextBtn();
-      });
-    });
-
-    function removePhoto(btn) {
-      var card = btn.closest('.photo-card');
-      if (!card) return;
-      card.classList.remove('filled');
-      card.classList.add('upload-card');
-      card.innerHTML =
+    function removeMainPhoto() {
+      var preview = document.getElementById('mainPreview');
+      preview.classList.add('empty');
+      preview.innerHTML =
         '<div class="upload-icon-shell">' +
-        '<div class="camera-mini"><span class="camera-lens"></span><span class="plus-mini">+</span></div>' +
-        '</div><div class="upload-hint">推奨: 顔がはっきり写った写真</div>';
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', function onUploadClick() {
-        card.removeEventListener('click', onUploadClick);
-        if (!card.classList.contains('upload-card')) return;
-        card.classList.remove('upload-card');
-        card.classList.add('filled');
-        card.innerHTML =
-          '<button type="button" class="remove-photo-btn" onclick="removePhoto(this)">×</button>' +
-          '<div class="photo-preview"><div class="mock-photo"><div class="mock-photo-scene"></div></div></div>';
-        updateNextBtn();
-      });
+        '<div class="camera-mini"><span class="camera-lens"></span></div>' +
+        '</div><span>写真を追加</span>';
       updateNextBtn();
     }
 
-    document.querySelector('#previewCard .remove-photo-btn')?.addEventListener('click', function (e) {
-      removePhoto(e.currentTarget);
-    });
+    function changeMainPhoto() {
+      var preview = document.getElementById('mainPreview');
+      if (!preview.querySelector('.mock-photo')) {
+        preview.classList.remove('empty');
+        preview.style.background = '#ddd';
+        preview.innerHTML =
+          '<button type="button" class="remove-photo-btn" onclick="event.stopPropagation(); removeMainPhoto()">×</button>' +
+          '<div class="mock-photo"><div class="mock-photo-scene scene-suit"></div></div>';
+      }
+      updateNextBtn();
+    }
 
+    function addSubPhoto(slot) {
+      if (!slot.classList.contains('empty')) return;
+      var idx = slot.dataset.index;
+      var scene = subScenes[(idx - 1) % subScenes.length];
+      var blurVal = 15;
+      slot.classList.remove('empty');
+      slot.removeAttribute('onclick');
+      slot.innerHTML =
+        '<div class="sub-slot-inner" style="--photo-blur:' + blurPx(blurVal) + '">' +
+        '<span class="sub-slot-num">' + idx + '</span>' +
+        '<button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>' +
+        '<div class="mock-photo"><div class="mock-photo-scene ' + scene + '"></div></div>' +
+        '</div>' +
+        '<div class="sub-blur-control">' +
+        '<div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">' + blurVal + '%</strong></div>' +
+        '<input class="blur-slider sub-blur-slider" type="range" min="0" max="100" value="' + blurVal + '" style="--val:' + blurVal + '%" oninput="updateSubBlur(this)">' +
+        '<div class="blur-slider-labels"><span>弱</span><span>強</span></div>' +
+        '</div>';
+      updateSubCounter();
+    }
+
+    function removeSubPhoto(btn) {
+      var slot = btn.closest('.sub-slot');
+      var idx = slot.dataset.index;
+      slot.classList.add('empty');
+      slot.setAttribute('onclick', 'addSubPhoto(this)');
+      slot.innerHTML =
+        '<div class="sub-slot-inner">' +
+        '<span class="sub-slot-num">' + idx + '</span>' +
+        '<div class="upload-icon-shell"><div class="camera-mini"><span class="camera-lens"></span></div></div>' +
+        '<span class="add-label">写真を追加</span></div>';
+      updateSubCounter();
+    }
+
+    document.querySelectorAll('.blur-slider').forEach(updateSliderTrack);
+    updateSubCounter();
     updateNextBtn();
   </script>
 
