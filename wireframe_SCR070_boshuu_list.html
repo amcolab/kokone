@@ -1702,7 +1702,7 @@
                   <span class="boshuu-card-v2-age">38歳</span>
                   <span class="boshuu-card-v2-verify">✓</span>
                 </div>
-                <span class="boshuu-card-v2-status status-selected">選定されました</span>
+                <span class="boshuu-card-v2-status status-selected">マッチング成立</span>
               </div>
               <div class="boshuu-card-v2-msg">横浜で夜ご飯できる方募集</div>
               <div class="boshuu-card-v2-meta">
@@ -1721,7 +1721,7 @@
             </div>
           </div>
           <div class="boshuu-card-v2-footer">
-            <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR065_match.html'">マッチを見る</button>
+            <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR090_chat_boshuu_matched.html?from=070-applied'">チャットを開く</button>
           </div>
         </div>
 
@@ -2007,6 +2007,13 @@
         searchBar.style.display = 'none';
       }
     }
+
+    (function initBoshuuTabFromUrl() {
+      var tab = new URLSearchParams(window.location.search).get('tab');
+      if (tab === 'applied' || tab === 'search' || tab === 'my') {
+        switchBoshuuTab(tab);
+      }
+    })();
 
   </script>
 

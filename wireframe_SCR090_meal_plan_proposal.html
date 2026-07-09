@@ -755,6 +755,47 @@
           </div>
         </div>
       </div>
+      <div id="newPlanSection" style="display:none;">
+        <div class="section-label">第1候補（おすすめ）</div>
+        <div class="main-card" id="newMainPlan">
+          <div class="main-photo" id="newMainPhoto" onclick="openShopDetail('new1')"></div>
+          <div class="main-body">
+            <div class="rest-name" id="newMainName" onclick="openShopDetail('new1')">ビストロ 南青山</div>
+            <div class="rest-meta" id="newMainMeta">フレンチ | ビストロ | 🍷🍷🍷</div>
+            <div class="tag-row" id="newMainTags">
+              <span class="tag">個室あり</span>
+              <span class="tag">落ち着いた空間</span>
+            </div>
+            <div class="note-text" id="newMainNote">南青山の路地にある隠れ家ビストロ。コース料理を中心に、落ち着いた雰囲気で会話を楽しめます。</div>
+            <div class="note-meta-row">
+              <span class="note-station" id="newMainStation">表参道駅 徒歩7分</span>
+              <span class="map-link">地図で見る</span>
+            </div>
+          </div>
+        </div>
+        <div class="alt-row" id="newPlanAltRow">
+          <div class="alt-candidate-block">
+            <div class="alt-card" onclick="openShopDetail('new2')">
+              <div class="alt-thumb" id="newAlt2Photo" onclick="openShopDetail('new2'); event.stopPropagation();"></div>
+              <div class="alt-meta">
+                <div class="alt-label">第2候補</div>
+                <div class="alt-name" id="newAlt2Name">トラットリア 表参道</div>
+                <div class="alt-info" id="newAlt2Info"></div>
+              </div>
+            </div>
+          </div>
+          <div class="alt-candidate-block">
+            <div class="alt-card" onclick="openShopDetail('new3')">
+              <div class="alt-thumb" id="newAlt3Photo" onclick="openShopDetail('new3'); event.stopPropagation();"></div>
+              <div class="alt-meta">
+                <div class="alt-label">第3候補</div>
+                <div class="alt-name" id="newAlt3Name">ワインバー 神宮前</div>
+                <div class="alt-info" id="newAlt3Info"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="alt-row" id="altSection">
         <div class="alt-candidate-block" id="altBlockSakana">
           <div class="alt-card" onclick="openShopDetail('sakana')">
@@ -963,6 +1004,45 @@
         note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
         address: '渋谷区恵比寿南1-6-1',
         mapLabel: '食堂 まぐろとさば'
+      },
+      new1: {
+        displayName: 'ビストロ 南青山',
+        genre1: 'フレンチ',
+        genre2: 'ビストロ',
+        priceLevel: 3,
+        hero: 'linear-gradient(135deg, #3a2f28 0%, #6b5a4a 50%, #2a221c 100%)',
+        category: 'フレンチ',
+        area: '南青山',
+        overview: '南青山の路地にある隠れ家ビストロ。コース料理を中心に、落ち着いた雰囲気で会話を楽しめます。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '港区南青山5-8-12',
+        mapLabel: 'ビストロ 南青山'
+      },
+      new2: {
+        displayName: 'トラットリア 表参道',
+        genre1: 'イタリアン',
+        genre2: 'パスタ',
+        priceLevel: 2,
+        hero: 'linear-gradient(135deg, #4a3028 0%, #7a5a48 50%, #3a241c 100%)',
+        category: 'イタリアン',
+        area: '表参道',
+        overview: '表参道の静かな通りにあるトラットリア。手打ちパスタとワインが楽しめるカジュアルな空間です。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '渋谷区神宮前4-10-5',
+        mapLabel: 'トラットリア 表参道'
+      },
+      new3: {
+        displayName: 'ワインバー 神宮前',
+        genre1: 'バー',
+        genre2: 'ワイン',
+        priceLevel: 2,
+        hero: 'linear-gradient(135deg, #2a2030 0%, #5a4868 50%, #1a1420 100%)',
+        category: 'バー',
+        area: '神宮前',
+        overview: '神宮前のワインバー。軽めのお食事とワインを楽しみながら、ゆったり話せる雰囲気です。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '渋谷区神宮前6-12-3',
+        mapLabel: 'ワインバー 神宮前'
       }
     };
     function glassOnOnly(level, popup) {
@@ -1052,7 +1132,41 @@
         mainRestName.classList.add('static');
       }
     }
-    if (params.get('retry') === '1') {
+    if (params.get('retry') === '1' && params.get('newplan') === '1') {
+      var firstSection = document.getElementById('firstCandidateSection');
+      var retryMainSection = document.getElementById('retryMainSection');
+      var altSection = document.getElementById('altSection');
+      var newPlanSection = document.getElementById('newPlanSection');
+      if (firstSection) firstSection.style.display = 'none';
+      if (retryMainSection) retryMainSection.style.display = 'none';
+      if (altSection) altSection.style.display = 'none';
+      if (newPlanSection) newPlanSection.style.display = 'block';
+      var new1 = SHOP_DETAILS.new1;
+      var new2 = SHOP_DETAILS.new2;
+      var new3 = SHOP_DETAILS.new3;
+      if (new1) {
+        var newMainPhoto = document.getElementById('newMainPhoto');
+        if (newMainPhoto) newMainPhoto.style.background = new1.hero;
+      }
+      if (new2) {
+        var newAlt2Photo = document.getElementById('newAlt2Photo');
+        if (newAlt2Photo) newAlt2Photo.style.background = new2.hero;
+        renderAltInfo('new2', 'newAlt2Info');
+      }
+      if (new3) {
+        var newAlt3Photo = document.getElementById('newAlt3Photo');
+        if (newAlt3Photo) newAlt3Photo.style.background = new3.hero;
+        renderAltInfo('new3', 'newAlt3Info');
+      }
+      document.querySelectorAll('.progress .step').forEach(function(step, index) {
+        step.classList.remove('active', 'done');
+        if (index === 0) step.classList.add('active');
+      });
+      var backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.setAttribute('onclick', "window.location.href='wireframe_SCR082_otona_booking_failed.html'");
+      }
+    } else if (params.get('retry') === '1') {
       var firstSection = document.getElementById('firstCandidateSection');
       var retryMainSection = document.getElementById('retryMainSection');
       var altBlockSakana = document.getElementById('altBlockSakana');

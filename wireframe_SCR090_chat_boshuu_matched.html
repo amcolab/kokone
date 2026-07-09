@@ -464,7 +464,7 @@
     <div class="status-bar"><span>9:41</span><span>●●● WiFi ▮▮▮</span></div>
 
     <div class="chat-header">
-      <button type="button" class="back-btn" onclick="window.location.href='wireframe_SCR065_match.html'">‹</button>
+      <button type="button" class="back-btn" onclick="goBack()">‹</button>
       <div class="header-center">
         <div class="avatar">
           <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><rect width='40' height='40' fill='%23d4cfc7'/><circle cx='20' cy='15' r='8' fill='%23b8a898'/><rect x='10' y='26' width='20' height='10' rx='5' fill='%23a89888'/></svg>">
@@ -618,6 +618,14 @@
       closeHeaderMenu();
       localStorage.setItem('ot-report-return', window.location.href);
       window.location.href = 'wireframe_SCR103_report.html';
+    }
+    function goBack() {
+      var from = new URLSearchParams(window.location.search).get('from');
+      if (from === '070-applied') {
+        window.location.href = 'wireframe_SCR070_boshuu_list.html?tab=applied';
+        return;
+      }
+      window.location.href = 'wireframe_SCR065_match.html';
     }
   </script>
 </body>

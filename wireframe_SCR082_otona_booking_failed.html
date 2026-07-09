@@ -183,21 +183,19 @@
       padding: 0 4px;
     }
     .read-mark { color: var(--c4); margin-right: 4px; }
-    .proposal-card {
+    .confirm-card {
       background: var(--c0);
       border: 1px solid var(--c2);
       border-radius: 18px;
       padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
     }
-    .proposal-head {
+    .confirm-head {
       display: flex;
       align-items: flex-start;
       gap: 10px;
+      margin-bottom: 12px;
     }
-    .proposal-head-icon {
+    .confirm-icon {
       width: 22px;
       height: 22px;
       border-radius: 50%;
@@ -211,23 +209,36 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
-    .proposal-head-icon.warn {
-      border-color: #fb8c00;
+    .confirm-icon.warn {
+      border-color: #e65100;
       color: #e65100;
     }
-    .proposal-head-title {
+    .confirm-title {
       font-size: 13px;
       font-weight: 800;
       color: var(--c6);
       margin-bottom: 3px;
       line-height: 1.45;
     }
-    .proposal-head-sub {
+    .confirm-message {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--c6);
+      line-height: 1.55;
+    }
+    .confirm-failed-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--c6);
+      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+    .confirm-sub {
       font-size: 11px;
       color: var(--c4);
       line-height: 1.5;
     }
-    .plan-summary-card {
+    .booking-card {
       background: #fafafa;
       border: 1px solid var(--c2);
       border-radius: 16px;
@@ -236,38 +247,45 @@
       gap: 12px;
       align-items: flex-start;
     }
-    .plan-summary-photo {
+    .booking-photo {
       width: 78px;
       height: 58px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #d8d8d8 0%, #b0b0b0 45%, #9a9a9a 100%);
+      background: linear-gradient(135deg, #2a2a2a 0%, #555 45%, #1f1f1f 100%);
+      filter: grayscale(100%);
       flex-shrink: 0;
       cursor: pointer;
     }
-    .plan-summary-info {
-      flex: 1;
-      min-width: 0;
+    .booking-photo.photo-sakana {
+      background: linear-gradient(135deg, #2f2f2f 0%, #6a6a6a 50%, #1d1d1d 100%);
     }
-    .plan-summary-name {
+    .booking-photo.photo-ebisu {
+      background: linear-gradient(135deg, #1f1f1f 0%, #555 45%, #111 100%);
+    }
+    .booking-name {
       font-size: 13px;
       font-weight: 800;
       color: var(--c6);
-      margin-bottom: 6px;
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      margin-bottom: 4px;
       cursor: pointer;
       line-height: 1.4;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
-    .plan-summary-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+    .booking-meta {
       font-size: 11px;
       color: var(--c5);
       line-height: 1.5;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .plan-summary-row:last-child { margin-bottom: 0; }
+    .booking-row {
+      font-size: 11px;
+      color: var(--c5);
+      line-height: 1.55;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
     .primary-btn {
       width: 100%;
       height: 42px;
@@ -278,6 +296,9 @@
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
+    }
+    .confirm-card .primary-btn {
+      margin-top: 4px;
     }
     .shop-detail-overlay {
       position: absolute;
@@ -707,30 +728,55 @@
           <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>昨日 18:12</div>
         </div>
       </div>
-      <div class="proposal-card">
-        <div class="proposal-head">
-          <div class="proposal-head-icon warn">!</div>
+      <div class="confirm-card" id="fallbackCard2">
+        <div class="confirm-head">
+          <div class="confirm-icon warn">!</div>
           <div>
-            <div class="proposal-head-title">予約が取れませんでした</div>
-            <div class="proposal-head-sub">OtonaTableで予約手続きを行いましたが、ご希望のお店では空きがありませんでした。第2・第3候補からお選びください。</div>
+            <div class="confirm-message">ご希望の店舗が満席だったため、第2候補店舗の予約を進めています。</div>
           </div>
         </div>
-        <div class="plan-summary-card">
-          <div class="plan-summary-photo" onclick="openShopDetail()"></div>
-          <div class="plan-summary-info">
-            <div class="plan-summary-name" id="planName" onclick="openShopDetail()">食堂 まぐろとさば。恵比寿</div>
-            <div class="plan-summary-row">
-              <span id="planDatePart">6月27日（土）</span>
-              <span id="planTimePart">18:00〜</span>
+        <div class="booking-card">
+          <div class="booking-photo photo-sakana" onclick="openShopDetail('sakana')"></div>
+          <div style="flex:1; min-width:0;">
+            <div class="booking-name" onclick="openShopDetail('sakana')">鮨 さかなや</div>
+            <div class="booking-meta">寿司 | 和食 | 🍷🍷</div>
+            <div class="booking-row">
+              <span id="planDatePart2">6月27日（土）</span>
+              <span id="planTimePart2">18:00〜</span>
               <span>2名</span>
             </div>
-            <div class="plan-summary-row">
-              <span>お会計:</span>
-              <span>当日相談して決める</span>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-card" id="fallbackCard3">
+        <div class="confirm-head">
+          <div class="confirm-icon warn">!</div>
+          <div>
+            <div class="confirm-message">第2候補店舗の予約が取れなかったため、第3候補店舗の予約を進めています。</div>
+          </div>
+        </div>
+        <div class="booking-card">
+          <div class="booking-photo photo-ebisu" onclick="openShopDetail('ebisu')"></div>
+          <div style="flex:1; min-width:0;">
+            <div class="booking-name" onclick="openShopDetail('ebisu')">割烹 えびす</div>
+            <div class="booking-meta">割烹 | 日本料理 | 🍷🍷🍷🍷</div>
+            <div class="booking-row">
+              <span id="planDatePart3">6月27日（土）</span>
+              <span id="planTimePart3">18:00〜</span>
+              <span>2名</span>
             </div>
           </div>
         </div>
-        <button class="primary-btn" type="button" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html?retry=1'">他の食事プランを選ぶ</button>
+      </div>
+      <div class="confirm-card" id="fallbackCardFailed">
+        <div class="confirm-head">
+          <div class="confirm-icon warn">!</div>
+          <div>
+            <div class="confirm-failed-title">予約が取れませんでした</div>
+            <div class="confirm-message">ご提案いただいた全ての店舗で予約をお取りすることができませんでした。</div>
+          </div>
+        </div>
+        <button class="primary-btn" type="button" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html?retry=1&amp;newplan=1'">新しい食事プランを提案する</button>
       </div>
     </div>
     <div class="input-bar">
@@ -801,41 +847,44 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">予約手続き中に第1候補店舗で予約が取れなかった際、ユーザーに再選択を促す通知画面です。</div>
+          <div class="blp-note highlight">第1〜第3候補で予約が取れない場合、候補切替の通知を順に表示し、全候補失敗時は新プラン提案へ誘導します。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">UI構成（左画面）</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャットヘッダー</strong> — 戻る・相手名・アバター・OTバッジ。上部に会話履歴を表示。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>4段階ステッパー</strong> —「食事プラン提案」「双方承認」完了、「予約手続き」が現在地。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>通知カード</strong> — 082 承認依頼カード同型。左アイコン（!）＋タイトル/説明、内側の店舗サマリー、下部に「他の食事プランを選ぶ」。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>店舗サマリー</strong> — サムネ・下線付き店名タップで店舗詳細ポップアップ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>全候補失敗カード</strong> —「ご提案いただいた全ての店舗で予約をお取りすることができませんでした。」＋「新しい食事プランを提案する」→ 090I（retry=1）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>店舗サムネ・店名</strong> — タップで店舗詳細ポップアップ。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>入力バー</strong> — 待機中も通常チャットと同様にメッセージ入力可能。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">日時は変更せず、店舗候補のみ再選択する想定。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">065 の「予約手続き」レコードから遷移。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">「他の食事プランを選ぶ」→ 090I（retry=1）へ。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">第1候補失敗 → 第2候補（鮨 さかなや）の予約を自動進行。通知のみ表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">第2候補失敗 → 第3候補（割烹 えびす）の予約を自動進行。別通知を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">第3候補失敗 → 全店舗失敗通知＋新プラン提案ボタン。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">既定（<strong>?fallback=all</strong>）で3枚連続表示。プレビュー: <strong>?fallback=2</strong> / <strong>?fallback=3</strong> / <strong>?fallback=failed</strong> / <strong>?fallback=both</strong>。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>065</strong>「予約手続き」レコード</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で失敗を通知</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>090I</strong>（retry=1）で第2・第3候補を再提示</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>第1候補失敗</strong> → この画面（第2候補通知）</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>第2候補失敗</strong> → 第3候補通知</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">4</div></div><div class="blp-step-text"><strong>第3候補失敗</strong> → 全失敗通知 → <strong>090I</strong>（retry=1）</div></div>
           </div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Thông báo đặt chỗ thất bại ở ứng viên 1, yêu cầu chọn lại từ ứng viên 2 và 3.</div>
+          <div class="blp-note highlight">Thông báo admin khi không đặt được ứng viên 1 hoặc 2 — hệ thống tự chuyển sang ứng viên tiếp theo.</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">UI</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Stepper — đang ở bước「予約手続き」.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Icon cảnh báo + tiêu đề + hướng dẫn chọn 第2・第3候補.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Card thông tin đặt chỗ thất bại + nút「他の食事プランを選ぶ」.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Ứng viên 1 thất bại → card「第2候補店舗の予約を進めています」+ ảnh/tên/giờ ứng viên 2.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Ứng viên 2 thất bại → card「第3候補店舗の予約を進めています」+ ảnh/tên/giờ ứng viên 3.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">Ứng viên 3 thất bại → card toàn bộ thất bại + nút「新しい食事プランを提案する」.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">Mặc định hiện 3 card liên tiếp. Dùng <strong>?fallback=2</strong> / <strong>?fallback=3</strong> / <strong>?fallback=failed</strong> để xem từng card.</div></div>
         </div>
       </div>
     </div>
@@ -853,28 +902,69 @@
       document.body.style.paddingRight = isFs ? (window.innerWidth - 200) + 'px' : '300px';
     }
     var params = new URLSearchParams(window.location.search);
+    var fallback = params.get('fallback') || 'all';
     var planDate = params.get('date') || localStorage.getItem('ot-schedule-proposal') || '6月27日（土）18:00〜';
-    var planShop = params.get('shop') || localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば。恵比寿';
-    if (planShop.indexOf('。') === -1 && planShop === '食堂 まぐろとさば') {
-      planShop = '食堂 まぐろとさば。恵比寿';
-    }
-    document.getElementById('planName').textContent = planShop;
     var timeMatch = planDate.match(/(\d{1,2}:\d{2})[〜～]?/);
-    var datePart = planDate.replace(/\d{1,2}:\d{2}[〜～]?/g, '').trim();
-    document.getElementById('planDatePart').textContent = datePart || '6月27日（土）';
-    document.getElementById('planTimePart').textContent = timeMatch ? timeMatch[1] + '〜' : '18:00〜';
+    var datePart = planDate.replace(/\d{1,2}:\d{2}[〜～]?/g, '').trim() || '6月27日（土）';
+    var timePart = timeMatch ? timeMatch[1] + '〜' : '18:00〜';
+    document.getElementById('planDatePart2').textContent = datePart;
+    document.getElementById('planTimePart2').textContent = timePart;
+    document.getElementById('planDatePart3').textContent = datePart;
+    document.getElementById('planTimePart3').textContent = timePart;
 
-    var SHOP_DETAIL = {
-      displayName: '食堂 まぐろとさば',
-      priceLevel: 3,
-      hero: 'linear-gradient(135deg, #2a2a2a 0%, #6b6b6b 50%, #1a1a1a 100%)',
-      category: '和食',
-      area: '恵比寿',
-      overview: '落ち着いた照明と半個室があり、予約動線からみても現在の人数と時間帯に合う店舗です。',
-      note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
-      address: '東京都渋谷区恵比寿南1-6-1',
-      mapLabel: '食堂 まぐろとさば'
+    var card2 = document.getElementById('fallbackCard2');
+    var card3 = document.getElementById('fallbackCard3');
+    var cardFailed = document.getElementById('fallbackCardFailed');
+    function setCardVisible(el, visible) {
+      if (el) el.style.display = visible ? 'block' : 'none';
+    }
+    if (fallback === '2') {
+      setCardVisible(card2, true);
+      setCardVisible(card3, false);
+      setCardVisible(cardFailed, false);
+    } else if (fallback === '3') {
+      setCardVisible(card2, false);
+      setCardVisible(card3, true);
+      setCardVisible(cardFailed, false);
+    } else if (fallback === 'failed') {
+      setCardVisible(card2, false);
+      setCardVisible(card3, false);
+      setCardVisible(cardFailed, true);
+    } else if (fallback === 'both') {
+      setCardVisible(card2, true);
+      setCardVisible(card3, true);
+      setCardVisible(cardFailed, false);
+    } else {
+      setCardVisible(card2, true);
+      setCardVisible(card3, true);
+      setCardVisible(cardFailed, true);
+    }
+
+    var SHOP_DETAILS = {
+      sakana: {
+        displayName: '鮨 さかなや',
+        priceLevel: 2,
+        hero: 'linear-gradient(135deg, #2f2f2f 0%, #6a6a6a 50%, #1d1d1d 100%)',
+        category: '寿司',
+        area: '中目黒',
+        overview: 'カウンター越しに職人の技を楽しめる寿司店。素材の良さを活かした握りが中心で、会話もしやすい落ち着いた空間です。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '目黒区上目黒2-14-8',
+        mapLabel: '鮨 さかなや'
+      },
+      ebisu: {
+        displayName: '割烹 えびす',
+        priceLevel: 4,
+        hero: 'linear-gradient(135deg, #1f1f1f 0%, #555 45%, #111 100%)',
+        category: '割烹',
+        area: '広尾',
+        overview: '季節の食材を使ったコースが楽しめる割烹。半個室もあり、初対面でも落ち着いて食事と会話を楽しめます。',
+        note: 'ご予約時にクレジットカードの登録が必須です。当日/前日キャンセル発生時にはキャンセル料がクレジットカードから自動的に引き落とされます。',
+        address: '渋谷区広尾3-12-5',
+        mapLabel: '割烹 えびす'
+      }
     };
+    var currentShopId = 'sakana';
     function glassOnOnly(level, popup) {
       var cls = popup ? 'shop-glass-svg popup on' : 'shop-glass-svg on';
       var svg = '<svg class="' + cls + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4c0 3-2 5-5 6v6h4v2H8v-2h4v-6c-3-1-5-3-5-6V3z"/><path d="M7 7h10"/></svg>';
@@ -889,8 +979,10 @@
       if (level === 4) return '15,001〜20,000円 / 人';
       return '20,001円〜 / 人';
     }
-    function openShopDetail() {
-      var detail = SHOP_DETAIL;
+    function openShopDetail(id) {
+      currentShopId = id || currentShopId;
+      var detail = SHOP_DETAILS[currentShopId];
+      if (!detail) return;
       document.getElementById('shopDetailHero').style.background = detail.hero;
       document.getElementById('shopDetailName').textContent = detail.displayName;
       document.getElementById('shopDetailPrice').innerHTML =
