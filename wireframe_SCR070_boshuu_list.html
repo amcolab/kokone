@@ -41,6 +41,13 @@
       position: relative;
     }
 
+    .device > .list-toolbar,
+    .device > .filter-chips-bar,
+    .device > .content-area {
+      min-width: 0;
+      max-width: 100%;
+    }
+
     .status-bar {
       height: 20px;
       background: var(--c6);
@@ -218,12 +225,146 @@
       padding: 12px 16px;
       background: var(--c0);
       border-bottom: 1px solid var(--c2);
+      min-width: 0;
+      width: 100%;
+    }
+
+    .list-toolbar.filter-open {
+      border-bottom: none;
+      padding-bottom: 8px;
     }
 
     .list-toolbar-title {
       font-size: 14px;
       font-weight: 700;
       color: var(--c6);
+    }
+
+    .list-filter-btn {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--c0);
+      color: var(--c6);
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .list-filter-btn svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    .filter-chevron {
+      font-size: 9px;
+      color: var(--c4);
+      transition: transform 0.2s ease;
+      margin-left: 1px;
+    }
+
+    .filter-chevron.open {
+      transform: rotate(180deg);
+    }
+
+    .filter-chips-bar {
+      display: none;
+      background: var(--c0);
+      border-bottom: 1px solid var(--c2);
+      padding: 0 0 10px;
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .filter-chips-bar.open {
+      display: block;
+    }
+
+    .filter-chips-scroll {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-x;
+      cursor: grab;
+    }
+
+    .filter-chips-scroll.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    .filter-chips-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-chips-inner {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      width: max-content;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid var(--c2);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--c6);
+      background: var(--c0);
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .filter-chip.active {
+      border-color: #a5762a;
+      color: #a5762a;
+    }
+
+    .filter-chip-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--c5);
+    }
+
+    .filter-chip.active .filter-chip-count {
+      background: rgba(165, 118, 42, 0.12);
+      color: #a5762a;
+    }
+
+    .boshuu-card-v2.is-filter-hidden,
+    .m-card.is-filter-hidden {
+      display: none !important;
     }
 
     .header-icon.has-dot {
@@ -1520,7 +1661,7 @@
       </div>
       <div class="boshuu-tab" data-tab="applied" onclick="switchBoshuuTab('applied')">
         <span class="boshuu-tab-label">応募中</span>
-        <span class="boshuu-tab-count">6件</span>
+        <span class="boshuu-tab-count">7件</span>
       </div>
       <div class="boshuu-tab" data-tab="my" onclick="switchBoshuuTab('my')">
         <span class="boshuu-tab-label">自分の募集</span>
@@ -1530,6 +1671,18 @@
 
     <div class="list-toolbar" id="list-toolbar">
       <span class="list-toolbar-title" id="list-toolbar-title">新着の食事募集</span>
+      <button type="button" class="list-filter-btn" id="list-filter-btn" onclick="toggleBoshuuFilter()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        絞り込み
+        <span class="filter-chevron" id="filter-chevron">▼</span>
+      </button>
+    </div>
+    <div class="filter-chips-bar" id="filter-chips-bar">
+      <div class="filter-chips-scroll" id="filter-chips-scroll">
+        <div class="filter-chips-inner" id="filter-chips-inner"></div>
+      </div>
     </div>
 
     <div class="content-area">
@@ -1654,7 +1807,7 @@
       </div>
 
       <div id="content-applied" class="tab-content">
-        <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2" data-filter-status="applied">
           <div class="boshuu-card-v2-top">
             <div class="boshuu-card-v2-avatar" onclick="goToUserProfile(3)">
               <img alt="かな" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23ddd8d0'/><circle cx='26' cy='20' r='10' fill='%23c8c0b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b8b0a8'/></svg>">
@@ -1690,7 +1843,43 @@
           </div>
         </div>
 
-        <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2" data-filter-status="applied">
+          <div class="boshuu-card-v2-top">
+            <div class="boshuu-card-v2-avatar" onclick="goToUserProfile(1)">
+              <img alt="みずき" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23d4cfc7'/><circle cx='26' cy='20' r='10' fill='%23c4b8a8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b8a898'/></svg>">
+            </div>
+            <div class="boshuu-card-v2-body">
+              <div class="boshuu-card-v2-name-row">
+                <div class="boshuu-card-v2-name">
+                  みずき
+                  <span class="boshuu-card-v2-age">37歳</span>
+                  <span class="boshuu-card-v2-verify">✓</span>
+                </div>
+                <span class="boshuu-card-v2-status status-applied">応募済み</span>
+              </div>
+              <div class="boshuu-card-v2-msg">渋谷で仕事帰りにご飯できる方</div>
+              <div class="boshuu-card-v2-meta">
+                <div class="boshuu-card-v2-meta-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                  <span>渋谷・恵比寿エリア</span>
+                </div>
+                <div class="boshuu-card-v2-meta-row between">
+                  <div class="boshuu-card-v2-meta-left">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                    <span>4月4日（金）夜</span>
+                  </div>
+                  <div class="boshuu-card-v2-applied-date">応募日: 3月22日</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="boshuu-card-v2-footer">
+            <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=apply'">詳細を見る</button>
+            <button class="boshuu-card-v2-btn outline" onclick="confirm('応募を取り消しますか？')">応募を取り消す</button>
+          </div>
+        </div>
+
+        <div class="boshuu-card-v2" data-filter-status="selected">
           <div class="boshuu-card-v2-top">
             <div class="boshuu-card-v2-avatar">
               <img alt="みお" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
@@ -1725,7 +1914,42 @@
           </div>
         </div>
 
-        <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2" data-filter-status="selected">
+          <div class="boshuu-card-v2-top">
+            <div class="boshuu-card-v2-avatar">
+              <img alt="あや" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e0d8d0'/><circle cx='26' cy='20' r='10' fill='%23c8b8a8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b0a898'/></svg>">
+            </div>
+            <div class="boshuu-card-v2-body">
+              <div class="boshuu-card-v2-name-row">
+                <div class="boshuu-card-v2-name">
+                  あや
+                  <span class="boshuu-card-v2-age">35歳</span>
+                  <span class="boshuu-card-v2-verify">✓</span>
+                </div>
+                <span class="boshuu-card-v2-status status-selected">マッチング成立</span>
+              </div>
+              <div class="boshuu-card-v2-msg">品川でカジュアルに食事できる方</div>
+              <div class="boshuu-card-v2-meta">
+                <div class="boshuu-card-v2-meta-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#e53935"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+                  <span>品川エリア</span>
+                </div>
+                <div class="boshuu-card-v2-meta-row between">
+                  <div class="boshuu-card-v2-meta-left">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" fill="#e53935"/><rect x="3" y="4" width="18" height="5" fill="#c62828"/><rect x="7" y="12" width="3" height="3" rx="0.5" fill="#fff"/><rect x="14" y="12" width="3" height="3" rx="0.5" fill="#fff"/></svg>
+                    <span>4月1日（火）夜</span>
+                  </div>
+                  <div class="boshuu-card-v2-applied-date">応募日: 3月19日</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="boshuu-card-v2-footer">
+            <button class="boshuu-card-v2-btn" onclick="window.location.href='wireframe_SCR090_chat_boshuu_matched.html?from=070-applied'">チャットを開く</button>
+          </div>
+        </div>
+
+        <div class="boshuu-card-v2" data-filter-status="not-selected">
           <div class="boshuu-card-v2-top">
             <div class="boshuu-card-v2-avatar" onclick="goToUserProfile(2)">
               <img alt="ゆみ" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
@@ -1760,7 +1984,7 @@
           </div>
         </div>
 
-        <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2" data-filter-status="closed">
           <div class="boshuu-card-v2-top">
             <div class="boshuu-card-v2-avatar" onclick="goToUserProfile(2)">
               <img alt="ゆみ" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23e8e0d8'/><circle cx='26' cy='20' r='10' fill='%23d4c4b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23c8b8a8'/></svg>">
@@ -1795,7 +2019,7 @@
           </div>
         </div>
 
-        <div class="boshuu-card-v2">
+        <div class="boshuu-card-v2" data-filter-status="withdrawn">
           <div class="boshuu-card-v2-top">
             <div class="boshuu-card-v2-avatar" onclick="goToUserProfile(3)">
               <img alt="かな" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'><rect width='52' height='52' fill='%23ddd8d0'/><circle cx='26' cy='20' r='10' fill='%23c8c0b8'/><rect x='12' y='32' width='28' height='16' rx='8' fill='%23b8b0a8'/></svg>">
@@ -1832,7 +2056,7 @@
       </div>
 
       <div id="content-my" class="tab-content">
-        <div class="m-card">
+        <div class="m-card" data-filter-status="OPEN">
           <div class="m-card-header" onclick="goBoshuuDetail('wireframe_SCR071_boshuu_detail.html?mode=my&amp;applicants=0&amp;title=%E9%87%91%E6%9B%9C%E5%A4%9C%E3%81%AB%E8%BB%BD%E3%81%8F%E3%81%94%E9%A3%AF%E8%A1%8C%E3%81%91%E3%82%8B%E6%96%B9')" style="cursor:pointer;">
             <div class="m-card-title">金曜夜に軽くご飯行ける方</div>
             <div class="m-status-tag OPEN">募集中</div>
@@ -1845,7 +2069,7 @@
           </div>
         </div>
 
-        <div class="m-card">
+        <div class="m-card" data-filter-status="OPEN">
           <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E5%B9%B3%E6%97%A5%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A7%E8%A9%B1%E3%81%9B%E3%82%8B%E6%96%B9%E5%8B%9F%E9%9B%86'" style="cursor:pointer;">
             <div class="m-card-title">平日ランチで話せる方募集</div>
             <div class="m-status-tag OPEN">募集中</div>
@@ -1858,7 +2082,7 @@
           </div>
         </div>
 
-        <div class="m-card">
+        <div class="m-card" data-filter-status="FULL">
           <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E6%A8%AA%E6%B5%9C%E3%81%A7%E8%90%BD%E3%81%A1%E7%9D%80%E3%81%84%E3%81%9F%E3%81%8A%E5%BA%97%E3%81%AB%E8%A1%8C%E3%81%8D%E3%81%9F%E3%81%84%E3%81%A7%E3%81%99'" style="cursor:pointer;">
             <div class="m-card-title">横浜で落ち着いたお店に行きたいです</div>
             <div class="m-status-tag FULL">満員</div>
@@ -1870,7 +2094,7 @@
           </div>
         </div>
 
-        <div class="m-card">
+        <div class="m-card" data-filter-status="EXPIRED">
           <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E6%B1%A0%E8%A2%8B%E3%81%A7%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AB%E9%A3%9F%E4%BA%8B%E3%81%A7%E3%81%8D%E3%82%8B%E6%96%B9'" style="cursor:pointer;">
             <div class="m-card-title">池袋でカジュアルに食事できる方</div>
             <div class="m-status-tag EXPIRED">期限切れ</div>
@@ -1882,7 +2106,7 @@
           </div>
         </div>
 
-        <div class="m-card">
+        <div class="m-card" data-filter-status="MATCH_CONFIRMED">
           <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E5%9C%9F%E6%9B%9C%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A7%E8%A9%B1%E3%81%97%E3%81%9F%E3%81%84%E6%96%B9'" style="cursor:pointer;">
             <div class="m-card-title">土曜ランチで話したい方</div>
             <div class="m-status-tag MATCH_CONFIRMED">マッチング成立</div>
@@ -1894,7 +2118,7 @@
           </div>
         </div>
 
-        <div class="m-card">
+        <div class="m-card" data-filter-status="CLOSED">
           <div class="m-card-header" onclick="window.location.href='wireframe_SCR071_boshuu_detail.html?mode=my&amp;title=%E8%90%BD%E3%81%A1%E7%9D%80%E3%81%84%E3%81%9F%E5%92%8C%E9%A3%9F%E3%82%92%E3%81%94%E4%B8%80%E7%B7%92%E3%81%A7%E3%81%8D%E3%82%8B%E6%96%B9'" style="cursor:pointer;">
             <div class="m-card-title">落ち着いた和食をご一緒できる方</div>
             <div class="m-status-tag CLOSED">終了</div>
@@ -1955,9 +2179,120 @@
   <script>
     var boshuuTabTitles = {
       search: '新着の食事募集',
-      applied: '応募中の募集',
+      applied: '応募中の一覧',
       my: '自分が作成した募集'
     };
+
+    var boshuuFilterOpen = false;
+    var boshuuActiveFilter = { applied: 'all', my: 'all' };
+
+    var boshuuFilterConfig = {
+      applied: [
+        { key: 'all', label: 'すべて' },
+        { key: 'applied', label: '応募済み' },
+        { key: 'selected', label: 'マッチング成立' },
+        { key: 'not-selected', label: '見送り' },
+        { key: 'withdrawn', label: '辞退済み' }
+      ],
+      my: [
+        { key: 'all', label: 'すべて' },
+        { key: 'OPEN', label: '募集中' },
+        { key: 'FULL', label: '満員' },
+        { key: 'EXPIRED', label: '期限切れ' },
+        { key: 'MATCH_CONFIRMED', label: 'マッチング成立' },
+        { key: 'CLOSED', label: '終了' }
+      ]
+    };
+
+    function getBoshuuFilterCards(tab) {
+      var panel = document.getElementById('content-' + tab);
+      if (!panel) return [];
+      var selector = tab === 'my' ? '.m-card[data-filter-status]' : '.boshuu-card-v2[data-filter-status]';
+      return Array.prototype.slice.call(panel.querySelectorAll(selector));
+    }
+
+    function getBoshuuFilterCounts(tab) {
+      var cards = getBoshuuFilterCards(tab);
+      var counts = { all: cards.length };
+      cards.forEach(function(card) {
+        var status = card.getAttribute('data-filter-status');
+        counts[status] = (counts[status] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function renderBoshuuFilterChips(tab) {
+      var wrap = document.getElementById('filter-chips-inner');
+      if (!wrap) return;
+      var config = boshuuFilterConfig[tab];
+      if (!config) {
+        wrap.innerHTML = '';
+        return;
+      }
+      var counts = getBoshuuFilterCounts(tab);
+      var active = boshuuActiveFilter[tab] || 'all';
+      wrap.innerHTML = '';
+      config.forEach(function(item) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'filter-chip' + (active === item.key ? ' active' : '');
+        if (item.key === 'all') {
+          chip.textContent = item.label + '（' + counts.all + '件）';
+        } else {
+          chip.innerHTML = item.label + '<span class="filter-chip-count">' + (counts[item.key] || 0) + '</span>';
+        }
+        chip.addEventListener('click', function() {
+          setBoshuuFilter(tab, item.key);
+        });
+        wrap.appendChild(chip);
+      });
+    }
+
+    function applyBoshuuFilter(tab) {
+      var cards = getBoshuuFilterCards(tab);
+      var active = boshuuActiveFilter[tab] || 'all';
+      cards.forEach(function(card) {
+        var status = card.getAttribute('data-filter-status');
+        var visible = active === 'all' || status === active;
+        card.classList.toggle('is-filter-hidden', !visible);
+      });
+    }
+
+    function setBoshuuFilter(tab, key) {
+      boshuuActiveFilter[tab] = key;
+      renderBoshuuFilterChips(tab);
+      applyBoshuuFilter(tab);
+    }
+
+    function updateBoshuuFilterUi(tab) {
+      var filterBtn = document.getElementById('list-filter-btn');
+      var chipsBar = document.getElementById('filter-chips-bar');
+      var chevron = document.getElementById('filter-chevron');
+      var toolbar = document.getElementById('list-toolbar');
+      var showFilter = tab === 'applied' || tab === 'my';
+      if (filterBtn) filterBtn.style.display = showFilter ? 'inline-flex' : 'none';
+      if (toolbar) toolbar.classList.toggle('filter-open', showFilter && boshuuFilterOpen);
+      if (!showFilter) {
+        boshuuFilterOpen = false;
+        if (chipsBar) chipsBar.classList.remove('open');
+        if (chevron) chevron.classList.remove('open');
+        if (toolbar) toolbar.classList.remove('filter-open');
+        return;
+      }
+      renderBoshuuFilterChips(tab);
+      applyBoshuuFilter(tab);
+      if (chipsBar) chipsBar.classList.toggle('open', boshuuFilterOpen);
+      if (chevron) chevron.classList.toggle('open', boshuuFilterOpen);
+      if (toolbar) toolbar.classList.toggle('filter-open', boshuuFilterOpen);
+    }
+
+    function toggleBoshuuFilter() {
+      var activeTab = document.querySelector('.boshuu-tab.active');
+      var tab = activeTab ? activeTab.getAttribute('data-tab') : '';
+      if (tab !== 'applied' && tab !== 'my') return;
+      boshuuFilterOpen = !boshuuFilterOpen;
+      updateBoshuuFilterUi(tab);
+    }
 
     function switchBoshuuTab(tab) {
       document.querySelectorAll('.boshuu-tab').forEach(function(el) {
@@ -1970,6 +2305,10 @@
       if (panel) panel.classList.add('active');
       document.getElementById('list-toolbar-title').textContent = boshuuTabTitles[tab] || '';
       document.getElementById('fab-button').style.display = (tab === 'search' || tab === 'my') ? 'flex' : 'none';
+      if (tab !== 'applied' && tab !== 'my') {
+        boshuuFilterOpen = false;
+      }
+      updateBoshuuFilterUi(tab);
     }
 
     function goBoshuuDetail(url) {
@@ -2008,10 +2347,62 @@
       }
     }
 
+    function initFilterChipsScroll() {
+      var scroller = document.getElementById('filter-chips-scroll');
+      if (!scroller || scroller.dataset.bound === '1') return;
+      scroller.dataset.bound = '1';
+
+      scroller.addEventListener('wheel', function(e) {
+        if (scroller.scrollWidth <= scroller.clientWidth) return;
+        e.preventDefault();
+        scroller.scrollLeft += e.deltaY;
+      }, { passive: false });
+
+      var dragStartX = 0;
+      var dragStartScroll = 0;
+      var dragging = false;
+      var dragMoved = false;
+
+      scroller.addEventListener('mousedown', function(e) {
+        if (scroller.scrollWidth <= scroller.clientWidth) return;
+        dragging = true;
+        dragMoved = false;
+        dragStartX = e.pageX;
+        dragStartScroll = scroller.scrollLeft;
+        scroller.classList.add('is-dragging');
+      });
+
+      window.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        var delta = e.pageX - dragStartX;
+        if (Math.abs(delta) > 4) dragMoved = true;
+        if (!dragMoved) return;
+        e.preventDefault();
+        scroller.scrollLeft = dragStartScroll - delta;
+      });
+
+      window.addEventListener('mouseup', function() {
+        dragging = false;
+        scroller.classList.remove('is-dragging');
+      });
+
+      scroller.addEventListener('click', function(e) {
+        if (dragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragMoved = false;
+        }
+      }, true);
+    }
+
+    initFilterChipsScroll();
+
     (function initBoshuuTabFromUrl() {
       var tab = new URLSearchParams(window.location.search).get('tab');
       if (tab === 'applied' || tab === 'search' || tab === 'my') {
         switchBoshuuTab(tab);
+      } else {
+        updateBoshuuFilterUi('search');
       }
     })();
 
