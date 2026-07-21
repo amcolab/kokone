@@ -101,11 +101,12 @@
 
     .recruiter-card {
       background: var(--c0);
-      border: var(--border);
-      margin: 12px 16px;
-      padding: 12px;
+      border: 0;
+      margin: 0;
+      padding: 12px 16px;
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      gap: 0;
     }
 
     .recruiter-card .photo-box,
@@ -114,62 +115,54 @@
     }
 
     .photo-box {
-      width: 80px;
-      height: 80px;
-      background: var(--c2);
-      border: 1px solid var(--c3);
+      width: 100%;
+      height: 280px;
+      background: #f5efe6;
+      border: 0;
+      border-radius: 8px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 24px;
       color: var(--c4);
-    }
-    .photo-box.blurred {
       position: relative;
       overflow: hidden;
-      background: #d2d2d2;
     }
     .photo-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      filter: grayscale(1) blur(8px);
-      transform: scale(1.08);
-    }
-    .photo-blur {
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.12);
+      object-fit: contain;
+      object-position: center;
     }
     .verify-dot {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: #2e7d32;
       color: #fff;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 900;
-      margin-left: 6px;
       flex-shrink: 0;
     }
     .name-row {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      flex-wrap: wrap;
     }
 
     .recruiter-info {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      gap: 0;
+      padding: 12px 0 0;
     }
 
     .recruiter-name {
@@ -199,21 +192,6 @@
       border: 1px solid var(--c5);
     }
 
-    .tag-row {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .tag {
-      background: var(--c1);
-      border: 1px solid var(--c3);
-      padding: 2px 6px;
-      font-size: 10px;
-      color: var(--c6);
-    }
-
     .profile-link {
       background: var(--c0);
       border: 1px solid var(--c3);
@@ -229,6 +207,10 @@
       background: var(--c0);
       border-bottom: var(--border);
       padding: 12px 16px;
+    }
+
+    .section.no-border {
+      border-bottom: none;
     }
 
     .section-title {
@@ -834,24 +816,18 @@
       </div>
       <!-- Recruiter Card -->
       <div class="recruiter-card" id="recruiterCard">
-        <div class="photo-box blurred">
-          <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%23cfcfcf'/><circle cx='40' cy='30' r='14' fill='%239b9b9b'/><rect x='18' y='46' width='44' height='26' rx='13' fill='%23b3b3b3'/><circle cx='34' cy='28' r='2.2' fill='%23424242'/><circle cx='46' cy='28' r='2.2' fill='%23424242'/><path d='M34 35c4 3 8 3 12 0' fill='none' stroke='%23424242' stroke-width='2' stroke-linecap='round'/></svg>">
-          <div class="photo-blur"></div>
+        <div class="photo-box">
+          <img class="photo-img" alt="photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'><rect width='480' height='480' fill='%23f5efe6'/><ellipse cx='240' cy='410' rx='110' ry='58' fill='%23f3b6c4'/><path d='M150 355c20 38 55 58 90 58s70-20 90-58c-28 18-58 26-90 26s-62-8-90-26z' fill='%23e89aab'/><circle cx='240' cy='210' r='108' fill='%23f4c9a8'/><path d='M118 205c10-110 72-168 122-168s112 58 122 168c-22-34-68-56-122-56s-100 22-122 56z' fill='%233d2418'/><path d='M132 175c14-86 58-132 108-132s94 46 108 132c-24-26-62-42-108-42s-84 16-108 42z' fill='%234e2e1e'/><path d='M118 220c8 78 48 130 122 130s114-52 122-130c-20 34-66 56-122 56s-102-22-122-56z' fill='%233d2418' opacity='0.18'/><ellipse cx='196' cy='205' rx='12' ry='14' fill='%23212121'/><ellipse cx='284' cy='205' rx='12' ry='14' fill='%23212121'/><circle cx='200' cy='200' r='3.5' fill='%23fff'/><circle cx='288' cy='200' r='3.5' fill='%23fff'/><path d='M176 176c12-10 26-12 36-7' fill='none' stroke='%233d2418' stroke-width='6' stroke-linecap='round'/><path d='M268 169c12-7 26-7 36 3' fill='none' stroke='%233d2418' stroke-width='6' stroke-linecap='round'/><path d='M202 248c14 22 32 32 38 32s24-10 38-32' fill='none' stroke='%23d56b7a' stroke-width='7' stroke-linecap='round'/><ellipse cx='168' cy='238' rx='16' ry='10' fill='%23f09a9a' opacity='0.5'/><ellipse cx='312' cy='238' rx='16' ry='10' fill='%23f09a9a' opacity='0.5'/><circle cx='168' cy='112' r='22' fill='%233d2418'/><circle cx='312' cy='112' r='22' fill='%233d2418'/><path d='M210 118c10 14 22 20 30 20s20-6 30-20' fill='none' stroke='%233d2418' stroke-width='5' stroke-linecap='round' opacity='0.35'/></svg>">
         </div>
         <div class="recruiter-info">
           <div class="name-row">
             <div class="recruiter-name">みお · 38歳</div>
             <span class="verify-dot">✓</span>
           </div>
-          <div class="tag-row">
-            <div class="tag">和食</div>
-            <div class="tag">イタリアン</div>
-            <div class="tag">焼肉・ステーキ</div>
-          </div>
         </div>
       </div>
 
-      <div class="section">
+      <div class="section no-border">
         <div class="section-title">ひとこと</div>
         <div class="comment-box">仕事帰りに気軽に話せる方を探しています。難しいことは抜きで、ゆっくりご飯が食べられれば嬉しいです。</div>
       </div>

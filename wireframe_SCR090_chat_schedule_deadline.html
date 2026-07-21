@@ -778,9 +778,9 @@
       <div class="schedule-card">
         <div class="schedule-icon">⏱</div>
         <div style="flex:1;">
-          <div class="schedule-title">⏱ 食事プランまで残り時間</div>
+          <div class="schedule-title">⏱ お食事プランの承認期限まで残り時間</div>
           <div class="countdown-value">05:22:48</div>
-          <div class="schedule-text">期限までに食事プランが未確定の場合、マッチングが自動キャンセルされます。食事プランを確認して、食事日程を確定してください。</div>
+          <div class="schedule-text">まもなく食事プランの確定期限です。内容をご確認のうえ、お早めに確定してください。</div>
           <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_proposal.html?from=090A'">食事プランを見る</button>
         </div>
       </div>
@@ -814,7 +814,7 @@
       <div class="blp-head-info">
         <div class="blp-head-scr">SCR-090E</div>
         <div class="blp-head-title">Chat Schedule Deadline</div>
-        <div class="blp-head-sub">食事プラン期限 / Chat cảnh báo sắp hết hạn chốt meal plan</div>
+        <div class="blp-head-sub">お食事プラン承認期限 / Chat cảnh báo hạn duyệt meal plan</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -835,19 +835,19 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">チャット開始から一定期間が経過しても食事プランが決まっていない場合に、残り時間を強調して食事プラン確認を促す画面です。</div>
+          <div class="blp-note highlight">現在の食事プランの承認期限が近づいていることを伝え、期限内の確認・承認を促す画面です。期限切れ時はマッチングをキャンセルせず、新しい食事プランを改めてご案内します。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>残り時間</strong>を大きく表示し、緊急度を伝えます。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong>から食事プラン提案フロー（090I → 090J → 090K）へ入ります。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>チャット文脈</strong>を維持したまま催促できる構成です。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>承認期限までの残り時間</strong>を大きく表示し、緊急度を伝えます。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong>から現在のプラン確認・承認フロー（090I → 090J → 090K）へ入ります。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>期限切れ時</strong> — マッチングは継続し、新しい食事プランが改めて提案されます。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Mutual Match</strong> の期限つきレコードから開く</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で残り時間を確認</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Mutual Match</strong> の承認期限つきレコードから開く</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>この画面</strong> で承認期限の残り時間を確認</div></div>
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>090I</strong> 食事プラン提案 → <strong>090J</strong> / <strong>090K</strong> へ進む</div></div>
           </div>
         </div>
@@ -855,25 +855,25 @@
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn chat cảnh báo hết hạn chốt meal plan, hiển thị countdown để thúc đẩy user xác nhận食事プラン.</div>
+          <div class="blp-note highlight">Cảnh báo sắp hết hạn duyệt meal plan hiện tại, thúc đẩy user xác nhận trong hạn. Hết hạn thì không hủy match mà tiếp tục giới thiệu meal plan mới.</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Countdown</strong> được hiển thị nổi bật ngay trong card chat.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong> mở flow đề xuất kế hoạch ăn uống (090I → 090J → 090K).</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text">UI vẫn giữ dạng chat để không làm đứt mạch trao đổi.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Countdown</strong> đến hạn duyệt được hiển thị nổi bật trong card chat.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>食事プランを見る</strong> mở flow xác nhận plan hiện tại (090I → 090J → 090K).</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Hết hạn</strong> — matching tiếp tục; hệ thống giới thiệu meal plan mới.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Từ <strong>065</strong> record có hạn chót</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> xem countdown</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">Từ <strong>065</strong> record có hạn duyệt plan</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>Màn này</strong> xem countdown hạn duyệt</div></div>
             <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>090I</strong> → <strong>090J</strong> → <strong>090K</strong></div></div>
           </div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Ghi chú</div>
-          <div class="blp-note.warn">Đây là trạng thái nhắc hạn, dùng khi hệ thống muốn tăng độ ưu tiên cho việc chốt ngày.</div>
+          <div class="blp-note.warn">Không hủy matching khi hết hạn; thay vào đó tiếp tục đề xuất meal plan mới.</div>
         </div>
       </div>
     </div>

@@ -647,6 +647,48 @@
       right: 6px;
     }
 
+    .public-check {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 6px;
+      padding: 4px 5px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #424242;
+      cursor: pointer;
+      line-height: 1.2;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .public-check input {
+      width: 12px;
+      height: 12px;
+      margin: 0;
+      accent-color: var(--pink);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .main-photo-preview .public-check {
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      font-size: 10px;
+      padding: 5px 6px;
+    }
+
+    .main-photo-preview .public-check input {
+      width: 13px;
+      height: 13px;
+    }
+
     .mock-photo {
       width: 100%;
       height: 100%;
@@ -1613,11 +1655,15 @@
               <div class="mock-photo">
                 <div class="mock-photo-scene scene-suit"></div>
               </div>
+              <label class="public-check" onclick="event.stopPropagation()">
+                <input type="checkbox" checked>
+                <span>公開リクエスト対象</span>
+              </label>
             </div>
           </div>
           <div class="tip-box">
             <span class="bulb">💡</span>
-            <span>ぼかしを調整することで、相手からのぼかし解除申請が増えることがあります。</span>
+            <span>チェックした写真が、写真公開リクエストの対象になります。ぼかしを調整することで、相手からの申請が増えることがあります。</span>
           </div>
         </div>
 
@@ -1626,13 +1672,17 @@
             <h2>サブ写真（最大6枚）<span class="badge badge-optional">任意</span></h2>
             <span class="sub-counter" id="subCounter">3/6枚</span>
           </div>
-          <p class="section-desc">趣味や日常がわかる写真を追加しましょう。</p>
+          <p class="section-desc">趣味や日常がわかる写真を追加しましょう。チェックした写真は公開リクエストの対象になります。</p>
           <div class="sub-photo-grid" id="subPhotoGrid">
             <div class="sub-slot filled" data-index="1">
               <div class="sub-slot-inner" style="--photo-blur:3px">
                 <span class="sub-slot-num">1</span>
                 <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
                 <div class="mock-photo"><div class="mock-photo-scene scene-dog"></div></div>
+                <label class="public-check" onclick="event.stopPropagation()">
+                  <input type="checkbox">
+                  <span>公開対象</span>
+                </label>
               </div>
               <div class="sub-blur-control">
                 <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">20%</strong></div>
@@ -1645,6 +1695,10 @@
                 <span class="sub-slot-num">2</span>
                 <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
                 <div class="mock-photo"><div class="mock-photo-scene scene-suit"></div></div>
+                <label class="public-check" onclick="event.stopPropagation()">
+                  <input type="checkbox">
+                  <span>公開対象</span>
+                </label>
               </div>
               <div class="sub-blur-control">
                 <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">10%</strong></div>
@@ -1657,6 +1711,10 @@
                 <span class="sub-slot-num">3</span>
                 <button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>
                 <div class="mock-photo"><div class="mock-photo-scene scene-sunset"></div></div>
+                <label class="public-check" onclick="event.stopPropagation()">
+                  <input type="checkbox">
+                  <span>公開対象</span>
+                </label>
               </div>
               <div class="sub-blur-control">
                 <div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">30%</strong></div>
@@ -1790,7 +1848,8 @@
         <div class="blp-section-title">顔出し設定</div>
         <div class="blp-rule"><div class="blp-rule-dot">🔒</div><div class="blp-rule-text"><strong>マッチ前はモザイク</strong> — デフォルト設定。探索中は顔をモザイク表示。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">🔓</div><div class="blp-rule-text"><strong>全体公開</strong> — 探索中から全ユーザーに顔を表示。任意で選択可能。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text"><strong>写真公開リクエスト</strong>（080A / 090F）— ユーザーAが送信 → ユーザーBが承認すると双方の写真が公開。どちらか一方が公開解除すると双方とも再度モザイク表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">☑</div><div class="blp-rule-text"><strong>公開リクエスト対象</strong> — メイン／サブ各写真にチェックを付け、写真公開リクエストで開示する対象を選ぶ。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">→</div><div class="blp-rule-text"><strong>写真公開リクエスト</strong>（080A / 090F）— ユーザーAが送信 → ユーザーBが承認すると双方の対象写真が公開。どちらか一方が公開解除すると双方とも再度モザイク表示。</div></div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">完了後のフロー</div>
@@ -1901,7 +1960,9 @@
         preview.style.background = '#ddd';
         preview.innerHTML =
           '<button type="button" class="remove-photo-btn" onclick="event.stopPropagation(); removeMainPhoto()">×</button>' +
-          '<div class="mock-photo"><div class="mock-photo-scene scene-suit"></div></div>';
+          '<div class="mock-photo"><div class="mock-photo-scene scene-suit"></div></div>' +
+          '<label class="public-check" onclick="event.stopPropagation()">' +
+          '<input type="checkbox" checked><span>公開リクエスト対象</span></label>';
       }
       updateNextBtn();
     }
@@ -1918,6 +1979,8 @@
         '<span class="sub-slot-num">' + idx + '</span>' +
         '<button type="button" class="remove-photo-btn" onclick="removeSubPhoto(this)">×</button>' +
         '<div class="mock-photo"><div class="mock-photo-scene ' + scene + '"></div></div>' +
+        '<label class="public-check" onclick="event.stopPropagation()">' +
+        '<input type="checkbox"><span>公開対象</span></label>' +
         '</div>' +
         '<div class="sub-blur-control">' +
         '<div class="sub-blur-row"><span>ぼかし</span><strong class="sub-blur-val">' + blurVal + '%</strong></div>' +
