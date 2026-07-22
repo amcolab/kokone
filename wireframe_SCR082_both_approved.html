@@ -262,6 +262,52 @@
     .plan-row:last-child { border-bottom: 0; }
     .plan-label { color: var(--c4); }
     .plan-value { font-weight: 600; text-align: right; }
+    .card-action-block {
+      width: 100%;
+      border: 1px solid var(--c2);
+      border-radius: 14px;
+      background: var(--c0);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .agree-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .agree-check input {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--c6);
+      cursor: pointer;
+    }
+    .agree-check span {
+      font-size: 11px;
+      line-height: 1.55;
+      color: var(--c5);
+    }
+    .primary-btn {
+      width: 100%;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--c6);
+      color: var(--c0);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary-btn:disabled {
+      background: #cfcfcf;
+      color: #f5f5f5;
+      cursor: not-allowed;
+    }
     .shop-detail-overlay {
       position: absolute;
       inset: 0;
@@ -645,6 +691,7 @@
       <a class="wf-nav-link" href="wireframe_SCR121_availability_match.html"><span class="wf-nav-id">121A</span>Availability Quick</a>
       <a class="wf-nav-link" href="wireframe_SCR082_date_confirm.html"><span class="wf-nav-id">082</span>Date Confirm</a>
       <a class="wf-nav-link wf-active" href="wireframe_SCR082_both_approved.html"><span class="wf-nav-id">082D</span>Both Approved</a>
+      <a class="wf-nav-link" href="wireframe_SCR082_stripe_card.html"><span class="wf-nav-id">082E</span>Stripe Card</a>
       <a class="wf-nav-link" href="wireframe_SCR087_booking_confirmed.html"><span class="wf-nav-id">087</span>Booking Confirmed</a>
       <a class="wf-nav-link" href="wireframe_SCR089_reminder.html"><span class="wf-nav-id">089</span>Reminder</a>
     </div>
@@ -683,20 +730,20 @@
       <div class="message-row">
         <div class="mini-avatar"></div>
         <div class="message-stack">
-          <div class="bubble">食事プラン、承認しました！<br>当日楽しみにしています。</div>
+          <div class="bubble">日時とお店、確定しました！<br>当日楽しみにしています。</div>
           <div class="time">18:50</div>
         </div>
       </div>
       <div class="message-row sent">
         <div class="message-stack">
-          <div class="bubble sent">こちらも承認しました。<br>予約が確定するのを待ちましょう。</div>
+          <div class="bubble sent">こちらも確定しました。<br>カード登録を進めましょう。</div>
           <div class="time" style="text-align:right;"><span class="read-mark">✓✓</span>18:52</div>
         </div>
       </div>
-      <div class="status-card">
+      <div class="status-card" id="statusCard">
         <div class="status-icon">✓</div>
-        <div class="status-title">双方の承認が完了しました！</div>
-        <div class="status-sub">OtonaTableが予約手続きを開始します。<br>完了次第、チャットでお知らせします。</div>
+        <div class="status-title" id="statusTitle">日時・店舗が確定しました</div>
+        <div class="status-sub" id="statusSub">双方がクレジットカードを登録すると、<br>予約手続きが進みます。</div>
       </div>
       <div class="plan-card">
         <div class="plan-top">
@@ -711,6 +758,13 @@
           <div class="plan-row"><span class="plan-label">お会計</span><span class="plan-value">割り勘（当日相談して決める）</span></div>
           <div class="plan-row"><span class="plan-label">予約担当</span><span class="plan-value">OtonaTable</span></div>
         </div>
+      </div>
+      <div class="card-action-block" id="cardActionBlock">
+        <label class="agree-check">
+          <input type="checkbox" id="cardAgreeCheck" onchange="toggleCardRegisterBtn()">
+          <span>カードを登録することにより、予約のキャンセル期限を過ぎた場合または無断キャンセルが発生した場合、本カードからキャンセル料が自動的に引き落とされることに同意します。キャンセル料の金額および無料キャンセル期限は各店舗の規定に従い、予約手続きの画面で具体的に表示されます。</span>
+        </label>
+        <button class="primary-btn" id="cardRegisterBtn" type="button" disabled onclick="goStripeCard()">カードを登録する</button>
       </div>
     </div>
     <div class="input-bar">
@@ -760,7 +814,7 @@
       <div class="blp-head-info">
         <div class="blp-head-scr">SCR-082D</div>
         <div class="blp-head-title">Both Approved</div>
-        <div class="blp-head-sub">双方承認完了 / Sau khi cả hai duyệt</div>
+        <div class="blp-head-sub">日時・店舗確定後のカード登録 / Cả 2 đã chốt ngày & quán, yêu cầu nhập thẻ</div>
       </div>
       <div style="display:flex;align-items:center;">
         <div class="blp-lang-switch">
@@ -781,43 +835,33 @@
       <div class="blp-lang lang-ja">
         <div class="blp-section">
           <div class="blp-section-title">画面の目的</div>
-          <div class="blp-note highlight">082で食事プランを承認した後、双方の承認が完了し OtonaTable が予約手続きを開始する画面です。</div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">UI構成（左画面）</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャットヘッダー</strong> — 戻る・相手名・アバター・OTバッジ。上部に会話履歴を表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>4段階ステッパー</strong> —「食事プラン提案」「双方承認」完了、「予約手続き」が現在地。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>チャット本文</strong> — 過去メッセージ＋完了カード（✓）＋プランサマリーカード。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>プランサマリーカード</strong> — 店舗サムネ・店名タップで SCR060 同型の店舗詳細ポップアップ。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>入力バー</strong> — 待機中も通常チャットと同様にメッセージ入力可能。</div></div>
+          <div class="blp-note highlight">双方が日時・店舗を確定したあと、双方にクレジットカード登録を求める画面です。同意チェック後に Stripe カード入力へ進みます。</div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">閲覧専用。予約完了後はチャットで通知が届く想定。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">予約手続き完了後 →「予約完了」ステップの画面へ遷移。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>確定カード</strong> — 日時・店舗確定と双方カード登録が必要な旨を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>同意チェック</strong> — キャンセル料・無断キャンセルの自動引き落とし同意（日本語）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>カードを登録する</strong> — チェック後のみ有効。SCR-082E Stripe カード入力へ遷移。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
           <div class="blp-flow">
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text"><strong>082</strong>「この内容を承認する」から入る</div></div>
-            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div></div><div class="blp-step-text">予約完了後 <strong>087</strong> 等へ</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">1</div><div class="blp-step-connector"></div></div><div class="blp-step-text">双方の日時・店舗確定後にこの画面</div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">2</div><div class="blp-step-connector"></div></div><div class="blp-step-text">同意チェック → <strong>カードを登録する</strong></div></div>
+            <div class="blp-flow-step"><div class="blp-step-line"><div class="blp-step-num">3</div></div><div class="blp-step-text"><strong>082E</strong> Stripe カード入力</div></div>
           </div>
         </div>
       </div>
       <div class="blp-lang lang-vi" style="display:none;">
         <div class="blp-section">
           <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Sau khi duyệt ở SCR-082 — cả hai đã đồng ý, OtonaTable bắt đầu thủ tục đặt bàn.</div>
+          <div class="blp-note highlight">Cả 2 bên đã chốt ngày và nhà hàng; yêu cầu cả 2 nhập thẻ. Tick checkbox tiếng Nhật rồi sang màn Stripe.</div>
         </div>
         <div class="blp-section">
-          <div class="blp-section-title">Cấu trúc UI</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>Stepper</strong> — bước 1–2 xong, đang ở「予約手続き」.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Thông báo</strong> — icon ✓ + tiêu đề + hướng dẫn chờ chat.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Card</strong> — ảnh quán, tên, ngày giờ, số người, お会計, 予約担当.</div></div>
-        </div>
-        <div class="blp-section">
-          <div class="blp-section-title">Luồng</div>
-          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Từ <strong>082</strong> bấm この内容を承認する.</div></div>
+          <div class="blp-section-title">Hành vi chính</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card xác nhận ngày/quán + yêu cầu đăng ký thẻ 2 bên.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Checkbox đồng ý phí hủy muộn / no-show (JA).</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>カードを登録する</strong> → SCR-082E nhập thẻ Stripe.</div></div>
         </div>
       </div>
     </div>
@@ -829,6 +873,24 @@
       document.querySelectorAll('.blp-lang-btn').forEach(function(btn) { btn.classList.remove('active'); });
       document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
     }
+    function toggleCardRegisterBtn() {
+      var check = document.getElementById('cardAgreeCheck');
+      var btn = document.getElementById('cardRegisterBtn');
+      if (btn) btn.disabled = !(check && check.checked);
+    }
+    function goStripeCard() {
+      var check = document.getElementById('cardAgreeCheck');
+      if (!check || !check.checked) return;
+      window.location.href = 'wireframe_SCR082_stripe_card.html';
+    }
+    function applyCardRegisteredState() {
+      var title = document.getElementById('statusTitle');
+      var sub = document.getElementById('statusSub');
+      var action = document.getElementById('cardActionBlock');
+      if (title) title.textContent = 'カード登録が完了しました';
+      if (sub) sub.innerHTML = 'OtonaTableが予約手続きを開始します。<br>完了次第、チャットでお知らせします。';
+      if (action) action.style.display = 'none';
+    }
     function toggleBlpFullscreen(btn) {
       var w = btn.closest('.blp-wrap');
       var isFs = w.classList.toggle('fullscreen');
@@ -836,6 +898,9 @@
     }
 
     var params = new URLSearchParams(window.location.search);
+    if (params.get('card') === 'done') {
+      applyCardRegisteredState();
+    }
     var planDate = params.get('date') || localStorage.getItem('ot-schedule-proposal') || '6月27日（土）18:00〜';
     var planShop = params.get('shop') || localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば。恵比寿';
     if (planShop.indexOf('。') === -1 && planShop === '食堂 まぐろとさば') {

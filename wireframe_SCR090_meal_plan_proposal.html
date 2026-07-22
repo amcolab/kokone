@@ -710,7 +710,7 @@
       <div class="step">予約完了</div>
     </div>
     <div class="content">
-      <div class="deadline-banner">
+      <div class="deadline-banner" id="deadlineBanner">
         <div class="deadline-icon">⏳</div>
         <div>
           <div class="deadline-label">承認期限</div>
@@ -826,7 +826,7 @@
       </div>
     </div>
     <div class="bottom-bar">
-      <button class="primary-btn" onclick="window.location.href='wireframe_SCR090_meal_plan_waiting.html'">この内容で承認する</button>
+      <button class="primary-btn" onclick="goApproveWaiting()">この内容で承認する</button>
       <div class="link-row">
         <button class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html'">日時を変更する</button>
         <button class="text-link" onclick="goShopList()">店舗を変更する</button>
@@ -1124,6 +1124,20 @@
     }
     if (params.get('shop')) {
       applySelectedShopToMain(params.get('shop'));
+    }
+    if (params.get('from') === '090H') {
+      var deadlineBanner = document.getElementById('deadlineBanner');
+      if (deadlineBanner) deadlineBanner.style.display = 'none';
+      var backBtnFromExpired = document.querySelector('.back-btn');
+      if (backBtnFromExpired) {
+        backBtnFromExpired.setAttribute('onclick', "window.location.href='wireframe_SCR090_chat_schedule_expired.html'");
+      }
+    }
+    function goApproveWaiting() {
+      var url = 'wireframe_SCR090_meal_plan_waiting.html';
+      var from = new URLSearchParams(window.location.search).get('from');
+      if (from === '090H') url += '?from=090H';
+      window.location.href = url;
     }
     if (params.get('from') === '090A') {
       var mainRestName = document.getElementById('mainRestName');

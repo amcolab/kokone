@@ -683,7 +683,7 @@
         <div class="status-icon">⏳</div>
         <div class="status-title">相手の承認待ちです</div>
         <div class="status-sub">双方の承認が完了すると<br>予約手続きへ進みます。</div>
-        <div class="countdown-card">
+        <div class="countdown-card" id="countdownCard">
           <div class="countdown-label">承認期限</div>
           <div class="countdown-time">残り 31時間</div>
           <div class="countdown-date">2025年6月24日（火）18:00まで</div>
@@ -847,6 +847,14 @@
     document.getElementById('planName').textContent = planShop;
     localStorage.setItem('ot-schedule-proposal', planDate);
     localStorage.setItem('ot-restaurant-name', planShop);
+    if (params.get('from') === '090H') {
+      var countdownCard = document.getElementById('countdownCard');
+      if (countdownCard) countdownCard.style.display = 'none';
+      var backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.setAttribute('onclick', "window.location.href='wireframe_SCR090_meal_plan_proposal.html?from=090H'");
+      }
+    }
 
     var SHOP_DETAIL = {
       displayName: '食堂 まぐろとさば',
