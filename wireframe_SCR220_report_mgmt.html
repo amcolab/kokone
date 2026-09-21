@@ -254,6 +254,24 @@
       cursor: pointer;
       color: #212121;
     }
+    .filter-date {
+      width: 178px;
+      min-width: 178px;
+      color: #424242;
+    }
+    .filter-sep {
+      font-size: 12px;
+      color: #757575;
+      align-self: center;
+      padding: 0 2px;
+    }
+    .filter-time-label {
+      font-size: 11px;
+      color: #757575;
+      align-self: center;
+      font-weight: 600;
+      margin-right: 4px;
+    }
     .status-open {
       border-color: #d32f2f;
       color: #d32f2f;
@@ -569,6 +587,10 @@
           <option>未対応</option>
           <option>対応済み</option>
         </select>
+        <span class="filter-time-label">期間</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-03-01T00:00">
+        <span class="filter-sep">〜</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-03-31T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
       <div class="summary-line">全 48 件 · 未対応 3 件 · 表示: 1〜20件</div>
@@ -618,6 +640,10 @@
           <option>未対応</option>
           <option>対応済み</option>
         </select>
+        <span class="filter-time-label">期間</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-06-01T00:00">
+        <span class="filter-sep">〜</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-07-31T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
       <div class="summary-line">全 14 件 · 未対応 2 件 · 表示: 1〜20件</div>
@@ -666,16 +692,14 @@
       <div class="filter-bar">
         <input type="text" class="filter-input" placeholder="ユーザー名・検知ワードで検索...">
         <select class="filter-select">
-          <option>検知ワード: すべて</option>
-          <option>LINE</option>
-          <option>連絡先交換</option>
-          <option>外部誘導</option>
-        </select>
-        <select class="filter-select">
           <option>ステータス: すべて</option>
           <option>未対応</option>
           <option>対応済み</option>
         </select>
+        <span class="filter-time-label">期間</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-09-01T00:00">
+        <span class="filter-sep">〜</span>
+        <input type="datetime-local" class="filter-select filter-date" value="2026-09-30T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
       <div class="summary-line">全 31 件 · 未対応 5 件 · 表示: 1〜20件</div>
