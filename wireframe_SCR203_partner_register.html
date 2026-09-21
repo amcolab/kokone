@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -209,7 +209,95 @@
       vertical-align: middle;
     }
 
-  
+    .cancel-policy-list { display: flex; flex-direction: column; gap: 14px; }
+    .cancel-condition {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 16px;
+      background: #fafafa;
+      position: relative;
+    }
+    .cancel-condition-head {
+      font-size: 13px;
+      font-weight: 700;
+      color: #212121;
+      margin-bottom: 14px;
+    }
+    .cancel-field { margin-bottom: 14px; }
+    .cancel-field:last-of-type { margin-bottom: 0; }
+    .cancel-field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #757575;
+      margin-bottom: 6px;
+    }
+    .cancel-inline { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .cancel-input-num {
+      width: 72px;
+      height: 38px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .cancel-select-sm {
+      width: auto;
+      min-width: 100px;
+      height: 38px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .cancel-input-fee {
+      width: 120px;
+      height: 38px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .cancel-select-full {
+      max-width: 200px;
+      height: 38px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .cancel-remove-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      color: #757575;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .cancel-add-btn {
+      margin-top: 12px;
+      border: 1px dashed #bdbdbd;
+      background: #fff;
+      color: #424242;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+    .cancel-add-btn:hover { background: #f5f5f5; }
+    .cancel-num-wrap.hidden { display: none; }
+
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff;
       border-right: 1px solid #e0e0e0; position: fixed;
@@ -331,7 +419,7 @@
 
   <div class="sidebar-title">管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR201_activity_mgmt.html'">アクティビティ</div>
-  <div class="sidebar-item active" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗・パートナー管理</div>
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR203_partner_mgmt.html'">店舗管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR204_user_mgmt.html'">ユーザー管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR206_boshuu_mgmt.html'">募集管理</div>
   <div class="sidebar-item" onclick="location.href='wireframe_SCR205_match_mgmt.html'">マッチング管理</div>
@@ -441,6 +529,46 @@
     </div>
 
     <div class="card">
+      <div class="card-title">キャンセルポリシー</div>
+      <div id="cancelPolicyList" class="cancel-policy-list">
+        <div class="cancel-condition" data-condition-index="1">
+          <button type="button" class="cancel-remove-btn" onclick="removeCancelCondition(this)">削除</button>
+          <div class="cancel-condition-head">条件 1</div>
+          <div class="cancel-field">
+            <div class="cancel-field-label">キャンセル料発生タイミング</div>
+            <div class="cancel-inline">
+              <span class="cancel-num-wrap"><input type="number" class="cancel-input-num timing-num" value="1" min="0"></span>
+              <select class="cancel-select-sm timing-type" onchange="syncTimingNumber(this)">
+                <option value="days_before" selected>日前</option>
+                <option value="same_day">当日</option>
+                <option value="hours_before">時間前</option>
+                <option value="no_show">無断キャンセル</option>
+              </select>
+            </div>
+          </div>
+          <div class="cancel-field">
+            <div class="cancel-field-label">キャンセル料</div>
+            <div class="cancel-inline">
+              <input type="text" class="cancel-input-fee" value="3,000">
+              <select class="cancel-select-sm fee-unit">
+                <option value="yen" selected>円</option>
+                <option value="percent">%</option>
+              </select>
+            </div>
+          </div>
+          <div class="cancel-field">
+            <div class="cancel-field-label">料金単位</div>
+            <select class="cancel-select-full price-scope">
+              <option value="per_person" selected>1人あたり</option>
+              <option value="per_booking">1予約あたり</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="cancel-add-btn" onclick="addCancelCondition()">＋ キャンセル条件を追加</button>
+    </div>
+
+    <div class="card">
       <div class="card-title">管理・連携設定</div>
       
       <div class="form-grid">
@@ -471,6 +599,55 @@
 
   </div>
 </div>
+
+<script>
+  function syncTimingNumber(selectEl) {
+    var block = selectEl.closest('.cancel-condition');
+    var wrap = block.querySelector('.cancel-num-wrap');
+    var val = selectEl.value;
+    wrap.classList.toggle('hidden', val === 'same_day' || val === 'no_show');
+  }
+
+  function renumberCancelConditions() {
+    document.querySelectorAll('#cancelPolicyList .cancel-condition').forEach(function (el, i) {
+      el.setAttribute('data-condition-index', String(i + 1));
+      el.querySelector('.cancel-condition-head').textContent = '条件 ' + (i + 1);
+    });
+  }
+
+  function removeCancelCondition(btn) {
+    var list = document.getElementById('cancelPolicyList');
+    if (list.querySelectorAll('.cancel-condition').length <= 1) {
+      alert('キャンセル条件は1件以上必要です');
+      return;
+    }
+    btn.closest('.cancel-condition').remove();
+    renumberCancelConditions();
+  }
+
+  function addCancelCondition() {
+    var list = document.getElementById('cancelPolicyList');
+    var n = list.querySelectorAll('.cancel-condition').length + 1;
+    var div = document.createElement('div');
+    div.className = 'cancel-condition';
+    div.setAttribute('data-condition-index', String(n));
+    div.innerHTML =
+      '<button type="button" class="cancel-remove-btn" onclick="removeCancelCondition(this)">削除</button>' +
+      '<div class="cancel-condition-head">条件 ' + n + '</div>' +
+      '<div class="cancel-field"><div class="cancel-field-label">キャンセル料発生タイミング</div>' +
+      '<div class="cancel-inline"><span class="cancel-num-wrap"><input type="number" class="cancel-input-num timing-num" value="1" min="0"></span>' +
+      '<select class="cancel-select-sm timing-type" onchange="syncTimingNumber(this)">' +
+      '<option value="days_before" selected>日前</option><option value="same_day">当日</option>' +
+      '<option value="hours_before">時間前</option><option value="no_show">無断キャンセル</option></select></div></div>' +
+      '<div class="cancel-field"><div class="cancel-field-label">キャンセル料</div>' +
+      '<div class="cancel-inline"><input type="text" class="cancel-input-fee" value="">' +
+      '<select class="cancel-select-sm fee-unit"><option value="yen" selected>円</option><option value="percent">%</option></select></div></div>' +
+      '<div class="cancel-field"><div class="cancel-field-label">料金単位</div>' +
+      '<select class="cancel-select-full price-scope"><option value="per_person" selected>1人あたり</option>' +
+      '<option value="per_booking">1予約あたり</option></select></div>';
+    list.appendChild(div);
+  }
+</script>
 
 </body>
 </html>
