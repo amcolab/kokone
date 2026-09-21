@@ -203,6 +203,207 @@
       margin-bottom: 12px;
     }
 
+    .report-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      background: #fff;
+    }
+    .report-tab {
+      padding: 12px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      color: #757575;
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .report-tab.active {
+      color: #212121;
+      font-weight: 600;
+      border-bottom-color: #212121;
+    }
+    .tab-badge {
+      display: inline-block;
+      min-width: 18px;
+      padding: 1px 6px;
+      margin-left: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 10px;
+      vertical-align: middle;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+    .btn-secondary {
+      height: 36px;
+      padding: 0 14px;
+      border: 1px solid #212121;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #212121;
+    }
+    .status-open {
+      border-color: #d32f2f;
+      color: #d32f2f;
+      background: #ffebee;
+    }
+    .panel-note {
+      font-size: 11px;
+      color: #757575;
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+
+    .ng-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .ng-modal-overlay.open { display: flex; }
+    .ng-modal {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .ng-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .ng-modal-title { font-size: 15px; font-weight: 700; color: #212121; }
+    .ng-modal-close {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      color: #757575;
+      padding: 0 4px;
+    }
+    .ng-modal-body { padding: 16px; overflow-y: auto; flex: 1; }
+    .ng-modal-desc { font-size: 12px; color: #757575; margin-bottom: 14px; }
+    .ng-add-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 14px; }
+    .ng-add-field { flex: 1; }
+    .ng-add-field label { display: block; font-size: 11px; font-weight: 600; color: #424242; margin-bottom: 4px; }
+    .ng-add-field input {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+    }
+    .ng-add-btn {
+      height: 36px;
+      padding: 0 14px;
+      background: #212121;
+      color: #fff;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .ng-count { font-size: 12px; color: #757575; margin-bottom: 8px; }
+    .ng-word-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .ng-word-table th {
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid #e0e0e0;
+      background: #f5f5f5;
+      font-weight: 600;
+      color: #424242;
+    }
+    .ng-word-table td { padding: 10px 6px; border-bottom: 1px solid #eee; vertical-align: middle; }
+    .ng-op-link {
+      background: none;
+      border: none;
+      color: #212121;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-right: 8px;
+      padding: 0;
+    }
+    .ng-op-link.danger { color: #d32f2f; }
+    .ng-inline-edit { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .ng-inline-edit input {
+      flex: 1;
+      min-width: 120px;
+      height: 32px;
+      border: 1px solid #e0e0e0;
+      padding: 0 8px;
+      font-size: 12px;
+    }
+    .ng-inline-btn {
+      height: 32px;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+    }
+    .ng-inline-btn.save { background: #212121; color: #fff; border-color: #212121; }
+    .ng-modal-foot {
+      padding: 12px 16px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .ng-close-btn {
+      height: 36px;
+      padding: 0 16px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .ng-delete-panel {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    .ng-delete-panel.show { display: block; }
+    .ng-delete-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .ng-delete-text { font-size: 12px; color: #424242; line-height: 1.6; margin-bottom: 14px; }
+    .ng-delete-actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .ng-delete-actions .danger {
+      background: #d32f2f;
+      color: #fff;
+      border: none;
+      height: 36px;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff;
       border-right: 1px solid #e0e0e0; position: fixed;
@@ -311,6 +512,9 @@
     <a class="wf-nav-link" href="wireframe_SCR206_boshuu_mgmt.html"><span class="wf-nav-id">206</span>募集 Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR210_booking_mgmt.html"><span class="wf-nav-id">210</span>Booking Mgmt</a>
     <a class="wf-nav-link wf-active" href="wireframe_SCR220_report_mgmt.html"><span class="wf-nav-id">220</span>Report Mgmt</a>
+    <a class="wf-nav-link" href="wireframe_SCR222_no_show_report_detail.html"><span class="wf-nav-id">222</span>No-Show Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR223_ngword_detect_detail.html"><span class="wf-nav-id">223</span>NG Word Detail</a>
+    <a class="wf-nav-link" href="wireframe_SCR224_ngword_mgmt.html"><span class="wf-nav-id">224</span>NG Word Mgmt</a>
     <a class="wf-nav-link" href="wireframe_SCR230_revenue.html"><span class="wf-nav-id">230</span>Revenue</a>
     <a class="wf-nav-link" href="wireframe_SCR900_settings.html"><span class="wf-nav-id">900</span>Settings</a>
     <a class="wf-nav-link" href="wireframe_NOT01_push_notification.html"><span class="wf-nav-id" style="font-size:9px;">NOT-01</span>プッシュ通知仕様</a>
@@ -340,54 +544,389 @@
 
 <div class="main-content">
   <div class="content-wrapper">
-    <div class="page-title">通報管理</div>
+    <div class="page-title">通報・監視管理</div>
 
-    <div class="filter-bar">
-      <input type="text" class="filter-input" placeholder="ID・ユーザー名で検索...">
-      <select class="filter-select">
-        <option>理由: すべて ▼</option>
-        <option>迷惑行為</option>
-        <option>不適切写真</option>
-        <option>別勧誘</option>
-        <option>その他</option>
-      </select>
-      <select class="filter-select">
-        <option>ステータス ▼</option>
-        <option>未対応</option>
-        <option>対応済み</option>
-      </select>
-      <button class="filter-button">検索</button>
+    <div class="report-tabs">
+      <button type="button" class="report-tab active" data-tab="user" onclick="switchReportTab('user')">ユーザー通報<span class="tab-badge" id="badge-user">3</span></button>
+      <button type="button" class="report-tab" data-tab="noshow" onclick="switchReportTab('noshow')">無断欠席報告<span class="tab-badge" id="badge-noshow">2</span></button>
+      <button type="button" class="report-tab" data-tab="ngword" onclick="switchReportTab('ngword')">NGワード検知<span class="tab-badge" id="badge-ngword">5</span></button>
     </div>
 
-    <div class="summary-line">全 48 件 · 表示: 1〜20件</div>
+    <!-- Tab: ユーザー通報 -->
+    <div id="panel-user" class="tab-panel active">
+      <div class="filter-bar">
+        <input type="text" class="filter-input" placeholder="ID・ユーザー名で検索...">
+        <select class="filter-select">
+          <option>理由: すべて</option>
+          <option>迷惑行為</option>
+          <option>金銭・詐欺</option>
+          <option>性的な誘い</option>
+          <option>虚偽プロフィール</option>
+          <option>その他</option>
+        </select>
+        <select class="filter-select">
+          <option>ステータス: すべて</option>
+          <option>未対応</option>
+          <option>対応済み</option>
+        </select>
+        <button class="filter-button" type="button">検索</button>
+      </div>
+      <div class="summary-line">全 48 件 · 未対応 3 件 · 表示: 1〜20件</div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>通報日時</th>
+              <th>通報者</th>
+              <th>対象ユーザー</th>
+              <th>理由</th>
+              <th>内容</th>
+              <th>ステータス</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/03/22 09:30</td>
+              <td>ゆい (#003)</td>
+              <td>たろう (#001)</td>
+              <td>迷惑行為</td>
+              <td>暴言を吐かれました。</td>
+              <td><span class="status-badge status-open">未対応</span></td>
+              <td><a href="wireframe_SCR221_report_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+            <tr>
+              <td>2026/03/21 18:02</td>
+              <td>さくら (#012)</td>
+              <td>けん (#008)</td>
+              <td>虚偽プロフィール</td>
+              <td>プロフィール写真が不適切です。</td>
+              <td><span class="status-badge status-done">対応済み</span></td>
+              <td><a href="wireframe_SCR221_report_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <div class="table-wrapper">
-      <table class="table">
+    <!-- Tab: 無断欠席報告 -->
+    <div id="panel-noshow" class="tab-panel">
+      <div class="filter-bar">
+        <input type="text" class="filter-input" placeholder="ID・ユーザー名・店舗名で検索...">
+        <select class="filter-select">
+          <option>ステータス: すべて</option>
+          <option>未対応</option>
+          <option>対応済み</option>
+        </select>
+        <button class="filter-button" type="button">検索</button>
+      </div>
+      <div class="summary-line">全 14 件 · 未対応 2 件 · 表示: 1〜20件</div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>報告日時</th>
+              <th>報告者（来店側）</th>
+              <th>未来店ユーザー</th>
+              <th>予約日時</th>
+              <th>店舗</th>
+              <th>ステータス</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/07/02 19:22</td>
+              <td>ひろし (#045)</td>
+              <td>Nao (#033)</td>
+              <td>2026/07/02（水）19:00</td>
+              <td>食堂 まぐろとさば。恵比寿</td>
+              <td><span class="status-badge status-open">未対応</span></td>
+              <td><a href="wireframe_SCR222_no_show_report_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+            <tr>
+              <td>2026/06/28 20:05</td>
+              <td>みき (#019)</td>
+              <td>ゆう (#027)</td>
+              <td>2026/06/28（土）19:30</td>
+              <td>ビストロ 青</td>
+              <td><span class="status-badge status-done">対応済み</span></td>
+              <td><a href="wireframe_SCR222_no_show_report_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab: NGワード検知 -->
+    <div id="panel-ngword" class="tab-panel">
+      <div class="tab-toolbar">
+        <button type="button" class="btn-secondary" onclick="openNgWordModal()">NGワード管理</button>
+      </div>
+      <div class="filter-bar">
+        <input type="text" class="filter-input" placeholder="ユーザー名・検知ワードで検索...">
+        <select class="filter-select">
+          <option>検知ワード: すべて</option>
+          <option>LINE</option>
+          <option>連絡先交換</option>
+          <option>外部誘導</option>
+        </select>
+        <select class="filter-select">
+          <option>ステータス: すべて</option>
+          <option>未対応</option>
+          <option>対応済み</option>
+        </select>
+        <button class="filter-button" type="button">検索</button>
+      </div>
+      <div class="summary-line">全 31 件 · 未対応 5 件 · 表示: 1〜20件</div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>最終検知日時</th>
+              <th>送信ユーザー</th>
+              <th>検知ワード</th>
+              <th>検知回数</th>
+              <th>マッチ相手</th>
+              <th>ステータス</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/09/21 14:32</td>
+              <td>たろう (#001)</td>
+              <td>LINE 他</td>
+              <td>3回</td>
+              <td>ゆい (#003)</td>
+              <td><span class="status-badge status-open">未対応</span></td>
+              <td><a href="wireframe_SCR223_ngword_detect_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+            <tr>
+              <td>2026/03/21 11:02</td>
+              <td>けん (#008)</td>
+              <td>連絡先</td>
+              <td>1回</td>
+              <td>さくら (#012)</td>
+              <td><span class="status-badge status-open">未対応</span></td>
+              <td><a href="wireframe_SCR223_ngword_detect_detail.html" class="action-link">[詳細]</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="ngWordModal" class="ng-modal-overlay" onclick="closeNgWordModalOnBackdrop(event)">
+  <div class="ng-modal" onclick="event.stopPropagation()">
+    <div class="ng-modal-head">
+      <div class="ng-modal-title">NGワード管理</div>
+      <button type="button" class="ng-modal-close" aria-label="閉じる" onclick="closeNgWordModal()">×</button>
+    </div>
+    <div class="ng-modal-body" id="ngWordMainPanel">
+      <div class="ng-modal-desc">登録されているNGワードを管理します。</div>
+      <div class="ng-add-row">
+        <div class="ng-add-field">
+          <label for="ngWordNewInput">NGワード</label>
+          <input type="text" id="ngWordNewInput" placeholder="NGワードを入力">
+        </div>
+        <button type="button" class="ng-add-btn" onclick="addNgWord()">追加</button>
+      </div>
+      <div class="ng-count" id="ngWordCount">全 4件</div>
+      <table class="ng-word-table">
         <thead>
           <tr>
-            <th>通報日時</th>
-            <th>通報者</th>
-            <th>対象ユーザー</th>
-            <th>理由</th>
-            <th>内容</th>
-            <th>ステータス</th>
-            <th>アクション</th>
+            <th>NGワード</th>
+            <th>登録日</th>
+            <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>3/22 09:30</td>
-            <td>ゆい (#003)</td>
-            <td>たろう (#001)</td>
-            <td>迷惑行為</td>
-            <td>暴言を吐かれました。</td>
-            <td><span class="status-badge status-open">未対応</span></td>
-            <td><a href="wireframe_SCR221_report_detail.html" class="action-link">[詳細]</a></td>
+        <tbody id="ngWordTableBody">
+          <tr data-word="LINE" data-date="2026/09/01">
+            <td class="ng-word-cell">LINE</td>
+            <td>2026/09/01</td>
+            <td class="ng-op-cell">
+              <button type="button" class="ng-op-link" onclick="startNgWordEdit(this)">編集</button>
+              <button type="button" class="ng-op-link danger" onclick="openNgWordDelete(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="カカオ" data-date="2026/09/01">
+            <td class="ng-word-cell">カカオ</td>
+            <td>2026/09/01</td>
+            <td class="ng-op-cell">
+              <button type="button" class="ng-op-link" onclick="startNgWordEdit(this)">編集</button>
+              <button type="button" class="ng-op-link danger" onclick="openNgWordDelete(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="電話番号" data-date="2026/09/05">
+            <td class="ng-word-cell">電話番号</td>
+            <td>2026/09/05</td>
+            <td class="ng-op-cell">
+              <button type="button" class="ng-op-link" onclick="startNgWordEdit(this)">編集</button>
+              <button type="button" class="ng-op-link danger" onclick="openNgWordDelete(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="Instagram" data-date="2026/09/08">
+            <td class="ng-word-cell">Instagram</td>
+            <td>2026/09/08</td>
+            <td class="ng-op-cell">
+              <button type="button" class="ng-op-link" onclick="startNgWordEdit(this)">編集</button>
+              <button type="button" class="ng-op-link danger" onclick="openNgWordDelete(this)">削除</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div id="ngWordDeletePanel" class="ng-delete-panel">
+      <div class="ng-delete-title">NGワードを削除しますか？</div>
+      <div class="ng-delete-text" id="ngDeleteMessage">「LINE」を削除します。<br>削除後、新しいメッセージの検知対象から除外されます。</div>
+      <div class="ng-delete-actions">
+        <button type="button" class="ng-close-btn" onclick="cancelNgWordDelete()">キャンセル</button>
+        <button type="button" class="danger" onclick="confirmNgWordDelete()">削除する</button>
+      </div>
+    </div>
+    <div class="ng-modal-foot">
+      <button type="button" class="ng-close-btn" onclick="closeNgWordModal()">閉じる</button>
+    </div>
   </div>
 </div>
+
+<script>
+  var ngWordDeleteRow = null;
+
+  function openNgWordModal() {
+    cancelNgWordDelete();
+    document.getElementById('ngWordModal').classList.add('open');
+  }
+
+  function closeNgWordModal() {
+    cancelNgWordDelete();
+    cancelAllNgWordEdits();
+    document.getElementById('ngWordModal').classList.remove('open');
+  }
+
+  function closeNgWordModalOnBackdrop(e) {
+    if (e.target.id === 'ngWordModal') closeNgWordModal();
+  }
+
+  function updateNgWordCount() {
+    var n = document.querySelectorAll('#ngWordTableBody tr').length;
+    document.getElementById('ngWordCount').textContent = '全 ' + n + '件';
+  }
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function addNgWord() {
+    var input = document.getElementById('ngWordNewInput');
+    var w = input.value.trim();
+    if (!w) { alert('NGワードを入力してください'); return; }
+    var tbody = document.getElementById('ngWordTableBody');
+    var tr = document.createElement('tr');
+    tr.setAttribute('data-word', w);
+    tr.setAttribute('data-date', todayStr());
+    tr.innerHTML =
+      '<td class="ng-word-cell">' + escapeHtml(w) + '</td>' +
+      '<td>' + todayStr() + '</td>' +
+      '<td class="ng-op-cell">' +
+      '<button type="button" class="ng-op-link" onclick="startNgWordEdit(this)">編集</button>' +
+      '<button type="button" class="ng-op-link danger" onclick="openNgWordDelete(this)">削除</button>' +
+      '</td>';
+    tbody.appendChild(tr);
+    input.value = '';
+    updateNgWordCount();
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  }
+
+  function startNgWordEdit(btn) {
+    cancelNgWordDelete();
+    var row = btn.closest('tr');
+    if (row.classList.contains('editing')) return;
+    cancelAllNgWordEdits();
+    row.classList.add('editing');
+    var word = row.getAttribute('data-word');
+    var cell = row.querySelector('.ng-word-cell');
+    cell.innerHTML =
+      '<div class="ng-inline-edit">' +
+      '<input type="text" class="ng-edit-input" value="' + escapeHtml(word) + '">' +
+      '<button type="button" class="ng-inline-btn save" onclick="saveNgWordEdit(this)">保存</button>' +
+      '<button type="button" class="ng-inline-btn" onclick="cancelNgWordEdit(this)">キャンセル</button>' +
+      '</div>';
+  }
+
+  function saveNgWordEdit(btn) {
+    var row = btn.closest('tr');
+    var input = row.querySelector('.ng-edit-input');
+    var w = input.value.trim();
+    if (!w) { alert('NGワードを入力してください'); return; }
+    row.setAttribute('data-word', w);
+    row.querySelector('.ng-word-cell').textContent = w;
+    row.classList.remove('editing');
+  }
+
+  function cancelNgWordEdit(btn) {
+    var row = btn.closest('tr');
+    var word = row.getAttribute('data-word');
+    row.querySelector('.ng-word-cell').textContent = word;
+    row.classList.remove('editing');
+  }
+
+  function cancelAllNgWordEdits() {
+    document.querySelectorAll('#ngWordTableBody tr.editing').forEach(function (row) {
+      row.querySelector('.ng-word-cell').textContent = row.getAttribute('data-word');
+      row.classList.remove('editing');
+    });
+  }
+
+  function openNgWordDelete(btn) {
+    cancelAllNgWordEdits();
+    ngWordDeleteRow = btn.closest('tr');
+    var word = ngWordDeleteRow.getAttribute('data-word');
+    document.getElementById('ngDeleteMessage').innerHTML =
+      '「' + escapeHtml(word) + '」を削除します。<br>削除後、新しいメッセージの検知対象から除外されます。';
+    document.getElementById('ngWordDeletePanel').classList.add('show');
+  }
+
+  function cancelNgWordDelete() {
+    ngWordDeleteRow = null;
+    document.getElementById('ngWordDeletePanel').classList.remove('show');
+  }
+
+  function confirmNgWordDelete() {
+    if (ngWordDeleteRow) {
+      ngWordDeleteRow.remove();
+      updateNgWordCount();
+    }
+    cancelNgWordDelete();
+  }
+
+  function switchReportTab(tabId) {
+    document.querySelectorAll('.report-tab').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+    });
+    document.querySelectorAll('.tab-panel').forEach(function (panel) {
+      panel.classList.remove('active');
+    });
+    var panel = document.getElementById('panel-' + tabId);
+    if (panel) panel.classList.add('active');
+    if (window.history && window.history.replaceState) {
+      var url = new URL(window.location.href);
+      if (tabId === 'user') url.searchParams.delete('tab');
+      else url.searchParams.set('tab', tabId);
+      window.history.replaceState(null, '', url.pathname + url.search);
+    }
+  }
+  (function applyTabFromQuery() {
+    var tab = new URLSearchParams(window.location.search).get('tab');
+    if (tab === 'noshow' || tab === 'ngword') switchReportTab(tab);
+  })();
+</script>
 </body>
 </html>

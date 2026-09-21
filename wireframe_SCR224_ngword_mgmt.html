@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCR-224 NG Word Management</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5; display: flex; min-height: 100vh; margin-left: 200px; zoom: 1.1;
+    }
+    .sidebar { width: 220px; background: #fff; border-right: 1px solid #e0e0e0; padding: 20px 0; flex-shrink: 0; }
+    .sidebar-item { padding: 12px 16px; color: #757575; font-size: 13px; cursor: pointer; }
+    .sidebar-item.active { border-left: 3px solid #212121; background: #f5f5f5; color: #212121; font-weight: 600; }
+    .main-content { flex: 1; padding: 20px; }
+    .content-wrapper { max-width: 720px; margin: 0 auto; }
+    .header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .page-title { font-size: 20px; font-weight: bold; }
+    .back-link { font-size: 13px; color: #757575; text-decoration: none; }
+    .toolbar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .btn { height: 36px; padding: 0 16px; font-size: 12px; font-weight: bold; cursor: pointer; border: none; }
+    .btn-primary { background: #212121; color: #fff; }
+    .btn-outline { background: #fff; border: 1px solid #e0e0e0; color: #424242; }
+    .btn-sm { height: 28px; padding: 0 10px; font-size: 11px; margin-right: 6px; }
+    .btn-danger-sm { background: #fff; border: 1px solid #d32f2f; color: #d32f2f; }
+    .table-wrapper { border: 1px solid #e0e0e0; background: #fff; }
+    .table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .table th, .table td { padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: left; }
+    .table th { background: #f5f5f5; font-weight: 600; }
+    .note { font-size: 11px; color: #757575; margin-bottom: 12px; line-height: 1.55; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 10000; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: #fff; border: 1px solid #e0e0e0; padding: 20px; width: 380px; max-width: 92vw; }
+    .modal-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+    .modal-field { margin-bottom: 12px; }
+    .modal-field label { display: block; font-size: 11px; color: #757575; margin-bottom: 4px; font-weight: 600; }
+    .modal-field input, .modal-field select { width: 100%; height: 36px; border: 1px solid #e0e0e0; padding: 0 10px; font-size: 13px; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+    .wf-sidebar {
+      width: 200px; position: fixed; top: 0; left: 0; height: 100vh; background: #fff;
+      border-right: 1px solid #e0e0e0; z-index: 9999; font-size: 11px;
+    }
+    .wf-sidebar-logo { display: block; padding: 12px 14px; font-weight: 700; text-decoration: none; color: #212121; border-bottom: 1px solid #e0e0e0; }
+    .wf-nav-link { display: block; padding: 6px 14px; color: #424242; text-decoration: none; }
+  </style>
+</head>
+<body>
+<nav class="wf-sidebar">
+  <a href="index.html" class="wf-sidebar-logo">Otona Table WF</a>
+  <a class="wf-nav-link" href="wireframe_SCR220_report_mgmt.html?tab=ngword">← 220 NGワード検知</a>
+</nav>
+
+<div class="sidebar">
+  <div class="sidebar-item active" onclick="location.href='wireframe_SCR220_report_mgmt.html?tab=ngword'">通報管理</div>
+</div>
+
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="header-actions">
+      <div class="page-title">NGワード管理</div>
+      <a href="wireframe_SCR220_report_mgmt.html?tab=ngword" class="back-link">← NGワード検知一覧</a>
+    </div>
+    <p class="note">チャット送信時に照合するNGワードを管理します。追加・編集・削除は即時反映される想定です。</p>
+    <div class="toolbar">
+      <button class="btn btn-primary" type="button" onclick="openWordModal('add')">＋ NGワードを追加</button>
+    </div>
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ワード</th>
+            <th>マッチ方式</th>
+            <th>更新日</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="wordTableBody">
+          <tr data-word="LINE">
+            <td>LINE</td>
+            <td>部分一致</td>
+            <td>2026/03/01</td>
+            <td>
+              <button class="btn btn-outline btn-sm" type="button" onclick="openWordModal('edit', 'LINE', '部分一致')">編集</button>
+              <button class="btn btn-danger-sm btn-sm" type="button" onclick="deleteWord(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="連絡先">
+            <td>連絡先</td>
+            <td>部分一致</td>
+            <td>2026/03/01</td>
+            <td>
+              <button class="btn btn-outline btn-sm" type="button" onclick="openWordModal('edit', '連絡先', '部分一致')">編集</button>
+              <button class="btn btn-danger-sm btn-sm" type="button" onclick="deleteWord(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="電話番号">
+            <td>電話番号</td>
+            <td>部分一致</td>
+            <td>2026/02/15</td>
+            <td>
+              <button class="btn btn-outline btn-sm" type="button" onclick="openWordModal('edit', '電話番号', '部分一致')">編集</button>
+              <button class="btn btn-danger-sm btn-sm" type="button" onclick="deleteWord(this)">削除</button>
+            </td>
+          </tr>
+          <tr data-word="Instagram">
+            <td>Instagram</td>
+            <td>完全一致</td>
+            <td>2026/02/15</td>
+            <td>
+              <button class="btn btn-outline btn-sm" type="button" onclick="openWordModal('edit', 'Instagram', '完全一致')">編集</button>
+              <button class="btn btn-danger-sm btn-sm" type="button" onclick="deleteWord(this)">削除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="wordModal" class="modal-overlay" onclick="closeWordModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title" id="wordModalTitle">NGワードを追加</div>
+    <div class="modal-field">
+      <label>ワード</label>
+      <input type="text" id="wordInput" placeholder="例: LINE">
+    </div>
+    <div class="modal-field">
+      <label>マッチ方式</label>
+      <select id="matchTypeInput">
+        <option value="部分一致">部分一致</option>
+        <option value="完全一致">完全一致</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" type="button" onclick="closeWordModal()">キャンセル</button>
+      <button class="btn btn-primary" type="button" onclick="saveWord()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var wordModalMode = 'add';
+  var editingRow = null;
+
+  function openWordModal(mode, word, matchType) {
+    wordModalMode = mode;
+    document.getElementById('wordModalTitle').textContent = mode === 'add' ? 'NGワードを追加' : 'NGワードを編集';
+    document.getElementById('wordInput').value = word || '';
+    document.getElementById('matchTypeInput').value = matchType || '部分一致';
+    editingRow = null;
+    if (mode === 'edit' && word) {
+      var rows = document.querySelectorAll('#wordTableBody tr');
+      rows.forEach(function (row) {
+        if (row.getAttribute('data-word') === word) editingRow = row;
+      });
+    }
+    document.getElementById('wordModal').classList.add('open');
+  }
+
+  function closeWordModal() {
+    document.getElementById('wordModal').classList.remove('open');
+  }
+
+  function saveWord() {
+    var w = document.getElementById('wordInput').value.trim();
+    if (!w) { alert('ワードを入力してください'); return; }
+    var mt = document.getElementById('matchTypeInput').value;
+    var today = '2026/03/22';
+    if (wordModalMode === 'edit' && editingRow) {
+      editingRow.setAttribute('data-word', w);
+      editingRow.cells[0].textContent = w;
+      editingRow.cells[1].textContent = mt;
+      editingRow.cells[2].textContent = today;
+    } else {
+      var tr = document.createElement('tr');
+      tr.setAttribute('data-word', w);
+      tr.innerHTML =
+        '<td>' + w + '</td><td>' + mt + '</td><td>' + today + '</td><td>' +
+        '<button class="btn btn-outline btn-sm" type="button" onclick="openWordModal(\'edit\', \'' + w.replace(/'/g, "\\'") + '\', \'' + mt + '\')">編集</button> ' +
+        '<button class="btn btn-danger-sm btn-sm" type="button" onclick="deleteWord(this)">削除</button></td>';
+      document.getElementById('wordTableBody').appendChild(tr);
+    }
+    closeWordModal();
+    alert('保存しました');
+  }
+
+  function deleteWord(btn) {
+    if (!confirm('このNGワードを削除しますか？')) return;
+    btn.closest('tr').remove();
+    alert('削除しました');
+  }
+</script>
+</body>
+</html>
