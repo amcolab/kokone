@@ -204,7 +204,196 @@
       color: #757575;
       margin: 0 6px;
     }
-  
+
+    .page-header-actions { display: flex; gap: 10px; align-items: center; }
+    .filter-button.outline {
+      background: #fff;
+      color: #212121;
+      border: 1px solid #212121;
+    }
+
+    .area-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .area-modal-overlay.open { display: flex; }
+    .area-modal {
+      width: 880px;
+      height: 520px;
+      max-width: calc(100vw - 48px);
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    .area-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid #e0e0e0;
+      flex-shrink: 0;
+    }
+    .area-modal-title { font-size: 16px; font-weight: 700; color: #212121; }
+    .area-modal-close {
+      border: none; background: transparent; font-size: 22px; line-height: 1;
+      color: #757575; cursor: pointer; padding: 0 4px;
+    }
+    .area-modal-split {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .area-col-left {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 16px;
+      border-right: 1px solid #e0e0e0;
+    }
+    .area-col-right {
+      width: 300px;
+      flex-shrink: 0;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #fafafa;
+    }
+    .area-list-title { font-size: 13px; font-weight: 700; color: #212121; margin-bottom: 10px; flex-shrink: 0; }
+    .area-filter-bar { display: flex; gap: 6px; margin-bottom: 10px; flex-shrink: 0; }
+    .area-filter-bar select,
+    .area-filter-bar input {
+      height: 34px;
+      border: 1px solid #e0e0e0;
+      padding: 0 8px;
+      font-size: 11px;
+      background: #fff;
+      flex: 1;
+      min-width: 0;
+    }
+    .area-list-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+    }
+    .area-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .area-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f5f5f5;
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid #e0e0e0;
+      font-weight: 600;
+      font-size: 11px;
+    }
+    .area-table td { padding: 9px 10px; border-bottom: 1px solid #eee; vertical-align: middle; }
+    .area-table tr.selected td { background: #f0f7ff; }
+    .area-name-cell { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .area-op-btn {
+      background: none;
+      border: none;
+      color: #212121;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .area-panel-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+    .area-panel-view.active { display: flex; }
+    .area-form-title { font-size: 13px; font-weight: 700; margin-bottom: 14px; color: #212121; flex-shrink: 0; }
+    .area-field { margin-bottom: 12px; flex-shrink: 0; }
+    .area-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #757575;
+      margin-bottom: 6px;
+    }
+    .area-field label .req { color: #d32f2f; margin-left: 2px; }
+    .area-field select,
+    .area-field input {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #e0e0e0;
+      padding: 0 10px;
+      font-size: 13px;
+      background: #fff;
+    }
+    .area-field select:disabled {
+      background: #f5f5f5;
+      color: #424242;
+      cursor: not-allowed;
+    }
+    .area-table th.area-th-action,
+    .area-table td.area-td-action {
+      width: 44px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .area-form-spacer { flex: 1; min-height: 12px; }
+    .area-form-actions { display: flex; justify-content: flex-end; gap: 8px; flex-shrink: 0; }
+    .area-btn {
+      height: 36px;
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .area-btn.outline { border: 1px solid #e0e0e0; background: #fff; color: #424242; }
+    .area-btn.primary { border: none; background: #212121; color: #fff; }
+    .area-btn.danger { border: none; background: #d32f2f; color: #fff; }
+    .area-panel-message {
+      font-size: 12px;
+      color: #424242;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .area-panel-message.sub { color: #757575; font-size: 11px; }
+    .area-panel-message.error-title { font-weight: 700; color: #c62828; margin-bottom: 8px; }
+    .area-edit-delete {
+      margin-top: 8px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .area-edit-delete button {
+      background: none;
+      border: none;
+      color: #d32f2f;
+      font-size: 11px;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+    }
+    .area-modal-foot {
+      padding: 10px 18px;
+      display: flex;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff;
       border-right: 1px solid #e0e0e0; position: fixed;
@@ -241,8 +430,6 @@
     .wf-nav-link.wf-active .wf-nav-id { color: #9e9e9e; }
 
   </style>
-
-</style>
 
   <style>
     :root {
@@ -346,7 +533,10 @@
   <div class="content-wrapper">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
       <div class="page-title" style="margin-bottom:0;">店舗管理</div>
-      <button class="filter-button" style="background:#388e3c; border-color:#388e3c;" onclick="location.href='wireframe_SCR203_partner_register.html'">+ 新規店舗登録</button>
+      <div class="page-header-actions">
+        <button type="button" class="filter-button outline" onclick="openAreaModal()">店舗エリア管理</button>
+        <button type="button" class="filter-button" style="background:#388e3c; border-color:#388e3c;" onclick="location.href='wireframe_SCR203_partner_register.html'">+ 新規店舗登録</button>
+      </div>
     </div>
 
     <div class="filter-bar">
@@ -440,6 +630,329 @@
     </div>
   </div>
 </div>
+
+<div id="areaModal" class="area-modal-overlay" onclick="closeAreaModalOnBackdrop(event)">
+  <div class="area-modal" onclick="event.stopPropagation()">
+    <div class="area-modal-head">
+      <div class="area-modal-title">店舗エリア管理</div>
+      <button type="button" class="area-modal-close" aria-label="閉じる" onclick="closeAreaModal()">×</button>
+    </div>
+
+    <div class="area-modal-split">
+      <div class="area-col-left">
+        <div class="area-list-title">登録済みエリア</div>
+        <div class="area-filter-bar">
+          <select id="areaFilterPref" onchange="syncAreaFilterCities(); renderAreaTable();"></select>
+          <select id="areaFilterCity" onchange="renderAreaTable()"></select>
+          <input type="text" id="areaFilterSearch" placeholder="検索" oninput="renderAreaTable()">
+        </div>
+        <div class="area-list-scroll">
+          <table class="area-table">
+            <thead>
+              <tr>
+                <th>都道府県</th>
+                <th>市区町村</th>
+                <th>エリア名</th>
+                <th>店舗数</th>
+                <th class="area-th-action"></th>
+              </tr>
+            </thead>
+            <tbody id="areaTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="area-col-right">
+        <div id="areaPanelForm" class="area-panel-view active">
+          <div id="areaFormTitle" class="area-form-title">エリアを登録</div>
+          <div class="area-field">
+            <label>都道府県<span class="req">*</span></label>
+            <select id="areaFormPref" onchange="syncAreaFormCities()"></select>
+          </div>
+          <div class="area-field">
+            <label>市区町村<span class="req">*</span></label>
+            <select id="areaFormCity"></select>
+          </div>
+          <div class="area-field">
+            <label>エリア名<span class="req">*</span></label>
+            <input type="text" id="areaFormName" placeholder="">
+          </div>
+          <div id="areaEditDeleteWrap" class="area-edit-delete" style="display:none;">
+            <button type="button" onclick="deleteFromEditPanel()">このエリアを削除</button>
+          </div>
+          <div class="area-form-spacer"></div>
+          <div id="areaFormActions" class="area-form-actions">
+            <button type="button" id="areaFormCancelBtn" class="area-btn outline" style="display:none;" onclick="cancelAreaForm()">キャンセル</button>
+            <button type="button" id="areaFormSubmitBtn" class="area-btn primary" onclick="submitAreaForm()">登録する</button>
+          </div>
+        </div>
+
+        <div id="areaPanelDeleteConfirm" class="area-panel-view">
+          <div class="area-form-title">エリアを削除しますか？</div>
+          <div id="areaDeleteConfirmText" class="area-panel-message"></div>
+          <div class="area-panel-message sub">この操作は取り消せません。</div>
+          <div class="area-form-spacer"></div>
+          <div class="area-form-actions">
+            <button type="button" class="area-btn outline" onclick="cancelAreaForm()">キャンセル</button>
+            <button type="button" class="area-btn danger" onclick="confirmAreaDelete()">削除する</button>
+          </div>
+        </div>
+
+        <div id="areaPanelDeleteBlock" class="area-panel-view">
+          <div class="area-panel-message error-title">このエリアは削除できません。</div>
+          <div id="areaDeleteBlockText" class="area-panel-message"></div>
+          <div class="area-form-spacer"></div>
+          <div class="area-form-actions">
+            <button type="button" class="area-btn outline" onclick="cancelAreaForm()">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="area-modal-foot">
+      <button type="button" class="area-btn outline" onclick="closeAreaModal()">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var AREA_MASTER = {
+    '東京都': ['中央区', '渋谷区', '港区']
+  };
+
+  var areaRecords = [
+    { id: 'a1', pref: '東京都', city: '中央区', name: '銀座', shops: 18 },
+    { id: 'a2', pref: '東京都', city: '渋谷区', name: '渋谷', shops: 12 },
+    { id: 'a3', pref: '東京都', city: '渋谷区', name: '代官山', shops: 0 },
+    { id: 'a4', pref: '東京都', city: '港区', name: '六本木', shops: 15 },
+    { id: 'a5', pref: '東京都', city: '港区', name: '麻布', shops: 11 }
+  ];
+
+  var areaFormMode = 'add';
+  var areaEditingId = null;
+  var areaPendingDeleteId = null;
+
+  function fillPrefSelect(selectEl, includeAllLabel) {
+    var current = selectEl.value;
+    selectEl.innerHTML = '';
+    if (includeAllLabel) {
+      var optAll = document.createElement('option');
+      optAll.value = '';
+      optAll.textContent = includeAllLabel;
+      selectEl.appendChild(optAll);
+    }
+    Object.keys(AREA_MASTER).forEach(function (pref) {
+      var opt = document.createElement('option');
+      opt.value = pref;
+      opt.textContent = pref;
+      selectEl.appendChild(opt);
+    });
+    if (current && selectEl.querySelector('option[value="' + current + '"]')) {
+      selectEl.value = current;
+    }
+  }
+
+  function fillCitySelect(selectEl, pref, includeAllLabel) {
+    var current = selectEl.value;
+    selectEl.innerHTML = '';
+    if (includeAllLabel) {
+      var optAll = document.createElement('option');
+      optAll.value = '';
+      optAll.textContent = includeAllLabel;
+      selectEl.appendChild(optAll);
+    }
+    var cities = AREA_MASTER[pref] || [];
+    cities.forEach(function (city) {
+      var opt = document.createElement('option');
+      opt.value = city;
+      opt.textContent = city;
+      selectEl.appendChild(opt);
+    });
+    if (current && selectEl.querySelector('option[value="' + current + '"]')) {
+      selectEl.value = current;
+    } else if (cities.length) {
+      selectEl.value = cities[0];
+    }
+  }
+
+  function syncAreaFormCities() {
+    var pref = document.getElementById('areaFormPref').value;
+    fillCitySelect(document.getElementById('areaFormCity'), pref, null);
+  }
+
+  function syncAreaFilterCities() {
+    var pref = document.getElementById('areaFilterPref').value;
+    fillCitySelect(document.getElementById('areaFilterCity'), pref, '市区町村 ▼');
+    if (!pref) {
+      document.getElementById('areaFilterCity').innerHTML = '<option value="">市区町村 ▼</option>';
+    }
+  }
+
+  function showAreaRightPanel(panelId) {
+    document.querySelectorAll('.area-col-right .area-panel-view').forEach(function (el) {
+      el.classList.remove('active');
+    });
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  function setAreaFormLocationEditable(editable) {
+    document.getElementById('areaFormPref').disabled = !editable;
+    document.getElementById('areaFormCity').disabled = !editable;
+  }
+
+  function setRegisterFormUi() {
+    document.getElementById('areaFormTitle').textContent = 'エリアを登録';
+    document.getElementById('areaFormSubmitBtn').textContent = '登録する';
+    document.getElementById('areaFormCancelBtn').style.display = 'none';
+    document.getElementById('areaEditDeleteWrap').style.display = 'none';
+    setAreaFormLocationEditable(true);
+  }
+
+  function setEditFormUi(record) {
+    document.getElementById('areaFormTitle').textContent = 'エリアを編集';
+    document.getElementById('areaFormSubmitBtn').textContent = '保存する';
+    document.getElementById('areaFormCancelBtn').style.display = '';
+    document.getElementById('areaEditDeleteWrap').style.display = '';
+    setAreaFormLocationEditable(false);
+  }
+
+  function openAreaModal() {
+    resetAreaRegisterPanel();
+    fillPrefSelect(document.getElementById('areaFilterPref'), '都道府県 ▼');
+    syncAreaFilterCities();
+    fillPrefSelect(document.getElementById('areaFormPref'), null);
+    syncAreaFormCities();
+    renderAreaTable();
+    document.getElementById('areaModal').classList.add('open');
+  }
+
+  function closeAreaModal() {
+    document.getElementById('areaModal').classList.remove('open');
+  }
+
+  function closeAreaModalOnBackdrop(e) {
+    if (e.target.id === 'areaModal') closeAreaModal();
+  }
+
+  function resetAreaRegisterPanel() {
+    areaFormMode = 'add';
+    areaEditingId = null;
+    areaPendingDeleteId = null;
+    document.getElementById('areaFormName').value = '';
+    fillPrefSelect(document.getElementById('areaFormPref'), null);
+    syncAreaFormCities();
+    setRegisterFormUi();
+    showAreaRightPanel('areaPanelForm');
+    renderAreaTable();
+  }
+
+  function openAreaForm(mode, record) {
+    areaFormMode = mode;
+    areaEditingId = record ? record.id : null;
+    areaPendingDeleteId = null;
+    showAreaRightPanel('areaPanelForm');
+    var prefSel = document.getElementById('areaFormPref');
+    fillPrefSelect(prefSel, null);
+    if (record) {
+      setEditFormUi(record);
+      prefSel.value = record.pref;
+      syncAreaFormCities();
+      document.getElementById('areaFormCity').value = record.city;
+      document.getElementById('areaFormName').value = record.name;
+    } else {
+      setRegisterFormUi();
+      syncAreaFormCities();
+      document.getElementById('areaFormName').value = '';
+    }
+    renderAreaTable();
+  }
+
+  function cancelAreaForm() {
+    resetAreaRegisterPanel();
+  }
+
+  function submitAreaForm() {
+    var pref = document.getElementById('areaFormPref').value;
+    var city = document.getElementById('areaFormCity').value;
+    var name = document.getElementById('areaFormName').value.trim();
+    if (!pref || !city || !name) {
+      alert('都道府県・市区町村・エリア名は必須です');
+      return;
+    }
+    if (areaFormMode === 'edit' && areaEditingId) {
+      var rec = areaRecords.find(function (r) { return r.id === areaEditingId; });
+      if (rec) {
+        rec.name = name;
+      }
+    } else {
+      areaRecords.push({
+        id: 'a' + Date.now(),
+        pref: pref,
+        city: city,
+        name: name,
+        shops: 0
+      });
+    }
+    resetAreaRegisterPanel();
+  }
+
+  function renderAreaTable() {
+    var pref = document.getElementById('areaFilterPref').value;
+    var city = document.getElementById('areaFilterCity').value;
+    var q = document.getElementById('areaFilterSearch').value.trim().toLowerCase();
+    var tbody = document.getElementById('areaTableBody');
+    tbody.innerHTML = '';
+    areaRecords
+      .filter(function (r) {
+        if (pref && r.pref !== pref) return false;
+        if (city && r.city !== city) return false;
+        if (q) {
+          var hay = (r.pref + r.city + r.name).toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      })
+      .forEach(function (r) {
+        var tr = document.createElement('tr');
+        tr.setAttribute('data-area-id', r.id);
+        if (areaEditingId === r.id) tr.classList.add('selected');
+        tr.innerHTML =
+          '<td>' + r.pref + '</td><td>' + r.city + '</td><td>' + r.name + '</td><td>' + r.shops + '</td>' +
+          '<td class="area-td-action"><button type="button" class="area-op-btn" onclick="editArea(\'' + r.id + '\')">編集</button></td>';
+        tbody.appendChild(tr);
+      });
+  }
+
+  function editArea(id) {
+    var rec = areaRecords.find(function (r) { return r.id === id; });
+    if (rec) openAreaForm('edit', rec);
+  }
+
+  function deleteFromEditPanel() {
+    if (!areaEditingId) return;
+    tryDeleteArea(areaEditingId);
+  }
+
+  function tryDeleteArea(id) {
+    var rec = areaRecords.find(function (r) { return r.id === id; });
+    if (!rec) return;
+    if (rec.shops > 0) {
+      document.getElementById('areaDeleteBlockText').innerHTML =
+        '「' + rec.name + '」は' + rec.shops + '店舗で使用されています。<br>対象店舗のエリアを変更してから削除してください。';
+      showAreaRightPanel('areaPanelDeleteBlock');
+      return;
+    }
+    areaPendingDeleteId = id;
+    document.getElementById('areaDeleteConfirmText').textContent =
+      rec.pref + ' / ' + rec.city + ' / ' + rec.name;
+    showAreaRightPanel('areaPanelDeleteConfirm');
+  }
+
+  function confirmAreaDelete() {
+    if (!areaPendingDeleteId) return;
+    areaRecords = areaRecords.filter(function (r) { return r.id !== areaPendingDeleteId; });
+    resetAreaRegisterPanel();
+  }
+</script>
 </body>
 </html>
-```
