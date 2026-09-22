@@ -306,6 +306,63 @@
             text-decoration: underline;
             cursor: pointer;
         }
+        .link-row { flex-wrap: wrap; row-gap: 10px; }
+        .party-size-edit {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .party-size-edit button {
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 11px;
+            color: var(--c5);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .party-modal-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.4);
+            z-index: 80;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .party-modal-overlay.open { display: flex; }
+        .party-modal {
+            width: 100%;
+            max-width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px 16px;
+        }
+        .party-modal-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+        .party-modal-desc { font-size: 11px; color: var(--c4); line-height: 1.55; margin-bottom: 14px; }
+        .party-modal-field label { display: block; font-size: 11px; color: var(--c4); font-weight: 600; margin-bottom: 6px; }
+        .party-modal-field select {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--c2);
+            border-radius: 6px;
+            padding: 0 10px;
+            font-size: 14px;
+            background: #fff;
+        }
+        .party-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+        .party-modal-actions button {
+            height: 36px;
+            padding: 0 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .party-modal-actions .cancel { border: 1px solid var(--c2); background: #fff; color: var(--c5); }
+        .party-modal-actions .ok { border: none; background: var(--c6); color: #fff; }
         .shop-detail-overlay {
             position: absolute;
             inset: 0;
@@ -831,10 +888,11 @@
                     </div>
                 </div>
                 <div class="proposal-actions">
-                    <button type="button" class="primary-btn" onclick="window.location.href='wireframe_SCR082_both_approved.html'">この内容を承認する</button>
+                    <button type="button" class="primary-btn" onclick="approveMealPlan()">この内容を承認する</button>
                     <div class="link-row">
                         <button type="button" class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html?from=082'">日時を変更する</button>
                         <button type="button" class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_shop_pick.html?from=082'">店舗を変更する</button>
+                        <button type="button" class="text-link" onclick="openPartySizeModal()">人数を変更する</button>
                     </div>
                 </div>
             </div>
@@ -850,6 +908,20 @@
             <a class="bn-item active" href="wireframe_SCR065_match.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="bn-lbl">マッチング</span></a>
             <a class="bn-item" href="wireframe_SCR070_boshuu_list.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="bn-lbl">募集</span></a>
             <a class="bn-item" href="wireframe_SCR110_mypage.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="bn-lbl">マイページ</span></a>
+        </div>
+        <div id="partySizeModal" class="party-modal-overlay" onclick="closePartySizeModal(event)">
+            <div class="party-modal" onclick="event.stopPropagation()">
+                <div class="party-modal-title">人数を変更</div>
+                <div class="party-modal-desc">人数を変更すると食事プランに反映され、お相手の再承認が必要になります。</div>
+                <div class="party-modal-field">
+                    <label>予約人数</label>
+                    <select id="partySizeSelect"></select>
+                </div>
+                <div class="party-modal-actions">
+                    <button type="button" class="cancel" onclick="closePartySizeModal()">キャンセル</button>
+                    <button type="button" class="ok" onclick="confirmPartySizeChange()">変更する</button>
+                </div>
+            </div>
         </div>
         <div id="headerMenuOverlay" class="header-menu-overlay" onclick="closeHeaderMenu()">
         <div class="header-menu-sheet" onclick="event.stopPropagation()">
@@ -939,15 +1011,22 @@
     <div class="blp-lang lang-ja">
       <div class="blp-section">
         <div class="blp-section-title">目的</div>
-          <div class="blp-note highlight">お相手から届いた食事プラン承認依頼を確認し、承認または日時・店舗の調整を行う返答画面です。</div>
+          <div class="blp-note highlight">お相手から届いた食事プラン承認依頼を確認し、承認または日時・店舗・人数の調整を行う返答画面です。</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">仕様</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>チャット内カード</strong> — 見出し＋補足文のあと、左に店舗画像・右に店名（下線）・日時・人数・お会計を表示します。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>ステッパー</strong> —「食事プラン提案」完了、「双方承認」が現在地です。</div></div>
         <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗詳細</strong> — サムネまたは店名タップで SCR060 同様の店舗詳細ポップアップを表示します。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>承認</strong> — 「この内容を承認する」で 082D（双方承認完了・予約手続き開始）へ進みます。</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>調整</strong> — ボタン下のテキストリンクから日時・店舗の変更画面へ遷移できます。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>承認</strong> — 「この内容を承認する」で 082D（双方承認完了・予約手続き開始）へ進みます。人数変更後の再提案承認時も同様です。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>調整</strong> — 日時・店舗・人数の変更リンクあり。</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">人数変更（要件）</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>承認者（User B）</strong> — 承認前に限り2〜10名で変更可。初期値は<strong>2名</strong>。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>反映</strong> — 変更した人数は食事プラン本体を更新し、提案者側にも最新人数を表示。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>再承認</strong> — 人数変更後は提案者の再承認が必要。予約手続きは再承認完了後に進む。</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>双方承認後</strong> — 人数の自由変更は不可。</div></div>
       </div>
     </div>
 
@@ -955,13 +1034,20 @@
     <div class="blp-lang lang-vi" style="display:none;">
       <div class="blp-section">
         <div class="blp-section-title">Mục đích</div>
-          <div class="blp-note highlight">Màn phản hồi khi user nhận yêu cầu duyệt plan bữa ăn từ đối phương — hiển thị ngày/giờ và cửa hàng, có thể duyệt hoặc chỉnh sửa.</div>
+          <div class="blp-note highlight">Màn phản hồi khi user nhận yêu cầu duyệt plan bữa ăn — có thể duyệt hoặc chỉnh ngày / quán / số người.</div>
       </div>
       <div class="blp-section">
         <div class="blp-section-title">Yêu cầu</div>
         <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>System card</strong> — tiêu đề + phụ đề, ảnh trái, bên phải: tên cửa hàng (gạch chân), ngày/giờ, số người, お会計.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認</strong> — nút chính この内容を承認する chuyển sang flow chờ duyệt.</div></div>
-        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Text link</strong> dưới nút chính: 日時を変更する và 店舗を変更する.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認</strong> — nút chính この内容を承認する → 082D (sau khi cả hai đã đồng ý).</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Text link</strong>: 日時を変更する / 店舗を変更する / 人数を変更する.</div></div>
+      </div>
+      <div class="blp-section">
+        <div class="blp-section-title">Đổi số người (req)</div>
+        <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>User B (người phê duyệt)</strong> — trước khi duyệt có thể đổi <strong>2〜10</strong> người. Ban đầu: <strong>2 người</strong>.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đồng bộ</strong> — cập nhật số người trong gói bữa ăn và hiển thị số mới cho đối phương.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Phê duyệt lại</strong> — sau khi đổi số người cần User A duyệt lại; chỉ tiếp tục đặt chỗ khi duyệt lại xong.</div></div>
+        <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Sau khi cả hai chấp thuận</strong> — không được tự ý đổi số người.</div></div>
       </div>
     </div>
   </div>
@@ -1035,7 +1121,58 @@
     document.getElementById('receivedStoreName').textContent = receivedStoreName;
     document.getElementById('receivedProposalDate').textContent = datePart || '5/24（土）';
     document.getElementById('receivedProposalTime').textContent = timePart || '19:00〜';
-    document.getElementById('receivedPartySize').textContent = receivedPartySize;
+    renderPartySizeLabel(receivedPartySize);
+
+    function formatPartySize(n) { return n + '名'; }
+    function parsePartySize(label) {
+      var m = String(label || '').match(/(\d+)/);
+      var n = m ? parseInt(m[1], 10) : 2;
+      if (n < 2) n = 2;
+      if (n > 10) n = 10;
+      return n;
+    }
+    function getPartySize() {
+      return parsePartySize(localStorage.getItem('ot-party-size') || '2名');
+    }
+    function renderPartySizeLabel(label) {
+      document.getElementById('receivedPartySize').textContent = label;
+    }
+    function fillPartySizeSelect(selected) {
+      var sel = document.getElementById('partySizeSelect');
+      sel.innerHTML = '';
+      for (var i = 2; i <= 10; i++) {
+        var opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = i + '名';
+        if (i === selected) opt.selected = true;
+        sel.appendChild(opt);
+      }
+    }
+    function openPartySizeModal() {
+      fillPartySizeSelect(getPartySize());
+      document.getElementById('partySizeModal').classList.add('open');
+    }
+    function closePartySizeModal(e) {
+      if (e && e.target && e.target.id !== 'partySizeModal') return;
+      document.getElementById('partySizeModal').classList.remove('open');
+    }
+    function confirmPartySizeChange() {
+      var next = parseInt(document.getElementById('partySizeSelect').value, 10);
+      var prev = getPartySize();
+      localStorage.setItem('ot-party-size', formatPartySize(next));
+      renderPartySizeLabel(formatPartySize(next));
+      closePartySizeModal();
+      if (next === prev) return;
+      localStorage.setItem('ot-party-needs-reapprove', '1');
+      alert('人数を' + formatPartySize(next) + 'に更新しました。お相手の再承認が必要です。');
+      window.location.href = 'wireframe_SCR090_meal_plan_waiting.html?from=082&party=1';
+    }
+    function approveMealPlan() {
+      localStorage.setItem('ot-party-size', formatPartySize(getPartySize()));
+      localStorage.removeItem('ot-party-needs-reapprove');
+      localStorage.setItem('ot-party-locked', '1');
+      window.location.href = 'wireframe_SCR082_both_approved.html';
+    }
 
     var SHOP_DETAIL = {
       displayName: '食堂 まぐろとさば',

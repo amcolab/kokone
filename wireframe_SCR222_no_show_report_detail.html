@@ -61,6 +61,44 @@
     .modal-field input, .modal-field textarea { width: 100%; border: 1px solid #e0e0e0; padding: 8px 10px; font-size: 13px; }
     .modal-field textarea { min-height: 72px; }
     .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+    .store-policy {
+      background: #f5f5f5; border: 1px solid #e0e0e0; padding: 14px 16px; margin-bottom: 18px;
+    }
+    .store-policy-name { font-size: 12px; font-weight: 700; color: #212121; margin-bottom: 10px; }
+    .store-policy-table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; }
+    .store-policy-table th,
+    .store-policy-table td {
+      border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; vertical-align: top;
+    }
+    .store-policy-table th { background: #fafafa; font-weight: 600; font-size: 11px; color: #616161; width: 38%; }
+    .store-policy-table td { color: #212121; line-height: 1.5; }
+    .form-section-title { font-size: 12px; font-weight: 700; color: #212121; margin-bottom: 10px; }
+    .radio-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .radio-option {
+      display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #212121; cursor: pointer;
+    }
+    .radio-option input { margin-top: 3px; flex-shrink: 0; }
+    .radio-option span { line-height: 1.45; }
+    .radio-option .sub { display: block; font-size: 11px; color: #757575; margin-top: 2px; }
+    .fee-grid { display: none; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+    .fee-grid.show { display: flex; }
+    .fee-row label { display: block; font-size: 11px; font-weight: 600; color: #757575; margin-bottom: 6px; }
+    .fee-input-wrap { display: flex; align-items: center; gap: 8px; max-width: 280px; }
+    .fee-input-wrap input {
+      flex: 1; height: 36px; border: 1px solid #e0e0e0; padding: 0 10px; font-size: 13px;
+    }
+    .fee-input-wrap span { font-size: 13px; color: #424242; flex-shrink: 0; }
+    .fee-summary {
+      display: none; background: #e8f5e9; border: 1px solid #a5d6a7; padding: 12px 14px;
+      font-size: 12px; color: #1b5e20; line-height: 1.6; margin-bottom: 16px;
+    }
+    .fee-summary.show { display: block; }
+    .admin-field { margin-bottom: 16px; }
+    .admin-field label { display: block; font-size: 11px; font-weight: 600; color: #757575; margin-bottom: 6px; }
+    .admin-field textarea {
+      width: 100%; min-height: 72px; border: 1px solid #e0e0e0; padding: 10px; font-size: 13px; resize: vertical;
+    }
+    .resolve-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
     .wf-sidebar {
       width: 200px; min-width: 200px; background: #fff;
       border-right: 1px solid #e0e0e0; position: fixed;
@@ -253,52 +291,222 @@
       </div>
     </div>
 
-    <div class="action-bar">
-      <button class="btn btn-outline" type="button" onclick="location.href='wireframe_SCR220_report_mgmt.html?tab=noshow'">一覧へ戻る</button>
-      <button class="btn btn-warning" type="button" onclick="openAdminModal('warnModal')">警告</button>
-      <button class="btn btn-outline" type="button" onclick="openAdminModal('restrictModal')">利用制限</button>
-      <button class="btn btn-danger" type="button" onclick="openAdminModal('suspendModal')">アカウント停止</button>
-      <button class="btn btn-success" type="button" onclick="alert('対応完了にしました'); location.href='wireframe_SCR220_report_mgmt.html?tab=noshow';">対応完了にする</button>
+    <div class="card">
+      <div class="card-header"><div class="card-title">キャンセル料の確定</div></div>
+      <div class="card-body">
+        <div class="store-policy">
+          <div class="store-policy-name">店舗キャンセルポリシー — 食堂 まぐろとさば。恵比寿</div>
+          <table class="store-policy-table">
+            <thead>
+              <tr>
+                <th>タイミング</th>
+                <th>キャンセル料</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1日前</td>
+                <td>3,000円 / 1人あたり</td>
+              </tr>
+              <tr>
+                <td>当日</td>
+                <td>5,000円 / 1人あたり</td>
+              </tr>
+              <tr>
+                <td>無断キャンセル</td>
+                <td>5,000円 / 1人あたり</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-section-title">請求対象<span style="color:#d32f2f;">*</span></div>
+        <div class="radio-stack" id="chargeTargetGroup">
+          <label class="radio-option">
+            <input type="radio" name="chargeTarget" value="noshow" checked onchange="syncCancelFeeUi()">
+            <span>未来店ユーザーのみ<span class="sub">Nao #033 — 相手の来店なしを認定</span></span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="chargeTarget" value="reporter" onchange="syncCancelFeeUi()">
+            <span>報告者のみ<span class="sub">ひろし #045 — 事実確認の結果、報告者側に請求</span></span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="chargeTarget" value="both" onchange="syncCancelFeeUi()">
+            <span>双方<span class="sub">双方にそれぞれ請求（金額は個別に指定）</span></span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="chargeTarget" value="none" onchange="syncCancelFeeUi()">
+            <span>キャンセル料なし<span class="sub">請求せず対応のみ（例: 事実認定不可・店舗都合など）</span></span>
+          </label>
+        </div>
+
+        <div id="feeGridSingle" class="fee-grid show">
+          <div class="fee-row">
+            <label id="feeSingleLabel">未来店ユーザー（Nao #033）</label>
+            <div class="fee-input-wrap">
+              <input type="number" id="feeSingleAmount" value="5000" min="0" step="100" oninput="updateFeeSummary()">
+              <span>円</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="feeGridBoth" class="fee-grid">
+          <div class="fee-row">
+            <label>報告者（ひろし #045）</label>
+            <div class="fee-input-wrap">
+              <input type="number" id="feeReporterAmount" value="5000" min="0" step="100" oninput="updateFeeSummary()">
+              <span>円</span>
+            </div>
+          </div>
+          <div class="fee-row">
+            <label>未来店ユーザー（Nao #033）</label>
+            <div class="fee-input-wrap">
+              <input type="number" id="feeNoshowAmount" value="5000" min="0" step="100" oninput="updateFeeSummary()">
+              <span>円</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="feeSummary" class="fee-summary show"></div>
+
+        <div class="admin-field">
+          <label>運営メモ（任意・内部用）</label>
+          <textarea id="resolveAdminNote" placeholder="例: チャット未返信・19:15まで来店なしを確認。未来店ユーザーへ当日キャンセル料を請求。"></textarea>
+        </div>
+
+        <div class="resolve-actions">
+          <button class="btn btn-outline" type="button" onclick="location.href='wireframe_SCR220_report_mgmt.html?tab=noshow'">一覧へ戻る</button>
+          <button class="btn btn-success" type="button" onclick="openResolveConfirmModal()">確定して対応完了</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="warnModal" class="modal-overlay" onclick="closeAdminModal('warnModal')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-title">警告を送信</div>
-    <div class="modal-desc">未来店ユーザー（Nao #033）へ警告通知を送信します。</div>
-    <div class="modal-field"><label>通知文（任意）</label><textarea placeholder="予約日の来店が確認できませんでした。今後のご利用にあたりご注意ください。"></textarea></div>
+<div id="resolveConfirmModal" class="modal-overlay" onclick="closeAdminModal('resolveConfirmModal')">
+  <div class="modal-box" style="width:440px;" onclick="event.stopPropagation()">
+    <div class="modal-title">キャンセル料を確定しますか？</div>
+    <div class="modal-desc" id="resolveConfirmBody"></div>
     <div class="modal-actions">
-      <button class="btn btn-outline" type="button" onclick="closeAdminModal('warnModal')">キャンセル</button>
-      <button class="btn btn-warning" type="button" onclick="closeAdminModal('warnModal'); alert('警告通知を送信しました');">送信する</button>
-    </div>
-  </div>
-</div>
-<div id="restrictModal" class="modal-overlay" onclick="closeAdminModal('restrictModal')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-title">利用制限</div>
-    <div class="modal-desc">対象ユーザーの機能利用を期間指定で制限します。</div>
-    <div class="modal-field"><label>開始日時</label><input type="datetime-local" value="2026-07-03T00:00"></div>
-    <div class="modal-field"><label>終了日時</label><input type="datetime-local" value="2026-07-17T00:00"></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" type="button" onclick="closeAdminModal('restrictModal')">キャンセル</button>
-      <button class="btn btn-warning" type="button" onclick="closeAdminModal('restrictModal'); alert('利用制限を設定しました');">設定する</button>
-    </div>
-  </div>
-</div>
-<div id="suspendModal" class="modal-overlay" onclick="closeAdminModal('suspendModal')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-title">アカウント停止</div>
-    <div class="modal-desc">対象ユーザーを停止します。再開は<strong>ユーザー管理（204）</strong>から手動で行います。</div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" type="button" onclick="closeAdminModal('suspendModal')">キャンセル</button>
-      <button class="btn btn-danger" type="button" onclick="closeAdminModal('suspendModal'); alert('アカウントを停止しました');">停止する</button>
+      <button class="btn btn-outline" type="button" onclick="closeAdminModal('resolveConfirmModal')">キャンセル</button>
+      <button class="btn btn-success" type="button" onclick="submitResolve()">確定する</button>
     </div>
   </div>
 </div>
 <script>
+  var POLICY_DEFAULT_FEE = 5000;
+
   function openAdminModal(id) { document.getElementById(id).classList.add('open'); }
   function closeAdminModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function getChargeTarget() {
+    var checked = document.querySelector('input[name="chargeTarget"]:checked');
+    return checked ? checked.value : 'noshow';
+  }
+
+  function syncCancelFeeUi() {
+    var target = getChargeTarget();
+    var single = document.getElementById('feeGridSingle');
+    var both = document.getElementById('feeGridBoth');
+    var singleLabel = document.getElementById('feeSingleLabel');
+
+    single.classList.remove('show');
+    both.classList.remove('show');
+
+    if (target === 'none') {
+      updateFeeSummary();
+      return;
+    }
+    if (target === 'both') {
+      both.classList.add('show');
+    } else {
+      single.classList.add('show');
+      if (target === 'reporter') {
+        singleLabel.textContent = '報告者（ひろし #045）';
+      } else {
+        singleLabel.textContent = '未来店ユーザー（Nao #033）';
+      }
+      if (!document.getElementById('feeSingleAmount').value) {
+        document.getElementById('feeSingleAmount').value = POLICY_DEFAULT_FEE;
+      }
+    }
+    updateFeeSummary();
+  }
+
+  function formatYen(n) {
+    var num = parseInt(n, 10);
+    if (isNaN(num)) return '—';
+    return num.toLocaleString('ja-JP') + '円';
+  }
+
+  function buildFeePlan() {
+    var target = getChargeTarget();
+    var lines = [];
+    if (target === 'none') {
+      return { target: target, lines: [], total: 0, text: 'キャンセル料は請求しません。' };
+    }
+    if (target === 'both') {
+      var r = document.getElementById('feeReporterAmount').value;
+      var n = document.getElementById('feeNoshowAmount').value;
+      lines.push({ who: 'ひろし #045', amount: r });
+      lines.push({ who: 'Nao #033', amount: n });
+      var total = (parseInt(r, 10) || 0) + (parseInt(n, 10) || 0);
+      return {
+        target: target,
+        lines: lines,
+        total: total,
+        text: 'ひろし #045: ' + formatYen(r) + ' / Nao #033: ' + formatYen(n) + '（合計 ' + formatYen(total) + '）'
+      };
+    }
+    var amt = document.getElementById('feeSingleAmount').value;
+    var who = target === 'reporter' ? 'ひろし #045' : 'Nao #033';
+    lines.push({ who: who, amount: amt });
+    return {
+      target: target,
+      lines: lines,
+      total: parseInt(amt, 10) || 0,
+      text: who + ': ' + formatYen(amt)
+    };
+  }
+
+  function updateFeeSummary() {
+    var box = document.getElementById('feeSummary');
+    var plan = buildFeePlan();
+    if (plan.target === 'none') {
+      box.classList.add('show');
+      box.textContent = plan.text;
+      return;
+    }
+    box.classList.add('show');
+    box.innerHTML = '<strong>請求プレビュー</strong><br>' + plan.text +
+      '<br>確定後、対象ユーザーへ通知を送信し、対象ユーザーの登録カードへ請求されます。';
+  }
+
+  function openResolveConfirmModal() {
+    var plan = buildFeePlan();
+    if (plan.target !== 'none') {
+      var invalid = plan.lines.some(function (l) {
+        var v = parseInt(l.amount, 10);
+        return isNaN(v) || v < 0;
+      });
+      if (invalid) {
+        alert('キャンセル料の金額を入力してください');
+        return;
+      }
+    }
+    document.getElementById('resolveConfirmBody').innerHTML =
+      '以下の内容で対応完了します。<br><br>' + plan.text +
+      '<br><br>この操作後、一覧のステータスは「対応済」になります。';
+    openAdminModal('resolveConfirmModal');
+  }
+
+  function submitResolve() {
+    closeAdminModal('resolveConfirmModal');
+    alert('キャンセル料を確定し、対応完了にしました');
+    location.href = 'wireframe_SCR220_report_mgmt.html?tab=noshow';
+  }
+
+  syncCancelFeeUi();
 </script>
 </body>
 </html>

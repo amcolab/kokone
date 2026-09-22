@@ -391,6 +391,33 @@
     }
     .summary-row:last-child { border-bottom: 0; }
     .summary-label { color: var(--c4); flex-shrink: 0; }
+    .summary-value-row { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+    .party-change-link {
+      border: none; background: none; padding: 0; font-size: 11px; color: var(--c5);
+      text-decoration: underline; cursor: pointer; font-weight: 600;
+    }
+    .party-modal-overlay {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.4);
+      z-index: 80; align-items: center; justify-content: center; padding: 20px;
+    }
+    .party-modal-overlay.open { display: flex; }
+    .party-modal {
+      width: 100%; max-width: 300px; background: #fff; border-radius: 10px;
+      padding: 18px 16px; box-shadow: 0 8px 28px rgba(0,0,0,.18);
+    }
+    .party-modal-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .party-modal-desc { font-size: 11px; color: var(--c4); line-height: 1.55; margin-bottom: 14px; }
+    .party-modal-field label { display: block; font-size: 11px; color: var(--c4); font-weight: 600; margin-bottom: 6px; }
+    .party-modal-field select {
+      width: 100%; height: 40px; border: 1px solid var(--c2); border-radius: 6px;
+      padding: 0 10px; font-size: 14px; background: #fff;
+    }
+    .party-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+    .party-modal-actions button {
+      height: 36px; padding: 0 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .party-modal-actions .cancel { border: 1px solid var(--c2); background: #fff; color: var(--c5); }
+    .party-modal-actions .ok { border: none; background: var(--c6); color: #fff; }
     .summary-value { font-weight: 600; text-align: right; line-height: 1.45; }
     .bottom-bar {
       position: absolute;
@@ -820,7 +847,10 @@
       </div>
       <div class="summary-card">
         <div class="summary-row"><span class="summary-label">日時</span><span class="summary-value" id="planDate">6月27日（土）18:00〜</span></div>
-        <div class="summary-row"><span class="summary-label">人数</span><span class="summary-value">2名</span></div>
+        <div class="summary-row">
+          <span class="summary-label">人数</span>
+          <span class="summary-value" id="planPartySize">2名</span>
+        </div>
         <div class="summary-row"><span class="summary-label">予約担当</span><span class="summary-value">男性</span></div>
         <div class="summary-row"><span class="summary-label">お会計</span><span class="summary-value">当日相談して決める</span></div>
       </div>
@@ -830,6 +860,21 @@
       <div class="link-row">
         <button class="text-link" onclick="window.location.href='wireframe_SCR090_meal_plan_reschedule.html'">日時を変更する</button>
         <button class="text-link" onclick="goShopList()">店舗を変更する</button>
+        <button class="text-link" onclick="openPartySizeModal()">人数を変更する</button>
+      </div>
+    </div>
+    <div id="partySizeModal" class="party-modal-overlay" onclick="closePartySizeModal(event)">
+      <div class="party-modal" onclick="event.stopPropagation()">
+        <div class="party-modal-title">人数を変更</div>
+        <div class="party-modal-desc">人数を変更すると食事プランに反映され、お相手の再承認が必要になります。</div>
+        <div class="party-modal-field">
+          <label>予約人数</label>
+          <select id="partySizeSelect"></select>
+        </div>
+        <div class="party-modal-actions">
+          <button type="button" class="cancel" onclick="closePartySizeModal()">キャンセル</button>
+          <button type="button" class="ok" onclick="confirmPartySizeChange()">変更する</button>
+        </div>
       </div>
     </div>
     <div id="shopDetailPopup" class="shop-detail-overlay" onclick="closeShopDetail(event)">
@@ -903,15 +948,23 @@
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>承認期限バナー</strong> — 双方承認の締切日時を表示。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>第1候補カード</strong> — おすすめ店舗の写真・店名・ジャンル・予算・エリア・タグ・提案理由。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>第2・第3候補</strong> — 代替店舗を縦並びで表示。タップで店舗詳細ポップアップ（SCR060と同型）を表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>プランサマリー</strong> — 日時・人数・お会計・予約担当を一覧表示。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>固定フッター</strong> — 承認ボタン＋日時変更・店舗変更リンク。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>プランサマリー</strong> — 日時・人数・お会計・予約担当を一覧表示。人数は変更可。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>固定フッター</strong> — 承認ボタン＋日時・店舗・人数変更リンク。</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">人数変更（要件）</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>提案者（User A）</strong> — 2〜10名の範囲で変更可。初期値は<strong>2名</strong>。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>反映</strong> — 変更した人数は食事プラン本体を更新し、相手側にも最新人数を表示。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>再承認</strong> — 人数は店舗予約に影響するため、変更後は相手の再承認が必要（例: 2名→4名なら相手が再承認するまで予約手続きへ進まない）。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>双方承認後</strong> — 人数の自由変更は不可。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">主要な挙動</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>この内容で承認する</strong> → SCR-090K 承認待ち画面へ。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日時を変更する</strong> → SCR-090J 日時変更画面へ。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗を変更する</strong> → 第2・第3候補エリアへスクロール。</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text">090J から戻る際、<code>?date=</code> パラメータでサマリーの日時を更新。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>人数を変更する</strong> — モーダルで2〜10名を選択し、プランに反映。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text">090J から戻る際、<code>?date=</code> パラメータでサマリーの日時を更新。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
@@ -933,14 +986,22 @@
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Banner hạn duyệt</strong> — hiển thị deadline phê duyệt.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Card ứng viên 1</strong> — nhà hàng đề xuất chính kèm ảnh, giá, khu vực, tag.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Ứng viên 2・3</strong> — nhà hàng thay thế, chọn bằng tap.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Tóm tắt kế hoạch</strong> — ngày giờ, số người, thanh toán, đặt chỗ.</div></div>
-          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>Footer cố định</strong> — nút duyệt + link đổi ngày/đổi quán.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">5</div><div class="blp-rule-text"><strong>Tóm tắt kế hoạch</strong> — ngày giờ, số người (có thể đổi), thanh toán, đặt chỗ.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">6</div><div class="blp-rule-text"><strong>Footer cố định</strong> — nút duyệt + link đổi ngày / quán / số người.</div></div>
+        </div>
+        <div class="blp-section">
+          <div class="blp-section-title">Đổi số người (req)</div>
+          <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>User A (người đề xuất)</strong> — đổi trong khoảng <strong>2〜10</strong> người. Giá trị ban đầu: <strong>2 người</strong>.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>Đồng bộ</strong> — cập nhật số người trong chính gói bữa ăn và hiển thị số mới nhất cho đối phương.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>Phê duyệt lại</strong> — vì số người ảnh hưởng đặt chỗ nhà hàng, sau khi đổi cần đối phương phê duyệt lại (vd: 2→4 người thì chỉ tiếp tục đặt chỗ sau khi B duyệt lại).</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Sau khi cả hai chấp thuận</strong> — không được tự ý đổi số người.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Hành vi chính</div>
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>この内容で承認する</strong> → SCR-090K chờ duyệt.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>日時を変更する</strong> → SCR-090J đổi ngày giờ.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>店舗を変更する</strong> → scroll tới khu vực ứng viên 2・3.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>人数を変更する</strong> — modal chọn 2〜10 người, cập nhật plan.</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">Luồng</div>
@@ -1133,7 +1194,55 @@
         backBtnFromExpired.setAttribute('onclick', "window.location.href='wireframe_SCR090_chat_schedule_expired.html'");
       }
     }
+    function formatPartySize(n) { return n + '名'; }
+    function parsePartySize(label) {
+      var m = String(label || '').match(/(\d+)/);
+      var n = m ? parseInt(m[1], 10) : 2;
+      if (n < 2) n = 2;
+      if (n > 10) n = 10;
+      return n;
+    }
+    function getPartySize() {
+      return parsePartySize(localStorage.getItem('ot-party-size') || '2名');
+    }
+    function setPartySize(n) {
+      localStorage.setItem('ot-party-size', formatPartySize(n));
+      var el = document.getElementById('planPartySize');
+      if (el) el.textContent = formatPartySize(n);
+    }
+    function fillPartySizeSelect(selected) {
+      var sel = document.getElementById('partySizeSelect');
+      sel.innerHTML = '';
+      for (var i = 2; i <= 10; i++) {
+        var opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = i + '名';
+        if (i === selected) opt.selected = true;
+        sel.appendChild(opt);
+      }
+    }
+    function openPartySizeModal() {
+      fillPartySizeSelect(getPartySize());
+      document.getElementById('partySizeModal').classList.add('open');
+    }
+    function closePartySizeModal(e) {
+      if (e && e.target && e.target.id !== 'partySizeModal') return;
+      document.getElementById('partySizeModal').classList.remove('open');
+    }
+    function confirmPartySizeChange() {
+      var next = parseInt(document.getElementById('partySizeSelect').value, 10);
+      var prev = getPartySize();
+      setPartySize(next);
+      localStorage.setItem('ot-party-changed', next !== prev ? '1' : '0');
+      closePartySizeModal();
+      if (next !== prev) {
+        alert('人数を' + formatPartySize(next) + 'に更新しました。お相手の再承認が必要です。');
+      }
+    }
+    setPartySize(getPartySize());
+
     function goApproveWaiting() {
+      setPartySize(getPartySize());
       var url = 'wireframe_SCR090_meal_plan_waiting.html';
       var from = new URLSearchParams(window.location.search).get('from');
       if (from === '090H') url += '?from=090H';

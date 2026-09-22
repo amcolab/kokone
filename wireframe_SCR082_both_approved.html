@@ -754,7 +754,7 @@
           </div>
         </div>
         <div class="plan-rows">
-          <div class="plan-row"><span class="plan-label">人数</span><span class="plan-value">2名</span></div>
+          <div class="plan-row"><span class="plan-label">人数</span><span class="plan-value" id="planPartySize">2名</span></div>
           <div class="plan-row"><span class="plan-label">お会計</span><span class="plan-value">割り勘（当日相談して決める）</span></div>
           <div class="plan-row"><span class="plan-label">予約担当</span><span class="plan-value">OtonaTable</span></div>
         </div>
@@ -842,6 +842,7 @@
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text"><strong>確定カード</strong> — 日時・店舗確定と双方カード登録が必要な旨を表示。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text"><strong>同意チェック</strong> — キャンセル料・無断キャンセルの自動引き落とし同意（日本語）。</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>カードを登録する</strong> — チェック後のみ有効。SCR-082E Stripe カード入力へ遷移。</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>人数</strong> — 双方承認後はサマリー表示のみ。自由変更不可（2〜10名・初期2名の変更は承認前のみ）。</div></div>
         </div>
         <div class="blp-section">
           <div class="blp-section-title">遷移</div>
@@ -862,6 +863,7 @@
           <div class="blp-rule"><div class="blp-rule-dot">1</div><div class="blp-rule-text">Card xác nhận ngày/quán + yêu cầu đăng ký thẻ 2 bên.</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">2</div><div class="blp-rule-text">Checkbox đồng ý phí hủy muộn / no-show (JA).</div></div>
           <div class="blp-rule"><div class="blp-rule-dot">3</div><div class="blp-rule-text"><strong>カードを登録する</strong> → SCR-082E nhập thẻ Stripe.</div></div>
+          <div class="blp-rule"><div class="blp-rule-dot">4</div><div class="blp-rule-text"><strong>Số người</strong> — sau khi cả hai chấp thuận chỉ hiển thị, không tự ý đổi.</div></div>
         </div>
       </div>
     </div>
@@ -906,8 +908,11 @@
     if (planShop.indexOf('。') === -1 && planShop === '食堂 まぐろとさば') {
       planShop = '食堂 まぐろとさば。恵比寿';
     }
+    var planParty = localStorage.getItem('ot-party-size') || '2名';
     document.getElementById('planDate').textContent = planDate;
     document.getElementById('planName').textContent = planShop;
+    document.getElementById('planPartySize').textContent = planParty;
+    localStorage.setItem('ot-party-locked', '1');
     localStorage.setItem('ot-schedule-proposal', planDate);
     localStorage.setItem('ot-restaurant-name', planShop);
 

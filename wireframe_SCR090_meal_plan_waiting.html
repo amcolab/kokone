@@ -698,7 +698,7 @@
           </div>
         </div>
         <div class="plan-rows">
-          <div class="plan-row"><span class="plan-label">人数</span><span class="plan-value">2名</span></div>
+          <div class="plan-row"><span class="plan-label">人数</span><span class="plan-value" id="planPartySize">2名</span></div>
           <div class="plan-row"><span class="plan-label">予約担当</span><span class="plan-value">男性</span></div>
           <div class="plan-row"><span class="plan-label">お会計</span><span class="plan-value">当日相談して決める</span></div>
         </div>
@@ -843,10 +843,18 @@
     var params = new URLSearchParams(window.location.search);
     var planDate = params.get('date') || localStorage.getItem('ot-schedule-proposal') || '6月27日（土）18:00〜';
     var planShop = params.get('shop') || localStorage.getItem('ot-restaurant-name') || '食堂 まぐろとさば';
+    var planParty = localStorage.getItem('ot-party-size') || '2名';
     document.getElementById('planDate').textContent = planDate;
     document.getElementById('planName').textContent = planShop;
+    document.getElementById('planPartySize').textContent = planParty;
     localStorage.setItem('ot-schedule-proposal', planDate);
     localStorage.setItem('ot-restaurant-name', planShop);
+    if (params.get('party') === '1') {
+      var statusTitle = document.querySelector('.status-title');
+      var statusSub = document.querySelector('.status-sub');
+      if (statusTitle) statusTitle.textContent = '人数変更の再承認待ちです';
+      if (statusSub) statusSub.innerHTML = '変更後の人数（' + planParty + '）をお相手が再承認すると<br>予約手続きへ進みます。';
+    }
     if (params.get('from') === '090H') {
       var countdownCard = document.getElementById('countdownCard');
       if (countdownCard) countdownCard.style.display = 'none';
