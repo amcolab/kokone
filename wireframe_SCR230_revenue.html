@@ -211,7 +211,35 @@
     }
     .wf-nav-link.wf-active .wf-nav-id { color: #9e9e9e; }
 
-  </style>
+</style>
+<style>
+  .revenue-filter-grid{display:grid;grid-template-columns:minmax(220px,1.5fr) repeat(3,minmax(130px,1fr)) auto;gap:10px;width:100%;align-items:center}
+  .revenue-date-range{display:flex;align-items:center;gap:5px;min-width:260px}
+  .revenue-date-range .filter-input{min-width:0;width:50%}
+  .revenue-chart{background:#fafafa;border:1px solid #e0e0e0;margin-bottom:24px;padding:12px 14px}
+  .revenue-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:12px;color:#616161}
+  .revenue-chart-toggle{display:flex;gap:4px}
+  .revenue-chart-toggle button{border:1px solid #bdbdbd;background:#fff;padding:5px 10px;font-size:11px;cursor:pointer}
+  .revenue-chart-toggle button.active{background:#212121;color:#fff;border-color:#212121}
+  .revenue-chart-bars{height:165px;display:flex;align-items:flex-end;gap:8px;border-bottom:1px solid #bdbdbd;padding:0 5px;overflow-x:auto}
+  .revenue-chart-bar-wrap{height:100%;min-width:42px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+  .revenue-chart-bar{width:24px;min-height:2px;background:#616161;position:relative;cursor:pointer}
+  .revenue-chart-bar:hover{background:#212121}
+  .revenue-chart-bar::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#212121;color:#fff;padding:4px 6px;font-size:10px;white-space:nowrap;opacity:0;pointer-events:none}
+  .revenue-chart-bar:hover::after{opacity:1}
+  .revenue-chart-label{font-size:10px;color:#757575;white-space:nowrap}
+  .revenue-type{white-space:nowrap;color:#616161}
+  .revenue-id{color:#212121;text-decoration:underline;cursor:pointer}
+  .revenue-status{display:inline-block;padding:3px 7px;border:1px solid #bdbdbd;font-size:11px}
+  .revenue-status.success{color:#2e7d32;border-color:#81c784}.revenue-status.failed{color:#c62828;border-color:#ef9a9a}.revenue-status.processing{color:#6d4c41;border-color:#bcaaa4}.revenue-status.unpaid{color:#e65100;border-color:#ffcc80}
+  .revenue-modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1200}
+  .revenue-dialog{width:min(620px,100%);max-height:90vh;overflow:auto;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.24)}
+  .revenue-dialog h2{font-size:16px;padding:16px 20px;border-bottom:1px solid #e0e0e0}
+  .revenue-dialog-body{padding:18px 20px}.revenue-detail-grid{display:grid;grid-template-columns:190px 1fr;font-size:12px}.revenue-detail-grid>div{padding:9px 0;border-bottom:1px solid #f0f0f0}
+  .revenue-dialog-actions{display:flex;justify-content:flex-end;padding:14px 20px;border-top:1px solid #e0e0e0}
+  .revenue-dialog-actions button{background:#212121;color:#fff;border:0;padding:8px 14px;font-size:12px;cursor:pointer}
+  @media(max-width:900px){.revenue-filter-grid{grid-template-columns:repeat(2,minmax(150px,1fr))}.revenue-filter-grid .filter-input:first-child{grid-column:1/-1}.revenue-date-range{min-width:0}}
+</style>
 
   <style>
     :root {
@@ -316,20 +344,23 @@
     <div class="page-title">収益・決済管理</div>
 
     <div class="filter-bar">
-      <input type="text" class="filter-input" placeholder="決済ID・ユーザーIDで検索...">
+      <input type="text" class="filter-input" placeholder="決済ID・ユーザーID・ニックネームで検索...">
       <select class="filter-select">
-        <option>項目: すべて ▼</option>
-        <option>スタンダードプラン</option>
-        <option>プレミアムプラン</option>
+        <option>決済種別: すべて</option>
+        <option>Premium登録</option>
+        <option>Premium更新</option>
+        <option>プラン変更</option>
+        <option>キャンセル料</option>
       </select>
+      <select class="filter-select"><option>決済状況: すべて</option><option>成功</option><option>失敗</option><option>処理中</option><option>未払い</option></select>
       <input type="date" class="filter-input" style="flex:none; width:130px;">
       <button class="filter-button">検索</button>
     </div>
 
     <div class="stats-row">
       <div class="stat-card">
-        <div class="stat-label">今月の総収益</div>
-        <div class="stat-value">¥1,248,000</div>
+        <div class="stat-label">今月の売上</div>
+        <div class="stat-value">¥68,000</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">有料会員数</div>
@@ -337,7 +368,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-label">前月比</div>
-        <div class="stat-value">+ 12.4%</div>
+        <div class="stat-value">+ 49.1%</div>
       </div>
     </div>
 
@@ -351,6 +382,7 @@
           <tr>
             <th>決済ID</th>
             <th>ユーザー</th>
+            <th>決済種別</th>
             <th>項目</th>
             <th>金額</th>
             <th>日時</th>
@@ -361,17 +393,19 @@
           <tr>
             <td>PAY-001</td>
             <td>たろうさん (#001)</td>
-            <td>スタンダードプラン (月額)</td>
-            <td>¥6,800</td>
-            <td>3/20 10:00</td>
+            <td>Premium登録</td>
+            <td>1ヶ月プラン</td>
+            <td>¥9,800</td>
+            <td>2026/03/20 10:00</td>
             <td>成功</td>
           </tr>
           <tr>
             <td>PAY-002</td>
             <td>ゆいさん (#003)</td>
-            <td>シークレットモード (月額)</td>
-            <td>¥1,500</td>
-            <td>3/19 15:30</td>
+            <td>Premium更新</td>
+            <td>3ヶ月プラン</td>
+            <td>¥23,400</td>
+            <td>2026/03/19 15:30</td>
             <td>成功</td>
           </tr>
         </tbody>
@@ -379,5 +413,37 @@
     </div>
   </div>
 </div>
+<script>
+(function(){
+  const content=document.querySelector('.main-content .content-wrapper');
+  if(!content) return;
+  const transactions=[
+    {id:'PAY-001',user:['たろう','U-0001'],type:'Premium登録',item:'1ヶ月プラン',amount:9800,date:'2026/03/20 10:00',status:'成功',revenue:true,stripe:'ch_3A001',premium:{subscription:'sub_001',period:'2026/03/20〜2026/04/20'}},
+    {id:'PAY-002',user:['ゆい','U-0003'],type:'Premium更新',item:'3ヶ月プラン',amount:23400,date:'2026/03/19 15:30',status:'成功',revenue:true,stripe:'ch_3A002',premium:{subscription:'sub_003',period:'2026/03/19〜2026/06/19'}},
+    {id:'PAY-003',user:['さとみ','U-0140'],type:'プラン変更',item:'6ヶ月プラン',amount:34800,date:'2026/03/18 09:20',status:'成功',revenue:true,stripe:'ch_3A003',premium:{subscription:'sub_0140',period:'2026/03/18〜2026/09/18'}},
+    {id:'PAY-004',user:['なお','U-0210'],type:'キャンセル料',item:'BK-005 来店前キャンセル料',amount:4000,date:'2026/03/17 12:10',status:'成功',revenue:false,stripe:'ch_3A004',cancellation:{booking:'BK-005',kind:'予約キャンセル料',liable:'なお（U-0210）',paid:4000,paymentStatus:'成功'}},
+    {id:'PAY-005',user:['けいすけ','U-0166'],type:'キャンセル料',item:'BK-008 不来店キャンセル料',amount:5000,date:'2026/03/16 18:40',billingDate:'2026/03/16 18:40',status:'未払い',revenue:false,stripe:'',cancellation:{booking:'BK-008',kind:'不来店キャンセル料',liable:'けいすけ（U-0166）',paid:0,paymentStatus:'未払い'}},
+    {id:'PAY-006',user:['なお','U-0210'],type:'キャンセル料',item:'BK-009 両者不来店キャンセル料',amount:7000,date:'2026/03/22 22:00',status:'処理中',revenue:false,stripe:'',cancellation:{booking:'BK-009',kind:'両者不来店キャンセル料',liable:'なお（U-0210）',paid:0,paymentStatus:'処理中'}},
+    {id:'PAY-007',user:['はるか','U-0222'],type:'キャンセル料',item:'BK-009 両者不来店キャンセル料',amount:3000,date:'2026/03/22 22:00',status:'失敗',revenue:false,stripe:'',cancellation:{booking:'BK-009',kind:'両者不来店キャンセル料',liable:'はるか（U-0222）',paid:0,paymentStatus:'失敗'}},
+    {id:'PAY-008',user:['あき','U-0042'],type:'Premium登録',item:'12ヶ月プラン',amount:45600,date:'2026/02/20 10:00',status:'成功',revenue:true,stripe:'ch_2B008',premium:{subscription:'sub_0042',period:'2026/02/20〜2027/02/20'}},
+    {id:'PAY-009',user:['りょう','U-0199'],type:'キャンセル料',item:'BK-007 来店前キャンセル料',amount:4000,date:'2026/02/18 11:10',status:'成功',revenue:false,stripe:'ch_2B009',cancellation:{booking:'BK-007',kind:'予約キャンセル料',liable:'りょう（U-0199）',paid:4000,paymentStatus:'成功'}}
+  ];
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const money=v=>'¥'+Number(v).toLocaleString('ja-JP');
+  const currentRevenue=transactions.filter(x=>x.date.startsWith('2026/03')&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0);
+  const previousRevenue=transactions.filter(x=>x.date.startsWith('2026/02')&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0);
+  const activePaidPremiumUsers=342;
+  const change=previousRevenue?((currentRevenue-previousRevenue)/previousRevenue*100):0;
+  const typeOptions=['すべて','Premium登録','Premium更新','プラン変更','キャンセル料'];
+  const statusOptions=['すべて','成功','失敗','処理中','未払い'];
+  let chartMode='monthly';
+  function chartData(mode){if(mode==='daily')return ['03/16','03/17','03/18','03/19','03/20','03/21','03/22'].map(d=>({label:d,value:transactions.filter(x=>x.date.slice(5,10)===d&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0)}));return ['2025/10','2025/11','2025/12','2026/01','2026/02','2026/03'].map(m=>({label:m,value:transactions.filter(x=>x.date.startsWith(m)&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0)}));}
+  function statusClass(s){return s==='成功'?'success':s==='失敗'?'failed':s==='処理中'?'processing':'unpaid';}
+  function renderChart(){const data=chartData(chartMode),max=Math.max(...data.map(x=>x.value),1),chart=document.getElementById('revenueChart');chart.innerHTML='<div class="revenue-chart-head"><span>売上推移（成功かつプラットフォーム売上の取引のみ）</span><span class="revenue-chart-toggle"><button data-chart="monthly" class="'+(chartMode==='monthly'?'active':'')+'">月次</button><button data-chart="daily" class="'+(chartMode==='daily'?'active':'')+'">日次</button></span></div><div class="revenue-chart-bars">'+data.map(x=>'<div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:'+Math.max(2,x.value/max*135)+'px" data-tooltip="'+esc(x.label)+'：'+money(x.value)+'"></div><div class="revenue-chart-label">'+esc(x.label)+'</div></div>').join('')+'</div>';chart.querySelectorAll('[data-chart]').forEach(b=>b.onclick=()=>{chartMode=b.dataset.chart;renderChart();});}
+  function openDetail(tx){const fields=[['決済ID',tx.id],['ユーザー',tx.user[0]+'（'+tx.user[1]+'）'],['決済種別',tx.type],['項目',tx.item],['金額',money(tx.amount)],['決済状況',tx.status]];if(tx.status==='成功'&&tx.date)fields.push(['決済日時',tx.date]);else if(tx.billingDate)fields.push(['請求日時',tx.billingDate]);if(tx.stripe)fields.push(['Stripe決済ID',tx.stripe]);if(tx.premium)fields.push(['Subscription ID',tx.premium.subscription],['対象期間',tx.premium.period]);if(tx.cancellation)fields.push(['予約ID','<a class="booking-detail-link" href="wireframe_SCR211_booking_detail.html?id='+esc(tx.cancellation.booking)+'">'+esc(tx.cancellation.booking)+'</a>']);const modal=document.createElement('div');modal.className='revenue-modal';modal.innerHTML='<div class="revenue-dialog" role="dialog" aria-modal="true"><h2>決済詳細</h2><div class="revenue-dialog-body"><div class="revenue-detail-grid">'+fields.map(f=>'<div>'+f[0]+'</div><div>'+f[1]+'</div>').join('')+'</div></div><div class="revenue-dialog-actions"><button type="button">閉じる</button></div></div>';document.body.appendChild(modal);modal.querySelector('button').onclick=()=>modal.remove();}
+  function render(rows){const old={q:document.getElementById('revQuery')?.value||'',type:document.getElementById('revType')?.value||'すべて',status:document.getElementById('revStatus')?.value||'すべて',from:document.getElementById('revFrom')?.value||'',to:document.getElementById('revTo')?.value||''};content.innerHTML='<div class="page-title">収益・決済管理</div><div class="filter-bar"><div class="revenue-filter-grid"><input id="revQuery" type="text" class="filter-input" placeholder="決済ID・ユーザーID・ニックネームで検索..." value="'+esc(old.q)+'"><select id="revType" class="filter-select">'+typeOptions.map(x=>'<option '+(x===old.type?'selected':'')+'>'+x+'</option>').join('')+'</select><select id="revStatus" class="filter-select">'+statusOptions.map(x=>'<option '+(x===old.status?'selected':'')+'>'+x+'</option>').join('')+'</select><div class="revenue-date-range"><input id="revFrom" type="date" class="filter-input" value="'+esc(old.from)+'"><span>〜</span><input id="revTo" type="date" class="filter-input" value="'+esc(old.to)+'"></div><button id="revFilter" class="filter-button">検索</button></div></div><div class="stats-row"><div class="stat-card"><div class="stat-label">今月の売上</div><div class="stat-value">'+money(currentRevenue)+'</div></div><div class="stat-card"><div class="stat-label">有料会員数</div><div class="stat-value">'+activePaidPremiumUsers+' 名</div></div><div class="stat-card"><div class="stat-label">前月比</div><div class="stat-value">'+(change>=0?'+ ':'')+change.toFixed(1)+'%</div></div></div><div id="revenueChart" class="revenue-chart"></div><div class="summary-line">全 '+rows.length+' 件 · 表示: 1〜'+Math.min(rows.length,20)+'件</div><div class="table-wrapper"><table class="table"><thead><tr><th>決済ID</th><th>ユーザー</th><th>決済種別</th><th>項目</th><th>金額</th><th>決済日時</th><th>ステータス</th></tr></thead><tbody>'+rows.map(tx=>'<tr><td><a class="revenue-id" data-id="'+esc(tx.id)+'">'+esc(tx.id)+'</a></td><td><a class="booking-detail-link" href="wireframe_SCR204_user_mgmt.html#'+esc(tx.user[1])+'">'+esc(tx.user[0])+'（'+esc(tx.user[1])+'）</a></td><td class="revenue-type">'+esc(tx.type)+'</td><td>'+esc(tx.item)+'</td><td>'+money(tx.amount)+'</td><td>'+esc(tx.date)+'</td><td><span class="revenue-status '+statusClass(tx.status)+'">'+esc(tx.status)+'</span></td></tr>').join('')+'</tbody></table></div><div class="pagination"><span>全 '+rows.length+'件</span><span>20件 / ページ</span></div>';renderChart();content.querySelectorAll('.revenue-id').forEach(a=>a.onclick=()=>openDetail(transactions.find(x=>x.id===a.dataset.id)));document.getElementById('revFilter').onclick=()=>{const q=document.getElementById('revQuery').value.toLowerCase(),type=document.getElementById('revType').value,status=document.getElementById('revStatus').value,from=document.getElementById('revFrom').value.replaceAll('-','/'),to=document.getElementById('revTo').value.replaceAll('-','/');render(transactions.filter(x=>(!q||(x.id+x.user[0]+x.user[1]).toLowerCase().includes(q))&&(!type||type==='すべて'||x.type===type)&&(!status||status==='すべて'||x.status===status)&&(!from||x.date.slice(0,10)>=from)&&(!to||x.date.slice(0,10)<=to)));};}
+  render(transactions);
+}());
+</script>
 </body>
 </html>
