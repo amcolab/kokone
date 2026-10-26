@@ -192,6 +192,85 @@
     }
     .wf-nav-link.wf-active .wf-nav-id { color: #9e9e9e; }
 
+    .main-content { padding: 28px; overflow-x: auto; }
+    .content-wrapper { max-width: none; min-width: 1100px; }
+    .filter-bar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; }
+    .filter-field { display: flex; flex: 1 1 0; min-width: 150px; flex-direction: column; gap: 5px; }
+    .filter-label { color: #757575; font-size: 11px; font-weight: 600; }
+    .filter-input, .filter-select, .date-input { width: 100%; min-width: 0; height: 36px; border: 1px solid #e0e0e0; padding: 0 9px; background: #fff; font-size: 12px; }
+    .date-range { display: flex; align-items: center; gap: 5px; }
+    .date-range .date-input { width: 0; min-width: 0; flex: 1 1 0; }
+    .filter-button.secondary { background: #fff; color: #212121; border: 1px solid #212121; }
+    .filter-button { flex: 0 0 auto; white-space: nowrap; padding: 0 10px; }
+    .filter-button.secondary { margin-left: auto; }
+    .table-wrapper { overflow-x: auto; }
+    .table { min-width: 1120px; }
+    .table th, .table td { white-space: nowrap; }
+    .table th:last-child, .table td:last-child { position: sticky; right: 0; z-index: 2; min-width: 76px; background: #fff; box-shadow: -4px 0 8px rgba(0,0,0,.06); }
+    .table th:last-child { background: #f5f5f5; z-index: 3; }
+    .table a, .detail-link { color: #212121; text-decoration: underline; cursor: pointer; }
+    .status-ended { color: #616161; background: #f5f5f5; border-color: #bdbdbd; }
+    .status-plan { color: #424242; background: #fff; border-color: #9e9e9e; }
+    .detail-button { border: 1px solid #212121; background: #fff; color: #212121; padding: 6px 14px; font-size: 11px; cursor: pointer; }
+    .detail-button:hover { background: #f5f5f5; }
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 2px; color: #757575; font-size: 12px; }
+    .page-controls { display: flex; gap: 4px; }
+    .page-control { width: 30px; height: 28px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
+    .page-control.active { background: #212121; color: #fff; border-color: #212121; }
+    .view { display: none; }
+    .view.active { display: block; }
+    .back-link { display: inline-block; color: #424242; font-size: 12px; margin-bottom: 14px; cursor: pointer; text-decoration: underline; }
+    .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .detail-header .page-title { margin: 0; }
+    .section { background: #fff; border: 1px solid #e0e0e0; margin-bottom: 16px; }
+    .section-title { padding: 12px 14px; border-bottom: 1px solid #e0e0e0; font-size: 14px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: 160px 1fr 160px 1fr; }
+    .info-grid dt, .info-grid dd { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+    .info-grid dt { color: #757575; background: #fafafa; }
+    .info-grid dd.full { grid-column: span 3; white-space: pre-wrap; line-height: 1.7; }
+    .section-body { padding: 14px; }
+    .section-note { color: #757575; font-size: 12px; margin-bottom: 10px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .detail-table th, .detail-table td { padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: left; }
+    .detail-table th { background: #f5f5f5; }
+    .management-grid { display: grid; grid-template-columns: 170px 1fr; font-size: 12px; }
+    .management-grid div { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; }
+    .management-grid div:nth-child(odd) { color: #757575; background: #fafafa; }
+    .empty-state { padding: 24px; text-align: center; color: #757575; font-size: 12px; }
+    .restricted-note { border: 1px solid #e0e0e0; background: #fafafa; padding: 12px; color: #616161; font-size: 12px; }
+    .link-button { color: #212121; text-decoration: underline; cursor: pointer; font-size: 12px; }
+    .chat-log { max-height: 340px; overflow-y: auto; border: 1px solid #e0e0e0; background: #fafafa; padding: 14px; }
+    .chat-row { display: flex; margin-bottom: 12px; }
+    .chat-row.right { justify-content: flex-end; }
+    .chat-bubble { max-width: 72%; padding: 9px 12px; background: #fff; border: 1px solid #e0e0e0; }
+    .chat-row.right .chat-bubble { background: #f0f0f0; }
+    .chat-meta { color: #757575; font-size: 10px; margin-bottom: 5px; }
+    .chat-text { color: #212121; font-size: 12px; line-height: 1.5; }
+    .chat-time { color: #9e9e9e; font-size: 10px; margin-top: 5px; text-align: right; }
+    .detail-layout { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(300px, 1fr); gap: 16px; align-items: start; }
+    .detail-layout .section.full-width { grid-column: 1 / -1; }
+    .candidate-list { display: grid; gap: 8px; }
+    .candidate-item { padding: 9px 12px; border: 1px solid #e0e0e0; background: #fafafa; font-size: 12px; }
+    .candidate-label { color: #757575; display: inline-block; width: 72px; }
+    .approval-grid { display: grid; grid-template-columns: 170px 1fr; font-size: 12px; }
+    .approval-grid div { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; }
+    .approval-grid div:nth-child(odd) { color: #757575; background: #fafafa; }
+    .system-message { margin: 8px auto 14px; max-width: 90%; padding: 8px 12px; background: #f5f5f5; border: 1px dashed #bdbdbd; color: #616161; font-size: 11px; text-align: center; }
+    .detail-layout { display: block; }
+    .detail-layout > .section { width: 100%; margin-bottom: 16px; }
+    .detail-layout .approval-grid { grid-template-columns: 160px 1fr 160px 1fr; }
+    .detail-layout .candidate-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .detail-layout .chat-log { height: 560px; max-height: 560px; overflow-y: auto; }
+    .reservation-summary { display: flex; align-items: center; gap: 14px; padding: 2px 0; font-size: 12px; }
+    .reservation-summary strong { font-size: 13px; }
+    .safety-notice { border: 1px solid #e0e0e0; background: #fafafa; color: #616161; padding: 10px 12px; margin-bottom: 16px; font-size: 12px; }
+    .store-link { color: #212121; text-decoration: underline; cursor: pointer; }
+    .chat-footer { color: #757575; font-size: 11px; margin-top: 8px; text-align: right; }
+    @media (max-width: 800px) {
+      .detail-layout .approval-grid { grid-template-columns: 150px 1fr; }
+      .detail-layout .candidate-list { grid-template-columns: 1fr; }
+    }
+
   </style>
 
   <style>
@@ -294,67 +373,458 @@
 
 <div class="main-content">
   <div class="content-wrapper">
-    <div class="page-title">マッチング管理</div>
-
-    <div class="filter-bar">
-      <input type="text" class="filter-input" placeholder="ユーザーID・名前で検索...">
-      <select class="filter-select">
-        <option>ステータス ▼</option>
-        <option>進行中</option>
-        <option>日程調整中</option>
-        <option>予約確定</option>
-        <option>完了</option>
-        <option>キャンセル</option>
-      </select>
-      <button class="filter-button">検索</button>
-    </div>
-
-    <div class="table-wrapper">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>マッチID</th>
-            <th>ユーザー1</th>
-            <th>ユーザー2</th>
-            <th>成立日時</th>
-            <th>ステータス</th>
-            <th>最新メッセージ</th>
-            <th>アクション</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>MT001</td>
-            <td>あきら (#102)</td>
-            <td>みお (#203)</td>
-            <td>3/22 10:00</td>
-            <td><span class="status-badge status-active">進行中</span></td>
-            <td>「よろしくお願いします！」</td>
-            <td><a href="wireframe_SCR206_chat_admin.html" class="action-link">チャット履歴</a></td>
-          </tr>
-          <tr>
-            <td>MT002</td>
-            <td>たかし (#105)</td>
-            <td>ゆみ (#301)</td>
-            <td>3/21 15:30</td>
-            <td><span class="status-badge status-active">日程調整中</span></td>
-            <td>日程の案を送りました。</td>
-            <td><a href="wireframe_SCR206_chat_admin.html" class="action-link">チャット履歴</a></td>
-          </tr>
-          <tr>
-            <td>MT003</td>
-            <td>じゅん (#088)</td>
-            <td>えり (#112)</td>
-            <td>3/20 09:12</td>
-            <td><span class="status-badge">予約確定</span></td>
-            <td>(レストラン予約情報)</td>
-            <td><a href="wireframe_SCR206_chat_admin.html" class="action-link">チャット履歴</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <section id="listView" class="view active">
+      <div class="page-title">マッチング管理</div>
+      <div class="filter-bar">
+        <div class="filter-field"><label class="filter-label">キーワード</label><input id="keyword" type="text" class="filter-input" placeholder="マッチングID・ユーザーID・ニックネームで検索..."></div>
+        <div class="filter-field"><label class="filter-label">マッチング状態</label><select id="matchFilter" class="filter-select"><option value="">すべて</option><option>有効</option><option>終了</option></select></div>
+        <div class="filter-field"><label class="filter-label">食事プラン状況</label><select id="planFilter" class="filter-select"><option value="">すべて</option><option>未開始</option><option>承認待ち</option><option>双方承認済み</option><option>期限切れ</option></select></div>
+        <div class="filter-field"><label class="filter-label">成立日</label><div class="date-range"><input id="dateFrom" class="date-input" type="date"><span>〜</span><input id="dateTo" class="date-input" type="date"></div></div>
+        <button class="filter-button secondary" onclick="clearFilters()">クリア</button><button class="filter-button" onclick="applyFilters()">検索</button>
+      </div>
+      <div class="table-wrapper"><table class="table"><thead><tr><th>マッチングID</th><th>ユーザー1</th><th>ユーザー2</th><th>成立日時</th><th>マッチング状態</th><th>食事プラン状況</th><th>予約状況</th><th>アクション</th></tr></thead><tbody id="listBody"></tbody></table></div>
+      <div class="pagination"><span id="resultCount"></span><div class="page-controls"><button class="page-control" onclick="changePage(-1)">‹</button><span id="pageNumbers"></span><button class="page-control" onclick="changePage(1)">›</button></div><span>20件 / ページ</span></div>
+    </section>
+    <section id="detailView" class="view"></section>
   </div>
 </div>
+
+<script>
+const matches=[
+ {id:'MT-001',u1:{name:'あきらさん',id:'U-0102'},u2:{name:'みおさん',id:'U-0203'},date:'2026/03/22 10:00',match:'有効',plan:'未開始',method:'—',proposal:'—',responses:'—',deadline:'—',approved:'—',reservation:null,reports:0,ng:0,openCases:0,source:'Like',endDate:'—',endReason:'—',history:[],chat:'権限確認が必要です。'},
+ {id:'MT-002',u1:{name:'たかしさん',id:'U-0105'},u2:{name:'ゆみさん',id:'U-0301'},date:'2026/03/21 15:30',match:'有効',plan:'承認待ち',method:'日程から調整する',proposal:'2026/03/28・昼',responses:'日程候補の回答待ち',deadline:'2026/03/25 23:59',approved:'—',reservation:null,reports:1,ng:0,openCases:1,source:'食事募集',endDate:'—',endReason:'—',history:[{date:'2026/03/23 09:00',content:'プラン作成'}],chat:'権限確認が必要です。'},
+ {id:'MT-003',u1:{name:'じゅんさん',id:'U-0088'},u2:{name:'えりさん',id:'U-0112'},date:'2026/03/20 09:12',match:'有効',plan:'承認待ち',method:'日時・お店をまとめて提案する',proposal:'2026/03/30・夜 / 銀座',responses:'食事プランの承認待ち',deadline:'2026/03/27 23:59',approved:'—',reservation:null,reports:0,ng:1,openCases:1,source:'Like',endDate:'—',endReason:'—',history:[{date:'2026/03/21 12:30',content:'プラン作成'},{date:'2026/03/22 18:20',content:'日時変更'}],chat:'権限確認が必要です。'},
+ {id:'MT-004',u1:{name:'さとみさん',id:'U-0140'},u2:{name:'けいすけさん',id:'U-0166'},date:'2026/03/19 18:05',match:'有効',plan:'双方承認済み',method:'日時・お店をまとめて提案する',proposal:'2026/04/02・夜 / 恵比寿',responses:'ユーザー1：承認済み / ユーザー2：承認済み',deadline:'2026/03/28 23:59',approved:'2026/03/23 20:10',reservation:{id:'RS-004',status:'確定',date:'2026/04/02・夜',shop:'恵比寿 和食店'},reports:0,ng:0,openCases:0,source:'Like',endDate:'—',endReason:'—',history:[{date:'2026/03/20 11:00',content:'プラン作成'},{date:'2026/03/23 20:10',content:'双方承認済み'}],chat:'権限確認が必要です。'},
+ {id:'MT-005',u1:{name:'まいさん',id:'U-0172'},u2:{name:'りょうさん',id:'U-0199'},date:'2026/03/18 13:40',match:'有効',plan:'期限切れ',method:'日程から調整する',proposal:'2026/03/25・昼',responses:'ユーザー1：未回答 / ユーザー2：提案済み',deadline:'2026/03/20 23:59',approved:'—',reservation:null,reports:0,ng:0,openCases:0,source:'食事募集',endDate:'—',endReason:'—',history:[{date:'2026/03/18 14:00',content:'プラン作成'},{date:'2026/03/21 00:00',content:'期限切れ'}],chat:'権限確認が必要です。'},
+ {id:'MT-006',u1:{name:'なおさん',id:'U-0210'},u2:{name:'はるかさん',id:'U-0222'},date:'2026/03/17 08:45',match:'終了',plan:'双方承認済み',method:'日時・お店をまとめて提案する',proposal:'2026/03/19・夜 / 中目黒',responses:'双方承認済み',deadline:'2026/03/18 23:59',approved:'2026/03/18 19:30',reservation:{id:'RS-006',status:'キャンセル',date:'2026/03/19・夜',shop:'—'},reports:2,ng:1,openCases:2,source:'Like',endDate:'2026/03/20 10:00',endReason:'ユーザーによる終了',history:[{date:'2026/03/17 09:00',content:'プラン作成'},{date:'2026/03/20 10:00',content:'Matching終了'}],chat:'終了したMatchingのため、チャット本文は表示権限がありません。'}
+];
+let filtered=[...matches].sort((a,b)=>b.date.localeCompare(a.date)),page=1,currentId=null;
+const badge=(text,kind='')=>'<span class="status-badge '+(kind==='active'?'status-active ':'')+(kind==='ended'?'status-ended ':'')+(kind==='plan'?'status-plan ':'')+'">'+text+'</span>';
+function userLink(u){return `<a class="detail-link" onclick="showUser('${u.id}')">${u.name.replace(/さん$/,'')}（${u.id}）</a>`;}
+function renderList(){const rows=filtered.slice((page-1)*20,page*20);document.getElementById('listBody').innerHTML=rows.length?rows.map(x=>`<tr><td>${x.id}</td><td>${userLink(x.u1)}</td><td>${userLink(x.u2)}</td><td>${x.date}</td><td>${badge(x.match,x.match==='有効'?'active':'ended')}</td><td>${badge(x.plan,'plan')}</td><td>${x.reservation?x.reservation.status:'未開始'}</td><td><button class="detail-button" onclick="showDetail('${x.id}')">詳細</button></td></tr>`).join(''):'<tr><td colspan="8" class="empty-state">該当するマッチングはありません。</td></tr>';document.getElementById('resultCount').textContent='全 '+filtered.length+'件';document.getElementById('pageNumbers').innerHTML='<button class="page-control active">'+page+'</button>';}
+function applyFilters(){const q=document.getElementById('keyword').value.toLowerCase(),m=document.getElementById('matchFilter').value,p=document.getElementById('planFilter').value,from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value;filtered=matches.filter(x=>(!q||(x.id+x.u1.id+x.u2.id+x.u1.name+x.u2.name).toLowerCase().includes(q))&&(!m||x.match===m)&&(!p||x.plan===p)&&(!from||x.date.slice(0,10).replaceAll('/','-')>=from)&&(!to||x.date.slice(0,10).replaceAll('/','-')<=to)).sort((a,b)=>b.date.localeCompare(a.date));page=1;renderList();}
+function clearFilters(){document.getElementById('keyword').value='';['matchFilter','planFilter','dateFrom','dateTo'].forEach(id=>document.getElementById(id).value='');filtered=[...matches].sort((a,b)=>b.date.localeCompare(a.date));page=1;renderList();}
+function changePage(delta){if(page+delta<1||page+delta>Math.max(1,Math.ceil(filtered.length/20)))return;page+=delta;renderList();}
+function showUser(id){window.location.href='wireframe_SCR204_user_mgmt.html#'+id;}
+function showReservation(id){window.location.href='wireframe_SCR210_booking_mgmt.html#'+id;}
+function showReport(id){window.location.href='wireframe_SCR220_report_mgmt.html#'+id;}
+function showDetail(id){currentId=id;const x=matches.find(y=>y.id===id),d=document.getElementById('detailView');document.getElementById('listView').classList.remove('active');d.classList.add('active');d.innerHTML=`<a class="back-link" onclick="backToList()">← マッチング管理に戻る</a><div class="detail-header"><div class="page-title">マッチング詳細</div>${badge(x.match,x.match==='有効'?'active':'ended')}<span style="font-size:12px;color:#757575">${x.id}</span></div><section class="section"><div class="section-title">A — マッチング情報</div><dl class="info-grid"><dt>マッチングID</dt><dd>${x.id}</dd><dt>成立日時</dt><dd>${x.date}</dd><dt>ユーザー1</dt><dd>${userLink(x.u1)}</dd><dt>ユーザー2</dt><dd>${userLink(x.u2)}</dd><dt>マッチング状態</dt><dd>${badge(x.match,x.match==='有効'?'active':'ended')}</dd><dt>成立経路</dt><dd>${x.source}</dd><dt>終了日時</dt><dd>${x.endDate}</dd><dt>終了理由</dt><dd>${x.endReason}</dd></dl></section><section class="section"><div class="section-title">B — 食事プラン情報</div><div class="section-body"><div class="management-grid"><div>食事プラン状況</div><div>${badge(x.plan,'plan')}</div><div>調整方法</div><div>${x.method}</div><div>提案日時・店舗</div><div>${x.proposal}</div><div>ユーザーの反応</div><div>${x.responses}</div><div>プラン期限</div><div>${x.deadline}</div><div>双方承認日時</div><div>${x.approved}</div></div><h4 style="font-size:12px;margin:18px 0 8px">食事プラン履歴</h4>${x.history.length?'<table class="detail-table"><thead><tr><th>日時</th><th>内容</th></tr></thead><tbody>'+x.history.map(h=>`<tr><td>${h.date}</td><td>${h.content}</td></tr>`).join('')+'</tbody></table>':'<div class="empty-state">食事プランはまだ開始されていません。</div>'}<p class="section-note" style="margin-top:12px">管理者は食事プランの作成・承認を行えません。</p></div></section><section class="section"><div class="section-title">C — 予約情報</div><div class="section-body">${x.reservation?`<div class="management-grid"><div>予約ID</div><div>${x.reservation.id}</div><div>予約状況</div><div>${x.reservation.status}</div><div>予約希望日時</div><div>${x.reservation.date}</div><div>予約確定店舗</div><div>${x.reservation.shop}</div></div><button class="detail-button" style="margin-top:14px" onclick="showReservation('${x.reservation.id}')">予約詳細を見る</button>`:'<div class="empty-state">予約手続きはまだ開始されていません。</div>'}</div></section><section class="section"><div class="section-title">D — 通報・安全管理</div><div class="section-body"><div class="management-grid"><div>関連する通報</div><div>${x.reports?`<a class="link-button" onclick="showReport('${x.id}')">${x.reports}件（通報管理で確認）</a>`:'なし'}</div><div>NGワード検知</div><div>${x.ng?x.ng+'件':'なし'}</div><div>未処理ケース</div><div>${x.openCases?x.openCases+'件':'なし'}</div></div><p class="section-note" style="margin-top:12px">警告・制限・停止の対応は通報管理およびUS-33の権限で行います。</p></div></section><section class="section"><div class="section-title">メッセージ履歴（モニタリングログ）</div><div class="section-body"><div class="restricted-note">${x.chat}<br>全文表示は承認済みのアクセス権限がある場合のみ利用できます。送信・編集機能はありません。</div></div></section>`;}
+function backToList(){document.getElementById('detailView').classList.remove('active');document.getElementById('listView').classList.add('active');renderList();}
+renderList();
+</script>
+<script>
+  const chatLogs = {
+    'MT-001': [
+      {side:'left', name:'あきらさん', uid:'U-0102', text:'マッチングありがとうございます。よろしくお願いします！', time:'2026/03/22 10:05'},
+      {side:'right', name:'みおさん', uid:'U-0203', text:'こちらこそ、よろしくお願いします。', time:'2026/03/22 10:08'}
+    ],
+    'MT-002': [
+      {side:'left', name:'たかしさん', uid:'U-0105', text:'候補日を選んでいただけますか？', time:'2026/03/23 09:00'},
+      {side:'right', name:'ゆみさん', uid:'U-0301', text:'確認してから回答します。', time:'2026/03/23 09:15'}
+    ],
+    'MT-003': [
+      {side:'left', name:'じゅんさん', uid:'U-0088', text:'銀座のお店で提案を送ります。', time:'2026/03/22 18:20'},
+      {side:'right', name:'えりさん', uid:'U-0112', text:'内容を確認しています。', time:'2026/03/22 18:35'}
+    ],
+    'MT-004': [
+      {side:'left', name:'さとみさん', uid:'U-0140', text:'4月2日、こちらのお店でお願いします。', time:'2026/03/23 20:00'},
+      {side:'right', name:'けいすけさん', uid:'U-0166', text:'承認しました。楽しみにしています。', time:'2026/03/23 20:10'}
+    ],
+    'MT-005': [
+      {side:'left', name:'まいさん', uid:'U-0172', text:'候補日を確認します。', time:'2026/03/18 14:00'},
+      {side:'right', name:'りょうさん', uid:'U-0199', text:'期限までに回答します。', time:'2026/03/18 14:12'}
+    ],
+    'MT-006': [
+      {side:'left', name:'なおさん', uid:'U-0210', text:'今回はここで終了にしましょう。', time:'2026/03/20 09:55'},
+      {side:'right', name:'はるかさん', uid:'U-0222', text:'承知しました。', time:'2026/03/20 10:00'}
+    ]
+  };
+  const originalShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    originalShowDetail(id);
+    const responseLabel = Array.from(document.querySelectorAll('#detailView .management-grid > div')).find(function (el) { return el.textContent === 'ユーザーの反応'; });
+    if (responseLabel) responseLabel.textContent = '回答・承認状況';
+    const box = document.querySelector('#detailView .restricted-note');
+    if (box) {
+      box.className = 'chat-log';
+      box.innerHTML = (chatLogs[id] || []).map(function (m) {
+        return '<div class="chat-row '+(m.side==='right'?'right':'')+'"><div class="chat-bubble"><div class="chat-meta">'+m.name+'（'+m.uid+'）</div><div class="chat-text">'+m.text+'</div><div class="chat-time">'+m.time+'</div></div></div>';
+      }).join('');
+    }
+  };
+</script>
+
+<script>
+  // Final wireframe mapping for the approved Like / 食事募集 business rules.
+  Object.assign(matches.find(x => x.id === 'MT-001'), {source:'いいね', planStatus:'未開始', planDate:'2026/11/05 19:00', planId:'PL-001-v1', planVersion:'v1', people:'2名', booker:'男性', payment:'当日相談して決める', deadline:'2026/11/09 23:59', approvals:['未承認','未承認'], candidates:[['第1候補','銀座 つきじ治作','ST-101'],['第2候補','銀座 和食みやび','ST-102'],['第3候補','銀座 旬彩堂','ST-103']], card:['未登録','未登録'], history:[]});
+  Object.assign(matches.find(x => x.id === 'MT-002'), {source:'いいね', planStatus:'承認待ち', planDate:'2026/11/08 19:00', planId:'PL-002-v1', planVersion:'v1', people:'2名', booker:'男性', payment:'当日相談して決める', deadline:'2026/11/09 23:59', approvals:['承認済み','未承認'], waiting:'食事プランの承認待ち', candidates:[['第1候補','恵比寿 旬菜','ST-201'],['第2候補','恵比寿 こよみ','ST-202']], card:['未登録','未登録'], history:[{id:'PL-002-v1',date:'2026/11/05 09:00',content:'初回プラン作成 / ユーザー1が承認'}]});
+  Object.assign(matches.find(x => x.id === 'MT-003'), {source:'いいね', planStatus:'承認待ち', planDate:'2026/11/10 18:00', planId:'PL-003-v2', planVersion:'v2', people:'2名', booker:'男性', payment:'ごちそうする側が支払い', deadline:'2026/11/12 23:59', approvals:['未承認','承認済み'], waiting:'食事プランの承認待ち', candidates:[['第1候補','中目黒 こまち','ST-301'],['第2候補','中目黒 いろは','ST-302'],['第3候補','中目黒 山灯り','ST-303']], card:['未登録','未登録'], history:[{id:'PL-003-v1',date:'2026/11/04 12:00',content:'初回プラン作成 / 店舗変更前'},{id:'PL-003-v2',date:'2026/11/06 17:30',content:'ユーザー2が店舗変更 / current version'}]});
+  Object.assign(matches.find(x => x.id === 'MT-004'), {source:'いいね', planStatus:'双方承認済み', planDate:'2026/11/07 18:00', planId:'PL-004-v1', planVersion:'v1', people:'2名', booker:'男性', payment:'当日相談して決める', deadline:'2026/11/09 23:59', approvals:['承認済み','承認済み'], candidates:[['第1候補','恵比寿 銀の皿','ST-401'],['第2候補','恵比寿 つばき','ST-402']], card:['登録済み','未登録'], history:[{id:'PL-004-v1',date:'2026/11/05 10:00',content:'双方承認済み'}]});
+  Object.assign(matches.find(x => x.id === 'MT-005'), {u1:{name:'しょうたさん',id:'U-1005'},u2:{name:'ゆうたさん',id:'U-1221'},source:'食事募集', planStatus:'対象外', reservation:null, recruitment:{id:'BS-005',poster:'しょうた（U-1005）',applicant:'ゆうた（U-1221）',date:'2026/03/27',period:'昼',area:'横浜',comment:'海が見える場所でランチをご一緒できる方を探しています。',status:'募集中'}});
+  Object.assign(matches.find(x => x.id === 'MT-006'), {source:'いいね', planStatus:'双方承認済み', planDate:'2026/10/28 19:00', planId:'PL-006-v1', planVersion:'v1', people:'2名', booker:'男性', payment:'当日相談して決める', deadline:'2026/10/30 23:59', approvals:['承認済み','承認済み'], candidates:[['第1候補','中目黒 こまち','ST-601']], card:['登録済み','登録済み'], reservation:{id:'RS-006',status:'キャンセル',date:'2026/10/28 19:00',confirmedDate:'—',shop:'—'}, history:[{id:'PL-006-v1',date:'2026/10/25 09:00',content:'双方承認済み'},{id:'RS-006',date:'2026/10/28 20:00',content:'Reservationキャンセル'}]});
+  matches.push(
+    {id:'MT-007',u1:{name:'まなみさん',id:'U-0230'},u2:{name:'こうじさん',id:'U-0241'},date:'2026/03/16 12:00',match:'有効',source:'いいね',planStatus:'期限切れ',planDate:'2026/03/24 19:00',planId:'PL-007-v1',planVersion:'v1',people:'2名',booker:'男性',payment:'当日相談して決める',deadline:'2026/03/20 23:59',approvals:['承認済み','未承認'],waiting:'食事プランの承認待ち',candidates:[['第1候補','渋谷 花乃','ST-701'],['第2候補','渋谷 こもれび','ST-702']],card:['未登録','未登録'],reservation:null,reports:0,ng:0,openCases:0,source:'いいね',endDate:'—',endReason:'—',history:[],chat:''},
+    {id:'MT-008',u1:{name:'あおいさん',id:'U-0250'},u2:{name:'しんさん',id:'U-0256'},date:'2026/03/15 18:00',match:'有効',source:'食事募集',planStatus:'対象外',reservation:null,reports:0,ng:0,openCases:0,recruitment:{id:'BS-008',poster:'あおい（U-0250）',applicant:'しん（U-0256）',date:'2026/03/22',period:'昼',area:'中目黒',comment:'休日にランチをご一緒できる方を募集しています。',status:'マッチング成立'},endDate:'—',endReason:'—',history:[],chat:''},
+    {id:'MT-009',u1:{name:'なおさん',id:'U-0260'},u2:{name:'はるかさん',id:'U-0268'},date:'2026/03/14 09:00',match:'終了',source:'食事募集',planStatus:'対象外',reservation:null,reports:1,ng:1,openCases:1,recruitment:{id:'BS-009',poster:'なお（U-0260）',applicant:'はるか（U-0268）',date:'2026/03/18',period:'夜',area:'西麻布',comment:'静かな店でゆっくりお話ししたいです。',status:'終了'},endDate:'2026/03/20 10:00',endReason:'ユーザーによる終了',history:[],chat:''}
+  );
+
+  const approvedChatLogs = {
+    'MT-001':[{type:'system',text:'Matchingが成立しました。食事プランを確認してください。',time:'2026/11/05 09:00'},{name:'あきら',uid:'U-0102',side:'left',text:'候補のお店を確認しました。',time:'2026/11/05 09:10'},{name:'みお',uid:'U-0203',side:'right',text:'よろしくお願いします。',time:'2026/11/05 09:15'}],
+    'MT-002':[{type:'system',text:'食事プランが提案されました。承認待ちです。',time:'2026/11/05 09:00'},{name:'たかし',uid:'U-0105',side:'left',text:'この内容で承認しました。',time:'2026/11/05 09:05'},{name:'ゆみ',uid:'U-0301',side:'right',text:'確認して回答します。',time:'2026/11/05 09:12'}],
+    'MT-003':[{type:'system',text:'食事プランがv2に更新されました。再承認が必要です。',time:'2026/11/06 17:30'},{name:'じゅん',uid:'U-0088',side:'left',text:'お店を変更して再提案しました。',time:'2026/11/06 17:30'},{name:'えり',uid:'U-0112',side:'right',text:'内容を確認しています。',time:'2026/11/06 17:45'}],
+    'MT-004':[{type:'system',text:'双方承認済みです。カード登録状況を確認後、予約管理で手続きを行います。',time:'2026/11/07 20:10'},{name:'さとみ',uid:'U-0140',side:'left',text:'承認しました。',time:'2026/11/07 20:05'},{name:'けいすけ',uid:'U-0166',side:'right',text:'こちらも承認しました。',time:'2026/11/07 20:10'}],
+    'MT-005':[{name:'しょうた',uid:'U-1005',side:'left',text:'マッチングありがとうございます。',time:'2026/03/14 19:00'},{name:'ゆうた',uid:'U-1221',side:'right',text:'こちらこそ、よろしくお願いします。',time:'2026/03/14 19:05'}],
+    'MT-006':[{type:'system',text:'Reservationがキャンセルされました。',time:'2026/10/28 20:00'},{name:'なお',uid:'U-0210',side:'left',text:'今回はここで終了にしましょう。',time:'2026/10/29 09:00'},{name:'はるか',uid:'U-0222',side:'right',text:'承知しました。',time:'2026/10/29 09:10'}],
+    'MT-007':[{type:'system',text:'食事プランの承認期限が切れました。Matchingは継続中です。',time:'2026/03/20 23:59'}],
+    'MT-008':[{name:'あおい',uid:'U-0250',side:'left',text:'募集でのマッチングありがとうございます。',time:'2026/03/15 18:05'},{name:'しん',uid:'U-0256',side:'right',text:'よろしくお願いします。',time:'2026/03/15 18:10'}],
+    'MT-009':[{name:'なお',uid:'U-0260',side:'left',text:'今回は終了にしましょう。',time:'2026/03/20 09:55'},{name:'はるか',uid:'U-0268',side:'right',text:'承知しました。',time:'2026/03/20 10:00'}]
+  };
+
+  const approvedListView = document.getElementById('listView');
+  approvedListView.innerHTML = '<div class="page-title">マッチング管理</div><div class="filter-bar"><div class="filter-field"><label class="filter-label">キーワード</label><input id="keyword" type="text" class="filter-input" placeholder="マッチングID・ユーザーID・ニックネームで検索..."></div><div class="filter-field"><label class="filter-label">成立経路</label><select id="sourceFilter" class="filter-select"><option value="">すべて</option><option>いいね</option><option>食事募集</option></select></div><div class="filter-field"><label class="filter-label">マッチング状態</label><select id="matchFilter" class="filter-select"><option value="">すべて</option><option>有効</option><option>終了</option></select></div><div class="filter-field"><label class="filter-label">食事プラン状況</label><select id="planFilter" class="filter-select"><option value="">すべて</option><option>未開始</option><option>承認待ち</option><option>双方承認済み</option><option>期限切れ</option></select></div><div class="filter-field"><label class="filter-label">成立日</label><div class="date-range"><input id="dateFrom" class="date-input" type="date"><span>〜</span><input id="dateTo" class="date-input" type="date"></div></div><button class="filter-button secondary" onclick="clearFilters()">クリア</button><button class="filter-button" onclick="applyFilters()">検索</button></div><div class="table-wrapper"><table class="table"><thead><tr><th>マッチングID</th><th>ユーザー1</th><th>ユーザー2</th><th>成立日時</th><th>成立経路</th><th>マッチング状態</th><th>食事プラン状況</th><th>予約状況</th><th>アクション</th></tr></thead><tbody id="listBody"></tbody></table></div><div class="pagination"><span id="resultCount"></span><div class="page-controls"><button class="page-control" onclick="changePage(-1)">‹</button><span id="pageNumbers"></span><button class="page-control" onclick="changePage(1)">›</button></div><span>20件 / ページ</span></div>';
+
+  function approvedMatches() { return matches.slice().sort((a,b)=>b.date.localeCompare(a.date)); }
+  function approvedUser(u) { return '<a class="detail-link" onclick="showUser(\''+u.id+'\')">'+u.name.replace(/さん$/,'')+'（'+u.id+'）</a>'; }
+  function approvedRenderList() { const rows=filtered.slice((page-1)*20,page*20); document.getElementById('listBody').innerHTML=rows.length?rows.map(x=>'<tr><td>'+x.id+'</td><td>'+approvedUser(x.u1)+'</td><td>'+approvedUser(x.u2)+'</td><td>'+x.date+'</td><td>'+x.source+'</td><td>'+badge(x.match,x.match==='有効'?'active':'ended')+'</td><td>'+x.planStatus+'</td><td>'+(x.source==='食事募集'?'対象外':(x.reservation?x.reservation.status:'未作成'))+'</td><td><button class="detail-button" onclick="showDetail(\''+x.id+'\')">詳細</button></td></tr>').join(''):'<tr><td colspan="9" class="empty-state">該当するマッチングはありません。</td></tr>'; document.getElementById('resultCount').textContent='全 '+filtered.length+'件'; document.getElementById('pageNumbers').innerHTML='<button class="page-control active">'+page+'</button>'; }
+  window.applyFilters=function(){const q=document.getElementById('keyword').value.toLowerCase(),s=document.getElementById('sourceFilter').value,m=document.getElementById('matchFilter').value,p=document.getElementById('planFilter').value,from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value;filtered=matches.filter(x=>(!q||(x.id+x.u1.id+x.u2.id+x.u1.name+x.u2.name).toLowerCase().includes(q))&&(!s||x.source===s)&&(!m||x.match===m)&&(!p||x.planStatus===p)&&(!from||x.date.slice(0,10).replaceAll('/','-')>=from)&&(!to||x.date.slice(0,10).replaceAll('/','-')<=to)).sort((a,b)=>b.date.localeCompare(a.date));page=1;approvedRenderList();};
+  window.clearFilters=function(){['keyword','sourceFilter','matchFilter','planFilter','dateFrom','dateTo'].forEach(id=>document.getElementById(id).value='');filtered=approvedMatches();page=1;approvedRenderList();};
+  window.changePage=function(delta){if(page+delta<1||page+delta>Math.max(1,Math.ceil(filtered.length/20)))return;page+=delta;approvedRenderList();};
+
+  function approvedPlanSection(x) { if(x.source!=='いいね') return ''; const candidates=(x.candidates||[]).map(c=>'<div class="candidate-item"><span class="candidate-label">'+c[0]+'</span>'+c[1]+'（'+c[2]+'）</div>').join(''); const history=(x.history||[]).map(h=>'<tr><td>'+h.id+'</td><td>'+h.date+'</td><td>'+h.content+'</td></tr>').join(''); return '<section class="section"><div class="section-title">食事プラン情報</div><div class="section-body"><div class="approval-grid"><div>食事プラン状況</div><div>'+x.planStatus+'</div><div>提案日時</div><div>'+ (x.planDate||'—')+'</div><div>人数</div><div>'+x.people+'</div><div>予約担当</div><div>'+x.booker+'</div><div>お会計</div><div>'+x.payment+'</div><div>承認期限</div><div>'+(x.deadline||'期限なし')+'</div><div>ユーザー1の承認状況</div><div>'+x.approvals[0]+'</div><div>ユーザー2の承認状況</div><div>'+x.approvals[1]+'</div><div>回答・承認状況</div><div>'+(x.waiting||'—')+'</div></div><h4 style="font-size:12px;margin:18px 0 8px">店舗候補</h4><div class="candidate-list">'+candidates+'</div><h4 style="font-size:12px;margin:18px 0 8px">食事プラン履歴</h4>'+(history?'<table class="detail-table"><thead><tr><th>Plan ID / version</th><th>日時</th><th>内容</th></tr></thead><tbody>'+history+'</tbody></table>':'<div class="empty-state">食事プラン履歴はありません。</div>')+'<p class="section-note" style="margin-top:12px">管理者は食事プランの作成・承認・日時・店舗の変更を行えません。</p></div></section>'; }
+  function approvedReservationSection(x) { if(x.source!=='いいね') return ''; if(!x.reservation) return '<section class="section"><div class="section-title">予約情報</div><div class="section-body"><div class="empty-state">予約手続きはまだ開始されていません。</div>'+(x.planStatus==='双方承認済み'?'<div class="approval-grid" style="margin-top:12px"><div>カード登録状況</div><div>ユーザー1：'+x.card[0]+' / ユーザー2：'+x.card[1]+'</div></div>':'')+'</div></section>'; return '<section class="section"><div class="section-title">予約情報</div><div class="section-body"><div class="approval-grid"><div>予約ID</div><div>'+x.reservation.id+'</div><div>予約状況</div><div>'+x.reservation.status+'</div><div>予約希望日時</div><div>'+x.reservation.date+'</div><div>予約確定日時</div><div>'+x.reservation.confirmedDate+'</div><div>予約確定店舗</div><div>'+x.reservation.shop+'</div></div><button class="detail-button" style="margin-top:14px" onclick="showReservation(\''+x.reservation.id+'\')">予約詳細を見る</button></div></section>'; }
+  function approvedRecruitmentSection(x) { const r=x.recruitment; return '<section class="section"><div class="section-title">関連する募集情報</div><div class="section-body"><div class="approval-grid"><div>募集ID</div><div>'+r.id+'</div><div>募集投稿者</div><div>'+r.poster+'</div><div>選定された応募者</div><div>'+r.applicant+'</div><div>希望日</div><div>'+r.date+'</div><div>時間帯</div><div>'+r.period+'</div><div>希望エリア</div><div>'+r.area+'</div><div>一言コメント</div><div>'+r.comment+'</div><div>募集ステータス</div><div>'+r.status+'</div></div><button class="detail-button" style="margin-top:14px" onclick="showRecruitment(\''+r.id+'\')">募集詳細を見る</button></div></section>'; }
+  function approvedSafety(x) { return '<section class="section"><div class="section-title">通報・安全管理</div><div class="section-body"><div class="approval-grid"><div>関連通報</div><div>'+(x.reports?'<a class="link-button" onclick="showReport(\''+x.id+'\')">'+x.reports+'件</a>':'なし')+'</div><div>NGワード検知</div><div>'+(x.ng?x.ng+'件':'なし')+'</div><div>未対応ケース</div><div>'+(x.openCases?'<a class="link-button" onclick="showReport(\''+x.id+'\')">'+x.openCases+'件（関連ケースを見る）</a>':'なし')+'</div></div><p class="section-note" style="margin-top:12px">警告・制限・停止はUS-33および通報管理で対応します。</p></div></section>'; }
+  function approvedChat(x) { const logs=approvedChatLogs[x.id]||[]; return '<section class="section full-width"><div class="section-title">メッセージ履歴（'+logs.length+'件）</div><div class="section-body"><div class="chat-log">'+logs.map(m=>m.type==='system'?'<div class="system-message">'+m.text+'<br><small>'+m.time+'</small></div>':'<div class="chat-row '+(m.side==='right'?'right':'')+'"><div class="chat-bubble"><div class="chat-meta">'+m.name+'（'+m.uid+'）</div><div class="chat-text">'+m.text+'</div><div class="chat-time">'+m.time+'</div></div></div>').join('')+'</div></div></section>'; }
+  window.showRecruitment=function(id){window.location.href='wireframe_SCR206_boshuu_mgmt.html#'+id;};
+  window.showDetail=function(id){currentId=id;const x=matches.find(y=>y.id===id),d=document.getElementById('detailView');document.getElementById('listView').classList.remove('active');d.classList.add('active');const ended=x.match==='終了';d.innerHTML='<a class="back-link" onclick="backToList()">← マッチング一覧へ戻る</a><div class="detail-header"><div class="page-title">マッチング詳細</div>'+badge(x.match,x.match==='有効'?'active':'ended')+'<span style="font-size:12px;color:#757575">'+x.id+'</span></div><section class="section full-width"><div class="section-title">マッチング情報</div><dl class="info-grid"><dt>マッチングID</dt><dd>'+x.id+'</dd><dt>ユーザー1</dt><dd>'+approvedUser(x.u1)+'</dd><dt>ユーザー2</dt><dd>'+approvedUser(x.u2)+'</dd><dt>成立日時</dt><dd>'+x.date+'</dd><dt>成立経路</dt><dd>'+x.source+'</dd><dt>マッチング状態</dt><dd>'+badge(x.match,x.match==='有効'?'active':'ended')+'</dd>'+(ended?'<dt>終了日時</dt><dd>'+x.endDate+'</dd><dt>終了理由</dt><dd>'+x.endReason+'</dd>':'')+'</dl></section><div class="detail-layout">'+(x.source==='いいね'?approvedPlanSection(x)+approvedReservationSection(x):approvedRecruitmentSection(x))+approvedSafety(x)+approvedChat(x)+'</div>';};
+  filtered=approvedMatches(); page=1; approvedRenderList();
+</script>
+<script>
+  const currentApprovedShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    currentApprovedShowDetail(id);
+    const sections = Array.from(document.querySelectorAll('#detailView .section'));
+    const reservation = sections.find(s => s.querySelector('.section-title')?.textContent.trim() === '予約情報');
+    if (reservation) {
+      const grid = reservation.querySelector('.approval-grid');
+      if (grid) {
+        const cells = Array.from(grid.children);
+        cells.slice(4).forEach(cell => cell.remove());
+      }
+      const cardGrid = Array.from(reservation.querySelectorAll('.approval-grid')).find(g => g.textContent.includes('カード登録状況'));
+      if (cardGrid) cardGrid.remove();
+    }
+    const recruitment = sections.find(s => s.querySelector('.section-title')?.textContent.trim() === '関連する募集情報');
+    if (recruitment) {
+      const grid = recruitment.querySelector('.approval-grid');
+      if (grid) Array.from(grid.children).slice(12).forEach(cell => cell.remove());
+    }
+    const plan = sections.find(s => s.querySelector('.section-title')?.textContent.trim() === '食事プラン情報');
+    if (plan) {
+      const heading = Array.from(plan.querySelectorAll('h4')).find(h => h.textContent.trim() === '食事プラン履歴');
+      if (heading) {
+        const details = document.createElement('details');
+        details.style.marginTop = '18px';
+        const summary = document.createElement('summary');
+        summary.textContent = '食事プラン履歴';
+        summary.style.cursor = 'pointer';
+        summary.style.fontSize = '12px';
+        details.appendChild(summary);
+        let node = heading.nextSibling;
+        const moved = [];
+        while (node && !(node.nodeType === 1 && node.tagName === 'P')) { const next = node.nextSibling; moved.push(node); node = next; }
+        moved.forEach(n => details.appendChild(n));
+        heading.replaceWith(details);
+      }
+    }
+    document.querySelectorAll('#detailView .section-title, #detailView .approval-grid > div').forEach(el => {
+      if (/調整方法|提案日時・店舗/.test(el.textContent)) el.remove();
+    });
+  };
+</script>
+<script>
+  const layoutShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    layoutShowDetail(id);
+    const x = matches.find(item => item.id === id);
+    const sections = Array.from(document.querySelectorAll('#detailView .section'));
+    const reservation = sections.find(section => section.querySelector('.section-title')?.textContent.trim() === '予約情報');
+    if (reservation) {
+      reservation.querySelector('.section-title').textContent = '予約状況';
+      const body = reservation.querySelector('.section-body');
+      if (!x.reservation) {
+        body.innerHTML = '<div class="reservation-summary"><strong>未開始</strong><span>— 予約手続きはまだ開始されていません。</span></div>';
+      } else {
+        body.innerHTML = '<div class="reservation-summary"><span>予約ID：'+x.reservation.id+'</span><strong>'+x.reservation.status+'</strong><button class="detail-button" onclick="showReservation(\''+x.reservation.id+'\')">予約詳細を見る</button></div>';
+      }
+    }
+    const safety = sections.find(section => section.querySelector('.section-title')?.textContent.trim() === '通報・安全管理');
+    if (safety) {
+      safety.remove();
+      if (x.reports || x.ng || x.openCases) {
+        const notice = document.createElement('div');
+        notice.className = 'safety-notice';
+        notice.innerHTML = '関連通報 '+(x.reports || 0)+'件 / NGワード検知 '+(x.ng || 0)+'件 / 未対応ケース '+(x.openCases || 0)+'件　<a class="link-button" onclick="showReport(\''+x.id+'\')">関連ケースを見る</a>';
+        const chat = Array.from(document.querySelectorAll('#detailView .section')).find(section => section.querySelector('.section-title')?.textContent.trim().startsWith('メッセージ履歴'));
+        if (chat) chat.parentNode.insertBefore(notice, chat);
+      }
+    }
+  };
+</script>
+<script>
+  const storeCatalog = {
+    'PT-001':'個室ダイニング和楽',
+    'PT-002':'ビストロ エルミタージュ',
+    'PT-003':'Cafe & Bar Soleil',
+    'PT-004':'懐石 結び'
+  };
+  const candidateIds = {
+    'MT-001':['PT-001','PT-003','PT-004'],
+    'MT-002':['PT-001','PT-002'],
+    'MT-003':['PT-002','PT-003','PT-004'],
+    'MT-004':['PT-001','PT-004'],
+    'MT-006':['PT-002'],
+    'MT-007':['PT-003','PT-004']
+  };
+  Object.keys(candidateIds).forEach(function(id) {
+    const item = matches.find(x => x.id === id);
+    if (item && item.candidates) item.candidates = item.candidates.map(function(candidate, index) {
+      const storeId = candidateIds[id][index];
+      return [candidate[0], storeCatalog[storeId], storeId];
+    });
+  });
+  const detailWithStores = window.showDetail;
+  window.showDetail = function(id) {
+    detailWithStores(id);
+    const x = matches.find(item => item.id === id);
+    const plan = Array.from(document.querySelectorAll('#detailView .section')).find(section => section.querySelector('.section-title')?.textContent.trim() === '食事プラン情報');
+    if (plan && x && x.candidates) {
+      const list = plan.querySelector('.candidate-list');
+      if (list) list.innerHTML = x.candidates.map(function(candidate) {
+        return '<div class="candidate-item"><span class="candidate-label">'+candidate[0]+'</span><a class="store-link" href="wireframe_SCR203_partner_mgmt.html#'+candidate[2]+'">'+candidate[1]+'（'+candidate[2]+'）</a></div>';
+      }).join('');
+      plan.querySelectorAll('.section-note').forEach(function(note) {
+        if (note.textContent.includes('管理者は食事プラン')) note.remove();
+      });
+    }
+    const chat = Array.from(document.querySelectorAll('#detailView .section')).find(section => section.querySelector('.section-title')?.textContent.trim().startsWith('メッセージ履歴'));
+    if (chat) {
+      const body = chat.querySelector('.section-body');
+      if (body && !body.querySelector('.chat-footer')) {
+        const log = body.querySelector('.chat-log');
+        const count = log ? log.querySelectorAll('.chat-row, .system-message').length : 0;
+        const footer = document.createElement('div');
+        footer.className = 'chat-footer';
+        footer.textContent = '保存されているメッセージ '+count+'件を表示中（閲覧専用）';
+        body.appendChild(footer);
+      }
+    }
+  };
+</script>
+<script>
+  const detailedPlanHistory = {
+    'MT-001':[
+      ['2026/11/05 09:00','PL-001-v1','システム','初回の食事プランを作成'],
+      ['2026/11/05 09:01','PL-001-v1','システム','提案日時・店舗候補をUserへ通知'],
+      ['2026/11/05 09:10','PL-001-v1','あきら（U-0102）','プラン内容を確認、未承認のまま'],
+      ['2026/11/05 09:15','PL-001-v1','みお（U-0203）','プラン内容を確認、未承認のまま']
+    ],
+    'MT-002':[
+      ['2026/11/05 09:00','PL-002-v1','システム','初回の食事プランを作成'],
+      ['2026/11/05 09:05','PL-002-v1','たかし（U-0105）','この内容で承認'],
+      ['2026/11/05 09:12','PL-002-v1','ゆみ（U-0301）','承認待ち'],
+      ['2026/11/05 09:12','PL-002-v1','システム','User 2の承認を待機中']
+    ],
+    'MT-003':[
+      ['2026/11/04 12:00','PL-003-v1','システム','初回の食事プランを作成'],
+      ['2026/11/04 12:05','PL-003-v1','じゅん（U-0088）','プラン内容を確認、承認'],
+      ['2026/11/04 12:20','PL-003-v1','えり（U-0112）','店舗変更を開始'],
+      ['2026/11/06 17:30','PL-003-v2','えり（U-0112）','日時・店舗を変更し、Plan v2を作成'],
+      ['2026/11/06 17:31','PL-003-v2','システム','Plan v2の承認状態をリセット'],
+      ['2026/11/06 17:45','PL-003-v2','じゅん（U-0088）','再承認待ち']
+    ],
+    'MT-004':[
+      ['2026/11/05 10:00','PL-004-v1','システム','初回の食事プランを作成'],
+      ['2026/11/07 20:05','PL-004-v1','さとみ（U-0140）','承認'],
+      ['2026/11/07 20:10','PL-004-v1','けいすけ（U-0166）','承認、双方承認済み']
+    ],
+    'MT-007':[
+      ['2026/03/16 12:05','PL-007-v1','システム','初回の食事プランを作成'],
+      ['2026/03/16 12:10','PL-007-v1','まなみ（U-0230）','承認'],
+      ['2026/03/20 23:59','PL-007-v1','システム','承認期限切れ']
+    ]
+  };
+  const historyShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    historyShowDetail(id);
+    document.querySelectorAll('#detailView .chat-footer').forEach(node => node.remove());
+    const plan = Array.from(document.querySelectorAll('#detailView .section')).find(section => section.querySelector('.section-title')?.textContent.trim() === '食事プラン情報');
+    const rows = detailedPlanHistory[id];
+    if (plan && rows) {
+      const details = plan.querySelector('details');
+      if (details) {
+        const oldTable = details.querySelector('table');
+        const table = document.createElement('table');
+        table.className = 'detail-table';
+        table.innerHTML = '<thead><tr><th>日時</th><th>Plan ID / version</th><th>対応者</th><th>内容</th></tr></thead><tbody>'+rows.map(row => '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+row[3]+'</td></tr>').join('')+'</tbody>';
+        if (oldTable) oldTable.replaceWith(table); else details.appendChild(table);
+      }
+    }
+  };
+  window.backToList = function() {
+    document.getElementById('detailView').classList.remove('active');
+    document.getElementById('listView').classList.add('active');
+    approvedRenderList();
+  };
+</script>
+<script>
+  Object.assign(matches.find(x => x.id === 'MT-001'), {
+    date:'2026/03/18 13:40', planStatus:'双方承認済み', planDate:'2026/03/27 19:00', planId:'PL-001-v2', planVersion:'v2',
+    deadline:'2026/03/22 23:59', approvals:['承認済み','承認済み'], waiting:'—'
+  });
+  Object.assign(matches.find(x => x.id === 'MT-002'), {
+    date:'2026/03/18 13:40', planStatus:'未開始', planDate:'2026/03/30 19:00', planId:'PL-002-v2', planVersion:'v2',
+    deadline:'期限なし', approvals:['未承認','未承認'], waiting:'—'
+  });
+  detailedPlanHistory['MT-001'] = [
+    ['2026/03/19 11:30','りょう','双方承認完了','v2・双方承認済み'],
+    ['2026/03/19 11:30','りょう','プラン承認','v2を承認'],
+    ['2026/03/19 11:00','まい','プラン承認','v2を承認'],
+    ['2026/03/19 10:20','りょう','日時変更','v2：03/26 19:00 → 03/27 19:00'],
+    ['2026/03/18 14:10','まい','プラン承認','v1を承認'],
+    ['2026/03/18 14:00','システム','食事プラン作成','v1：03/26 19:00']
+  ];
+  detailedPlanHistory['MT-002'] = [
+    ['2026/03/23 09:00','まい','新しい食事プラン作成','新プラン：03/30 19:00'],
+    ['2026/03/22 13:40','システム','承認期限切れ','初回プランの期限切れ'],
+    ['2026/03/18 15:00','まい','プラン承認','初回プランを承認'],
+    ['2026/03/18 14:00','システム','食事プラン作成','初回プラン：03/26 19:00']
+  ];
+  filtered = approvedMatches();
+  page = 1;
+  approvedRenderList();
+  const historyTableShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    historyTableShowDetail(id);
+    const plan = Array.from(document.querySelectorAll('#detailView .section')).find(section => section.querySelector('.section-title')?.textContent.trim() === '食事プラン情報');
+    const rows = detailedPlanHistory[id];
+    if (!plan || !rows) return;
+    const details = plan.querySelector('details');
+    if (!details) return;
+    details.open = true;
+    const oldTable = details.querySelector('table');
+    const table = document.createElement('table');
+    table.className = 'detail-table';
+    table.innerHTML = '<thead><tr><th>日時</th><th>操作ユーザー</th><th>内容</th><th>詳細</th></tr></thead><tbody></tbody>';
+    if (oldTable) oldTable.replaceWith(table); else details.appendChild(table);
+    const tbody = table.querySelector('tbody');
+    const control = document.createElement('button');
+    control.className = 'detail-button';
+    control.style.marginTop = '10px';
+    control.style.float = 'right';
+    let expanded = false;
+    function renderHistory() {
+      tbody.innerHTML = rows.slice(0, expanded ? rows.length : 3).map(row => '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+row[3]+'</td></tr>').join('');
+      control.textContent = expanded ? '閉じる' : '履歴をすべて表示';
+    }
+    control.onclick = function() { expanded = !expanded; renderHistory(); };
+    renderHistory();
+    details.appendChild(control);
+    const clear = document.createElement('div');
+    clear.style.clear = 'both';
+    details.appendChild(clear);
+  };
+</script>
+<script>
+  // 食事プランに関係するイベントだけを表示する wireframe 用の履歴データ。
+  const planHistoryEvents = {
+    'MT-001': [
+      {date:'2026/03/19 11:30', user:'りょう', type:'双方承認完了', detail:'双方承認済み'},
+      {date:'2026/03/19 11:30', user:'りょう', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/03/19 11:00', user:'まい', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/03/19 10:20', user:'りょう', type:'日時変更', detail:'03/26 19:00 → 03/27 19:00'},
+      {date:'2026/03/18 14:10', user:'まい', type:'プラン承認', detail:'変更後の内容を承認'},
+      {date:'2026/03/18 14:00', user:'システム', type:'食事プラン作成', detail:'03/26 19:00 / 銀座 つきじ治作'}
+    ],
+    'MT-002': [
+      {date:'2026/03/23 09:00', user:'まい', type:'新しい食事プラン作成', detail:'新プラン：03/30 19:00'},
+      {date:'2026/03/22 13:40', user:'システム', type:'承認期限切れ', detail:'初回プランの期限切れ'},
+      {date:'2026/03/18 15:00', user:'まい', type:'プラン承認', detail:'初回プランを承認'},
+      {date:'2026/03/18 14:00', user:'システム', type:'食事プラン作成', detail:'初回プラン：03/26 19:00 / 恵比寿 旬菜'}
+    ],
+    'MT-003': [
+      {date:'2026/11/06 17:45', user:'じゅん', type:'プラン承認', detail:'変更後の内容を承認'},
+      {date:'2026/11/06 17:30', user:'えり', type:'店舗変更', detail:'中目黒 こまち → 中目黒 いろは'},
+      {date:'2026/11/04 12:20', user:'えり', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/11/04 12:00', user:'システム', type:'食事プラン作成', detail:'11/10 18:00 / 中目黒 こまち'}
+    ],
+    'MT-004': [
+      {date:'2026/11/07 20:10', user:'けいすけ', type:'双方承認完了', detail:'双方承認済み'},
+      {date:'2026/11/07 20:10', user:'けいすけ', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/11/07 20:05', user:'さとみ', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/11/05 10:00', user:'システム', type:'食事プラン作成', detail:'11/07 18:00 / 恵比寿 銀の皿'}
+    ],
+    'MT-006': [
+      {date:'2026/10/28 20:10', user:'はるか', type:'双方承認完了', detail:'双方承認済み'},
+      {date:'2026/10/28 20:10', user:'はるか', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/10/28 20:05', user:'なお', type:'プラン承認', detail:'プランを承認'},
+      {date:'2026/10/25 09:00', user:'システム', type:'食事プラン作成', detail:'10/28 19:00 / 中目黒 こまち'}
+    ]
+  };
+
+  const normalizedHistoryShowDetail = window.showDetail;
+  window.showDetail = function(id) {
+    normalizedHistoryShowDetail(id);
+    const x = matches.find(item => item.id === id);
+    if (!x || x.source !== 'いいね') return;
+    const plan = Array.from(document.querySelectorAll('#detailView .section')).find(section =>
+      section.querySelector('.section-title')?.textContent.trim() === '食事プラン情報'
+    );
+    if (!plan) return;
+
+    const approvalGrid = plan.querySelector('.approval-grid');
+    if (approvalGrid) {
+      const currentVersionLabel = Array.from(approvalGrid.children).find(cell => cell.textContent.trim() === 'Current version');
+      if (currentVersionLabel) {
+        const currentVersionValue = currentVersionLabel.nextElementSibling;
+        currentVersionLabel.remove();
+        currentVersionValue?.remove();
+      }
+    }
+
+    // Mã version chỉ là dữ liệu nội bộ, không hiển thị trên giao diện Admin.
+    document.querySelectorAll('#detailView .chat-text, #detailView .chat-meta').forEach(node => {
+      node.textContent = node.textContent.replace(/\bv[12]\b/gi, '').replace(/\s{2,}/g, ' ').trim();
+    });
+
+    const history = (planHistoryEvents[id] || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+    const oldHeading = Array.from(plan.querySelectorAll('h4, details')).find(node =>
+      node.tagName === 'DETAILS' || node.textContent.includes('食事プラン履歴')
+    );
+    const historyBlock = document.createElement('div');
+    historyBlock.className = 'plan-history-block';
+    historyBlock.innerHTML = '<h4 style="font-size:12px;margin:18px 0 8px">食事プラン履歴</h4>' +
+      (history.length ? '<div class="plan-history-table-wrap"><table class="detail-table"><thead><tr><th>日時</th><th>操作ユーザー</th><th>内容</th><th>詳細</th></tr></thead><tbody></tbody></table><button type="button" class="detail-button plan-history-toggle" style="margin-top:10px"></button></div>' :
+      '<div class="empty-state">食事プラン履歴はありません。</div>');
+
+    if (oldHeading) oldHeading.replaceWith(historyBlock);
+    else plan.querySelector('.section-body')?.appendChild(historyBlock);
+
+    if (!history.length) return;
+    const tbody = historyBlock.querySelector('tbody');
+    const toggle = historyBlock.querySelector('.plan-history-toggle');
+    let expanded = false;
+    const render = () => {
+      tbody.innerHTML = history.slice(0, expanded ? history.length : 3).map(event =>
+        '<tr><td>'+event.date+'</td><td>'+event.user+'</td><td>'+event.type+'</td><td>'+event.detail+'</td></tr>'
+      ).join('');
+      toggle.textContent = expanded ? '閉じる' : '履歴をすべて表示';
+    };
+    toggle.addEventListener('click', () => { expanded = !expanded; render(); });
+    render();
+
+  };
+</script>
 
 </body>
 </html>

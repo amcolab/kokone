@@ -219,6 +219,74 @@
     }
     .wf-nav-link.wf-active .wf-nav-id { color: #9e9e9e; }
 
+    .main-content { padding: 28px; overflow-x: auto; }
+    .content-wrapper { max-width: none; min-width: 1100px; }
+    .page-title { margin-bottom: 18px; }
+    .filter-bar { display: grid; grid-template-columns: minmax(240px, 1.3fr) repeat(4, minmax(120px, 1fr)) auto auto; align-items: end; gap: 10px; }
+    .filter-field { display: flex; flex-direction: column; gap: 5px; }
+    .filter-field:first-child { min-width: 0; }
+    .filter-field:first-child .filter-input { min-width: 0; width: 100%; }
+    .filter-field:first-child { grid-column: auto; }
+    .filter-field:first-child .filter-input { display: block; height: 36px; flex: none; }
+    #listBody td:nth-child(2) br { display: none; }
+    #listBody td:nth-child(2) small::before { content: '（'; }
+    #listBody td:nth-child(2) small::after { content: '）'; }
+    .filter-label { color: #757575; font-size: 11px; font-weight: 600; }
+    .filter-input, .filter-select, .date-input { width: 100%; min-width: 0; height: 36px; border: 1px solid #e0e0e0; padding: 0 9px; background: #fff; font-size: 12px; }
+    .date-range { display: flex; align-items: center; gap: 5px; }
+    .date-range .date-input { width: 112px; }
+    .filter-button.secondary { background: #fff; color: #212121; }
+    .stats-row { grid-template-columns: repeat(4, 1fr); }
+    .table-wrapper { overflow-x: auto; }
+    .table { min-width: 1280px; }
+    .table th, .table td { white-space: nowrap; }
+    .table th:last-child, .table td:last-child { position: sticky; right: 0; z-index: 2; min-width: 76px; background: #fff; box-shadow: -4px 0 8px rgba(0,0,0,.06); }
+    .table th:last-child { background: #f5f5f5; z-index: 3; }
+    .table td.content-cell { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
+    .table a, .detail-link { color: #212121; text-decoration: underline; cursor: pointer; }
+    .status-business { border-color: #616161; }
+    .status-hidden { color: #757575; border-color: #9e9e9e; background: #f5f5f5; }
+    .detail-button { border: 1px solid #212121; background: #fff; color: #212121; padding: 6px 13px; font-size: 11px; cursor: pointer; }
+    .detail-button:hover { background: #f5f5f5; }
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 2px; color: #757575; font-size: 12px; }
+    .page-controls { display: flex; gap: 4px; }
+    .page-control { width: 30px; height: 28px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
+    .page-control.active { background: #212121; color: #fff; border-color: #212121; }
+    .view { display: none; }
+    .view.active { display: block; }
+    .back-link { display: inline-block; color: #424242; font-size: 12px; margin-bottom: 14px; cursor: pointer; text-decoration: underline; }
+    .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .detail-header .page-title { margin: 0; }
+    .section { background: #fff; border: 1px solid #e0e0e0; margin-bottom: 16px; }
+    .section-title { padding: 12px 14px; border-bottom: 1px solid #e0e0e0; font-size: 14px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: 160px 1fr 160px 1fr; }
+    .info-grid dt, .info-grid dd { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+    .info-grid dt { color: #757575; background: #fafafa; }
+    .info-grid dd.full { grid-column: span 3; white-space: pre-wrap; line-height: 1.7; }
+    .section-body { padding: 14px; }
+    .section-note { color: #757575; font-size: 12px; margin-bottom: 10px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .detail-table th, .detail-table td { padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: left; }
+    .detail-table th { background: #f5f5f5; }
+    .management-grid { display: grid; grid-template-columns: 160px 1fr; font-size: 12px; }
+    .management-grid div { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; }
+    .management-grid div:nth-child(odd) { color: #757575; background: #fafafa; }
+    .management-actions { margin-top: 14px; }
+    .danger-button { border: 1px solid #b71c1c; color: #b71c1c; background: #fff; padding: 8px 14px; cursor: pointer; font-size: 12px; }
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 10000; align-items: center; justify-content: center; }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: 420px; background: #fff; padding: 22px; border: 1px solid #bdbdbd; }
+    .modal h3 { font-size: 16px; margin-bottom: 12px; }
+    .modal p { font-size: 12px; color: #424242; margin-bottom: 16px; }
+    .modal label { display: block; font-size: 12px; color: #424242; margin-bottom: 6px; }
+    .modal textarea { width: 100%; height: 70px; resize: vertical; border: 1px solid #e0e0e0; padding: 8px; font-size: 12px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+    .empty-state { padding: 24px; text-align: center; color: #757575; font-size: 12px; }
+    /* Admin is a single fixed operator, so operator fields are omitted from the UI. */
+    #detailView .management-grid > div:nth-last-child(-n+2) { display: none; }
+    #detailView .section:last-child .detail-table th:nth-child(2),
+    #detailView .section:last-child .detail-table td:nth-child(2) { display: none; }
+
   </style>
 
   <style>
@@ -321,70 +389,84 @@
 
 <div class="main-content">
   <div class="content-wrapper">
-    <div class="page-title">募集管理</div>
+    <section id="listView" class="view active">
+      <div class="page-title">募集管理</div>
+      <div class="filter-bar">
+        <div class="filter-field"><label class="filter-label">キーワード</label><input id="keyword" type="text" class="filter-input" placeholder="募集ID・投稿者ID・ニックネーム・内容で検索..."></div>
+        <div class="filter-field"><label class="filter-label">募集ステータス</label><select id="businessFilter" class="filter-select"><option value="">すべて</option><option>募集中</option><option>満員</option><option>マッチング成立</option><option>期限切れ</option><option>終了</option></select></div>
+        <div class="filter-field"><label class="filter-label">公開状態</label><select id="visibilityFilter" class="filter-select"><option value="">すべて</option><option>公開中</option><option>非公開</option></select></div>
+        <div class="filter-field"><label class="filter-label">希望エリア</label><select id="areaFilter" class="filter-select"><option value="">すべて</option><option>恵比寿</option><option>銀座</option><option>西麻布</option><option>中目黒</option><option>横浜</option></select></div>
+        <div class="filter-field"><label class="filter-label">開催日</label><div class="date-range"><input id="dateFrom" class="date-input" type="date"><span>〜</span><input id="dateTo" class="date-input" type="date"></div></div>
+        <button class="filter-button secondary" onclick="clearFilters()">クリア</button><button class="filter-button" onclick="applyFilters()">検索</button>
+      </div>
+      <div class="stats-row"><div class="stat-card"><div class="stat-label">総募集数</div><div id="totalCount" class="stat-value">5件</div></div><div class="stat-card"><div class="stat-label">募集中</div><div id="openCount" class="stat-value">2件</div></div><div class="stat-card"><div class="stat-label">マッチング成立</div><div id="matchedCount" class="stat-value">1件</div></div><div class="stat-card"><div class="stat-label">非公開</div><div id="hiddenCount" class="stat-value">1件</div></div></div>
+      <div class="table-wrapper"><table class="table"><thead><tr><th>募集ID</th><th>投稿者</th><th>希望エリア</th><th>希望日時</th><th>内容</th><th>応募数</th><th>募集ステータス</th><th>公開状態</th><th>作成日時</th><th>アクション</th></tr></thead><tbody id="listBody"></tbody></table></div>
+      <div class="pagination"><span id="resultCount"></span><div class="page-controls"><button class="page-control" onclick="changePage(-1)">‹</button><span id="pageNumbers"></span><button class="page-control" onclick="changePage(1)">›</button></div><span>20件 / ページ</span></div>
+    </section>
 
-
-
-    <div class="filter-bar">
-      <input type="text" class="filter-input" placeholder="ユーザーID・エリア・内容で検索...">
-      <select class="filter-select">
-        <option>状態: すべて</option>
-        <option>公開中</option>
-        <option>終了</option>
-        <option>非表示中</option>
-      </select>
-      <button class="filter-button">検索</button>
-    </div>
-
-    <div class="table-wrapper">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>投稿者</th>
-            <th>エリア</th>
-            <th>希望日時</th>
-            <th>内容</th>
-            <th>応募数</th>
-            <th>状態</th>
-            <th>アクション</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>BS-001</td>
-            <td>たろうさん(#001)</td>
-            <td>恵比寿</td>
-            <td>3/25 19:00〜</td>
-            <td>美味しい和食を食べに行き...</td>
-            <td>3 名</td>
-            <td><span class="status-badge status-open">公開中</span></td>
-            <td><a href="#" class="action-link">[非表示]</a></td>
-          </tr>
-          <tr>
-            <td>BS-002</td>
-            <td>みずきさん(#002)</td>
-            <td>銀座</td>
-            <td>3/26 13:00〜</td>
-            <td>午後の優雅なカフェタイム...</td>
-            <td>1 名</td>
-            <td><span class="status-badge status-open">公開中</span></td>
-            <td><a href="#" class="action-link">[非表示]</a></td>
-          </tr>
-          <tr>
-            <td>BS-003</td>
-            <td>ゆいさん(#003)</td>
-            <td>西麻布</td>
-            <td>3/24 20:00〜</td>
-            <td>静かなバーでお酒を楽しみ...</td>
-            <td>0 名</td>
-            <td><span class="status-badge">終了</span></td>
-            <td>-</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <section id="detailView" class="view"></section>
   </div>
 </div>
+
+<div id="modalBackdrop" class="modal-backdrop"><div class="modal"><h3 id="modalTitle"></h3><p id="modalMessage"></p><div id="reasonField"><label for="reasonInput">非公開理由 <span style="color:#b71c1c">*</span></label><textarea id="reasonInput" placeholder="理由を入力してください"></textarea></div><div class="modal-actions"><button class="filter-button secondary" onclick="closeModal()">キャンセル</button><button id="modalConfirm" class="filter-button"></button></div></div></div>
+
+<script>
+const applications={
+  'BS-001':[{name:'けんじさん',id:'U-1021',date:'2026/03/18 10:12',status:'応募中'},{name:'さゆりさん',id:'U-1044',date:'2026/03/18 11:03',status:'応募中'},{name:'まことさん',id:'U-1088',date:'2026/03/19 09:45',status:'応募中'}],
+  'BS-002':[], 'BS-003':[{name:'あきこさん',id:'U-1132',date:'2026/03/15 18:20',status:'応募締切'}],
+  'BS-004':[{name:'なおさん',id:'U-1177',date:'2026/03/10 12:10',status:'マッチング成立'},{name:'りなさん',id:'U-1190',date:'2026/03/10 13:02',status:'応募締切'}],
+  'BS-005':[{name:'ゆうたさん',id:'U-1221',date:'2026/03/17 20:01',status:'応募中'},{name:'えりさん',id:'U-1235',date:'2026/03/18 08:30',status:'応募中'}]
+};
+const boshuu=[
+ {id:'BS-001',name:'たろう',uid:'U-1001',area:'恵比寿',date:'2026/03/25',time:'19:00',content:'美味しい和食を食べに行きませんか？落ち着いたお店で楽しくお話ししたいです。',count:3,business:'募集中',visibility:'公開中',created:'2026/03/12 09:20',deadline:'2026/03/24 23:59',reports:0,history:[]},
+ {id:'BS-002',name:'みずき',uid:'U-1002',area:'銀座',date:'2026/03/26',time:'13:00',content:'午後の優雅なカフェタイムをご一緒できる方を募集しています。',count:0,business:'募集中',visibility:'公開中',created:'2026/03/13 14:05',deadline:'2026/03/25 23:59',reports:0,history:[]},
+ {id:'BS-003',name:'ゆい',uid:'U-1003',area:'西麻布',date:'2026/03/24',time:'20:00',content:'静かなバーでお酒を楽しみながら、ゆっくりお話ししたいです。',count:1,business:'期限切れ',visibility:'公開中',created:'2026/03/08 16:40',deadline:'2026/03/22 23:59',reports:1,history:[]},
+ {id:'BS-004',name:'なおこ',uid:'U-1004',area:'中目黒',date:'2026/03/20',time:'18:30',content:'話題のレストランで食事を楽しみませんか。マッチング成立済みです。',count:2,business:'マッチング成立',visibility:'公開中',created:'2026/03/01 11:15',deadline:'2026/03/10 23:59',reports:0,history:[]},
+ {id:'BS-005',name:'しょうた',uid:'U-1005',area:'横浜',date:'2026/03/27',time:'12:00',content:'海が見える場所でランチをご一緒できる方を探しています。',count:2,business:'募集中',visibility:'非公開',created:'2026/03/14 18:30',deadline:'2026/03/26 23:59',reports:2,reason:'通報内容を確認中のため',last:'2026/03/19 10:20',admin:'管理者A',history:[{date:'2026/03/19 10:20',admin:'管理者A',action:'非公開',reason:'通報内容を確認中のため'}]},
+ {id:'BS-006',name:'あや',uid:'U-1006',area:'恵比寿',date:'2026/03/15',time:'12:30',content:'駅近のレストランでランチを楽しみたいです。募集は終了しています。',count:2,business:'終了',visibility:'公開中',created:'2026/03/02 10:05',deadline:'2026/03/12 23:59',reports:0,history:[]}
+];
+let filtered=[...boshuu], page=1, currentId=null, modalAction=null;
+const badge=(text,kind='')=>'<span class="status-badge '+(kind==='open'?'status-open ':'')+(kind==='hidden'?'status-hidden ':'')+'">'+text+'</span>';
+function renderList(){
+ const start=(page-1)*20, rows=filtered.slice(start,start+20); document.getElementById('listBody').innerHTML=rows.length?rows.map(x=>`<tr><td>${x.id}</td><td><a onclick="showUser('${x.uid}')">${x.name}<br><small>${x.uid}</small></a></td><td>${x.area}</td><td>${x.date} ${x.time}～</td><td class="content-cell" title="${x.content}">${x.content}</td><td>${x.count}名</td><td>${badge(x.business,'business')}</td><td>${badge(x.visibility,x.visibility==='公開中'?'open':'hidden')}</td><td>${x.created}</td><td><button class="detail-button" onclick="showDetail('${x.id}')">詳細</button></td></tr>`).join(''):'<tr><td colspan="10" class="empty-state">該当する募集はありません。</td></tr>';
+ document.getElementById('resultCount').textContent='全 '+filtered.length+'件'; document.getElementById('pageNumbers').innerHTML='<button class="page-control active">'+page+'</button>'; updateStats();
+}
+function updateStats(){document.getElementById('totalCount').textContent=boshuu.length+'件';document.getElementById('openCount').textContent=boshuu.filter(x=>x.business==='募集中').length+'件';document.getElementById('matchedCount').textContent=boshuu.filter(x=>x.business==='マッチング成立').length+'件';document.getElementById('hiddenCount').textContent=boshuu.filter(x=>x.visibility==='非公開').length+'件';}
+function applyFilters(){const q=document.getElementById('keyword').value.toLowerCase(),b=document.getElementById('businessFilter').value,v=document.getElementById('visibilityFilter').value,a=document.getElementById('areaFilter').value,from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value;filtered=boshuu.filter(x=>(!q||(x.id+x.uid+x.name+x.content).toLowerCase().includes(q))&&(!b||x.business===b)&&(!v||x.visibility===v)&&(!a||x.area===a)&&(!from||x.date>=from.replaceAll('-','/'))&&(!to||x.date<=to.replaceAll('-','/')));page=1;renderList();}
+function clearFilters(){document.getElementById('keyword').value='';['businessFilter','visibilityFilter','areaFilter','dateFrom','dateTo'].forEach(id=>document.getElementById(id).value='');filtered=[...boshuu];page=1;renderList();}
+function changePage(delta){if(page+delta<1||page+delta>Math.max(1,Math.ceil(filtered.length/20)))return;page+=delta;renderList();}
+function showUser(uid){window.location.href='wireframe_SCR204_user_mgmt.html#'+uid;}
+function showDetail(id){currentId=id;const x=boshuu.find(y=>y.id===id),app=applications[id]||[];document.getElementById('listView').classList.remove('active');const d=document.getElementById('detailView');d.classList.add('active');d.innerHTML=`<a class="back-link" onclick="backToList()">← 募集管理に戻る</a><div class="detail-header"><div class="page-title">募集詳細</div>${badge(x.business,'business')}${badge(x.visibility,x.visibility==='公開中'?'open':'hidden')}<span style="font-size:12px;color:#757575">${x.id}</span></div><section class="section"><div class="section-title">募集情報</div><dl class="info-grid"><dt>募集ID</dt><dd>${x.id}</dd><dt>投稿者</dt><dd><a class="detail-link" onclick="showUser('${x.uid}')">${x.name} (${x.uid})</a></dd><dt>希望日時</dt><dd>${x.date} ${x.time}～</dd><dt>希望エリア</dt><dd>${x.area}</dd><dt>応募締切</dt><dd>${x.deadline}</dd><dt>作成日時</dt><dd>${x.created}</dd><dt>募集ステータス</dt><dd>${badge(x.business,'business')}</dd><dt>募集内容</dt><dd class="full">${x.content}</dd></dl></section><section class="section"><div class="section-title">応募者一覧（${app.length}名）</div><div class="section-body">${app.length?'<table class="detail-table"><thead><tr><th>応募者</th><th>応募日時</th><th>応募状態</th><th>アクション</th></tr></thead><tbody>'+app.map(y=>`<tr><td><a class="detail-link" onclick="showUser('${y.id}')">${y.name} (${y.id})</a></td><td>${y.date}</td><td>${badge(y.status,'business')}</td><td><button class="detail-button" onclick="showUser('${y.id}')">ユーザー詳細</button></td></tr>`).join('')+'</tbody></table>':'<div class="empty-state">応募者はいません。</div>'}</div></section><section class="section"><div class="section-title">公開・管理情報</div><div class="section-body"><div class="management-grid"><div>募集ステータス</div><div>${badge(x.business,'business')}</div><div>公開状態</div><div>${badge(x.visibility,x.visibility==='公開中'?'open':'hidden')}</div><div>関連する通報</div><div>${x.reports}件</div><div>非公開理由</div><div>${x.reason||'—'}</div><div>最終対応日時</div><div>${x.last||'—'}</div><div>最終対応者</div><div>${x.admin||'—'}</div></div><div class="management-actions">${x.visibility==='公開中'?'<button class="danger-button" onclick="openModal(\'hide\')">非公開にする</button>':'<button class="filter-button" onclick="openModal(\'show\')">再公開する</button>'}</div></div></section><section class="section"><div class="section-title">管理履歴</div><div class="section-body">${x.history.length?'<table class="detail-table"><thead><tr><th>対応日時</th><th>対応者</th><th>対応内容</th><th>対応理由</th></tr></thead><tbody>'+x.history.slice().reverse().map(h=>`<tr><td>${h.date}</td><td>${h.admin}</td><td>${h.action}</td><td>${h.reason||'—'}</td></tr>`).join('')+'</tbody></table>':'<div class="empty-state">管理履歴はありません。</div>'}</div></section>`;}
+function backToList(){document.getElementById('detailView').classList.remove('active');document.getElementById('listView').classList.add('active');renderList();}
+function openModal(action){modalAction=action;const hide=action==='hide';document.getElementById('modalTitle').textContent=hide?'募集を非公開にしますか？':'募集を再公開しますか？';document.getElementById('modalMessage').textContent=hide?'この募集はユーザーに表示されなくなります。':'この募集を再公開します。よろしいですか？';document.getElementById('reasonField').style.display=hide?'block':'none';document.getElementById('modalConfirm').textContent=hide?'非公開にする':'再公開する';document.getElementById('modalBackdrop').classList.add('open');}
+function closeModal(){document.getElementById('modalBackdrop').classList.remove('open');}
+document.getElementById('modalConfirm').onclick=function(){const x=boshuu.find(y=>y.id===currentId),now='2026/03/20 15:00';if(modalAction==='hide'){const reason=document.getElementById('reasonInput').value.trim();if(!reason){alert('非公開理由を入力してください。');return;}x.visibility='非公開';x.reason=reason;}else{x.visibility='公開中';x.reason='';}x.last=now;x.admin='管理者A';x.history.push({date:now,admin:'管理者A',action:modalAction==='hide'?'非公開':'再公開',reason:x.reason||'—'});closeModal();showDetail(currentId);};
+renderList();
+</script>
+<script>
+  // User募集は「日付＋昼/夜」で管理するため、具体的な時刻は表示しない。
+  function normalizeMealPeriod() {
+    document.querySelectorAll('#listBody tr td:nth-child(4), #detailView .info-grid dd').forEach(function (cell) {
+      var normalized = cell.textContent
+        .replace(/\s(?:12|13):\d{2}～/, '・昼')
+        .replace(/\s(?:18|19|20):\d{2}～/, '・夜');
+      if (normalized !== cell.textContent) cell.textContent = normalized;
+    });
+  }
+  normalizeMealPeriod();
+  var mealPeriodObserver = new MutationObserver(normalizeMealPeriod);
+  mealPeriodObserver.observe(document.getElementById('listBody'), { childList: true, subtree: true });
+  mealPeriodObserver.observe(document.getElementById('detailView'), { childList: true, subtree: true });
+</script>
+<script>
+  function normalizeApplicantNames() {
+    document.querySelectorAll('#detailView .detail-table tbody td:first-child a').forEach(function (link) {
+      var textNode = link.firstChild;
+      if (textNode && /さん$/.test(textNode.nodeValue)) textNode.nodeValue = textNode.nodeValue.replace(/さん$/, '');
+    });
+  }
+  var applicantNameObserver = new MutationObserver(normalizeApplicantNames);
+  applicantNameObserver.observe(document.getElementById('detailView'), { childList: true, subtree: true });
+</script>
 </body>
 </html>
