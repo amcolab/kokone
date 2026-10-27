@@ -826,6 +826,38 @@ renderList();
 
   };
 </script>
+<script>
+  // 提案内容には、提案日時と提案店舗を明示する。
+  const proposalDetailShow = window.showDetail;
+  window.showDetail = function(id) {
+    proposalDetailShow(id);
+    const x = matches.find(item => item.id === id);
+    const plan = Array.from(document.querySelectorAll('#detailView .section')).find(section =>
+      section.querySelector('.section-title')?.textContent.trim() === '食事プラン情報'
+    );
+    if (!plan || !x) return;
+
+    plan.querySelectorAll('.approval-grid > div').forEach(cell => {
+      if (cell.textContent.trim() === '提案日時') cell.textContent = '食事予定日時';
+    });
+
+    const approvedStore = x.reservation && x.reservation.status === '確定'
+      ? x.reservation.shop
+      : ((x.candidates && x.candidates[0] && x.candidates[0][1]) || '—');
+
+    const historyTable = plan.querySelector('.plan-history-block .detail-table');
+    if (historyTable) {
+      const approvedDetail = '承認内容：日時 ' + (x.planDate || '—') + ' / 店舗 ' + approvedStore;
+      historyTable.querySelectorAll('tbody tr').forEach(row => {
+        const type = row.children[2]?.textContent || '';
+        if (type.includes('承認')) {
+          const detailCell = row.children[3];
+          if (detailCell) detailCell.textContent = approvedDetail;
+        }
+      });
+    }
+  };
+</script>
 
 </body>
 </html>
