@@ -262,7 +262,10 @@
     .info-grid { display: grid; grid-template-columns: 160px 1fr 160px 1fr; }
     .info-grid dt, .info-grid dd { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
     .info-grid dt { color: #757575; background: #fafafa; }
-    .info-grid dd.full { grid-column: span 3; white-space: pre-wrap; line-height: 1.7; }
+    .info-grid dt.content-label { grid-column: 1; align-self: stretch; }
+    .info-grid dd.full { grid-column: 2 / -1; white-space: pre-wrap; line-height: 1.7; }
+    .content-box { border: 1px solid #d6d6d6; background: #fff; padding: 12px; min-height: 58px; }
+    .report-link { color: #212121; text-decoration: underline; cursor: pointer; }
     .section-body { padding: 14px; }
     .section-note { color: #757575; font-size: 12px; margin-bottom: 10px; }
     .detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -467,6 +470,64 @@ renderList();
   }
   var applicantNameObserver = new MutationObserver(normalizeApplicantNames);
   applicantNameObserver.observe(document.getElementById('detailView'), { childList: true, subtree: true });
+</script>
+<script>
+  // Chi tiết募集: ẩn các field trạng thái và giữ募集内容 ở cột trái trong khung riêng.
+  function applyDetailLayout() {
+    document.querySelectorAll('#detailView .info-grid dt').forEach(function (label) {
+      if (label.textContent.trim() === '募集ステータス') {
+        var value = label.nextElementSibling;
+        label.remove();
+        if (value) value.remove();
+      }
+      if (label.textContent.trim() === '募集内容') {
+        label.classList.add('content-label');
+        var value = label.nextElementSibling;
+        if (value && !value.querySelector('.content-box')) {
+          var box = document.createElement('div');
+          box.className = 'content-box';
+          box.textContent = value.textContent;
+          value.textContent = '';
+          value.appendChild(box);
+          value.classList.add('full');
+        }
+      }
+    });
+    document.querySelectorAll('#detailView .management-grid').forEach(function (grid) {
+      Array.from(grid.children).forEach(function (cell, index) {
+        if (index % 2 === 0 && cell.textContent.trim() === '募集ステータス') {
+          var value = cell.nextElementSibling;
+          cell.remove();
+          if (value) value.remove();
+        }
+        if (index % 2 === 0 && cell.textContent.trim() === '関連する通報') {
+          var reportValue = cell.nextElementSibling;
+          if (reportValue && !reportValue.querySelector('.report-link')) {
+            var reportLink = document.createElement('a');
+            reportLink.className = 'report-link';
+            reportLink.href = 'wireframe_SCR220_report_mgmt.html';
+            reportLink.textContent = reportValue.textContent;
+            reportValue.textContent = '';
+            reportValue.appendChild(reportLink);
+          }
+        }
+      });
+    });
+    document.querySelectorAll('#detailView .section-title').forEach(function (title) {
+      if (title.textContent.indexOf('応募者一覧') !== -1) {
+        var table = title.nextElementSibling && title.nextElementSibling.querySelector('.detail-table');
+        if (table) {
+          table.querySelectorAll('tr').forEach(function (row) {
+            var last = row.lastElementChild;
+            if (last && (last.textContent.trim() === 'アクション' || last.querySelector('.detail-button'))) last.remove();
+          });
+        }
+      }
+    });
+  }
+  var detailLayoutObserver = new MutationObserver(applyDetailLayout);
+  detailLayoutObserver.observe(document.getElementById('detailView'), { childList: true, subtree: true });
+  applyDetailLayout();
 </script>
 </body>
 </html>
