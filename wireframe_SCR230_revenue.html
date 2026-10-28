@@ -229,7 +229,9 @@
   .revenue-chart-bar:hover::after{opacity:1}
   .revenue-chart-label{font-size:10px;color:#757575;white-space:nowrap}
   .revenue-type{white-space:nowrap;color:#616161}
-  .revenue-id{color:#212121;text-decoration:underline;cursor:pointer}
+  .revenue-id{color:#212121;text-decoration:none}
+  .revenue-detail-button{border:1px solid #757575;background:#fff;color:#212121;padding:4px 10px;font-size:11px;cursor:pointer}
+  .revenue-detail-button:hover{background:#f5f5f5}
   .revenue-status{display:inline-block;padding:3px 7px;border:1px solid #bdbdbd;font-size:11px}
   .revenue-status.success{color:#2e7d32;border-color:#81c784}.revenue-status.failed{color:#c62828;border-color:#ef9a9a}.revenue-status.processing{color:#6d4c41;border-color:#bcaaa4}.revenue-status.unpaid{color:#e65100;border-color:#ffcc80}
   .revenue-modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1200}
@@ -385,8 +387,9 @@
             <th>決済種別</th>
             <th>項目</th>
             <th>金額</th>
-            <th>日時</th>
+            <th>請求日時</th>
             <th>ステータス</th>
+            <th>アクション</th>
           </tr>
         </thead>
         <tbody>
@@ -442,7 +445,24 @@
   function renderChart(){const data=chartData(chartMode),max=Math.max(...data.map(x=>x.value),1),chart=document.getElementById('revenueChart');chart.innerHTML='<div class="revenue-chart-head"><span>売上推移（成功かつプラットフォーム売上の取引のみ）</span><span class="revenue-chart-toggle"><button data-chart="monthly" class="'+(chartMode==='monthly'?'active':'')+'">月次</button><button data-chart="daily" class="'+(chartMode==='daily'?'active':'')+'">日次</button></span></div><div class="revenue-chart-bars">'+data.map(x=>'<div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:'+Math.max(2,x.value/max*135)+'px" data-tooltip="'+esc(x.label)+'：'+money(x.value)+'"></div><div class="revenue-chart-label">'+esc(x.label)+'</div></div>').join('')+'</div>';chart.querySelectorAll('[data-chart]').forEach(b=>b.onclick=()=>{chartMode=b.dataset.chart;renderChart();});}
   function openDetail(tx){const fields=[['決済ID',tx.id],['ユーザー',tx.user[0]+'（'+tx.user[1]+'）'],['決済種別',tx.type],['項目',tx.item],['金額',money(tx.amount)],['決済状況',tx.status]];if(tx.status==='成功'&&tx.date)fields.push(['決済日時',tx.date]);else if(tx.billingDate)fields.push(['請求日時',tx.billingDate]);if(tx.stripe)fields.push(['Stripe決済ID',tx.stripe]);if(tx.premium)fields.push(['Subscription ID',tx.premium.subscription],['対象期間',tx.premium.period]);if(tx.cancellation)fields.push(['予約ID','<a class="booking-detail-link" href="wireframe_SCR211_booking_detail.html?id='+esc(tx.cancellation.booking)+'">'+esc(tx.cancellation.booking)+'</a>']);const modal=document.createElement('div');modal.className='revenue-modal';modal.innerHTML='<div class="revenue-dialog" role="dialog" aria-modal="true"><h2>決済詳細</h2><div class="revenue-dialog-body"><div class="revenue-detail-grid">'+fields.map(f=>'<div>'+f[0]+'</div><div>'+f[1]+'</div>').join('')+'</div></div><div class="revenue-dialog-actions"><button type="button">閉じる</button></div></div>';document.body.appendChild(modal);modal.querySelector('button').onclick=()=>modal.remove();}
   function render(rows){const old={q:document.getElementById('revQuery')?.value||'',type:document.getElementById('revType')?.value||'すべて',status:document.getElementById('revStatus')?.value||'すべて',from:document.getElementById('revFrom')?.value||'',to:document.getElementById('revTo')?.value||''};content.innerHTML='<div class="page-title">収益・決済管理</div><div class="filter-bar"><div class="revenue-filter-grid"><input id="revQuery" type="text" class="filter-input" placeholder="決済ID・ユーザーID・ニックネームで検索..." value="'+esc(old.q)+'"><select id="revType" class="filter-select">'+typeOptions.map(x=>'<option '+(x===old.type?'selected':'')+'>'+x+'</option>').join('')+'</select><select id="revStatus" class="filter-select">'+statusOptions.map(x=>'<option '+(x===old.status?'selected':'')+'>'+x+'</option>').join('')+'</select><div class="revenue-date-range"><input id="revFrom" type="date" class="filter-input" value="'+esc(old.from)+'"><span>〜</span><input id="revTo" type="date" class="filter-input" value="'+esc(old.to)+'"></div><button id="revFilter" class="filter-button">検索</button></div></div><div class="stats-row"><div class="stat-card"><div class="stat-label">今月の売上</div><div class="stat-value">'+money(currentRevenue)+'</div></div><div class="stat-card"><div class="stat-label">有料会員数</div><div class="stat-value">'+activePaidPremiumUsers+' 名</div></div><div class="stat-card"><div class="stat-label">前月比</div><div class="stat-value">'+(change>=0?'+ ':'')+change.toFixed(1)+'%</div></div></div><div id="revenueChart" class="revenue-chart"></div><div class="summary-line">全 '+rows.length+' 件 · 表示: 1〜'+Math.min(rows.length,20)+'件</div><div class="table-wrapper"><table class="table"><thead><tr><th>決済ID</th><th>ユーザー</th><th>決済種別</th><th>項目</th><th>金額</th><th>決済日時</th><th>ステータス</th></tr></thead><tbody>'+rows.map(tx=>'<tr><td><a class="revenue-id" data-id="'+esc(tx.id)+'">'+esc(tx.id)+'</a></td><td><a class="booking-detail-link" href="wireframe_SCR204_user_mgmt.html#'+esc(tx.user[1])+'">'+esc(tx.user[0])+'（'+esc(tx.user[1])+'）</a></td><td class="revenue-type">'+esc(tx.type)+'</td><td>'+esc(tx.item)+'</td><td>'+money(tx.amount)+'</td><td>'+esc(tx.date)+'</td><td><span class="revenue-status '+statusClass(tx.status)+'">'+esc(tx.status)+'</span></td></tr>').join('')+'</tbody></table></div><div class="pagination"><span>全 '+rows.length+'件</span><span>20件 / ページ</span></div>';renderChart();content.querySelectorAll('.revenue-id').forEach(a=>a.onclick=()=>openDetail(transactions.find(x=>x.id===a.dataset.id)));document.getElementById('revFilter').onclick=()=>{const q=document.getElementById('revQuery').value.toLowerCase(),type=document.getElementById('revType').value,status=document.getElementById('revStatus').value,from=document.getElementById('revFrom').value.replaceAll('-','/'),to=document.getElementById('revTo').value.replaceAll('-','/');render(transactions.filter(x=>(!q||(x.id+x.user[0]+x.user[1]).toLowerCase().includes(q))&&(!type||type==='すべて'||x.type===type)&&(!status||status==='すべて'||x.status===status)&&(!from||x.date.slice(0,10)>=from)&&(!to||x.date.slice(0,10)<=to)));};}
+  function addDetailsColumn(){
+    const header=content.querySelector('.table thead tr');
+    if(!header||header.querySelector('[data-revenue-action]')) return;
+    Array.from(header.querySelectorAll('th')).find(th=>th.textContent==='決済日時')?.replaceChildren('請求日時');
+    header.insertAdjacentHTML('beforeend','<th data-revenue-action>アクション</th>');
+    content.querySelectorAll('.table tbody tr').forEach(row=>{
+      const id=row.querySelector('.revenue-id')?.dataset.id;
+      if(id) row.insertAdjacentHTML('beforeend','<td><button type="button" class="revenue-detail-button" data-payment-id="'+esc(id)+'">詳細</button></td>');
+    });
+  }
+  const revenueTableObserver=new MutationObserver(addDetailsColumn);
+  revenueTableObserver.observe(content,{childList:true});
+  content.addEventListener('click',event=>{
+    const button=event.target.closest('.revenue-detail-button');
+    if(button) openDetail(transactions.find(tx=>tx.id===button.dataset.paymentId));
+  });
   render(transactions);
+  addDetailsColumn();
 }());
 </script>
 </body>
