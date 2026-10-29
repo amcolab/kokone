@@ -235,6 +235,52 @@
     body {
       zoom: var(--wf-global-zoom);
     }
+    body { background: #fbfaf9; }
+    .content-wrapper { max-width: 1120px; }
+    .page-title { font-size: 24px; }
+    .admin-profile-hero { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 22px; align-items: start; background: #fff; border: 1px solid #e3ddd2; border-radius: 8px; padding: 20px; margin-bottom: 18px; }
+    .admin-profile-name { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; color: #212121; margin-bottom: 14px; }
+    .admin-profile-meta { color: #757575; font-size: 12px; margin-top: 7px; }
+    .hero-edit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 18px; }
+    .hero-edit-grid .form-group { margin: 0; }
+    .hero-edit-grid .full-width { grid-column: 1 / -1; }
+    .hero-edit-grid .form-textarea { min-height: 78px; resize: vertical; }
+    .admin-chip { display: inline-block; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+    .admin-chip.premium { color: #d88700; background: #fff5df; border: 1px solid #f1a500; }.admin-chip.normal { color: #299357; background: #e6f6ec; }.admin-chip.restricted { color: #c77d00; background: #fff1d8; }.admin-chip.suspended, .admin-chip.withdrawn, .admin-chip.warning { color: #c53d3d; background: #fff0f0; }.admin-chip.verified { color: #299357; background: #e6f6ec; }
+    .section-title-fixed { background: #eee8de; border: 1px solid #e0d7c9; border-bottom: 0; color: #332d25; font-size: 13px; text-transform: none; letter-spacing: 0; margin: 22px 0 0; padding: 12px 16px; border-left: 0; border-radius: 7px 7px 0 0; }
+    .card { border-color: #e0d7c9; margin-bottom: 0; padding: 18px 20px; }
+    .section-title-fixed + .card { border-radius: 0 0 7px 7px; }
+    .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; }
+    .form-label { color: #6e6558; }
+    .form-input, .form-select, .form-textarea { background: #fff; border-color: #ddd5c9; }
+    .admin-only-card { background: #fff8f8 !important; border-color: #f2cfcf !important; }
+    .account-status-panel { background: #fff; border: 1px solid #e0d7c9; border-radius: 8px; margin-bottom: 26px; overflow: hidden; }
+    .account-status-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; background: #eee8de; color: #332d25; font-size: 14px; font-weight: 700; }
+    .account-status-body { padding: 16px; }
+    .account-status-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 18px; margin-bottom: 18px; font-size: 13px; }
+    #accountStatusDetails[hidden] { display: none; }
+    .account-status-grid dt { color: #766d61; }
+    .account-status-grid dd { margin: 0; color: #332d25; font-weight: 600; }
+    .account-history-head { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #eee7de; padding-top: 15px; color: #332d25; font-size: 13px; font-weight: 700; }
+    .account-history-link { color: #8d7956; font-size: 12px; font-weight: 600; text-decoration: none; }
+    .account-history-list { margin-top: 10px; }
+    .account-history-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid #eee7de; border-radius: 4px; background: #faf8f4; padding: 11px 12px; color: #4a4238; font-size: 13px; text-decoration: none; }
+    .account-history-item + .account-history-item { margin-top: 8px; }
+    .account-history-item:hover { background: #f5f0e8; border-color: #d7c7ae; }
+    .account-history-item span { display: flex; gap: 28px; }
+    .account-history-arrow { color: #8d7956; font-size: 20px; line-height: 1; }
+    .compact-photo-panel { min-width: 0; }.compact-photo-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; color: #5b5145; font-size: 12px; font-weight: 700; }.profile-photo-count { color: #8d7956; font-size: 11px; font-weight: 600; }
+    .compact-photo-view { display: grid; grid-template-columns: 24px 1fr 24px; align-items: center; gap: 4px; }.compact-photo-visual { aspect-ratio: 3 / 4; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 5px; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; }.compact-photo-visual.photo-1 { background: linear-gradient(145deg, #c8b497, #786758); }.compact-photo-visual.photo-2 { background: linear-gradient(145deg, #94a9a5, #4d696d); }.compact-photo-visual.photo-3 { background: linear-gradient(145deg, #c8a2a2, #7e5e68); }.compact-photo-visual.empty { background: #fbfaf9; color: #aaa095; border: 1px dashed #d9d0c5; cursor: default; }
+    .photo-carousel-arrow { width: 24px; height: 30px; border: 1px solid #ddd5c9; border-radius: 3px; background: #fff; color: #806f57; cursor: pointer; }.photo-carousel-arrow:disabled, .compact-photo-actions button:disabled { opacity: .4; cursor: default; }
+    .compact-photo-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 7px; }.compact-photo-actions button { border: 1px solid #ddd5c9; border-radius: 3px; background: #fff; color: #6f614f; padding: 6px 2px; font-size: 11px; cursor: pointer; }.compact-photo-actions .delete-photo { color: #c53d3d; border-color: #efc9c9; }
+    .photo-modal { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.45); }
+    .photo-modal.show { display: flex; }.photo-modal-box { width: min(360px, 100%); border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 12px 36px rgba(0,0,0,.25); }
+    .photo-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; color: #332d25; font-weight: 700; font-size: 14px; }.photo-modal-close { border: 0; background: none; cursor: pointer; font-size: 22px; color: #776d61; }
+    .photo-modal-preview { aspect-ratio: 3 / 4; }.photo-modal-preview .compact-photo-visual { width: 100%; height: 100%; font-size: 20px; }
+    .profile-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 18px; align-items: start; }
+    .profile-section { min-width: 0; }
+    .profile-section .section-title-fixed { margin-top: 0; }
+    @media (max-width: 900px) { .profile-sections { grid-template-columns: 1fr; } .admin-profile-hero { grid-template-columns: 1fr; } .hero-edit-grid { grid-template-columns: 1fr; } .account-status-grid { grid-template-columns: 1fr; gap: 4px; } .compact-photo-panel { max-width: 250px; } }
   </style>
 </head>
 <body style="margin-left:200px;">
@@ -329,47 +375,55 @@
 <div class="main-content">
   <div class="content-wrapper">
     <div class="page-header">
-      <div class="page-title">ユーザープロフィール編集: たろうさん</div>
+      <div class="page-title">ユーザー詳細</div>
       <a href="wireframe_SCR204_user_mgmt.html" class="back-link">← ユーザー一覧へ戻る</a>
     </div>
 
+    <div class="admin-profile-hero">
+      <div class="compact-photo-panel" aria-label="プロフィール写真">
+        <div class="compact-photo-head"><span>プロフィール写真</span><span id="profilePhotoCount" class="profile-photo-count">3 / 6枚</span></div>
+        <div class="compact-photo-view">
+          <button type="button" class="photo-carousel-arrow" data-photo-prev aria-label="前の写真">‹</button>
+          <button id="compactPhotoVisual" type="button" class="compact-photo-visual photo-1" data-view-photo>写真 1</button>
+          <button type="button" class="photo-carousel-arrow" data-photo-next aria-label="次の写真">›</button>
+        </div>
+        <div class="compact-photo-actions"><button id="viewPhotoButton" type="button" data-view-photo>表示</button><button id="deletePhotoButton" type="button" class="delete-photo" data-delete-photo>削除</button></div>
+      </div>
+      <div>
+        <div class="admin-profile-name">ユーザーID: U-0001 <span class="admin-chip premium">Premium</span><span class="admin-chip verified">✓ 本人確認 承認済み</span><span id="heroAccountStatus" class="admin-chip normal">● 正常</span></div>
+        <div class="hero-edit-grid">
+          <div class="form-group"><label class="form-label">ニックネーム</label><input type="text" class="form-input" value="たろう"></div>
+          <div class="form-group"><label class="form-label">性別</label><select class="form-select"><option selected>男性</option><option>女性</option><option>回答しない</option></select></div>
+          <div class="form-group"><label class="form-label">生年月日</label><input type="date" class="form-input" value="1986-04-10"></div>
+          <div class="form-group"><label class="form-label">居住地</label><select class="form-select"><option selected>東京都 / 渋谷・恵比寿</option><option>東京都 / 銀座・有楽町</option><option>東京都 / 新宿・代々木</option><option>その他</option></select></div>
+          <div class="form-group full-width"><label class="form-label">自己紹介文</label><textarea class="form-textarea">はじめまして。仕事が忙しい毎日ですが、美味しい食事を一緒に楽しめる方と出会えればと思っています。</textarea></div>
+        </div>
+        <div class="admin-profile-meta">登録日: 2026/03/01</div>
+      </div>
+    </div>
+
+    <section class="account-status-panel" aria-label="アカウント状態・対応情報">
+      <div class="account-status-head"><span>アカウント状態・対応情報</span></div>
+      <div class="account-status-body">
+        <dl id="accountStatusDetails" class="account-status-grid">
+          <dt>対応日時</dt><dd id="accountStatusTime">—</dd>
+          <dt>対応理由</dt><dd id="accountStatusReason">現在、対応はありません</dd>
+          <dt>制限期間</dt><dd id="accountStatusPeriod">—</dd>
+        </dl>
+        <div class="account-history-head"><span>対応履歴</span><a class="account-history-link" href="#">過去の対応を確認</a></div>
+        <div class="account-history-list">
+          <a class="account-history-item" href="wireframe_SCR223_ngword_detect_detail.html"><span><span>2026/10/08 15:20</span><span>利用制限済み</span></span><strong class="account-history-arrow">›</strong></a>
+          <a class="account-history-item" href="wireframe_SCR221_report_detail.html"><span><span>2026/09/18 11:05</span><span>警告済み</span></span><strong class="account-history-arrow">›</strong></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="profile-sections">
+
     <!-- A. 基本情報 -->
-    <div class="section-title-fixed">A. 基本情報</div>
+    <div class="section-title-fixed">基本情報</div>
     <div class="card">
       <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">ニックネーム</label>
-          <input type="text" class="form-input" value="たろう">
-        </div>
-        <div class="form-group">
-          <label class="form-label">性別</label>
-          <select class="form-select">
-            <option selected>男性</option>
-            <option>女性</option>
-            <option>回答しない</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">生年月日</label>
-          <input type="date" class="form-input" value="1986-04-10">
-        </div>
-        <div class="form-group">
-          <label class="form-label">言語</label>
-          <input type="text" class="form-input" value="日本語">
-        </div>
-        <div class="form-group">
-          <label class="form-label">居住地 (都道府県)</label>
-          <select class="form-select">
-            <option selected>東京都</option>
-            <option>神奈川県</option>
-            <option>千葉県</option>
-            <option>埼玉県</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">エリア</label>
-          <input type="text" class="form-input" value="渋谷区">
-        </div>
         <div class="form-group">
           <label class="form-label">身長 (cm)</label>
           <input type="number" class="form-input" value="175">
@@ -383,15 +437,23 @@
             <option>ぽっちゃり</option>
           </select>
         </div>
-        <div class="form-group full-width">
-          <label class="form-label">自己紹介文</label>
-          <textarea class="form-textarea">はじめまして。仕事が忙しい毎日ですが、美味しい食事を一緒に楽しめる方と出会えればと思っています。よろしくお願いします。</textarea>
+        <div class="form-group">
+          <label class="form-label">血液型</label>
+          <select class="form-select"><option selected>A型</option><option>B型</option><option>O型</option><option>AB型</option><option>回答しない</option></select>
         </div>
       </div>
     </div>
 
+    <!-- 居住・行動圏 -->
+    <div class="section-title-fixed">居住・行動圏</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">居住エリア詳細</label><input type="text" class="form-input" value="東京都 / 渋谷・恵比寿"></div>
+      <div class="form-group"><label class="form-label">勤務地</label><input type="text" class="form-input" value="千代田区"></div>
+      <div class="form-group"><label class="form-label">出身地</label><input type="text" class="form-input" value="神奈川県"></div>
+    </div></div>
+
     <!-- B. 職業・経済 -->
-    <div class="section-title-fixed">B. 職業・経済</div>
+    <div class="section-title-fixed">職業・経済</div>
     <div class="card">
       <div class="form-grid">
         <div class="form-group">
@@ -415,11 +477,12 @@
             <option>高校卒業</option>
           </select>
         </div>
+        <div class="form-group"><label class="form-label">資産</label><select class="form-select"><option>回答しない</option><option selected>500〜999万円</option><option>1,000万円以上</option></select></div>
       </div>
     </div>
 
     <!-- C. ライフスタイル -->
-    <div class="section-title-fixed">C. ライフスタイル・日常</div>
+    <div class="section-title-fixed">ライフスタイル</div>
     <div class="card">
       <div class="form-grid">
         <div class="form-group">
@@ -442,11 +505,22 @@
             <option>ときどき吸う</option>
           </select>
         </div>
+        <div class="form-group"><label class="form-label">休みの取り方</label><input type="text" class="form-input" value="事前に計画して取る"></div>
+        <div class="form-group"><label class="form-label">好きなお酒の種類</label><input type="text" class="form-input" value="ワイン / シャンパン"></div>
+        <div class="form-group"><label class="form-label">自動車</label><select class="form-select"><option selected>持っていない</option><option>持っている</option></select></div>
+        <div class="form-group"><label class="form-label">住居形態</label><select class="form-select"><option selected>ひとり暮らし</option><option>家族と同居</option><option>その他</option></select></div>
       </div>
     </div>
 
+    <div class="section-title-fixed">趣味・行動嗜好</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">趣味</label><input type="text" class="form-input" value="グルメ、カフェ、映画、旅行、ジム"></div>
+      <div class="form-group"><label class="form-label">よく行く場所</label><input type="text" class="form-input" value="渋谷、代官山"></div>
+      <div class="form-group"><label class="form-label">インドア / アウトドア</label><select class="form-select"><option selected>どちらでも</option><option>インドア派</option><option>アウトドア派</option></select></div>
+    </div></div>
+
     <!-- F. 性格・内面 -->
-    <div class="section-title-fixed">F. 性格・内面</div>
+    <div class="section-title-fixed">個人傾向・内面</div>
     <div class="card">
       <div class="form-grid">
         <div class="form-group">
@@ -458,35 +532,49 @@
             <option>ENFJ</option>
           </select>
         </div>
+        <div class="form-group"><label class="form-label">性格タグ</label><input type="text" class="form-input" value="落ち着いている / 誠実 / 前向き"></div>
+        <div class="form-group"><label class="form-label">ラブタイプ診断</label><input type="text" class="form-input" value="バランス型"></div>
       </div>
     </div>
 
-    <!-- J. 将来・結婚観 -->
-    <div class="section-title-fixed">J. 将来・結婚観</div>
-    <div class="card">
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">結婚願望</label>
-          <select class="form-select">
-            <option>すぐにでも</option>
-            <option selected>良い人がいれば</option>
-            <option>今は考えていない</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">子供の希望</label>
-          <select class="form-select">
-            <option selected>欲しい</option>
-            <option>欲しくない</option>
-            <option>相手に合わせる</option>
-          </select>
-        </div>
-      </div>
+    <div class="section-title-fixed">家族・背景</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">兄弟姉妹</label><input type="text" class="form-input" value="次男・次女"></div>
+      <div class="form-group"><label class="form-label">家族との仲</label><select class="form-select"><option selected>良い</option><option>普通</option><option>あまり良くない</option></select></div>
+      <div class="form-group"><label class="form-label">同居人</label><select class="form-select"><option selected>いない</option><option>いる</option></select></div>
+      <div class="form-group"><label class="form-label">子ども（有無）</label><select class="form-select"><option selected>いない</option><option>いる</option></select></div>
+      <div class="form-group full-width"><label class="form-label">家族関係の継続意向</label><input type="text" class="form-input" value="相手と相談したい"></div>
+    </div></div>
+
+    <div class="section-title-fixed">恋愛・関係性スタンス</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">会うまでの希望</label><input type="text" class="form-input" value="まずはメッセージを重ねたい"></div>
+      <div class="form-group"><label class="form-label">付き合うまでに会う回数</label><input type="text" class="form-input" value="3〜5回"></div>
+      <div class="form-group"><label class="form-label">連絡頻度の希望</label><input type="text" class="form-input" value="毎日1〜2往復"></div>
+      <div class="form-group"><label class="form-label">会う頻度の希望</label><input type="text" class="form-input" value="月2回くらい"></div>
+      <div class="form-group full-width"><label class="form-label">ひとり時間とのバランス</label><input type="text" class="form-input" value="バランスよく"></div>
+    </div></div>
+
+    <div class="section-title-fixed">デート・お金の価値観</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">初回デート代の考え方</label><input type="text" class="form-input" value="相手に合わせる"></div>
+      <div class="form-group"><label class="form-label">デートの雰囲気</label><input type="text" class="form-input" value="落ち着いたお店でゆっくり"></div>
+      <div class="form-group"><label class="form-label">お金の管理スタイル</label><input type="text" class="form-input" value="相談して決めたい"></div>
+    </div></div>
+
+    <div class="section-title-fixed">お相手への希望条件</div>
+    <div class="card"><div class="form-grid">
+      <div class="form-group"><label class="form-label">希望年代</label><input type="text" class="form-input" value="同年代"></div>
+      <div class="form-group"><label class="form-label">見た目</label><input type="text" class="form-input" value="清潔感がある人"></div>
+      <div class="form-group"><label class="form-label">性格</label><input type="text" class="form-input" value="穏やかで誠実"></div>
+      <div class="form-group"><label class="form-label">体型</label><input type="text" class="form-input" value="普通体型"></div>
+    </div></div>
+
     </div>
 
     <!-- Admin Specific Operations -->
-    <div class="section-title-fixed">管理用設定 (Admin Only)</div>
-    <div class="card" style="background: #fff8f8; border-color: #fee;">
+    <div class="section-title-fixed">管理用設定</div>
+    <div class="card admin-only-card">
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label">本人確認 (eKYC) 状態</label>
@@ -501,8 +589,10 @@
           <label class="form-label">アカウント状態</label>
           <select class="form-select">
             <option selected>正常</option>
+            <option>制限中</option>
             <option>警告中</option>
             <option>利用停止 (BAN)</option>
+            <option>退会済み</option>
           </select>
         </div>
         <div class="form-group full-width">
@@ -514,11 +604,149 @@
 
     <div class="action-bar">
       <button class="btn btn-outline" onclick="location.href='wireframe_SCR204_user_mgmt.html'">キャンセル</button>
-      <button class="btn btn-primary">プロフィールを保存する</button>
+      <button class="btn btn-primary">変更を保存</button>
     </div>
 
   </div>
 </div>
+
+<div id="profilePhotoModal" class="photo-modal" role="dialog" aria-modal="true" aria-label="プロフィール写真の表示">
+  <div class="photo-modal-box">
+    <div class="photo-modal-head"><span>プロフィール写真</span><button type="button" class="photo-modal-close" aria-label="閉じる">×</button></div>
+    <div id="profilePhotoPreview" class="photo-modal-preview"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.profile-sections .section-title-fixed').forEach(title => {
+    const card = title.nextElementSibling;
+    if (!card || !card.classList.contains('card')) return;
+    const section = document.createElement('div');
+    section.className = 'profile-section';
+    title.before(section);
+    section.append(title, card);
+  });
+  const profileSections = document.querySelector('.profile-sections');
+  const sectionOrder = ['基本情報', '個人傾向・内面', '居住・行動圏', '職業・経済', 'ライフスタイル', '家族・背景', '趣味・行動嗜好', '恋愛・関係性スタンス', 'デート・お金の価値観', 'お相手への希望条件'];
+  sectionOrder.forEach(title => {
+    const section = Array.from(profileSections.children).find(item => item.querySelector('.section-title-fixed')?.textContent === title);
+    if (section) profileSections.append(section);
+  });
+
+  const selectOptions = {
+    '居住エリア詳細': ['東京都 / 渋谷・恵比寿', '東京都 / 銀座・有楽町', '東京都 / 新宿・代々木', 'その他'],
+    '勤務地': ['千代田区', '渋谷区', '新宿区', 'その他'],
+    '出身地': ['神奈川県', '東京都', '千葉県', '埼玉県', 'その他'],
+    '職業': ['IT関連', '会社員', '経営者・役員', '公務員', 'その他'],
+    '休日': ['土日祝', '平日', 'シフト制', '不定休'],
+    '休みの取り方': ['事前に計画して取る', '状況に合わせて取る', '取りづらい'],
+    '好きなお酒の種類': ['ワイン / シャンパン', 'ビール', '日本酒', '焼酎', '飲まない'],
+    '趣味': ['グルメ、カフェ、映画、旅行、ジム', 'グルメ、カフェ', '映画、音楽', 'スポーツ、アウトドア'],
+    'よく行く場所': ['渋谷、代官山', '銀座、有楽町', '新宿、代々木', '恵比寿、目黒'],
+    '性格タグ': ['落ち着いている / 誠実 / 前向き', '社交的 / 行動派', '穏やか / 聞き上手'],
+    'ラブタイプ診断': ['バランス型', '情熱型', '慎重型'],
+    '兄弟姉妹': ['次男・次女', '長男・長女', 'ひとりっ子', 'その他'],
+    '家族関係の継続意向': ['相手と相談したい', '自分の家族を大切にしたい', '特にこだわらない'],
+    '会うまでの希望': ['まずはメッセージを重ねたい', '早めに会いたい', '相手に合わせたい'],
+    '付き合うまでに会う回数': ['3〜5回', '1〜2回', '6回以上', '相手に合わせたい'],
+    '連絡頻度の希望': ['毎日1〜2往復', '毎日', '2〜3日に1回', '相手に合わせたい'],
+    '会う頻度の希望': ['月2回くらい', '週1回以上', '月1回くらい', '相手に合わせたい'],
+    'ひとり時間とのバランス': ['バランスよく', '一緒に過ごす時間を多く', 'ひとり時間を大切にしたい'],
+    '初回デート代の考え方': ['相手に合わせる', '自分が多めに払う', '割り勘', '相談して決める'],
+    'デートの雰囲気': ['落ち着いたお店でゆっくり', 'カジュアルに楽しむ', 'アクティブに過ごす'],
+    'お金の管理スタイル': ['相談して決めたい', 'しっかり管理したい', '相手に合わせたい'],
+    '希望年代': ['同年代', '年上', '年下', 'こだわらない'],
+    '見た目': ['清潔感がある人', 'ナチュラルな人', 'こだわらない'],
+    '性格': ['穏やかで誠実', '明るく前向き', '一緒にいて安心できる人'],
+    '体型': ['普通体型', '細身', '健康的', 'こだわらない']
+  };
+  document.querySelectorAll('.profile-sections .form-group').forEach(group => {
+    const input = group.querySelector('input.form-input[type="text"]');
+    const label = group.querySelector('.form-label')?.textContent.trim();
+    const options = selectOptions[label];
+    if (!input || !options) return;
+    const select = document.createElement('select');
+    select.className = 'form-select';
+    options.forEach(value => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      option.selected = value === input.value;
+      select.append(option);
+    });
+    input.replaceWith(select);
+  });
+
+  const statusByUserId = {
+    '001': { status: '正常', className: 'normal', time: '—', reason: '現在、対応はありません', period: '—', selectValue: '正常' },
+    '002': { status: '制限中', className: 'restricted', time: '2026/10/08 15:20', reason: 'NGワード検知・繰り返しの不適切な発言', period: '2026/10/08 ～ 2026/10/15', selectValue: '制限中' },
+    '003': { status: '停止中', className: 'suspended', time: '2026/10/05 09:30', reason: '重大な利用規約違反', period: '無期限', selectValue: '利用停止 (BAN)' },
+    '004': { status: '退会済み', className: 'withdrawn', time: '2026/10/03 18:00', reason: 'ユーザーによる退会', period: '—', selectValue: '退会済み' },
+    '005': { status: '警告中', className: 'warning', time: '2026/09/18 11:05', reason: 'ユーザー通報・不適切なメッセージ', period: '—', selectValue: '警告中' }
+  };
+  const requestedUserId = new URLSearchParams(window.location.search).get('id') || '001';
+  const accountStatus = statusByUserId[requestedUserId] || statusByUserId['001'];
+  const heroAccountStatus = document.getElementById('heroAccountStatus');
+  heroAccountStatus.textContent = `● ${accountStatus.status}`;
+  heroAccountStatus.className = `admin-chip ${accountStatus.className}`;
+  document.getElementById('accountStatusTime').textContent = accountStatus.time;
+  document.getElementById('accountStatusReason').textContent = accountStatus.reason;
+  document.getElementById('accountStatusPeriod').textContent = accountStatus.period;
+  document.getElementById('accountStatusDetails').hidden = accountStatus.status === '正常';
+  const accountStateSelect = Array.from(document.querySelectorAll('.admin-only-card .form-group')).find(group => group.querySelector('.form-label')?.textContent.trim() === 'アカウント状態')?.querySelector('select');
+  if (accountStateSelect) accountStateSelect.value = accountStatus.selectValue;
+
+  const photoCount = document.getElementById('profilePhotoCount');
+  const photoModal = document.getElementById('profilePhotoModal');
+  const photoPreview = document.getElementById('profilePhotoPreview');
+  const compactPhotoVisual = document.getElementById('compactPhotoVisual');
+  const viewPhotoButton = document.getElementById('viewPhotoButton');
+  const deletePhotoButton = document.getElementById('deletePhotoButton');
+  const photoPrevButton = document.querySelector('[data-photo-prev]');
+  const photoNextButton = document.querySelector('[data-photo-next]');
+  let profilePhotos = [
+    { label: '写真 1', className: 'photo-1' },
+    { label: '写真 2', className: 'photo-2' },
+    { label: '写真 3', className: 'photo-3' }
+  ];
+  let currentPhotoIndex = 0;
+  function renderProfilePhoto() {
+    const photo = profilePhotos[currentPhotoIndex];
+    const hasPhoto = Boolean(photo);
+    photoCount.textContent = `${profilePhotos.length} / 6枚`;
+    compactPhotoVisual.textContent = hasPhoto ? photo.label : '未登録';
+    compactPhotoVisual.className = `compact-photo-visual ${hasPhoto ? photo.className : 'empty'}`;
+    compactPhotoVisual.disabled = !hasPhoto;
+    viewPhotoButton.disabled = !hasPhoto;
+    deletePhotoButton.disabled = !hasPhoto;
+    photoPrevButton.disabled = profilePhotos.length < 2;
+    photoNextButton.disabled = profilePhotos.length < 2;
+  }
+  document.addEventListener('click', event => {
+    const viewButton = event.target.closest('[data-view-photo]');
+    const deleteButton = event.target.closest('[data-delete-photo]');
+    if (viewButton) {
+      photoPreview.innerHTML = '';
+      photoPreview.append(compactPhotoVisual.cloneNode(true));
+      photoModal.classList.add('show');
+    }
+    if (deleteButton && confirm('この写真を削除しますか？')) {
+      profilePhotos.splice(currentPhotoIndex, 1);
+      currentPhotoIndex = Math.min(currentPhotoIndex, Math.max(profilePhotos.length - 1, 0));
+      renderProfilePhoto();
+    }
+    if (event.target.closest('[data-photo-prev]') && profilePhotos.length > 1) {
+      currentPhotoIndex = (currentPhotoIndex - 1 + profilePhotos.length) % profilePhotos.length;
+      renderProfilePhoto();
+    }
+    if (event.target.closest('[data-photo-next]') && profilePhotos.length > 1) {
+      currentPhotoIndex = (currentPhotoIndex + 1) % profilePhotos.length;
+      renderProfilePhoto();
+    }
+    if (event.target === photoModal || event.target.closest('.photo-modal-close')) photoModal.classList.remove('show');
+  });
+  renderProfilePhoto();
+</script>
 
 </body>
 </html>
