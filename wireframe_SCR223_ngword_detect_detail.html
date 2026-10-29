@@ -33,6 +33,9 @@
     .detail-label { width: 120px; color: #757575; font-weight: 600; flex-shrink: 0; }
     .detail-value { flex: 1; line-height: 1.55; }
     .status-badge { padding: 2px 8px; font-size: 12px; background: #ffebee; color: #d32f2f; border: 1px solid #d32f2f; }
+    .status-badge.status-resolved { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+    #resolutionRows[hidden] { display: none; }
+    .action-bar .btn:disabled { opacity: .45; cursor: default; }
     .detect-section-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
     .detect-log-wrap {
       background: #fafafa;
@@ -206,7 +209,7 @@
     <div class="card">
       <div class="card-header">
         <div class="card-title">案件概要</div>
-        <span class="status-badge">未対応</span>
+        <span id="reportStatusBadge" class="status-badge">未対応</span>
       </div>
       <div class="card-body">
         <div class="detail-row"><div class="detail-label">対象ユーザー</div><div class="detail-value">たろう (#001) / 38歳 / 男性</div></div>
@@ -214,6 +217,10 @@
         <div class="detail-row"><div class="detail-label">検知回数</div><div class="detail-value">3回</div></div>
         <div class="detail-row"><div class="detail-label">初回検知</div><div class="detail-value">2026/09/21 13:02</div></div>
         <div class="detail-row"><div class="detail-label">最終検知</div><div class="detail-value">2026/09/21 14:32</div></div>
+        <div id="resolutionRows" hidden>
+          <div class="detail-row"><div class="detail-label">対応日時</div><div id="resolutionTime" class="detail-value"></div></div>
+          <div class="detail-row"><div class="detail-label">対応結果</div><div id="resolutionType" class="detail-value"></div></div>
+        </div>
       </div>
     </div>
 
@@ -263,10 +270,10 @@
 
     <div class="action-bar">
       <button class="btn btn-outline" type="button" onclick="location.href='wireframe_SCR220_report_mgmt.html?tab=ngword'">一覧へ戻る</button>
-      <button class="btn btn-warning" type="button" onclick="openAdminModal('warnModal')">警告</button>
-      <button class="btn btn-outline" type="button" onclick="openAdminModal('restrictModal')">利用制限</button>
-      <button class="btn btn-danger" type="button" onclick="openAdminModal('suspendModal')">アカウント停止</button>
-      <button class="btn btn-success" type="button" onclick="alert('対応完了にしました'); location.href='wireframe_SCR220_report_mgmt.html?tab=ngword';">対応完了にする</button>
+      <button class="btn btn-warning" type="button" data-resolution-action onclick="openAdminModal('warnModal')">警告</button>
+      <button class="btn btn-outline" type="button" data-resolution-action onclick="openAdminModal('restrictModal')">利用制限</button>
+      <button class="btn btn-danger" type="button" data-resolution-action onclick="openAdminModal('suspendModal')">アカウント停止</button>
+      <button class="btn btn-success" type="button" data-resolution-action onclick="openAdminModal('completeModal')">対応完了にする</button>
     </div>
   </div>
 </div>
@@ -278,7 +285,7 @@
     <div class="modal-field"><label>通知文（任意）</label><textarea placeholder="外部連絡先の交換やアプリ外への誘導は禁止されています。"></textarea></div>
     <div class="modal-actions">
       <button class="btn btn-outline" type="button" onclick="closeAdminModal('warnModal')">キャンセル</button>
-      <button class="btn btn-warning" type="button" onclick="closeAdminModal('warnModal'); alert('警告通知を送信しました');">送信する</button>
+      <button class="btn btn-warning" type="button" onclick="submitReportAction('warning', 'warnModal')">送信する</button>
     </div>
   </div>
 </div>
@@ -289,7 +296,7 @@
     <div class="modal-field"><label>終了日時</label><input type="datetime-local" value="2026-09-28T15:00"></div>
     <div class="modal-actions">
       <button class="btn btn-outline" type="button" onclick="closeAdminModal('restrictModal')">キャンセル</button>
-      <button class="btn btn-warning" type="button" onclick="closeAdminModal('restrictModal'); alert('利用制限を設定しました');">設定する</button>
+      <button class="btn btn-warning" type="button" onclick="submitReportAction('restriction', 'restrictModal')">設定する</button>
     </div>
   </div>
 </div>
@@ -299,13 +306,56 @@
     <div class="modal-desc">再開は<strong>ユーザー管理（204）</strong>から手動で行います。</div>
     <div class="modal-actions">
       <button class="btn btn-outline" type="button" onclick="closeAdminModal('suspendModal')">キャンセル</button>
-      <button class="btn btn-danger" type="button" onclick="closeAdminModal('suspendModal'); alert('アカウントを停止しました');">停止する</button>
+      <button class="btn btn-danger" type="button" onclick="submitReportAction('suspension', 'suspendModal')">停止する</button>
+    </div>
+  </div>
+</div>
+<div id="completeModal" class="modal-overlay" onclick="closeAdminModal('completeModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title">対応完了にする</div>
+    <div class="modal-desc">ユーザーへの措置は行わず、この検知案件を対応完了にします。</div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" type="button" onclick="closeAdminModal('completeModal')">キャンセル</button>
+      <button class="btn btn-success" type="button" onclick="submitReportAction('complete', 'completeModal')">対応完了にする</button>
     </div>
   </div>
 </div>
 <script>
   function openAdminModal(id) { document.getElementById(id).classList.add('open'); }
   function closeAdminModal(id) { document.getElementById(id).classList.remove('open'); }
+  var reportActionLabels = {
+    warning: { result: '警告済み' },
+    restriction: { result: '利用制限済み' },
+    suspension: { result: 'アカウント停止済み' },
+    complete: { result: '対応完了（措置なし）' }
+  };
+  var reportRecordId = new URLSearchParams(window.location.search).get('record') || 'ng-001';
+  var reportStorageKey = 'scr223NgWordResolution_' + reportRecordId;
+  function reportTime() {
+    var d = new Date();
+    return d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  function renderReportResolution(data) {
+    document.getElementById('reportStatusBadge').textContent = '対応済み';
+    document.getElementById('reportStatusBadge').className = 'status-badge status-resolved';
+    document.getElementById('resolutionRows').hidden = false;
+    document.getElementById('resolutionTime').textContent = data.time;
+    document.getElementById('resolutionType').textContent = data.result;
+    document.querySelectorAll('[data-resolution-action]').forEach(function (button) { button.disabled = true; });
+  }
+  function submitReportAction(action, modalId) {
+    var actionData = reportActionLabels[action];
+    var data = { result: actionData.result, time: reportTime() };
+    closeAdminModal(modalId);
+    localStorage.setItem(reportStorageKey, JSON.stringify(data));
+    renderReportResolution(data);
+  }
+  (function restoreReportResolution() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(reportStorageKey));
+      if (saved && saved.result) renderReportResolution(saved);
+    } catch (e) { localStorage.removeItem(reportStorageKey); }
+  })();
 </script>
 </body>
 </html>

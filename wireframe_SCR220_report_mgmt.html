@@ -593,7 +593,7 @@
         <input type="datetime-local" class="filter-select filter-date" value="2026-03-31T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
-      <div class="summary-line">全 48 件 · 未対応 3 件 · 表示: 1〜20件</div>
+      <div id="userReportSummary" class="summary-line">全 48 件 · 未対応 3 件 · 表示: 1〜20件</div>
       <div class="table-wrapper">
         <table class="table">
           <thead>
@@ -603,17 +603,19 @@
               <th>対象ユーザー</th>
               <th>理由</th>
               <th>ステータス</th>
+              <th>対応結果</th>
               <th>アクション</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="userReportRow001">
               <td>2026/03/22 09:30</td>
               <td>ゆい (#003)</td>
               <td>たろう (#001)</td>
               <td>不適切なメッセージを送られた</td>
-              <td><span class="status-badge status-open">未対応</span></td>
-              <td><a href="wireframe_SCR221_report_detail.html" class="action-link">[詳細]</a></td>
+              <td><span id="userReportStatus001" class="status-badge status-open">未対応</span></td>
+              <td id="userReportResult001">—</td>
+              <td><a href="wireframe_SCR221_report_detail.html?record=ur-001" class="action-link">[詳細]</a></td>
             </tr>
             <tr>
               <td>2026/03/21 18:02</td>
@@ -621,7 +623,8 @@
               <td>けん (#008)</td>
               <td>なりすまし・虚偽プロフィール</td>
               <td><span class="status-badge status-done">対応済み</span></td>
-              <td><a href="wireframe_SCR221_report_detail.html" class="action-link">[詳細]</a></td>
+              <td>警告済み</td>
+              <td><a href="wireframe_SCR221_report_detail.html?record=ur-002" class="action-link">[詳細]</a></td>
             </tr>
           </tbody>
         </table>
@@ -643,7 +646,7 @@
         <input type="datetime-local" class="filter-select filter-date" value="2026-07-31T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
-      <div class="summary-line">全 14 件 · 未対応 2 件 · 表示: 1〜20件</div>
+      <div id="noShowSummary" class="summary-line">全 14 件 · 未対応 2 件 · 表示: 1〜20件</div>
       <div class="table-wrapper">
         <table class="table">
           <thead>
@@ -658,14 +661,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="noShowRow001">
               <td>2026/07/02 19:22</td>
               <td>ひろし (#045)</td>
               <td>Nao (#033)</td>
               <td>2026/07/02（水）19:00</td>
               <td>食堂 まぐろとさば。恵比寿</td>
-              <td><span class="status-badge status-open">未対応</span></td>
-              <td><a href="wireframe_SCR222_no_show_report_detail.html" class="action-link">[詳細]</a></td>
+              <td><span id="noShowStatus001" class="status-badge status-open">未対応</span></td>
+              <td><a href="wireframe_SCR222_no_show_report_detail.html?record=ns-001" class="action-link">[詳細]</a></td>
             </tr>
             <tr>
               <td>2026/06/28 20:05</td>
@@ -674,7 +677,7 @@
               <td>2026/06/28（土）19:30</td>
               <td>ビストロ 青</td>
               <td><span class="status-badge status-done">対応済み</span></td>
-              <td><a href="wireframe_SCR222_no_show_report_detail.html" class="action-link">[詳細]</a></td>
+              <td><a href="wireframe_SCR222_no_show_report_detail.html?record=ns-002" class="action-link">[詳細]</a></td>
             </tr>
           </tbody>
         </table>
@@ -699,7 +702,7 @@
         <input type="datetime-local" class="filter-select filter-date" value="2026-09-30T23:59">
         <button class="filter-button" type="button">検索</button>
       </div>
-      <div class="summary-line">全 31 件 · 未対応 5 件 · 表示: 1〜20件</div>
+      <div id="ngWordSummary" class="summary-line">全 31 件 · 未対応 5 件 · 表示: 1〜20件</div>
       <div class="table-wrapper">
         <table class="table">
           <thead>
@@ -710,18 +713,20 @@
               <th>検知回数</th>
               <th>マッチ相手</th>
               <th>ステータス</th>
+              <th>対応結果</th>
               <th>アクション</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="ngWordRow001">
               <td>2026/09/21 14:32</td>
               <td>たろう (#001)</td>
               <td>LINE 他</td>
               <td>3回</td>
               <td>ゆい (#003)</td>
-              <td><span class="status-badge status-open">未対応</span></td>
-              <td><a href="wireframe_SCR223_ngword_detect_detail.html" class="action-link">[詳細]</a></td>
+              <td><span id="ngWordStatus001" class="status-badge status-open">未対応</span></td>
+              <td id="ngWordResult001">—</td>
+              <td><a href="wireframe_SCR223_ngword_detect_detail.html?record=ng-001" class="action-link">[詳細]</a></td>
             </tr>
             <tr>
               <td>2026/03/21 11:02</td>
@@ -730,7 +735,8 @@
               <td>1回</td>
               <td>さくら (#012)</td>
               <td><span class="status-badge status-open">未対応</span></td>
-              <td><a href="wireframe_SCR223_ngword_detect_detail.html" class="action-link">[詳細]</a></td>
+              <td>—</td>
+              <td><a href="wireframe_SCR223_ngword_detect_detail.html?record=ng-002" class="action-link">[詳細]</a></td>
             </tr>
           </tbody>
         </table>
@@ -816,6 +822,58 @@
 
 <script>
   var ngWordDeleteRow = null;
+
+  (function applyUserReportResolution() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('scr221ReportResolution_ur-001'));
+      if (!saved || !saved.result) return;
+      var status = document.getElementById('userReportStatus001');
+      var result = document.getElementById('userReportResult001');
+      if (status) {
+        status.textContent = '対応済み';
+        status.className = 'status-badge status-done';
+      }
+      if (result) result.textContent = saved.result;
+      var summary = document.getElementById('userReportSummary');
+      if (summary) summary.textContent = '全 48 件 · 未対応 2 件 · 表示: 1〜20件';
+      var badge = document.getElementById('badge-user');
+      if (badge) badge.textContent = '2';
+    } catch (e) { localStorage.removeItem('scr221ReportResolution_ur-001'); }
+  })();
+
+  (function applyNgWordResolution() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('scr223NgWordResolution_ng-001'));
+      if (!saved || !saved.result) return;
+      var status = document.getElementById('ngWordStatus001');
+      var result = document.getElementById('ngWordResult001');
+      if (status) {
+        status.textContent = '対応済み';
+        status.className = 'status-badge status-done';
+      }
+      if (result) result.textContent = saved.result;
+      var summary = document.getElementById('ngWordSummary');
+      if (summary) summary.textContent = '全 31 件 · 未対応 4 件 · 表示: 1〜20件';
+      var badge = document.getElementById('badge-ngword');
+      if (badge) badge.textContent = '4';
+    } catch (e) { localStorage.removeItem('scr223NgWordResolution_ng-001'); }
+  })();
+
+  (function applyNoShowResolution() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('scr222NoShowResolution_ns-001'));
+      if (!saved || !saved.result) return;
+      var status = document.getElementById('noShowStatus001');
+      if (status) {
+        status.textContent = '対応済み';
+        status.className = 'status-badge status-done';
+      }
+      var summary = document.getElementById('noShowSummary');
+      if (summary) summary.textContent = '全 14 件 · 未対応 1 件 · 表示: 1〜20件';
+      var badge = document.getElementById('badge-noshow');
+      if (badge) badge.textContent = '1';
+    } catch (e) { localStorage.removeItem('scr222NoShowResolution_ns-001'); }
+  })();
 
   function openNgWordModal() {
     cancelNgWordDelete();

@@ -229,8 +229,8 @@
     .filter-bar .filter-input { min-width: 0; }
     .user-search { flex: 1 1 260px; }
     .user-filter { width: 156px; flex: 0 0 156px; }
-    .user-date-filter { display: flex; align-items: center; gap: 6px; flex: 0 0 200px; font-size: 12px; white-space: nowrap; }
-    .user-date-filter .filter-input { width: 150px; flex: 0 0 150px; }
+    .user-date-filter { display: flex; align-items: center; gap: 6px; flex: 0 0 315px; font-size: 12px; white-space: nowrap; }
+    .user-date-filter .filter-input { width: 122px; flex: 0 0 122px; }
     .table-wrapper { border-radius: 8px; overflow: hidden; }
     .table { font-size: 12px; white-space: nowrap; }
     .table thead { background: #f4f2ee; }
@@ -241,11 +241,12 @@
     .user-avatar.avatar-blue { background: #9eb9cf; }.user-avatar.avatar-rose { background: #d8ada1; }.user-avatar.avatar-brown { background: #bca180; }.user-avatar.avatar-dark { background: #738b9e; }
     .plan-badge, .identity-badge, .account-badge { display: inline-block; padding: 3px 7px; border-radius: 3px; font-size: 10px; font-weight: 700; }
     .plan-badge.premium { color: #d88700; border: 1px solid #f1a500; background: #fffaf0; }.plan-badge.free { color: #777; border: 1px solid #d3d0ca; background: #f7f5f1; }
-    .identity-badge.verified { color: #299357; background: #e6f6ec; }.identity-badge.unverified { color: #e2573e; background: #fff0ed; }
+    .identity-badge.verified { color: #299357; background: #e6f6ec; }.identity-badge.unverified { color: #e2573e; background: #fff0ed; }.identity-badge.review { color: #b17100; background: #fff0d2; }
     .account-badge.normal { color: #299357; background: #e6f6ec; }.account-badge.restricted { color: #d88900; background: #fff0d2; }.account-badge.suspended { color: #333; background: #e9e9e9; }.account-badge.withdrawn { color: #e04e4e; background: #fff0f0; }.account-badge.warning { color: #db3f3f; background: #fff0f0; }
     .user-detail-link { color: #8c7545; font-weight: 700; text-decoration: underline; }
     .user-list-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
     .user-list-footer .summary-line { margin-bottom: 0; }
+    .user-list-note { margin: 10px 0 0; color: #857a6c; font-size: 11px; line-height: 1.5; }
     .pagination { margin-top: 0; }
     .pagination-item { min-width: 30px; height: 30px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #e0e0e0; border-radius: 5px; color: #424242; text-decoration: none; margin-left: 5px; }
     .pagination-item.active { background: #8c7545; border-color: #8c7545; color: #fff; }
@@ -346,10 +347,10 @@
 
     <div class="filter-bar">
       <input type="text" class="filter-input user-search" placeholder="ユーザーID・ニックネームで検索...">
-      <select class="filter-select user-filter"><option>アカウント状態: すべて</option><option>正常</option><option>制限中</option><option>停止中</option><option>退会済み</option><option>警告中</option></select>
+      <select class="filter-select user-filter"><option>アカウント状態: すべて</option><option>正常</option><option>制限中</option><option>停止中</option><option>退会済み</option></select>
       <select class="filter-select user-filter"><option>本人確認: すべて</option><option>承認済</option><option>未申請</option><option>否認</option></select>
       <select class="filter-select user-filter"><option>プラン: すべて</option><option>Premium</option><option>Free</option></select>
-      <div class="user-date-filter"><span>登録日:</span><input type="date" class="filter-input" value="2024-03-01"></div>
+      <div class="user-date-filter"><span>登録日:</span><input type="date" class="filter-input" aria-label="登録日（From）"><span>〜</span><input type="date" class="filter-input" aria-label="登録日（To）"></div>
       <button class="filter-button">検索</button>
     </div>
 
@@ -411,28 +412,15 @@
             <td><a href="wireframe_SCR204_user_detail.html?id=003" class="user-detail-link">詳細</a></td>
           </tr>
           <tr>
-            <td>004</td>
-            <td><div class="user-name"><span class="user-avatar avatar-dark">け</span>けんでい</div></td>
-            <td>男</td>
-            <td>45歳</td>
-            <td>東京都</td>
-            <td><span class="plan-badge free">Free</span></td>
-            <td><span class="identity-badge unverified">⚠ 未申請</span></td>
-            <td>1</td>
-            <td><span class="account-badge withdrawn">● 退会済み</span></td>
-            <td>2026/03/10</td>
-            <td><a href="wireframe_SCR204_user_detail.html?id=004" class="user-detail-link">詳細</a></td>
-          </tr>
-          <tr>
             <td>005</td>
             <td><div class="user-name"><span class="user-avatar">さ</span>さくら</div></td>
             <td>女</td>
             <td>34歳</td>
             <td>千葉県</td>
             <td><span class="plan-badge premium">Premium</span></td>
-            <td><span class="identity-badge verified">✓ 承認済</span></td>
+            <td><span class="identity-badge review">⚠ 要確認</span></td>
             <td>15</td>
-            <td><span class="account-badge warning">● 警告中</span></td>
+            <td><span class="account-badge normal">● 正常</span><span class="account-badge warning">警告中</span></td>
             <td>2026/03/12</td>
             <td><a href="wireframe_SCR204_user_detail.html?id=005" class="user-detail-link">詳細</a></td>
           </tr>
@@ -450,6 +438,7 @@
       <a href="#" class="pagination-item">›</a>
       </div>
     </div>
+    <p class="user-list-note">退会済みユーザーは、プロフィール情報の保存が許可されている場合のみ一覧に表示します。削除・匿名化済みのユーザーは表示しません。</p>
   </div>
 </div>
 </body>

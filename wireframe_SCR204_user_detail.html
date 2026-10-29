@@ -253,7 +253,13 @@
     .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; }
     .form-label { color: #6e6558; }
     .form-input, .form-select, .form-textarea { background: #fff; border-color: #ddd5c9; }
+    .readonly-value { min-height: 36px; display: flex; align-items: center; padding: 0 11px; background: #f7f5f1; border: 1px solid #ddd5c9; color: #5e5549; border-radius: 3px; font-size: 13px; }
     .admin-only-card { background: #fff8f8 !important; border-color: #f2cfcf !important; }
+    .admin-account-control-row { display: flex; align-items: center; gap: 24px; min-height: 36px; flex-wrap: wrap; }.admin-setting-status { display: flex; align-items: center; gap: 8px; }.admin-setting-action { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }.admin-action-btn { border: 1px solid #cfc5b6; background: #fff; color: #5f503b; border-radius: 3px; padding: 7px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }.admin-action-btn.danger { border-color: #e6bcbc; color: #c53d3d; }.admin-action-note { color: #857a6c; font-size: 11px; }
+    .ekyc-review-details { margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee7de; }.ekyc-review-details dl { display: grid; grid-template-columns: 92px 1fr; gap: 6px 12px; margin: 0; font-size: 12px; }.ekyc-review-details dt { color: #766d61; }.ekyc-review-details dd { margin: 0; color: #4b4237; }.ekyc-review-link { margin-top: 12px; }
+    .withdrawn-profile-notice { border: 1px solid #e5d8ca; background: #fffaf4; border-radius: 7px; padding: 16px; color: #665947; font-size: 13px; line-height: 1.6; margin-bottom: 20px; }.withdrawn-profile-notice[hidden] { display: none; }
+    .admin-modal { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,.45); align-items: center; justify-content: center; padding: 20px; }.admin-modal.show { display: flex; }.admin-modal-box { width: min(420px, 100%); background: #fff; border-radius: 7px; padding: 20px; box-shadow: 0 12px 36px rgba(0,0,0,.24); }.admin-modal-title { font-size: 16px; font-weight: 700; color: #332d25; margin-bottom: 10px; }.admin-modal-desc { font-size: 13px; color: #665d53; line-height: 1.6; margin-bottom: 16px; }.admin-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }.admin-modal-field label { display: block; font-size: 12px; color: #6f6559; margin-bottom: 5px; }.admin-modal-field select, .admin-modal-field textarea { width: 100%; border: 1px solid #ddd5c9; border-radius: 3px; padding: 8px; font-size: 13px; }.admin-modal-field textarea { min-height: 70px; resize: vertical; }
+    .manual-review-modal-box { width: min(760px, 100%); max-height: calc(100vh - 40px); overflow: auto; }.manual-review-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }.manual-review-title-row .admin-modal-title { margin: 0; }.manual-review-status { display: inline-block; padding: 4px 8px; border-radius: 3px; background: #fff0d2; color: #b17100; font-size: 12px; font-weight: 700; }.manual-review-section { padding: 14px 0; border-top: 1px solid #eee7de; }.manual-review-section h4 { margin: 0 0 9px; color: #4b4237; font-size: 13px; }.manual-review-material { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }.manual-review-material-card { border: 1px solid #e5ddd2; border-radius: 5px; padding: 10px; color: #5d5142; font-size: 12px; }.manual-review-material-card strong { display: block; margin-bottom: 8px; }.ekyc-image-preview { height: 155px; overflow: hidden; border-radius: 3px; background: #eee9df; position: relative; }.ekyc-document-preview { background: linear-gradient(135deg, #d9e4e6, #f8f4ea); }.ekyc-document-preview::before { content: ''; position: absolute; left: 16px; top: 17px; width: 66px; height: 98px; border-radius: 4px; background: linear-gradient(#d5a391 0 0) 10px 12px / 45px 42px no-repeat, repeating-linear-gradient(#9ea7a3 0 2px, transparent 2px 10px) 10px 64px / 45px 25px no-repeat, #fffdf8; box-shadow: 0 2px 5px rgba(75,66,55,.18); }.ekyc-document-preview::after { content: 'IDENTITY\A DOCUMENT'; white-space: pre; position: absolute; left: 100px; top: 47px; color: #7a8b8c; font-size: 16px; font-weight: 700; letter-spacing: 1px; }.ekyc-selfie-preview { background: radial-gradient(circle at 50% 35%, #c5a08b 0 26px, transparent 27px), radial-gradient(ellipse at 50% 92%, #6f8094 0 68px, transparent 69px), linear-gradient(135deg, #ccd8dd, #eef2f1); }.ekyc-selfie-preview::after { content: '顔認証画像'; position: absolute; right: 9px; bottom: 8px; padding: 3px 6px; border-radius: 2px; background: rgba(255,255,255,.76); color: #5b6770; font-size: 10px; }.manual-review-table { width: 100%; border-collapse: collapse; font-size: 12px; }.manual-review-table th, .manual-review-table td { padding: 8px 10px; border: 1px solid #e5ddd2; text-align: left; }.manual-review-table th { width: 130px; background: #faf8f4; color: #766d61; font-weight: 600; }.manual-review-footer { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
     .account-status-panel { background: #fff; border: 1px solid #e0d7c9; border-radius: 8px; margin-bottom: 26px; overflow: hidden; }
     .account-status-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; background: #eee8de; color: #332d25; font-size: 14px; font-weight: 700; }
     .account-status-body { padding: 16px; }
@@ -380,8 +386,8 @@
     </div>
 
     <div class="admin-profile-hero">
-      <div class="compact-photo-panel" aria-label="プロフィール写真">
-        <div class="compact-photo-head"><span>プロフィール写真</span><span id="profilePhotoCount" class="profile-photo-count">3 / 6枚</span></div>
+      <div id="profilePhotoPanel" class="compact-photo-panel" aria-label="プロフィール写真">
+        <div class="compact-photo-head"><span>プロフィール写真</span><span id="profilePhotoCount" class="profile-photo-count">3/7枚</span></div>
         <div class="compact-photo-view">
           <button type="button" class="photo-carousel-arrow" data-photo-prev aria-label="前の写真">‹</button>
           <button id="compactPhotoVisual" type="button" class="compact-photo-visual photo-1" data-view-photo>写真 1</button>
@@ -389,16 +395,16 @@
         </div>
         <div class="compact-photo-actions"><button id="viewPhotoButton" type="button" data-view-photo>表示</button><button id="deletePhotoButton" type="button" class="delete-photo" data-delete-photo>削除</button></div>
       </div>
-      <div>
-        <div class="admin-profile-name">ユーザーID: U-0001 <span class="admin-chip premium">Premium</span><span class="admin-chip verified">✓ 本人確認 承認済み</span><span id="heroAccountStatus" class="admin-chip normal">● 正常</span></div>
-        <div class="hero-edit-grid">
+      <div id="profileHeroInfo">
+        <div id="profileHeroName" class="admin-profile-name">ユーザーID: U-0001 <span class="admin-chip premium">Premium</span><span id="heroEkycStatus" class="admin-chip verified">✓ 本人確認 承認済み</span><span id="heroAccountStatus" class="admin-chip normal">● 正常</span></div>
+        <div id="profileHeroEditGrid" class="hero-edit-grid">
           <div class="form-group"><label class="form-label">ニックネーム</label><input type="text" class="form-input" value="たろう"></div>
-          <div class="form-group"><label class="form-label">性別</label><select class="form-select"><option selected>男性</option><option>女性</option><option>回答しない</option></select></div>
-          <div class="form-group"><label class="form-label">生年月日</label><input type="date" class="form-input" value="1986-04-10"></div>
+          <div class="form-group"><label class="form-label">性別</label><div class="readonly-value">男性</div></div>
+          <div class="form-group"><label class="form-label">生年月日</label><div class="readonly-value">1986/04/10</div></div>
           <div class="form-group"><label class="form-label">居住地</label><select class="form-select"><option selected>東京都 / 渋谷・恵比寿</option><option>東京都 / 銀座・有楽町</option><option>東京都 / 新宿・代々木</option><option>その他</option></select></div>
           <div class="form-group full-width"><label class="form-label">自己紹介文</label><textarea class="form-textarea">はじめまして。仕事が忙しい毎日ですが、美味しい食事を一緒に楽しめる方と出会えればと思っています。</textarea></div>
         </div>
-        <div class="admin-profile-meta">登録日: 2026/03/01</div>
+        <div id="profileHeroMeta" class="admin-profile-meta">登録日: 2026/03/01</div>
       </div>
     </div>
 
@@ -418,7 +424,9 @@
       </div>
     </section>
 
-    <div class="profile-sections">
+    <div id="withdrawnProfileNotice" class="withdrawn-profile-notice" hidden>このユーザーは退会済みです。プロフィール情報が削除または匿名化されている場合、詳細プロフィールは表示しません。</div>
+
+    <div id="profileSections" class="profile-sections">
 
     <!-- A. 基本情報 -->
     <div class="section-title-fixed">基本情報</div>
@@ -573,27 +581,21 @@
     </div>
 
     <!-- Admin Specific Operations -->
-    <div class="section-title-fixed">管理用設定</div>
-    <div class="card admin-only-card">
+    <div id="adminSettingsTitle" class="section-title-fixed">管理用設定</div>
+    <div id="adminSettingsCard" class="card admin-only-card">
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label">本人確認 (eKYC) 状態</label>
-          <select class="form-select">
-            <option selected>承認済み (済)</option>
-            <option>審査中</option>
-            <option>未提出</option>
-            <option>否認 (再提出待ち)</option>
-          </select>
+          <div id="ekycReadonly" class="readonly-value">承認済み</div>
+          <div id="ekycReviewDetails" class="ekyc-review-details" hidden><div class="ekyc-review-link"><button type="button" class="admin-action-btn" onclick="openAdminModal('ekycManualReviewModal')">本人確認の詳細を確認</button></div></div>
+          <div id="ekycOverrideRecord" class="admin-action-note" hidden style="margin-top:8px;"></div>
         </div>
         <div class="form-group">
           <label class="form-label">アカウント状態</label>
-          <select class="form-select">
-            <option selected>正常</option>
-            <option>制限中</option>
-            <option>警告中</option>
-            <option>利用停止 (BAN)</option>
-            <option>退会済み</option>
-          </select>
+          <div class="admin-account-control-row">
+            <div id="adminAccountStatus" class="admin-setting-status"><span class="admin-chip normal">● 正常</span></div>
+            <div id="adminAccountActions" class="admin-setting-action"></div>
+          </div>
         </div>
         <div class="form-group full-width">
           <label class="form-label">管理用内部メモ</label>
@@ -616,6 +618,10 @@
     <div id="profilePhotoPreview" class="photo-modal-preview"></div>
   </div>
 </div>
+
+<div id="suspendUserModal" class="admin-modal" onclick="closeAdminModal('suspendUserModal')"><div class="admin-modal-box" onclick="event.stopPropagation()"><div class="admin-modal-title">アカウント停止</div><div class="admin-modal-desc">対象ユーザーのログインおよび全機能を停止します。再開は管理者が手動で行います。</div><div class="admin-modal-actions"><button type="button" class="btn btn-outline" onclick="closeAdminModal('suspendUserModal')">キャンセル</button><button type="button" class="btn btn-primary" onclick="confirmSuspendUser()">停止する</button></div></div></div>
+<div id="resumeUserModal" class="admin-modal" onclick="closeAdminModal('resumeUserModal')"><div class="admin-modal-box" onclick="event.stopPropagation()"><div class="admin-modal-title">利用再開</div><div class="admin-modal-desc">このユーザーのアカウント停止を解除し、利用を再開します。</div><div class="admin-modal-actions"><button type="button" class="btn btn-outline" onclick="closeAdminModal('resumeUserModal')">キャンセル</button><button type="button" class="btn btn-primary" onclick="confirmResumeUser()">利用再開する</button></div></div></div>
+<div id="ekycManualReviewModal" class="admin-modal" onclick="closeAdminModal('ekycManualReviewModal')"><div class="admin-modal-box manual-review-modal-box" onclick="event.stopPropagation()"><div class="manual-review-title-row"><div class="admin-modal-title">本人確認・手動審査</div><div class="manual-review-status">要確認</div></div><div class="admin-modal-desc">ユーザーID: <span id="ekycManualUserId">U-0001</span> · eKYC審査の確認</div><section class="manual-review-section"><h4>審査資料</h4><div class="manual-review-material"><div class="manual-review-material-card"><strong>本人確認書類</strong><div class="ekyc-image-preview ekyc-document-preview" aria-label="本人確認書類の画像プレビュー"></div></div><div class="manual-review-material-card"><strong>顔認証画像</strong><div class="ekyc-image-preview ekyc-selfie-preview" aria-label="顔認証画像のプレビュー"></div></div></div></section><section class="manual-review-section"><h4>自動審査結果</h4><table class="manual-review-table"><tbody><tr><th>判定結果</th><td>要確認</td></tr><tr><th>判定理由</th><td>顔照合の再確認が必要</td></tr><tr><th>審査日時</th><td>2026/10/29 10:30</td></tr></tbody></table></section><section class="manual-review-section"><h4>管理者の判定理由</h4><div class="admin-modal-field"><textarea id="ekycManualReason" placeholder="手動審査の判定理由を入力"></textarea></div></section><div class="manual-review-footer"><button type="button" class="btn btn-outline" onclick="closeAdminModal('ekycManualReviewModal')">キャンセル</button><button type="button" class="admin-action-btn" onclick="confirmManualEkyc('再提出依頼')">再提出を依頼</button><button type="button" class="admin-action-btn danger" onclick="confirmManualEkyc('NG')">否認する</button><button type="button" class="btn btn-primary" onclick="confirmManualEkyc('承認済み')">承認する</button></div></div></div>
 
 <script>
   document.querySelectorAll('.profile-sections .section-title-fixed').forEach(title => {
@@ -678,23 +684,98 @@
   });
 
   const statusByUserId = {
-    '001': { status: '正常', className: 'normal', time: '—', reason: '現在、対応はありません', period: '—', selectValue: '正常' },
-    '002': { status: '制限中', className: 'restricted', time: '2026/10/08 15:20', reason: 'NGワード検知・繰り返しの不適切な発言', period: '2026/10/08 ～ 2026/10/15', selectValue: '制限中' },
-    '003': { status: '停止中', className: 'suspended', time: '2026/10/05 09:30', reason: '重大な利用規約違反', period: '無期限', selectValue: '利用停止 (BAN)' },
-    '004': { status: '退会済み', className: 'withdrawn', time: '2026/10/03 18:00', reason: 'ユーザーによる退会', period: '—', selectValue: '退会済み' },
-    '005': { status: '警告中', className: 'warning', time: '2026/09/18 11:05', reason: 'ユーザー通報・不適切なメッセージ', period: '—', selectValue: '警告中' }
+    '001': { status: '正常', className: 'normal', time: '—', reason: '現在、対応はありません', period: '—', ekyc: '承認済み' },
+    '002': { status: '制限中', className: 'restricted', time: '2026/10/08 15:20', reason: 'NGワード検知・繰り返しの不適切な発言', period: '2026/10/08 ～ 2026/10/15', ekyc: '承認済み' },
+    '003': { status: '停止中', className: 'suspended', time: '2026/10/05 09:30', reason: '重大な利用規約違反', period: '無期限', ekyc: 'NG' },
+    '004': { status: '退会済み', className: 'withdrawn', time: '2026/10/03 18:00', reason: 'ユーザーによる退会', period: '—', ekyc: '未申請', profileAvailable: false },
+    '005': { status: '正常', className: 'normal', time: '—', reason: '現在、対応はありません', period: '—', ekyc: '要確認', warning: true }
   };
   const requestedUserId = new URLSearchParams(window.location.search).get('id') || '001';
+  const ekycOverrideStorageKey = `scr204EkycOverride_${requestedUserId}`;
   const accountStatus = statusByUserId[requestedUserId] || statusByUserId['001'];
   const heroAccountStatus = document.getElementById('heroAccountStatus');
+  const heroEkycStatus = document.getElementById('heroEkycStatus');
+  function renderHeroEkycStatus(value) {
+    const isReview = value === '要確認';
+    const isApproved = value === '承認済み';
+    heroEkycStatus.textContent = `${isReview ? '⚠' : isApproved ? '✓' : '●'} 本人確認 ${value}`;
+    heroEkycStatus.className = `admin-chip ${isReview ? 'warning' : isApproved ? 'verified' : 'withdrawn'}`;
+  }
+  renderHeroEkycStatus(accountStatus.ekyc);
   heroAccountStatus.textContent = `● ${accountStatus.status}`;
   heroAccountStatus.className = `admin-chip ${accountStatus.className}`;
+  if (accountStatus.warning) heroAccountStatus.insertAdjacentHTML('afterend', '<span class="admin-chip warning">警告中</span>');
   document.getElementById('accountStatusTime').textContent = accountStatus.time;
   document.getElementById('accountStatusReason').textContent = accountStatus.reason;
   document.getElementById('accountStatusPeriod').textContent = accountStatus.period;
   document.getElementById('accountStatusDetails').hidden = accountStatus.status === '正常';
-  const accountStateSelect = Array.from(document.querySelectorAll('.admin-only-card .form-group')).find(group => group.querySelector('.form-label')?.textContent.trim() === 'アカウント状態')?.querySelector('select');
-  if (accountStateSelect) accountStateSelect.value = accountStatus.selectValue;
+  const ekycReadonly = document.getElementById('ekycReadonly');
+  const ekycReviewDetails = document.getElementById('ekycReviewDetails');
+  const ekycOverrideRecord = document.getElementById('ekycOverrideRecord');
+  const savedEkycOverride = JSON.parse(localStorage.getItem(ekycOverrideStorageKey) || 'null');
+  ekycReadonly.textContent = accountStatus.ekyc;
+  ekycReviewDetails.hidden = accountStatus.ekyc !== '要確認' || Boolean(savedEkycOverride);
+  if (savedEkycOverride) {
+    const savedEkycStatus = savedEkycOverride.decision === '再提出依頼' ? '審査中（再提出依頼済み）' : `${savedEkycOverride.decision}（手動審査）`;
+    ekycReadonly.textContent = savedEkycStatus;
+    renderHeroEkycStatus(savedEkycStatus);
+    ekycOverrideRecord.textContent = `判定理由：${savedEkycOverride.reason}　／　処理日時：${savedEkycOverride.time}`;
+    ekycOverrideRecord.hidden = false;
+  }
+  document.getElementById('ekycManualUserId').textContent = `U-${requestedUserId.padStart(4, '0')}`;
+  const adminAccountStatus = document.getElementById('adminAccountStatus');
+  const adminAccountActions = document.getElementById('adminAccountActions');
+  function renderAdminAccountControls(status) {
+    adminAccountStatus.innerHTML = `<span class="admin-chip ${status.className}">● ${status.status}</span>`;
+    if (status.warning) adminAccountStatus.insertAdjacentHTML('beforeend', '<span class="admin-chip warning">警告中</span>');
+    if (status.status === '停止中') adminAccountActions.innerHTML = '<button type="button" class="admin-action-btn" onclick="openAdminModal(\'resumeUserModal\')">利用再開</button>';
+    else if (status.status === '退会済み') adminAccountActions.innerHTML = '<span class="admin-action-note">退会済みのアカウントは閲覧のみです。</span>';
+    else adminAccountActions.innerHTML = '<button type="button" class="admin-action-btn danger" onclick="openAdminModal(\'suspendUserModal\')">アカウント停止</button>';
+  }
+  renderAdminAccountControls(accountStatus);
+  if (accountStatus.profileAvailable === false) {
+    document.getElementById('withdrawnProfileNotice').hidden = false;
+    document.getElementById('profilePhotoPanel').hidden = true;
+    document.getElementById('profileHeroEditGrid').hidden = true;
+    document.getElementById('profileHeroMeta').hidden = true;
+    document.getElementById('profileHeroName').innerHTML = `ユーザーID: U-${requestedUserId.padStart(4, '0')} <span id="heroAccountStatus" class="admin-chip withdrawn">● 退会済み</span>`;
+    document.getElementById('profileSections').hidden = true;
+    document.getElementById('adminSettingsTitle').hidden = true;
+    document.getElementById('adminSettingsCard').hidden = true;
+  }
+
+  function openAdminModal(id) { document.getElementById(id).classList.add('show'); }
+  function closeAdminModal(id) { document.getElementById(id).classList.remove('show'); }
+  function confirmSuspendUser() {
+    accountStatus.status = '停止中'; accountStatus.className = 'suspended'; accountStatus.warning = false;
+    accountStatus.time = new Date().toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '/');
+    accountStatus.reason = '管理者によるアカウント停止'; accountStatus.period = '無期限';
+    heroAccountStatus.textContent = '● 停止中'; heroAccountStatus.className = 'admin-chip suspended';
+    document.getElementById('accountStatusTime').textContent = accountStatus.time;
+    document.getElementById('accountStatusReason').textContent = accountStatus.reason;
+    document.getElementById('accountStatusPeriod').textContent = accountStatus.period;
+    document.getElementById('accountStatusDetails').hidden = false;
+    renderAdminAccountControls(accountStatus); closeAdminModal('suspendUserModal');
+  }
+  function confirmResumeUser() {
+    accountStatus.status = '正常'; accountStatus.className = 'normal';
+    heroAccountStatus.textContent = '● 正常'; heroAccountStatus.className = 'admin-chip normal';
+    document.getElementById('accountStatusDetails').hidden = true;
+    renderAdminAccountControls(accountStatus); closeAdminModal('resumeUserModal');
+  }
+  function confirmManualEkyc(decision) {
+    const reason = document.getElementById('ekycManualReason').value.trim();
+    if (!reason) { alert('管理者の判定理由を入力してください'); return; }
+    if (!confirm(`手動審査の結果を「${decision}」として確定しますか？`)) return;
+    const record = { decision, reason, time: new Date().toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }) };
+    localStorage.setItem(ekycOverrideStorageKey, JSON.stringify(record));
+    const resolvedEkycStatus = decision === '再提出依頼' ? '審査中（再提出依頼済み）' : `${decision}（手動審査）`;
+    ekycReadonly.textContent = resolvedEkycStatus;
+    renderHeroEkycStatus(resolvedEkycStatus);
+    ekycReviewDetails.hidden = true;
+    ekycOverrideRecord.textContent = `判定理由：${reason}　／　処理日時：${record.time}`; ekycOverrideRecord.hidden = false;
+    closeAdminModal('ekycManualReviewModal');
+  }
 
   const photoCount = document.getElementById('profilePhotoCount');
   const photoModal = document.getElementById('profilePhotoModal');
@@ -713,12 +794,12 @@
   function renderProfilePhoto() {
     const photo = profilePhotos[currentPhotoIndex];
     const hasPhoto = Boolean(photo);
-    photoCount.textContent = `${profilePhotos.length} / 6枚`;
+    photoCount.textContent = `${profilePhotos.length}/7枚`;
     compactPhotoVisual.textContent = hasPhoto ? photo.label : '未登録';
     compactPhotoVisual.className = `compact-photo-visual ${hasPhoto ? photo.className : 'empty'}`;
     compactPhotoVisual.disabled = !hasPhoto;
     viewPhotoButton.disabled = !hasPhoto;
-    deletePhotoButton.disabled = !hasPhoto;
+    deletePhotoButton.disabled = profilePhotos.length <= 1;
     photoPrevButton.disabled = profilePhotos.length < 2;
     photoNextButton.disabled = profilePhotos.length < 2;
   }
