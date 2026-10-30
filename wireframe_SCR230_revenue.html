@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -217,20 +217,37 @@
   .revenue-date-range{display:grid;grid-template-columns:auto minmax(110px,1fr) auto minmax(110px,1fr);align-items:center;gap:5px;min-width:0}
   .revenue-date-range .filter-input{min-width:0;width:100%}
   .revenue-filter-label{white-space:nowrap}
-  .revenue-chart{background:#fafafa;border:1px solid #e0e0e0;margin-bottom:24px;padding:12px 14px}
-  .revenue-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:12px;color:#616161}
+  .revenue-chart{background:#fffdfb;border:1px solid #f0e8df;border-radius:8px;margin-bottom:24px;padding:16px}
+  .revenue-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;font-weight:700;color:#3e332b}
   .revenue-chart-toggle{display:flex;gap:4px}
-  .revenue-chart-toggle button{border:1px solid #bdbdbd;background:#fff;padding:5px 10px;font-size:11px;cursor:pointer}
-  .revenue-chart-toggle button.active{background:#212121;color:#fff;border-color:#212121}
-  .revenue-chart-bars{height:165px;display:flex;align-items:flex-end;gap:8px;border-bottom:1px solid #bdbdbd;padding:0 5px;overflow-x:auto}
-  .revenue-chart-bar-wrap{height:100%;min-width:42px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
-  .revenue-chart-bar{width:24px;min-height:2px;background:#616161;position:relative;cursor:pointer}
-  .revenue-chart-bar:hover{background:#212121}
-  .revenue-chart-bar::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#212121;color:#fff;padding:4px 6px;font-size:10px;white-space:nowrap;opacity:0;pointer-events:none}
-  .revenue-chart-bar:hover::after{opacity:1}
-  .revenue-chart-label{font-size:10px;color:#757575;white-space:nowrap}
+  .revenue-chart-toggle button{border:1px solid #ece5dd;border-radius:3px;background:#fff;padding:4px 9px;font-size:10px;color:#8b8176;cursor:pointer}
+  .revenue-chart-toggle button.active{background:#a99363;color:#fff;border-color:#a99363}
+  .revenue-chart-svg{display:block;width:100%;height:210px;overflow:visible}
+  .revenue-chart-grid{stroke:#eee6dd;stroke-width:1;stroke-dasharray:3 3}
+  .revenue-chart-axis{fill:#9a9189;font-size:10px}
+  .revenue-chart-line{fill:none;stroke:#ee9700;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+  .revenue-chart-point{fill:#ee9700;stroke:#fffdfb;stroke-width:1.5}
   .revenue-type{white-space:nowrap;color:#616161}
   .revenue-id{color:#212121;text-decoration:none}
+  .revenue-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+  .revenue-kpi-grid .stat-card{display:flex;min-height:128px;margin:0;padding:18px 16px;flex-direction:column;justify-content:center}
+  .revenue-kpi-grid .stat-value{line-height:1.2}
+  .kpi-delta,.kpi-foot{min-height:16px;margin-top:7px;font-size:11px;font-weight:600}
+  .kpi-delta.positive{color:#2e7d32}.kpi-delta.negative{color:#c62828}.kpi-delta.neutral{color:#9e9e9e}
+  .kpi-foot{color:#757575;font-weight:400}
+  .plan-revenue-chart{background:#fff;border:1px solid #e8e4df;border-radius:8px;margin:0 0 24px;padding:16px}
+  .plan-revenue-title{font-size:13px;font-weight:700;color:#3e332b;margin:0 0 16px}
+  .plan-revenue-list{display:grid;gap:13px}
+  .plan-revenue-item{display:grid;grid-template-columns:100px minmax(120px,1fr) 118px;align-items:center;gap:12px}
+  .plan-revenue-label{font-size:11px;color:#5c554e;white-space:nowrap}
+  .plan-revenue-track{height:10px;background:#f4eee5;border-radius:999px;overflow:hidden}
+  .plan-revenue-bar{height:100%;min-width:0;background:linear-gradient(90deg,#efa100,#f6bd54);border-radius:999px}
+  .plan-revenue-value{font-size:11px;color:#4e463d;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .plan-revenue-share{color:#8a8178}
+  .plan-revenue-total{display:flex;justify-content:space-between;margin-top:15px;padding-top:12px;border-top:1px solid #eee8e1;font-size:12px;font-weight:700;color:#4e463d}
+  .plan-revenue-note{font-size:10px;color:#857d74;margin:10px 0 0}
+  @media(max-width:900px){.revenue-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plan-revenue-item{grid-template-columns:86px minmax(80px,1fr) 100px;gap:8px}.revenue-chart-svg{height:180px}}
+
   .revenue-detail-button{border:1px solid #757575;background:#fff;color:#212121;padding:4px 10px;font-size:11px;cursor:pointer}
   .revenue-detail-button:hover{background:#f5f5f5}
   .revenue-status{display:inline-block;padding:3px 7px;border:1px solid #bdbdbd;font-size:11px}
@@ -434,22 +451,73 @@
   ];
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money=v=>'¥'+Number(v).toLocaleString('ja-JP');
-  const currentRevenue=transactions.filter(x=>x.date.startsWith('2026/03')&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0);
-  const previousRevenue=transactions.filter(x=>x.date.startsWith('2026/02')&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0);
-  const activePaidPremiumUsers=342;
+  // Revenue definition shared by every revenue KPI/chart in this prototype:
+  // paid_at in the report range, Stripe payment successful, and a Premium transaction only.
+  const reportingMonth='2026/03';
+  const previousMonth='2026/02';
+  const premiumTypes=new Set(['Premium登録','Premium更新','プラン変更']);
+  const planNames=['1ヶ月プラン','3ヶ月プラン','6ヶ月プラン','12ヶ月プラン'];
+  const users=[
+    {id:'U-0001',status:'正常',paidPremiumActive:true,complimentaryPremium:false},
+    {id:'U-0003',status:'正常',paidPremiumActive:true,complimentaryPremium:false},
+    {id:'U-0140',status:'制限中',paidPremiumActive:true,complimentaryPremium:false},
+    {id:'U-0210',status:'正常',paidPremiumActive:false,complimentaryPremium:false},
+    {id:'U-0222',status:'停止中',paidPremiumActive:false,complimentaryPremium:false},
+    {id:'U-0300',status:'退会済み',paidPremiumActive:false,complimentaryPremium:false},
+    {id:'U-0301',status:'正常',paidPremiumActive:true,complimentaryPremium:true}
+  ];
+  const isPremiumRevenue=tx=>tx.status==='成功'&&premiumTypes.has(tx.type)&&tx.revenue===true;
+  const uniqueTransactions=rows=>{
+    const seen=new Set();
+    return rows.filter(tx=>{const key=tx.stripe||tx.id;if(seen.has(key)) return false;seen.add(key);return true;});
+  };
+  const revenueForMonth=month=>uniqueTransactions(transactions.filter(tx=>tx.date.startsWith(month)&&isPremiumRevenue(tx))).reduce((sum,tx)=>sum+tx.amount,0);
+  const currentRevenue=revenueForMonth(reportingMonth);
+  const previousRevenue=revenueForMonth(previousMonth);
+  const eligibleMembers=users.filter(user=>user.status==='正常'||user.status==='制限中').length;
+  const activePaidPremiumUsers=users.filter(user=>(user.status==='正常'||user.status==='制限中')&&user.paidPremiumActive&&!user.complimentaryPremium).length;
+  const arpu=eligibleMembers ? Math.round(currentRevenue/eligibleMembers) : null;
+  const arppu=activePaidPremiumUsers ? Math.round(currentRevenue/activePaidPremiumUsers) : null;
   const change=previousRevenue?((currentRevenue-previousRevenue)/previousRevenue*100):0;
+  const changeClass=previousRevenue===0?'neutral':change>=0?'positive':'negative';
+  const changeText=previousRevenue===0?'前月 0円':(change>=0?'＋':'')+change.toFixed(1)+'%';
   const typeOptions=['すべて','Premium登録','Premium更新','プラン変更','キャンセル料'];
   const statusOptions=['すべて','成功','失敗','処理中','未払い'];
   let chartMode='monthly';
-  function chartData(mode){if(mode==='daily')return ['03/16','03/17','03/18','03/19','03/20','03/21','03/22'].map(d=>({label:d,value:transactions.filter(x=>x.date.slice(5,10)===d&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0)}));return ['2025/10','2025/11','2025/12','2026/01','2026/02','2026/03'].map(m=>({label:m,value:transactions.filter(x=>x.date.startsWith(m)&&x.status==='成功'&&x.revenue).reduce((s,x)=>s+x.amount,0)}));}
+  function chartData(mode){if(mode==='daily')return ['03/16','03/17','03/18','03/19','03/20','03/21','03/22'].map(d=>({label:d,value:transactions.filter(x=>x.date.slice(5,10)===d&&isPremiumRevenue(x)).reduce((s,x)=>s+x.amount,0)}));return ['2025/10','2025/11','2025/12','2026/01','2026/02','2026/03'].map(m=>({label:m,value:transactions.filter(x=>x.date.startsWith(m)&&isPremiumRevenue(x)).reduce((s,x)=>s+x.amount,0)}));}
+  function planRevenueData(){
+    const rows=uniqueTransactions(transactions.filter(tx=>tx.date.startsWith(reportingMonth)&&isPremiumRevenue(tx)));
+    return planNames.map(plan=>({plan,value:rows.filter(tx=>tx.item===plan).reduce((sum,tx)=>sum+tx.amount,0)}));
+  }
+  function renderPlanRevenue(){
+    const data=planRevenueData(), total=data.reduce((sum,x)=>sum+x.value,0);
+    const chart=document.getElementById('planRevenueChart');
+    if(!chart) return;
+    chart.innerHTML='<h2 class="plan-revenue-title">プラン別売上</h2><div class="plan-revenue-list">'+data.map(x=>{const share=total?x.value/total*100:0;return '<div class="plan-revenue-item"><div class="plan-revenue-label">'+esc(x.plan)+'</div><div class="plan-revenue-track" title="'+esc(x.plan)+'：'+money(x.value)+'（'+share.toFixed(1)+'%）"><div class="plan-revenue-bar" style="width:'+share+'%"></div></div><div class="plan-revenue-value">'+money(x.value)+' <span class="plan-revenue-share">— '+share.toFixed(1)+'%</span></div></div>';}).join('')+'</div><div class="plan-revenue-total"><span>合計売上</span><span>'+money(total)+'</span></div><p class="plan-revenue-note">各プランの比率は、今月のPremium売上合計に対する構成比です。Upgradeは実際のProration徴収額を新プランに計上します。</p>';
+  }
   function statusClass(s){return s==='成功'?'success':s==='失敗'?'failed':s==='処理中'?'processing':'unpaid';}
   const renderRevenueChart=renderChart;
   renderChart=()=>{
     renderRevenueChart();
     const title=document.querySelector('.revenue-chart-head > span');
     if(title) title.textContent='売上推移';
+    renderPlanRevenue();
   };
-  function renderChart(){const data=chartData(chartMode),max=Math.max(...data.map(x=>x.value),1),chart=document.getElementById('revenueChart');chart.innerHTML='<div class="revenue-chart-head"><span>売上推移（成功かつプラットフォーム売上の取引のみ）</span><span class="revenue-chart-toggle"><button data-chart="monthly" class="'+(chartMode==='monthly'?'active':'')+'">月次</button><button data-chart="daily" class="'+(chartMode==='daily'?'active':'')+'">日次</button></span></div><div class="revenue-chart-bars">'+data.map(x=>'<div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:'+Math.max(2,x.value/max*135)+'px" data-tooltip="'+esc(x.label)+'：'+money(x.value)+'"></div><div class="revenue-chart-label">'+esc(x.label)+'</div></div>').join('')+'</div>';chart.querySelectorAll('[data-chart]').forEach(b=>b.onclick=()=>{chartMode=b.dataset.chart;renderChart();});}
+  function renderChart(){
+    const data=chartData(chartMode), chart=document.getElementById('revenueChart');
+    const maxValue=Math.max(...data.map(x=>x.value),1), step=Math.max(10000,Math.ceil(maxValue/5/10000)*10000), yMax=step*5;
+    const width=760,height=210,left=48,right=10,top=8,bottom=31,plotWidth=width-left-right,plotHeight=height-top-bottom;
+    const xAt=i=>left+(data.length===1?plotWidth/2:i*plotWidth/(data.length-1));
+    const yAt=value=>top+plotHeight-(value/yMax*plotHeight);
+    const points=data.map((point,index)=>xAt(index).toFixed(1)+','+yAt(point.value).toFixed(1)).join(' ');
+    const area='M '+xAt(0).toFixed(1)+' '+(top+plotHeight)+' L '+points.replaceAll(',',' ')+' L '+xAt(data.length-1).toFixed(1)+' '+(top+plotHeight)+' Z';
+    const tickLabel=value=>value===0?'0円':(value/10000)+'万';
+    const grids=Array.from({length:6},(_,i)=>{const value=yMax-i*step,y=yAt(value);return '<line class="revenue-chart-grid" x1="'+left+'" x2="'+(width-right)+'" y1="'+y+'" y2="'+y+'"></line><text class="revenue-chart-axis" x="'+(left-10)+'" y="'+(y+3)+'" text-anchor="end">'+tickLabel(value)+'</text>';}).join('');
+    const labels=data.map((point,index)=>'<text class="revenue-chart-axis" x="'+xAt(index)+'" y="'+(height-7)+'" text-anchor="middle">'+(chartMode==='monthly'?Number(point.label.slice(-2))+'月':esc(point.label))+'</text>').join('');
+    const dots=data.map((point,index)=>'<circle class="revenue-chart-point" cx="'+xAt(index)+'" cy="'+yAt(point.value)+'" r="2.8"><title>'+esc(point.label)+'：'+money(point.value)+'</title></circle>').join('');
+    chart.innerHTML='<div class="revenue-chart-head"><span>売上推移</span><span class="revenue-chart-toggle"><button data-chart="monthly" class="'+(chartMode==='monthly'?'active':'')+'">月次</button><button data-chart="daily" class="'+(chartMode==='daily'?'active':'')+'">日次</button></span></div><svg class="revenue-chart-svg" viewBox="0 0 '+width+' '+height+'" role="img" aria-label="売上推移グラフ"><defs><linearGradient id="revenueArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#f7bd4a" stop-opacity=".24"/><stop offset="100%" stop-color="#f7bd4a" stop-opacity=".03"/></linearGradient></defs>'+grids+'<path d="'+area+'" fill="url(#revenueArea)"></path><polyline class="revenue-chart-line" points="'+points+'"></polyline>'+dots+labels+'</svg>';
+    chart.querySelectorAll('[data-chart]').forEach(button=>button.onclick=()=>{chartMode=button.dataset.chart;renderChart();});
+  }
   function openDetail(tx){const fields=[['決済ID',tx.id],['ユーザー',tx.user[0]+'（'+tx.user[1]+'）'],['決済種別',tx.type],['項目',tx.item],['金額',money(tx.amount)],['決済状況',tx.status]];if(tx.status==='成功'&&tx.date)fields.push(['決済日時',tx.date]);else if(tx.billingDate)fields.push(['請求日時',tx.billingDate]);if(tx.stripe)fields.push(['Stripe決済ID',tx.stripe]);if(tx.premium)fields.push(['Subscription ID',tx.premium.subscription],['対象期間',tx.premium.period]);if(tx.cancellation)fields.push(['予約ID','<a class="booking-detail-link" href="wireframe_SCR211_booking_detail.html?id='+esc(tx.cancellation.booking)+'">'+esc(tx.cancellation.booking)+'</a>']);const modal=document.createElement('div');modal.className='revenue-modal';modal.innerHTML='<div class="revenue-dialog" role="dialog" aria-modal="true"><h2>決済詳細</h2><div class="revenue-dialog-body"><div class="revenue-detail-grid">'+fields.map(f=>'<div>'+f[0]+'</div><div>'+f[1]+'</div>').join('')+'</div></div><div class="revenue-dialog-actions"><button type="button">閉じる</button></div></div>';document.body.appendChild(modal);modal.querySelector('button').onclick=()=>modal.remove();}
   const openPaymentDetail=openDetail;
   openDetail=tx=>{
@@ -470,7 +538,7 @@
       statusLabel.before(billingDateLabel,billingDateValue);
     }
   };
-  function render(rows){const old={q:document.getElementById('revQuery')?.value||'',type:document.getElementById('revType')?.value||'すべて',status:document.getElementById('revStatus')?.value||'すべて',from:document.getElementById('revFrom')?.value||'',to:document.getElementById('revTo')?.value||''};content.innerHTML='<div class="page-title">収益・決済管理</div><div class="filter-bar"><div class="revenue-filter-grid"><input id="revQuery" type="text" class="filter-input" placeholder="決済ID・ユーザーID・ニックネームで検索..." value="'+esc(old.q)+'"><select id="revType" class="filter-select">'+typeOptions.map(x=>'<option '+(x===old.type?'selected':'')+'>'+x+'</option>').join('')+'</select><select id="revStatus" class="filter-select">'+statusOptions.map(x=>'<option '+(x===old.status?'selected':'')+'>'+x+'</option>').join('')+'</select><div class="revenue-date-range"><input id="revFrom" type="date" class="filter-input" value="'+esc(old.from)+'"><span>〜</span><input id="revTo" type="date" class="filter-input" value="'+esc(old.to)+'"></div><button id="revFilter" class="filter-button">検索</button></div></div><div class="stats-row"><div class="stat-card"><div class="stat-label">今月の売上</div><div class="stat-value">'+money(currentRevenue)+'</div></div><div class="stat-card"><div class="stat-label">有料会員数</div><div class="stat-value">'+activePaidPremiumUsers+' 名</div></div><div class="stat-card"><div class="stat-label">前月比</div><div class="stat-value">'+(change>=0?'+ ':'')+change.toFixed(1)+'%</div></div></div><div id="revenueChart" class="revenue-chart"></div><div class="summary-line">全 '+rows.length+' 件 · 表示: 1〜'+Math.min(rows.length,20)+'件</div><div class="table-wrapper"><table class="table"><thead><tr><th>決済ID</th><th>ユーザー</th><th>決済種別</th><th>項目</th><th>金額</th><th>決済日時</th><th>ステータス</th></tr></thead><tbody>'+rows.map(tx=>'<tr><td><a class="revenue-id" data-id="'+esc(tx.id)+'">'+esc(tx.id)+'</a></td><td><a class="booking-detail-link" href="wireframe_SCR204_user_mgmt.html#'+esc(tx.user[1])+'">'+esc(tx.user[0])+'（'+esc(tx.user[1])+'）</a></td><td class="revenue-type">'+esc(tx.type)+'</td><td>'+esc(tx.item)+'</td><td>'+money(tx.amount)+'</td><td>'+esc(tx.date)+'</td><td><span class="revenue-status '+statusClass(tx.status)+'">'+esc(tx.status)+'</span></td></tr>').join('')+'</tbody></table></div><div class="pagination"><span>全 '+rows.length+'件</span><span>20件 / ページ</span></div>';renderChart();content.querySelectorAll('.revenue-id').forEach(a=>a.onclick=()=>openDetail(transactions.find(x=>x.id===a.dataset.id)));document.getElementById('revFilter').onclick=()=>{const q=document.getElementById('revQuery').value.toLowerCase(),type=document.getElementById('revType').value,status=document.getElementById('revStatus').value,from=document.getElementById('revFrom').value.replaceAll('-','/'),to=document.getElementById('revTo').value.replaceAll('-','/');render(transactions.filter(x=>(!q||(x.id+x.user[0]+x.user[1]).toLowerCase().includes(q))&&(!type||type==='すべて'||x.type===type)&&(!status||status==='すべて'||x.status===status)&&(!from||x.date.slice(0,10)>=from)&&(!to||x.date.slice(0,10)<=to)));};}
+  function render(rows){const old={q:document.getElementById('revQuery')?.value||'',type:document.getElementById('revType')?.value||'すべて',status:document.getElementById('revStatus')?.value||'すべて',from:document.getElementById('revFrom')?.value||'',to:document.getElementById('revTo')?.value||''};content.innerHTML='<div class="page-title">収益・決済管理</div><div class="filter-bar"><div class="revenue-filter-grid"><input id="revQuery" type="text" class="filter-input" placeholder="決済ID・ユーザーID・ニックネームで検索..." value="'+esc(old.q)+'"><select id="revType" class="filter-select">'+typeOptions.map(x=>'<option '+(x===old.type?'selected':'')+'>'+x+'</option>').join('')+'</select><select id="revStatus" class="filter-select">'+statusOptions.map(x=>'<option '+(x===old.status?'selected':'')+'>'+x+'</option>').join('')+'</select><div class="revenue-date-range"><input id="revFrom" type="date" class="filter-input" value="'+esc(old.from)+'"><span>〜</span><input id="revTo" type="date" class="filter-input" value="'+esc(old.to)+'"></div><button id="revFilter" class="filter-button">検索</button></div></div><div class="revenue-kpi-grid"><div class="stat-card"><div class="stat-label">今月の売上</div><div class="stat-value">'+money(currentRevenue)+'</div><div class="kpi-delta '+changeClass+'">'+changeText+'</div></div><div class="stat-card"><div class="stat-label">有料会員数</div><div class="stat-value">'+activePaidPremiumUsers+' 名</div><div class="kpi-foot"></div></div><div class="stat-card"><div class="stat-label">ARPU</div><div class="stat-value">'+(arpu===null?'—':money(arpu))+'</div><div class="kpi-foot">全会員あたり</div></div><div class="stat-card"><div class="stat-label">ARPPU</div><div class="stat-value">'+(arppu===null?'—':money(arppu))+'</div><div class="kpi-foot">有料会員あたり</div></div></div><div id="revenueChart" class="revenue-chart"></div><div id="planRevenueChart" class="plan-revenue-chart"></div><div class="summary-line">全 '+rows.length+' 件 · 表示: 1〜'+Math.min(rows.length,20)+'件</div><div class="table-wrapper"><table class="table"><thead><tr><th>決済ID</th><th>ユーザー</th><th>決済種別</th><th>項目</th><th>金額</th><th>決済日時</th><th>ステータス</th></tr></thead><tbody>'+rows.map(tx=>'<tr><td><a class="revenue-id" data-id="'+esc(tx.id)+'">'+esc(tx.id)+'</a></td><td><a class="booking-detail-link" href="wireframe_SCR204_user_mgmt.html#'+esc(tx.user[1])+'">'+esc(tx.user[0])+'（'+esc(tx.user[1])+'）</a></td><td class="revenue-type">'+esc(tx.type)+'</td><td>'+esc(tx.item)+'</td><td>'+money(tx.amount)+'</td><td>'+esc(tx.date)+'</td><td><span class="revenue-status '+statusClass(tx.status)+'">'+esc(tx.status)+'</span></td></tr>').join('')+'</tbody></table></div><div class="pagination"><span>全 '+rows.length+'件</span><span>20件 / ページ</span></div>';renderChart();content.querySelectorAll('.revenue-id').forEach(a=>a.onclick=()=>openDetail(transactions.find(x=>x.id===a.dataset.id)));document.getElementById('revFilter').onclick=()=>{const q=document.getElementById('revQuery').value.toLowerCase(),type=document.getElementById('revType').value,status=document.getElementById('revStatus').value,from=document.getElementById('revFrom').value.replaceAll('-','/'),to=document.getElementById('revTo').value.replaceAll('-','/');render(transactions.filter(x=>(!q||(x.id+x.user[0]+x.user[1]).toLowerCase().includes(q))&&(!type||type==='すべて'||x.type===type)&&(!status||status==='すべて'||x.status===status)&&(!from||x.date.slice(0,10)>=from)&&(!to||x.date.slice(0,10)<=to)));};}
   function addDetailsColumn(){
     const query=document.getElementById('revQuery');
     const type=document.getElementById('revType');
@@ -501,3 +569,5 @@
 </script>
 </body>
 </html>
+
+

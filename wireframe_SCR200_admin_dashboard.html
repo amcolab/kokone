@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -250,7 +250,9 @@
     body {
       zoom: var(--wf-global-zoom);
     }
-  </style>
+  .kpi-card-link { cursor: pointer; }
+    .kpi-card-link:hover, .kpi-card-link:focus-visible { background:#f5f5f5; outline:2px solid #616161; outline-offset:2px; }
+</style>
 </head>
 <body style="margin-left:200px;">
 <nav class="wf-sidebar">
@@ -358,7 +360,7 @@
         <div style="font-size: 11px; color: #757575;">人</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">有料会員</div>
+        <div class="kpi-label">有料会員数</div>
         <div class="kpi-value">187</div>
         <div style="font-size: 11px; color: #757575;">人</div>
       </div>
@@ -377,7 +379,7 @@
     <!-- KPI Cards Row 2 -->
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-label">通報件数</div>
+        <div class="kpi-label">未対応ケース</div>
         <div class="kpi-value">3</div>
         <div style="font-size: 11px; color: #757575;">件</div>
       </div>
@@ -386,13 +388,13 @@
         <div class="kpi-value">7</div>
         <div style="font-size: 11px; color: #757575;">件</div>
       </div>
-      <div class="kpi-card">
+      <div class="kpi-card kpi-card-link" role="link" tabindex="0" aria-label="収益・決済管理を開く" onclick="location.href='wireframe_SCR230_revenue.html'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.href='wireframe_SCR230_revenue.html'}">
         <div class="kpi-label">今月の売上</div>
-        <div class="kpi-value">¥1,587K</div>
-        <div style="font-size: 11px; color: #757575;">千円</div>
+        <div class="kpi-value">¥68,000</div>
+        <div style="font-size: 11px; color: #757575;">円</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">解約数</div>
+        <div class="kpi-label">今月の解約数</div>
         <div class="kpi-value">4</div>
         <div style="font-size: 11px; color: #757575;">件</div>
       </div>
@@ -459,3 +461,5 @@
 </div>
 </body>
 </html>
+
+
